@@ -66,6 +66,10 @@ const cases = [
   ['LA', 22_000, [26_400_000, 52_800_000, 110_000_000], 1],
   // American Samoa Form 390 deductions and two Schedule D rates.
   ['AS', 1, [5_025, 17_025, 43_540.20], 1],
+  ['TG', 560, [0, 0, 0], 0],
+  ['DJ', 177.72, [0, 0, 0], 0],
+  // Afghanistan: AFN 106,800 through 1.2m per spouse, then 20%.
+  ['AF', 67, [537_600, 1_341_600, 3_083_600], 1],
 ] as const;
 
 for (const [code, exchangeRate, expected, tolerance] of cases) {

@@ -1,4 +1,5 @@
 // Load all non-US country registrations.
+import './afghanistan.ts';
 import './albania.ts';
 import './algeria.ts';
 import './american-samoa.ts';
@@ -49,6 +50,7 @@ import './cyprus.ts';
 import './czechia.ts';
 import './democratic-republic-of-the-congo.ts';
 import './denmark.ts';
+import './djibouti.ts';
 import './dominica.ts';
 import './dominican-republic.ts';
 import './ecuador.ts';
@@ -188,6 +190,7 @@ import './tajikistan.ts';
 import './tanzania.ts';
 import './thailand.ts';
 import './timor-leste.ts';
+import './togo.ts';
 import './tonga.ts';
 import './trinidad-and-tobago.ts';
 import './tunisia.ts';
