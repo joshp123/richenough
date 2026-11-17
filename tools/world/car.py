@@ -116,6 +116,8 @@ def build() -> tuple[list[dict], dict]:
 
     rows = []
     for iso2, level in sorted(everyday.items()):
+        if iso2 in NUTS_COUNTRIES or iso2 == "US":
+            continue  # the Europe and US agents own these; a row here would stand in for theirs on the site
         c = countries()[iso2]
         thin = []
         if iso2 in vehicles:
@@ -148,8 +150,6 @@ def build() -> tuple[list[dict], dict]:
                 + f"; converted at {fmt(xr)} {cur} per US dollar ({xr_period}). Road tax and registration not included")
         if thin:
             note += ". Thin: " + "; ".join(thin)
-        if iso2 in NUTS_COUNTRIES:
-            note += ". National row for checking against the Europe agent's figure"
         rows.append({"place_code": code, "amount": fmt(total_usd * xr, 4), "currency": cur, "unit": "per_month", "period": "2026",
                      "measured_for": f"{c['name'] if code != 'PS' else 'Israel and Palestine (figure for Israel)'}, whole country",
                      "source_id": "wb-icp-2021", "note": note})

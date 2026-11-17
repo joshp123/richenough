@@ -65,11 +65,11 @@ def build() -> list[dict]:
     local = {r["place_code"]: r for r in read_csv(local_path)} if local_path.exists() else {}
     rows = []
     for iso2, c in sorted(countries().items()):
-        if iso2 in ("US", "PS", "AQ") or not c["population"]:
-            continue
+        if iso2 in ("US", "PS", "AQ") or iso2 in NUTS_COUNTRIES or not c["population"]:
+            continue  # Europe's countries are the Europe agent's; a row here would stand in for theirs on the site
         code = PLAN_COUNTRY.get(iso2, iso2)
         name = "Israel and Palestine (Israel's insurer zones)" if code == "PS" else c["name"]
-        suffix = ". National row for checking against the Europe agent's figure" if iso2 in NUTS_COUNTRIES else ""
+        suffix = ""
         if code in local:
             r = local[code]
             rows.append({k: r[k] for k in ("place_code", "amount", "currency", "unit", "period", "measured_for", "source_id")}

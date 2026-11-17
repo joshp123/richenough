@@ -220,7 +220,8 @@ def build() -> list[dict]:
         if iso2 in country_rate:
             usd = country_rate[iso2]
             city_codes = [k for k in cities if to_country[k[5:]] == iso2]
-            basis = "the going rate in " + " and ".join(CITY_NAMES.get(k, k) for k in city_codes) + " (see the city rows)"
+            city_words = " and ".join(CITY_NAMES.get(k, k) for k in city_codes)
+            basis = f"the going rate in {city_words} (see the city rows)"
             source_id = cities[city_codes[0]]["source_id"]
             thin = False
         else:
@@ -251,7 +252,8 @@ def build() -> list[dict]:
             note += f". Inferred, not measured: typical error about {math.expm1(sd_gdp):.0%}"
         code = PLAN_COUNTRY.get(iso2, iso2)
         rows.append({"place_code": code, "amount": fmt(usd / usd_per(fx, cur), 3), "currency": cur, "unit": "per_hour", "period": "2026",
-                     "measured_for": f"{c['name'] if code != 'PS' else 'Israel and Palestine (figure for Israel)'}, whole country",
+                     "measured_for": (f"{c['name']}: going rate in {city_words}" if not thin else
+                                      f"{c['name'] if code != 'PS' else 'Israel and Palestine (figure for Israel)'}, whole country, estimated"),
                      "source_id": source_id if not thin else ("ilostat-earnings-isic-t" if iso2 in isic_t else "imf-weo"),
                      "note": note})
     return rows
