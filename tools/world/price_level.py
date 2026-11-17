@@ -39,6 +39,16 @@ SKIP = {"PR", "AQ", "TF", "GS", "AN", "CS"}  # Puerto Rico (US tables), uninhabi
 
 SOURCES = [
     {
+        "source_id": "jp-stat-regional-cpi-2025",
+        "publisher": "Statistics Bureau of Japan",
+        "title": "Regional difference index of consumer prices, Retail Price Survey (structural edition) 2025, table 1 by prefecture",
+        "url": "https://www.stat.go.jp/data/kouri/kouzou/pdf/g_2025.pdf",
+        "licence": "Government of Japan Standard Terms of Use 2.0 (compatible with CC BY 4.0)",
+        "retrieved": "2026-11-17",
+        "period": "2025",
+        "note": "All items excluding rent, national average = 100. Published 18 September 2026. Values typed into tools/world/regional/jp-regional-price.curated.csv.",
+    },
+    {
         "source_id": "wb-icp-2021",
         "publisher": "World Bank, International Comparison Program",
         "title": "ICP 2021: purchasing power parities and price level indexes by expenditure heading",
@@ -270,7 +280,23 @@ def build() -> tuple[list[dict], dict]:
         rows.append({"place_code": iso2, "amount": f"{v['pli']:.1f}", "currency": "", "unit": "index_us_100", "period": NOW_LABEL,
                      "measured_for": f"{countries()[iso2]['name']}, whole country (not in ICP 2021)",
                      "source_id": "imf-weo", "note": f"Inferred: {v['how']}."})
+    rows += japan_prefectures(now.get("JP"))
     return rows, {"now": now, "imputed": imputed, "model": model, "eu": eu}
+
+
+def japan_prefectures(japan: dict | None) -> list[dict]:
+    """Japan's 47 prefectures: the national level times the Statistics Bureau's regional price index excluding rent."""
+    if not japan:
+        return []
+    from lib import REPO, read_csv
+    out = []
+    for r in read_csv(REPO / "tools" / "world" / "regional" / "jp-regional-price.curated.csv"):
+        index = float(r["index_excluding_rent"])
+        out.append({"place_code": r["place_code"], "amount": f"{japan['pli'] * index / 100:.1f}", "currency": "", "unit": "index_us_100",
+                    "period": japan["period"], "measured_for": f"{r['prefecture_en']} prefecture, household consumption excluding rent",
+                    "source_id": "jp-stat-regional-cpi-2025",
+                    "note": f"Japan's level {japan['pli']:.1f} x the Statistics Bureau's 2025 regional difference index excluding rent, {index} (Japan = 100)"})
+    return out
 
 
 if __name__ == "__main__":
