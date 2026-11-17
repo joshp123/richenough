@@ -1,0 +1,51 @@
+{
+  "country": "RS",
+  "currency": "RSD",
+  "period": "2026",
+  "amount": null,
+  "kind": "private",
+  "route": "Law on Foreigners (Sl. glasnik RS 24/2018, 31/2019, 62/2023) art. 40(1): temporary residence may be granted on grounds including '10) vlasnistva nad nepokretnosti' (ownership of real estate) and '14) drugih opravdanih razloga'. Art. 43(1) general conditions: '2) dokaz o sredstvima za izdrzavanje tokom planiranog boravka; ... 4) dokaz o zdravstvenom osiguranju tokom planiranog boravka'. Stay up to three years, renewable (art. 44). Art. 40(4) lets the government set permits for digital nomads, investors and others by act. For permanent settlement (art. 70) 'dokaz o zdravstvenom osiguranju' is also needed.",
+  "policy": "Law on Health Insurance (Sl. glasnik RS 25/2019, 92/2023) art. 11 and 16: the compulsory scheme (RFZO) insures employees, entrepreneurs, pensioners (including foreigners who get a pension only from abroad, items 25 and 26), foreign students and a few other groups. A non-working foreigner of working age on temporary residence is not on the lists I read, so the RFZO is not an option; RFZO's 'dobrovoljno osiguranje' is supplementary or travel cover (its travel policy 'ne moze se naruciti iz inostranstva' and covers stays of up to 90 days). In practice private cover is bought: Generali Srbija sells 'Zdravstveno osiguranje stranaca': sum insured 5,000 EUR a person, valid in Serbia only, outpatient care, drugs, X-ray, surgery, inpatient care up to 30 days; its page says the policy is needed to 'regulisati boravak'. No price published.",
+  "working": "No arithmetic: no published tariff. Amount left null.",
+  "sources": [
+    {
+      "source_id": "health-rs-law-foreigners",
+      "publisher": "Paragraf (text of Sl. glasnik RS 24/2018, 31/2019, 62/2023)",
+      "title": "Zakon o strancima",
+      "url": "https://www.paragraf.rs/propisi/zakon_o_strancima.html",
+      "licence": "free to read, no licence stated",
+      "period": "as amended 2023",
+      "retrieved": "2026-11-17",
+      "quote": "Clan 43: 'Uz zahtev za odobrenje, odnosno produzenje privremenog boravka stranac prilaze: ... 2) dokaz o sredstvima za izdrzavanje tokom planiranog boravka; ... 4) dokaz o zdravstvenom osiguranju tokom planiranog boravka'. Clan 40(1)(10): 'vlasnistva nad nepokretnosti'.",
+      "measures": "Grounds and documents for temporary residence. The statute names health insurance but not its type. Paragraf is a legal-text publisher, not the official gazette."
+    },
+    {
+      "source_id": "health-rs-law-health-insurance",
+      "publisher": "Paragraf (text of Sl. glasnik RS 25/2019, 92/2023, 109/2025)",
+      "title": "Zakon o zdravstvenom osiguranju",
+      "url": "https://www.paragraf.rs/propisi/zakon_o_zdravstvenom_osiguranju.html",
+      "licence": "free to read, no licence stated",
+      "period": "as amended",
+      "retrieved": "2026-11-17",
+      "quote": "Clan 11 lists insured persons (employees, entrepreneurs, pensioners, '25) lica koja primaju penziju ... iskljucivo od inostranog nosioca osiguranja ...', '28) strani drzavljani za vreme skolovanja ...').",
+      "measures": "Who the compulsory scheme covers. No category fits a non-working foreign couple of working age."
+    },
+    {
+      "source_id": "health-rs-generali-foreigners",
+      "publisher": "Generali Osiguranje Srbija",
+      "title": "Zdravstveno osiguranje stranaca (page, leaflet and special conditions)",
+      "url": "https://www.generali.rs/fizicka_lica/zdravlje_i_nezgoda/zdravstveno_osiguranje_stranaca.898.html",
+      "licence": "free to read, no licence stated",
+      "period": "retrieved 2026-11-17",
+      "retrieved": "2026-11-17",
+      "quote": "'Da biste regulisali boravak u Republici Srbiji neophodno je da imate polisu dobrovoljnog zdravstvenog osiguranja izdatu u Republici Srbiji.' Leaflet: 'Suma osiguranja je 5000 evra po osiguranom licu. Osiguranje vazi samo na teritoriji Republike Srbije.'",
+      "measures": "What a mainstream insurer sells to meet the residence rule. Emergency-type cover with a 5,000 EUR sum insured. No tariff published."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "The law applies the same residence rule to foreigners generally; EU citizens have no S1/EHIC access to Serbian cover as residents. Not further checked.",
+  "regional": [],
+  "spot_check": "None.",
+  "uncertainty": "No premium found. RFZO's own site was unreachable from this machine (the live site timed out; the Wayback copy loads); the Ministry of Interior's own text on which insurance meets art. 43 was not read. Insurers (Generali, Triglav, DDOR, Wiener) give prices only through quote tools. The Generali product (5,000 EUR) is likely the cheapest qualifying cover and probably far below a comprehensive policy."
+}

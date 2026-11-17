@@ -1,0 +1,29 @@
+{
+  "country": "MK",
+  "currency": "MKD",
+  "period": "2026",
+  "amount": null,
+  "kind": null,
+  "route": "Law on Foreigners (consolidated text, Official Gazette) art. 72(1): 'На странец му се одобрува привремен престој во Република Северна Македонија, ако: - има средства за издржување ... - има обезбедено сместување ... - има здравствено осигурување ...'. Art. 119 gives a temporary stay of up to one year, renewable, to an EU or OECD national (or treaty national) who has bought a flat, house or residential building worth at least 40,000 EUR. That is the route modelled for a couple of independent means. Art. 32(1) defines health insurance for visa purposes as 'здравствено осигурување утврдено со закон или ратификуван меѓународен договор'; art. 32(2) allows supplementary or individual travel cover for repatriation, emergencies and death for visa applications.",
+  "policy": "Not established. The Health Insurance Fund (fzo.org.mk) is behind a Cloudflare challenge that blocks curl, the Wayback Machine and fetch proxies; I did not try to get round it. The Ministry of Health's list of laws stops at 2016 amendments and the consolidated Law on Health Insurance was not found on another official host. So I do not know whether, or at what fixed monthly charge, a foreign resident without a job can join the Fund voluntarily, nor which private policy meets art. 72.",
+  "working": "No arithmetic: no published figure reached. Amount left null.",
+  "sources": [
+    {
+      "source_id": "health-mk-law-foreigners",
+      "publisher": "Ministry of Interior of North Macedonia (portal.mdt.gov.mk)",
+      "title": "Закон за странци (пречистен текст)",
+      "url": "https://portal.mdt.gov.mk/post-body-files/zakoni-mvr-file-UtsW.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "consolidated text incl. amendments to 2023",
+      "retrieved": "2026-11-17",
+      "quote": "Член 72: 'На странец му се одобрува привремен престој ... ако: има средства за издржување ... има здравствено осигурување'. Член 119: 'државјанин на држава членка на Европската Унија или на ОЕЦД ... стекнал право на сопственост на стан, станбена зграда или куќа ... во износ од најмалку 40.000 евра, му се одобрува привремен престој'.",
+      "measures": "The permit conditions and the property route. It requires health insurance but, in the text read, does not say what kind for temporary stay."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "Art. 119 also admits EU and OECD nationals, so a British or Canadian couple is not disadvantaged against EU citizens on the property route. EU citizens have no EHIC-based access here.",
+  "regional": [],
+  "spot_check": "None.",
+  "uncertainty": "No figure. Missing: the Fund's rule for foreigners on temporary stay and its fixed charge (if any), the Ministry's guidance on which cover satisfies art. 72, and any insurer tariff (Sava, Triglav, Eurolink and Sigal MK pages list products but no prices). The 'kind' field is null because I cannot say whether the cover is statutory or private."
+}

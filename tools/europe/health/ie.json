@@ -1,0 +1,66 @@
+{
+  "country": "IE",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": 270.84,
+  "kind": "private",
+  "route": "Stamp 0 'retire to Ireland' (people of independent means). Irish Immigration Service Delivery: 'For people of independent means who wish to retire to Ireland, you should have an individual income of EUR 50,000 per year.' Required documents include 'Evidence of private medical insurance with full cover in private hospitals' and 'Evidence of your finances verified by an Irish based accountant ... Investment sums are not normally measured - finances must be in the form of pension income or readily accessible funds'. Stamp 0 holders cannot access State benefits.",
+  "policy": "Cheapest plan in the HIA regulator data (240 of the four open insurers' plans read) that lists private-hospital private-room overnight cover: Irish Life Health 'BeneFit 1', adult (age 26 and over) EUR 1,332.00 a year, EUR 111.00 a month, inpatient excess EUR 500 per claim for the first two claims, private room covered at semi-private rate. Open-enrolment insurer. Lifetime community rating loads a first-time buyer aged 35 or over by 2% a year of age above 34.",
+  "working": "HIA price 111.00 EUR a month per adult. Lifetime community rating loading at 45: 2% x 11 years over 34 = 22% (HIA: loadings start at 2% from age 35). 111.00 x 1.22 = 135.42 per adult. Couple: 2 x 135.42 = 270.84 EUR per month. Without the loading: 222.00.",
+  "sources": [
+    {
+      "source_id": "health-ie-irishimmigration-retire",
+      "publisher": "Irish Immigration Service Delivery",
+      "title": "I want to retire to Ireland",
+      "url": "https://www.irishimmigration.ie/coming-to-live-in-ireland/i-want-to-retire-to-ireland/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Evidence of private medical insurance with full cover in private hospitals",
+      "measures": "Official cover rule; the income test is per individual (EUR 50,000)."
+    },
+    {
+      "source_id": "health-ie-hia-api",
+      "publisher": "Health Insurance Authority (HIA)",
+      "title": "HIA Health Insurance Comparison Tool data (public API api.hia.ie/api/v1)",
+      "url": "https://www.hia.ie/comparison-tool/intro",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Irish Life Health, BeneFit 1: Adult 26-110, amount 1332.0, monthlyAmount 111.0; Private hospital - private room - overnight: Covered at a semi-private rate, subject to EUR 500 excess per claim for the first two claims per policy",
+      "measures": "Regulator's plan and price data for the four open insurers; price field for the adult category. Whether the figure is gross or net of tax relief is not labelled; the 20% tax relief at source applies to the gross."
+    },
+    {
+      "source_id": "health-ie-hia-lcr",
+      "publisher": "Health Insurance Authority",
+      "title": "Lifetime community rating",
+      "url": "https://www.hia.ie/lifetime-community-rating",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "The loadings start at 2% of the gross cost of your policy from age 35 onwards, up to a maximum of 70% ... for age 69 or above.",
+      "measures": "Late-entry loading that applies to a 45-year-old first-time buyer."
+    },
+    {
+      "source_id": "health-ie-hia-vhi-dec2026",
+      "publisher": "Health Insurance Authority",
+      "title": "VHI Healthcare Price and Benefit Changes Effective 1 December 2026",
+      "url": "https://www.hia.ie/news/vhi-healthcare-price-and-benefit-changes-effective-1-december-2026",
+      "licence": "free to read, no licence stated",
+      "period": "1 Dec 2026",
+      "retrieved": "2026-11-17",
+      "quote": "VHI will have price change on the following plans: PMI 31 12, PMI 44 16, PMI 49 10, PMI 67 10",
+      "measures": "Shows that further price changes come on 1 Dec 2026 (four legacy Vhi plans); cheapest plan used here is not among them."
+    }
+  ],
+  "typical_private": {
+    "amount_per_month_couple": 995.62,
+    "description": "Plans in the fetched HIA data with private-room overnight cover and no inpatient excess: median adult price EUR 408.04 a month (17 plans, 180.05 to 409+). 2 x 408.04 x 1.22 = 995.62. Many of these are employer-linked 'company' plans, so it is an upper marker, not a market median.",
+    "source_id": "health-ie-hia-api"
+  },
+  "income_based_charges": [],
+  "eu_citizen_difference": "An EU/EEA citizen can live in Ireland without a Stamp 0 and the income test, and may use EHIC while temporarily resident. A non-EU couple needs Stamp 0, the EUR 50,000 income test and private cover to enter and renew.",
+  "regional": [],
+  "spot_check": "Laya Healthcare 'Inspire Assist' lists EUR 127.92 a month per adult with private-hospital cover (EUR 100 excess, EUR 200 per night shortfall in a private room), 15% above Irish Life's 111.00. Vhi 'One Plan' EUR 140.38. Same regulator data; not independent of the main source.",
+  "uncertainty": "HSE ordinary-residence rules not retrieved from an HSE page (the pages are not machine-readable here and search was exhausted). From general knowledge, not verified: a person who is, or intends to be, resident in Ireland for at least a year is ordinarily resident, and may use public hospitals with statutory charges; the Stamp 0 rule bars State benefits. About 150 plan pages failed to download (server errors), including all of Level Health and some current plans, so 'cheapest' covers 240 plans, not the whole market. 'Full cover in private hospitals' may require stricter plans than BeneFit 1 (semi-private rate, excess); a stricter reading could double the figure. Prices change on 1 Dec 2026. Loading is applied to the gross price, and the HIA price may already be net of tax relief, in which case the loaded figure is still proportional."
+}

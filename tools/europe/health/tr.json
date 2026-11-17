@@ -1,0 +1,72 @@
+{
+  "country": "TR",
+  "currency": "TRY",
+  "period": "2026",
+  "amount": null,
+  "kind": "private",
+  "route": "Short-term residence permit (ikamet izni) under Law 6458 Art. 31 for people who own property in Turkey (Art. 31(1)(b)) or who stay for tourism (Art. 31(1)(e)); Turkey has no dedicated independent-means visa. Health cover rule: AXA Sigorta's foreigner product page says the policy meets \"25/12/2024 tarih ve 2024/34 sayılı vize ve İkamet Taleplerinde Yaptırılacak Sağlık Sigortalarına İlişkin Genelge'de belirlenen asgari şartları\" (the DGMM circular 2024/34 minimum conditions). I could not open the circular itself, so its exact minimum cover is unverified. The 6458 text I could read states the visa rule (Art. 15(1)(e): \"Kalacağı süreyi kapsayan geçerli sağlık sigortası bulunmayanlar\" get no visa) and, for the long-term permit, Art. 43(1)(ç) \"Geçerli sağlık sigortasına sahip olmak\". The goc.gov.tr page states the student rule: SGK general health insurance if requested within three months, otherwise private insurance.",
+  "policy": "Year 1 (before one year of residence): private policy that meets circular 2024/34. Example product, AXA 'Sağlığım Misafir' (ages 0-55): inpatient unlimited at contracted institutions, 150,000 TL limit with 20% co-pay elsewhere; outpatient 15,000 TL limit with 20% co-pay (contracted) or 40% (others); no maternity, no personal accident, no family policy (one policy per person, paid in advance, no renewal guarantee). The premium is not published: AXA and Anadolu direct to an agent or 'free quote'. Allianz (403 to curl) and Mapfre pages could not be read. From year 2: SGK general health insurance (GSS) under Law 5510 Art. 60(1)(d): residents with a residence permit who have no insurance elsewhere. Art. 52: \"Yabancı ülke vatandaşlarından Türkiye'de yerleşik olma hali bir yılı doldurmadıkça genel sağlık sigortası primi alınmaz ve bu kişiler genel sağlık sigortalısı sayılmaz.\"",
+  "working": "No private premium could be sourced, so amount is null. GSS from year 2 (statute, not an income test): Art. 80 sets the base for people under Art. 60(1)(d) at \"82 nci maddeye göre belirlenen prime esas günlük kazanç alt sınırının iki katının otuz günlük tutarı\" and Art. 81(f) sets the rate at 12% for people covered by GSS alone. 2026 minimum wage (Resmi Gazete 26.12.2025, Karar 2025/1): 1,101 TL a day gross, so 1,101 x 30 = 33,030 TL a month. Base 2 x 33,030 = 66,060 TL. Premium 66,060 x 12% = 7,927.20 TL a month per insured person. Art. 60 lets a married couple choose which spouse is the insured person and which the dependant, so the couple pays one premium: 7,927.20 TRY a month. This applies only if the foreign spouse counts as a dependant and the Art. 82 floor equals the gross minimum wage, which I assumed and did not check on an SGK table. The hint of an income-tested percentage of the minimum wage (3% to 12% bands) comes from Art. 81(f) for Turkish citizens under Art. 60(1)(g), which applies to citizens only; I found no income test for foreigners in the statute, but an SGK circular could differ.",
+  "sources": [
+    {
+      "source_id": "health-tr-axa",
+      "publisher": "AXA Sigorta",
+      "title": "Yabancılar için Sağlık Sigortası: Sağlığım Misafir",
+      "url": "https://www.axasigorta.com.tr/saglik-sigortasi/sagligim-misafir-sigortasi",
+      "licence": "free to read, no licence stated",
+      "period": "2025 conditions (01.04.2025)",
+      "retrieved": "2026-11-17",
+      "quote": "25/12/2024 tarih ve 2024/34 sayılı vize ve İkamet Taleplerinde Yaptırılacak Sağlık Sigortalarına İlişkin Genelge'de belirlenen asgari şartları gereğince ikamet izni talebinde bulunan 0-55 yaş arasındaki kişiler alabilir.",
+      "measures": "Confirms the circular and the product's cover limits. No price."
+    },
+    {
+      "source_id": "health-tr-sgk",
+      "publisher": "Law 5510 (mevzuat.gov.tr)",
+      "title": "5510 sayılı Sosyal Sigortalar ve Genel Sağlık Sigortası Kanunu, Art. 52, 60, 80, 81",
+      "url": "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.5510.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "consolidated 2026",
+      "retrieved": "2026-11-17",
+      "quote": "Yabancı ülke vatandaşlarından Türkiye'de yerleşik olma hali bir yılı doldurmadıkça genel sağlık sigortası primi alınmaz ve bu kişiler genel sağlık sigortalısı sayılmaz. ... 60 ıncı maddenin birinci fıkrasının (d) bendinde sayılan kişiler için 82 nci maddeye göre belirlenen prime esas günlük kazanç alt sınırının iki katının otuz günlük tutarı ... Yalnızca genel sağlık sigortasına tâbi olanlar ... prime esas kazancın %12'sidir.",
+      "measures": "The GSS rules for foreign residents: one-year wait, base and rate."
+    },
+    {
+      "source_id": "health-tr-sgk",
+      "publisher": "Resmî Gazete",
+      "title": "Asgari Ücret Tespit Komisyonu Kararı 2025/1 (26 Aralık 2025, sayı 33119)",
+      "url": "https://www.resmigazete.gov.tr/eskiler/2025/12/20251226-6.pdf",
+      "licence": "official gazette, free to read",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "İşçinin bir günlük normal çalışma karşılığı asgari ücretinin; 1/1/2026 - 31/12/2026 tarihleri arasında 1101 Türk Lirası (bin yüz bir lira) olarak tespitine",
+      "measures": "Daily gross minimum wage 2026 (scanned image; read by eye)."
+    },
+    {
+      "source_id": "health-tr-goc",
+      "publisher": "Law 6458 (mevzuat.gov.tr) and DGMM (goc.gov.tr)",
+      "title": "Yabancılar ve Uluslararası Koruma Kanunu Art. 15, 31, 32, 43; residence permit types",
+      "url": "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.6458.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Kalacağı süreyi kapsayan geçerli sağlık sigortası bulunmayanlar (Art. 15(1)(e), visa); Geçerli sağlık sigortasına sahip olmak (Art. 43(1)(ç), long-term permit)",
+      "measures": "The law's health-cover wording. The residence-permit regulation and circular 2024/34 were not read."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [
+    {
+      "name": "SGK general health insurance (GSS) for foreign residents, year 2 onwards",
+      "rate": "12%",
+      "base": "2 x gross minimum wage per month (66,060 TL in 2026)",
+      "includes_capital_gains": "no: the base is a fixed multiple of the minimum wage, not the person's income (as read from Art. 80; not confirmed against SGK practice)",
+      "floor": "same as base (fixed)",
+      "ceiling": "same as base (fixed)",
+      "legal_source": "Law 5510 Art. 60(1)(d), 80, 81(f)"
+    }
+  ],
+  "eu_citizen_difference": "None found: no EU preference in the residence-permit health rule or in GSS. Reciprocity (mütekabiliyet) is a condition in Art. 60(1)(d); a person insured under another country's scheme is outside GSS.",
+  "regional": [],
+  "spot_check": "None possible: no private tariff was published by AXA, Anadolu, Mapfre or Allianz (Allianz returned 403). Searched: AXA product and information form PDFs (no price table), Anadolu's foreigner page via fetch (states no premium), Mapfre site links.",
+  "uncertainty": "The private premium for year 1 is unknown, so amount is null; ages 45 are inside AXA's 0-55 band. The GSS figure 7,927.20 TRY a month depends on three unverified readings (floor equals gross minimum wage; no income test for foreigners; spouse can be a dependant) and the one-year residence wait. It is also not confirmed that a property or tourism permit holder counts as resident for GSS."
+}

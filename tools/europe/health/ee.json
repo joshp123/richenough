@@ -1,0 +1,62 @@
+{
+  "country": "EE",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": 544.0,
+  "kind": "statutory-fixed",
+  "route": "No independent-means route. The Police and Border Guard Board (PPA) lists residence permits for study, employment, family member, business and permanent resident only. The nearest routes are settling with a spouse who lives in Estonia, or business. Every temporary permit needs legal income and health insurance: for a permanent-resident permit 'You have a health insurance contract, confirmed by signing the application. The requirements for the health insurance contract are set out in § 120 of the Aliens Act (insurance coverage).' The PPA student guide says a private policy or Health Insurance Act cover 'needs to cover the entire period of validity'. Text of s.120 itself not retrieved (Riigi Teataja needs JavaScript).",
+  "policy": "Once the couple are in the population register and have no other cover, each can sign Tervisekassa (Estonian Health Insurance Fund) voluntary health insurance: one-year contract, no health test, full Fund benefits except sickness-leave benefit, co-payments not reimbursed, cover starts one month after signing. Premium is the previous year's average gross monthly wage x 0.13. Before the first permit the couple would need a private policy; no Estonian tariff was reachable (ERGO calculator is JavaScript only).",
+  "working": "Annual premium 3,264.00 EUR per person = 272.00 EUR a month (3,264 / 12). Couple: 2 x 272.00 = 544.00 EUR a month, 6,528 EUR a year. Monthly payment is just the annual cost in instalments.",
+  "sources": [
+    {
+      "source_id": "health-ee-haigekassa",
+      "publisher": "Tervisekassa (Estonian Health Insurance Fund)",
+      "title": "Voluntary health insurance (from 01.01.2026)",
+      "url": "https://tervisekassa.ee/en/people/health-insurance/voluntary-health-insurance-01012026",
+      "licence": "free to read, no licence stated",
+      "period": "2026 (page updated 03.11.26)",
+      "retrieved": "2026-11-17",
+      "quote": "The annual premium is 3264,00 euros. The quarterly premium is 816,00 euros. The monthly premium is 272,00 euros.",
+      "measures": "Per-person fixed charge for residents with no other cover."
+    },
+    {
+      "source_id": "health-ee-aliens-act",
+      "publisher": "Police and Border Guard Board (PPA)",
+      "title": "Temporary residence permit - Residence permit for a permanent resident",
+      "url": "https://www.politsei.ee/en/instructions/residence-permit-for-a-permanent-resident",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "You have a health insurance contract, confirmed by signing the application. The requirements for the health insurance contract are set out in § 120 of the Aliens Act (insurance coverage).",
+      "measures": "Rule for the permanent-resident permit; the page lists no independent-means route (menu: study, employment, family member, business, permanent resident)."
+    },
+    {
+      "source_id": "health-ee-ppa-student",
+      "publisher": "Police and Border Guard Board (PPA)",
+      "title": "Student guide (July 2026)",
+      "url": "https://politsei.ee/files/2026-07/student-guide.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "a private insurance or national health insurance arising from Health Insurance Act needs to cover the entire period of validity",
+      "measures": "Shows national voluntary cover counts for the permit rule (student route, used as evidence of how PPA reads the rule)."
+    },
+    {
+      "source_id": "health-ee-ergo",
+      "publisher": "ERGO Insurance SE",
+      "title": "Health insurance for temporary residence permit or visa applicants",
+      "url": "https://ergo.ee/private-clients/health-insurance-for-non-residents",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "*The price provided by the calculator is indicative.",
+      "measures": "Not used: premium calculator needs JavaScript and personal data; no published price table."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "Not sourced. I expect EU citizens need no permit and can buy the same Tervisekassa contract, but I did not retrieve a page saying so.",
+  "regional": [],
+  "spot_check": "Searches showed third-party sites quoting 272 EUR from July 2026 and the earlier 2026 Tervisekassa page 257.50 EUR; the live Tervisekassa page (updated 03.11.26) says 272.00. Not independently confirmed elsewhere.",
+  "uncertainty": "No route exists for non-working independent-means couples, so 544 EUR is what residents without other cover pay, not a visa cost. Before the permit a private policy is needed and I found no published tariff. Premium changes each year with the average wage. Wording of Aliens Act s.120 not retrieved."
+}

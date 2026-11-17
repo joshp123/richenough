@@ -1,0 +1,133 @@
+{
+  "country": "ES",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": 237.84,
+  "kind": "private",
+  "route": "Non-lucrative residence visa (residencia no lucrativa). Consulate rule (Sao Paulo, point 7): \"Seguro público o privado de enfermedad concertado con una Entidad aseguradora autorizada para operar en España ... debe de ser un seguro médico sin carencias, ni copago y sin límite de cobertura.\" London: \"Public or private health insurance taken out by an insurance company authorised to operate in Spain.\" No-copayment/no-waiting-period wording is therefore consulate-specific but is the common standard.",
+  "policy": "Sanitas Residents Visado, 2 insured, both age 45-49, rest of Spain, April 2026 tariff for new policies. Sold as a visa-grade policy: no waiting periods, no co-payments, repatriation (Sanitas visa page). Full-cover private health insurance valid in Spain. After the visa the couple can instead join the public system via the Convenio Especial after one year of registered residence: EUR 60 per person per month (under 65), so EUR 120 for two, no co-payments or waiting periods, but outpatient medicines are paid 100% by the patient.",
+  "working": "118.74 EUR per insured per month x 2 = 237.48. Plus Consorcio de Compensación de Seguros surcharge 0.15% (0.36) = 237.84 EUR a month. Convenio Especial route after year one: 60 x 2 = 120 EUR a month.",
+  "sources": [
+    {
+      "source_id": "health-es-consulado",
+      "publisher": "Ministerio de Asuntos Exteriores (Consulate General of Spain, Sao Paulo; Consulate General in London)",
+      "title": "Requisitos Visados residencia (Sao Paulo, PDF) and RES ES-EN (London, PDF)",
+      "url": "https://www.exteriores.gob.es/Consulados/SAOPAULO/es/ServiciosConsulares/Documents/Requisitos%20Visados%20residencia.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Seguro público o privado de enfermedad concertado con una Entidad aseguradora autorizada para operar en España. ... El seguro no puede tratarse de un seguro de viaje, debe de ser un seguro médico sin carencias, ni copago y sin límite de cobertura. (Sao Paulo, point 7). London: \"Public or private health insurance taken out by an insurance company authorised to operate in Spain.\"",
+      "measures": "What a consulate asks for with the non-lucrative visa. Wording differs by consulate: London states the rule without 'no co-payment'; Sao Paulo adds no waiting periods, no co-payment, no cap."
+    },
+    {
+      "source_id": "health-es-sanitas-precios",
+      "publisher": "Sanitas (Sanitas Sociedad Anonima de Seguros)",
+      "title": "Tarifas Sanitas Abril 2026 - Particulares (PDF)",
+      "url": "https://www.sanitas.es/media/sanp/documento/pdf-tarifas-hasta-100/tarifas-sanitas.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "premiums valid for new policies with effect 01/04/2026 to 31/12/2026",
+      "retrieved": "2026-11-17",
+      "quote": "SANITAS RESIDENTS VISADO -2 ASEGURADOS ... 45-49 118,74 € (column 'Resto'). Footer: 'Sobre dichas primas se aplicará el recargo del Consorcio de Compensación de Seguros del 0,15%.'",
+      "measures": "Published monthly premium (new business, first year) for the Sanitas Residents Visado product, 2 insured, age band 45-49, 'Resto' (rest of Spain) column. I read the cell as a per-insured monthly premium; the PDF does not say so in words."
+    },
+    {
+      "source_id": "health-es-sanitas-visado",
+      "publisher": "Sanitas",
+      "title": "Seguro medico para visado (product page)",
+      "url": "https://www.sanitas.es/seguros/seguro-medico-para-visado",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Sin carencias: Para que pueda usarse desde el primer día sin restricciones. Sin copagos: No debe tener costes adicionales por cada servicio médico que se realice. Con repatriación ...",
+      "measures": "Insurer's own statement of what a visa-grade policy must be. Used only to confirm the Residents Visado product is sold as meeting the consulate rule; it is a seller's statement."
+    },
+    {
+      "source_id": "health-es-convenio",
+      "publisher": "Ministerio de Sanidad",
+      "title": "Special agreement on healthcare provision (Convenio especial de prestacion de asistencia sanitaria)",
+      "url": "https://www.sanidad.gob.es/en/servCiudadanos/internacional/convenioEspecial.htm",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "a) If the signatory is under 65 years of age: monthly fee of 60 euros. b) If the signatory is 65 years of age or older: monthly fee of 157 euros. ... Document accrediting effective residence in Spain for a continuous period of at least one year immediately prior to the date of the application ...",
+      "measures": "Fixed monthly fee per person for joining the public system as a non-insured foreigner, after one year of residence."
+    }
+  ],
+  "typical_private": {
+    "amount_per_month_couple": 360.84,
+    "description": "Sanitas Residents Platinum Visado (higher-tier visa product), 2-3 insured, age 45, rest of Spain: 180.15 EUR each x 2 = 360.30, plus 0.15% Consorcio = 360.84 EUR a month.",
+    "source_id": "health-es-sanitas-precios"
+  },
+  "income_based_charges": [],
+  "eu_citizen_difference": "An EU citizen who is not working also needs private cover or an S1 to register as a resident, and joins the Convenio Especial on the same terms. After five years of legal residence EU citizens and their non-EU family acquire permanent residence and free access to the public system without the agreement (Sanidad page). A UK S1 holder is accepted by the London consulate in place of insurance (an S1 is for pensioners, so not this couple).",
+  "regional": [
+    {
+      "nuts": "ES300",
+      "amount": 243.42,
+      "note": "Madrid: Residents Visado 2 insured age 45-49, 121.71 x 2, before the 0.15% surcharge",
+      "source_id": "health-es-sanitas-precios"
+    },
+    {
+      "nuts": "ES511",
+      "amount": 297.5,
+      "note": "Barcelona: 148.75 x 2, before surcharge",
+      "source_id": "health-es-sanitas-precios"
+    },
+    {
+      "nuts": "ES522",
+      "amount": 270.4,
+      "note": "Castellon: 135.20 x 2, before surcharge",
+      "source_id": "health-es-sanitas-precios"
+    },
+    {
+      "nuts": "ES532",
+      "amount": 273.0,
+      "note": "Mallorca: 136.50 x 2, before surcharge",
+      "source_id": "health-es-sanitas-precios"
+    },
+    {
+      "nuts": "ES533",
+      "amount": 354.94,
+      "note": "Menorca: 177.47 x 2, before surcharge",
+      "source_id": "health-es-sanitas-precios"
+    },
+    {
+      "nuts": "ES531",
+      "amount": 462.76,
+      "note": "Ibiza and Formentera (same price): 231.38 x 2, before surcharge",
+      "source_id": "health-es-sanitas-precios"
+    },
+    {
+      "nuts": "ES613",
+      "amount": 239.74,
+      "note": "Cordoba: 119.87 x 2, before surcharge",
+      "source_id": "health-es-sanitas-precios"
+    },
+    {
+      "nuts": "ES618",
+      "amount": 249.36,
+      "note": "Sevilla: 124.68 x 2, before surcharge",
+      "source_id": "health-es-sanitas-precios"
+    },
+    {
+      "nuts": "ES243",
+      "amount": 278.32,
+      "note": "Zaragoza: 139.16 x 2, before surcharge",
+      "source_id": "health-es-sanitas-precios"
+    },
+    {
+      "nuts": "ES111",
+      "amount": 254.34,
+      "note": "A Coruna: 127.17 x 2, before surcharge",
+      "source_id": "health-es-sanitas-precios"
+    },
+    {
+      "nuts": "ES213",
+      "amount": 265.14,
+      "note": "Bizkaia: 132.57 x 2, before surcharge",
+      "source_id": "health-es-sanitas-precios"
+    }
+  ],
+  "spot_check": "No second insurer tariff retrieved. Sanitas own visa page says its International Residents product starts 'desde 95,15 EUR/mes' (per person, age not stated), consistent in order of magnitude with 118.74 at age 45-49. The Sanitas Mas Salud 'Sin copago' product in Madrid, age 45-49, 2-3 insureds, costs 124.02 per person but carries waiting periods, so it would not meet the visa rule. Comparison sites (flagged, not used) give 65 to 150 EUR per person at age 45.",
+  "uncertainty": "Single insurer. I assumed the '2 asegurados' cell is a per-person premium; if it is the premium for the pair, the figure would be about 119 EUR, half. Consulate wording varies, and some consulates also ask for repatriation, which the Visado product includes. New-business premium for year one; renewals rise with age band (50-54 band: 127.38 x 2 for Visado 2 insured, Resto) and with claims-inflation. Some insurers may sell cheaper visa-grade products (an Adeslas or Asisa tariff was not retrieved), so the true cheapest could be 10 to 30% lower."
+}

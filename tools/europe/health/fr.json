@@ -1,0 +1,61 @@
+{
+  "country": "FR",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": null,
+  "kind": null,
+  "route": "Long-stay visa 'visiteur' then the 'visiteur' residence card. Service-Public: \"Avoir une assurance maladie couvrant la durée de votre séjour\" and \"Attestation d'une assurance maladie couvrant la durée de votre séjour\". Minimum resources for one person EUR 1,477.93 net a month over a year.",
+  "policy": "Not priced. Visa stage needs a private health insurance certificate covering the stay (no minimum amount or exclusions stated by Service-Public). Statutory route: a resident without a job is covered by PUMa (Protection universelle maladie) by right of stable, regular residence, with no premium but with the income-based cotisation subsidiaire maladie (CSM) below.",
+  "working": "No amount computed. I could not retrieve an insurer tariff for a visa-grade policy for two 45-year-olds. Example CSM, for the tax agent, not for the figure: household capital income EUR 100,000 declared jointly, split EUR 50,000 each, each 6.5% x (50,000 - 23,550) = EUR 1,719.25, so EUR 3,438.50 a year for the couple, about EUR 286.54 a month.",
+  "sources": [
+    {
+      "source_id": "health-fr-sp-visiteur",
+      "publisher": "Service-Public.gouv.fr (DILA, French government)",
+      "title": "Carte de séjour « visiteur »",
+      "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F302",
+      "licence": "Licence Ouverte / Open Licence (Service-Public content)",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Vous devez remplir les 3 conditions suivantes : Avoir des ressources suffisantes pour vivre pendant toute la durée de votre séjour; Avoir une assurance maladie couvrant la durée de votre séjour; Ne pas travailler en France ... Le montant minimal des ressources exigé pour une personne seule est de 1 477,93 € nets mensuels, sur 1 annee. ... Attestation d'une assurance maladie couvrant la durée de votre séjour",
+      "measures": "The rule for the residence card after the long-stay visa. It says 'assurance maladie couvrant la durée du séjour' with no stated minimum cover amount or exclusions; the France-Visas portal (blocked to me, HTTP 403) holds the visa-stage document list."
+    },
+    {
+      "source_id": "health-fr-ameli-puma",
+      "publisher": "Assurance Maladie (ameli.fr)",
+      "title": "La protection universelle maladie",
+      "url": "https://www.ameli.fr/assure/droits-demarches/principes/protection-universelle-maladie",
+      "licence": "free to read, no licence stated",
+      "period": "updated 12 January 2026",
+      "retrieved": "2026-11-17",
+      "quote": "Quant aux personnes sans activité professionnelle, elles bénéficient de la prise en charge de leurs frais de santé au seul titre de leur résidence stable et régulière en France.",
+      "measures": "Residents without a job are covered by the public system by right of stable, regular residence. The page does not define the waiting period; the usual three-month rule was not on the page I read."
+    },
+    {
+      "source_id": "health-fr-urssaf-csm",
+      "publisher": "Urssaf",
+      "title": "Bénéficiaire de la protection universelle maladie (PUMa): cotisation subsidiaire maladie",
+      "url": "https://www.urssaf.fr/accueil/particulier/beneficiaire-puma.html",
+      "licence": "free to read, no licence stated",
+      "period": "2025 income (page shows 2025 thresholds)",
+      "retrieved": "2026-11-17",
+      "quote": "Le taux de la cotisation est dégressif. Il est fixé à 6,5 % ... Le montant de la cotisation est égal à : 6,5 % x (A - 0,5 x Pass) x [(1 - R / (0,2 x Pass)] ... A = revenus constituant l'assiette de la cotisation, retenus dans la limite de 8 Pass ... revenus de capital du patrimoine compris entre 23 550 € (soit 50 % du Pass) et 376 800 € (soit 8 fois le Pass). ... La base de calcul ... : revenus fonciers ; capitaux mobiliers ; plus-values de cession à titre onéreux de biens ou de droits de toute nature ...",
+      "measures": "The income-based charge on PUMa beneficiaries who do not work in France. Page shows the 2025 PASS (47,100); the 2026 PASS is 48,060 per secondary sources, not read on Urssaf."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [
+    {
+      "name": "Cotisation subsidiaire maladie (CSM, 'taxe PUMa')",
+      "rate": "6.5% (falls to 0 as French earned income rises to 20% of PASS; a couple is exempt if either spouse earns more than that)",
+      "base": "Capital and property income above an allowance of 50% of PASS (EUR 23,550 on the 2025 page, per person), up to a cap of 8 PASS (EUR 376,800 on the 2025 page). Categories: revenus fonciers, capitaux mobiliers, plus-values de cession a titre onereux, certain non-professional BIC and BNC. Joint declarants: capital income is split across the two, each gets the allowance.",
+      "includes_capital_gains": "yes: 'plus-values de cession à titre onéreux de biens ou de droits de toute nature' are in the listed base (Urssaf). The page also says income counts under art. 1417 IV CGI if it exceeds 25% of PASS.",
+      "floor": "Allowance EUR 23,550 per person (2025); nothing due below it",
+      "ceiling": "Base capped at 8 PASS = EUR 376,800 (2025), so the largest charge is 6.5% x (376,800 - 23,550) = EUR 22,961 per person; 2026 PASS from secondary sources: 48,060, allowance 24,030, cap 384,480",
+      "legal_source": "Code de la securite sociale art. L. 380-2 and D. 380-1 ff (cited by Urssaf; not read in text). People who received a retirement or invalidity pension or unemployment benefit in the year are not liable (Urssaf)."
+    }
+  ],
+  "eu_citizen_difference": "Not researched. EU citizens do not need the visiteur visa. Whether an EU citizen without a job faces the same CSM was not read in a source.",
+  "regional": [],
+  "spot_check": "Secondary sources found in the search (Keobiz, Clementine, Indy, Hayot: not fetched) give the same 6.5% rate and a 2026 PASS of EUR 48,060. Not independently confirmed on an official page.",
+  "uncertainty": "No private-premium figure: the web-search budget ran out and no insurer tariff for French visa-grade expat cover was reachable (France-Visas returns 403 to automated fetches). The free statutory route (PUMa) is the likely long-run position, but I did not read the page that sets the waiting period after arrival, nor confirm that visiteur-card holders are always allowed in. The CSM thresholds shown are 2025; 2026 values are higher by about 2%."
+}

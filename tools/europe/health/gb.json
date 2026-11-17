@@ -1,0 +1,33 @@
+{
+ "country": "GB",
+ "currency": "GBP",
+ "period": "2026",
+ "amount": 172.5,
+ "kind": "statutory-fixed",
+ "route": "The UK has no visa route for non-working people of independent means (the Home Office lists work, study, family, investor/talent routes only; the retired and the independently wealthy cannot settle). A resident on any long-stay visa of over 6 months pays the Immigration Health Surcharge up front, which gives full NHS access.",
+ "policy": "Immigration Health Surcharge, GBP 1,035 per adult per year, paid for each year of visa; NHS care then free at point of use. Private cover not required.",
+ "working": "2 x GBP 1,035 / 12 = GBP 172.50 a month",
+ "sources": [
+  {
+   "source_id": "health-gb-ihs",
+   "publisher": "UK Government (Home Office, DHSC)",
+   "title": "Pay for UK healthcare as part of your immigration application: how much you have to pay",
+   "url": "https://www.gov.uk/healthcare-immigration-application/how-much-pay",
+   "licence": "Open Government Licence v3.0",
+   "period": "2026",
+   "retrieved": "2026-11-17",
+   "quote": "£1,035 per year for all other visa and immigration applications",
+   "measures": "Annual surcharge per adult applicant, set by regulation; 5-year visa = 5 payments up front."
+  }
+ ],
+ "typical_private": {
+  "amount_per_month_couple": 135,
+  "description": "Comprehensive private medical insurance incl. outpatient for two 45-year-olds (Bupa, AXA Health, Vitality), about GBP 120 to 150 a month for two. Estimate from a comparison guide and Bupa's published age table (both read via search excerpts; Bupa's page blocks plain fetches); low confidence.",
+  "source_id": "health-gb-ihs"
+ },
+ "income_based_charges": [],
+ "eu_citizen_difference": "EU citizens no longer have free movement; after Brexit the same visa and IHS rules apply (except Irish citizens, with no IHS).",
+ "regional": [],
+ "spot_check": "Matches the IHS rate on gov.uk (GBP 1,035 per adult, 2026).",
+ "uncertainty": "There is no actual route for this couple, so the figure is what a long-stay resident on, say, a family or work visa pays. Private-cover estimate is weak."
+}

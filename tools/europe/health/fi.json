@@ -1,0 +1,50 @@
+{
+  "country": "FI",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": null,
+  "kind": "none",
+  "route": "No independent-means route found. Migri's 'other grounds' page says 'Usually, we can grant you a residence permit only if you have enough money for living in Finland' and its examples are a dating relationship with a Finn or an intended marriage, victims of trafficking. Migri FAQ: 'If you apply for a residence permit on some other grounds while in Finland, the decision will usually be negative.' Migri's insurance page is for students: 'must take out private insurance that will cover your medical and drug expenses' (EUR 120,000 for studies under two years; excess not above EUR 300).",
+  "policy": "Kela: 'If you live in Finland permanently, you are covered under the Finnish national health insurance scheme.' Permanence is decided case by case; residents with a municipality of residence can use public healthcare. No premium was retrieved; Finnish health insurance contributions are collected through tax (rates not retrieved).",
+  "working": "Not computed: no source for client fees or contributions, no private tariff.",
+  "sources": [
+    {
+      "source_id": "health-fi-migri-insurance",
+      "publisher": "Finnish Immigration Service (Migri)",
+      "title": "Insurance (students)",
+      "url": "https://migri.fi/en/insurance",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "you must take out private insurance that will cover your medical and drug expenses",
+      "measures": "Student rule only; archived copy in cache, live page blocks curl."
+    },
+    {
+      "source_id": "health-fi-kela",
+      "publisher": "Kela",
+      "title": "Moving to Finland",
+      "url": "https://www.kela.fi/web/en/moving-to-finland",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "If you have a municipality of residence in Finland, you have the right to use public healthcare services.",
+      "measures": "Residence-based cover."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [
+    {
+      "name": "Medical care contribution (sairaanhoitomaksu)",
+      "rate": "not retrieved",
+      "base": "taxable income",
+      "includes_capital_gains": "unclear",
+      "floor": "unknown",
+      "ceiling": "unknown",
+      "legal_source": "not retrieved"
+    }
+  ],
+  "eu_citizen_difference": "EHIC or UK GHIC holders do not need private insurance for a student permit (Migri). Otherwise not established.",
+  "regional": [],
+  "spot_check": "None.",
+  "uncertainty": "No Finnish figures reached: the search tool hit its limit, Migri pages block curl (Cloudflare), and guessed Kela, Vero and THL URLs returned 404. Migri quotes came from the live page through the fetch tool, not saved."
+}

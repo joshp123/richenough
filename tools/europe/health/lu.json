@@ -1,0 +1,73 @@
+{
+  "country": "LU",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": 310.38,
+  "kind": "statutory-fixed",
+  "route": "No independent-means route found. The Luxembourg portal's 'private reasons' residence authorisation ('vie privee') is for people who cannot use family reunification but have close personal or family ties; the resource test reads: 'le ressortissant de pays tiers peut vivre de ses seules ressources qui proviennent: d'une activite professionnelle exercee dans un autre Etat membre de l'UE ou de l'Espace Schengen; ou d'une pension de vieillesse, d'invalidite ou de survie versee par un organisme de securite sociale ...'. Investment withdrawals are not listed.",
+  "policy": "CCSS voluntary optional health insurance (assurance volontaire facultative), open to people aged 18 or over, resident, with no other access to health insurance. Contribution = 5.60% of the minimum social wage. No healthcare costs are reimbursed during the first 3 months (contribution period). Covers CNS benefits (not cash benefits or maternity leave) and long-term-care insurance benefits per the CCSS page.",
+  "working": "CCSS page: 'minimum social wage, EUR 2.771,33 ... contribution rate of 5,60% ... monthly contribution EUR 155,19'. 2,771.33 x 5.60% = 155.19 per person. Couple: 2 x 155.19 = 310.38 EUR per month. Lower bound: at the January 2026 minimum wage 2,703.74 the figure is 151.41 per person (302.82 for two).",
+  "sources": [
+    {
+      "source_id": "health-lu-ccss-volontaire",
+      "publisher": "CCSS (Centre commun de la securite sociale)",
+      "title": "Voluntary health insurance affiliation",
+      "url": "https://ccss.public.lu/en/particuliers/assures-volontaires/assurance-volontaire-maladie/affiliation-volontaire-assurance-maladie.html",
+      "licence": "free to read, no licence stated",
+      "period": "current page (footer says last update 14.08.2025; amounts shown are the newer minimum wage)",
+      "retrieved": "2026-11-17",
+      "quote": "Contributions are calculated on the basis of the minimum social wage, which is EUR 2.771,33, with a current contribution rate of 5,60%. The current monthly contribution for voluntary health insurance is EUR 155,19.",
+      "measures": "Per-person monthly voluntary contribution (fixed, not income-based)."
+    },
+    {
+      "source_id": "health-lu-ccss-avis",
+      "publisher": "CCSS",
+      "title": "Avis aux assures volontaires 01.05.2025 and avis 80-99 of 16 Jan 2026",
+      "url": "https://ccss.public.lu/dam-assets/publications/2025/ccss-20250711-avis-30-fr-de.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2025-2026",
+      "retrieved": "2026-11-17",
+      "quote": "Cotisation mensuelle pour l'assurance maladie volontaire au 01.05.2025: 2.703,74 EUR (SSM) 5,60 % 151,41 EUR",
+      "measures": "Prior-step figure (151.41); the January 2026 employer notice shows the same minimum 2,703.74."
+    },
+    {
+      "source_id": "health-lu-guichet-volontaire",
+      "publisher": "Guichet.lu",
+      "title": "Enrolling for voluntary health and maternity insurance",
+      "url": "https://guichet.public.lu/en/citoyens/sante/affiliation-securite-sociale/personnes-inactives/assurance-maladie-volontaire.html",
+      "licence": "free to read, no licence stated",
+      "period": "current",
+      "retrieved": "2026-11-17",
+      "quote": "Contributions are calculated on the basis of the minimum income subject to contributions.",
+      "measures": "Confirms the base is the minimum, not actual income."
+    },
+    {
+      "source_id": "health-lu-guichet-raisons-privees",
+      "publisher": "Guichet.lu",
+      "title": "Sejour pour raisons privees (pays tiers)",
+      "url": "https://guichet.public.lu/en/citoyens/immigration/vivre/non-luxembourg/immigration/pays-tiers/raisons-privees/sejour-raisons-privees.html",
+      "licence": "free to read, no licence stated",
+      "period": "current",
+      "retrieved": "2026-11-17",
+      "quote": "le ressortissant de pays tiers peut vivre de ses seules ressources qui proviennent : d'une activite professionnelle exercee dans un autre Etat membre de l'UE ... ou d'une pension ...",
+      "measures": "Shows the only private-reasons route does not cover investment income."
+    },
+    {
+      "source_id": "health-lu-lcgb-rapidos",
+      "publisher": "LCGB (union)",
+      "title": "Rapidos 01.01.2026",
+      "url": "https://lcgb.lu/files/2025/05/Rapidos-01-01-2026-FR.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2026-01-01",
+      "retrieved": "2026-11-17",
+      "quote": "Minimum cotisable (1x SSM) 2.703,74 EUR ... Ass.continuee 5,60%",
+      "measures": "Cross-check of the minimum base and rate (a union leaflet, not official)."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "An EU citizen resident in Luxembourg can often rely on EHIC/S1 or on EU-state cover while resident, and the same voluntary scheme is open to residents of EU/EEA/Switzerland. A non-EU couple with no residence route has none.",
+  "regional": [],
+  "spot_check": "The 2025 CCSS notice gives 151.41 at the 2,703.74 base; the current CCSS page gives 155.19 at 2,771.33, a 2.5% step. Both use 5.60%.",
+  "uncertainty": "The residence route is the main doubt: no independent-means permit found. The CCSS page shows 2,771.33 as the minimum wage while its footer is dated Aug 2025, and the January 2026 notices use 2,703.74; the 2026 monthly figure is therefore between 151.41 and 155.19. I did not find a separate long-term-care contribution for voluntary members. Three-month wait for reimbursement."
+}

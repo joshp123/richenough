@@ -25,6 +25,9 @@ RENT_COUNTRIES = ["al", "at", "be", "bg", "ch", "cy", "cz", "de", "dk", "ee", "e
                   "ie", "is", "it", "li", "lt", "lu", "lv", "me", "mk", "mt", "nl", "no", "pl", "pt", "ro", "rs", "se",
                   "si", "sk", "tr", "ua", "xk"]
 
+# Modules whose fill(rows) adds rows for regions the others left empty; run after the component's modules.
+FILLERS = {"rent-two-bedroom": ["rent.inferred"]}
+
 COMPONENTS = {
     "rent-two-bedroom": [f"rent.{cc}" for cc in RENT_COUNTRIES],
     "price-level-everyday": ["price_level"],
@@ -82,6 +85,13 @@ def main(selected: list[str]) -> int:
             for s in getattr(module, "SOURCES", []):
                 sources[s["source_id"]] = s
             print(f"  {name}: {len(module_rows)} rows", file=sys.stderr)
+        for name, module in load_modules(FILLERS.get(component, [])):
+            if hasattr(module, "fill"):
+                filled = check(component, list(module.fill(rows)), name)
+                rows += filled
+                for s in getattr(module, "SOURCES", []):
+                    sources[s["source_id"]] = s
+                print(f"  {name}: filled {len(filled)} rows", file=sys.stderr)
         seen = set()
         for r in rows:
             if r["place_code"] in seen:

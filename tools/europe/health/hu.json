@@ -1,0 +1,51 @@
+{
+  "country": "HU",
+  "currency": "HUF",
+  "period": "2026",
+  "amount": 24600,
+  "kind": "statutory-fixed",
+  "route": "Hungary has no residence permit for non-working people of independent means. The nearest national permits are the White Card (remote workers, so not a couple living off an ETF portfolio) and the general temporary residence permit. The Immigration and Asylum Office (OIF) factsheet requires 'Documentary evidence ... as proof that the applicant has access to comprehensive health insurance services covering all healthcare services or that (s)he can cover the costs of such services', met if '(s)he can cover the costs of his/her healthcare services based on documents in proof of his/her means of subsistence available in Hungary.' So the permit rule does not demand a private policy. The statutory contribution below is not open to a new non-EU resident: under Tbj. 4. par. 1.1 a non-EU national counts as 'belfoldi' (domestic) only with long-term residence entitlement (huzamos tartozkodasi jogosultsag), refugee or protected status, and Tbj. 43. par. (2) also needs one year of registered residence first.",
+  "policy": "Egeszsegugyi szolgaltatasi jarulek (health service contribution, Tbj. 43-44.), a fixed HUF 12,300 per person per month in 2026 (HUF 410 per day for part months), paid to NAV by the 12th of the following month. It buys the TAJ number's right to publicly funded care. Who may pay: a 'belfoldi' person who has no other insurance basis. A third-country couple on temporary residence cannot pay it until they hold long-term (permanent) residence status. Until then the couple would need private cover or self-pay, and I found no published private tariff to price that.",
+  "working": "HUF 12,300 x 2 people = HUF 24,600 per month (HUF 295,200 a year). 2025 amount was HUF 11,800 (NAV table, per search summary; not checked on the cached page).",
+  "sources": [
+    {
+      "source_id": "health-hu-nav-szolgaltatasi-jarulek",
+      "publisher": "Nemzeti Ado- es Vamhivatal (NAV)",
+      "title": "Az egeszsegugyi szolgaltatasi jarulek osszege (and NAV information leaflet no. 91, published 2026-01-09)",
+      "url": "https://nav.gov.hu/ugyfeliranytu/adokulcsok_jarulekmertekek/fizetendo_jar/Az_egeszsegugyi_szolgaltatasi_jarulek_osszege",
+      "licence": "free to read, no licence stated",
+      "period": "from 2026-01-01",
+      "retrieved": "2026-11-17",
+      "quote": "2026.januar 1-tol az egeszsegugyi szolgaltatasi jarulek havi osszege 12 300 forint, torthonap eseten napi osszege 410 forint. [1] ... Tbj. 25. par. (3) bekezdese alapjan. (leaflet 91: 'A jarulek merteke: havonta 12 300 forint')",
+      "measures": "The legal monthly amount per liable person. It says nothing about whether a given foreigner is liable."
+    },
+    {
+      "source_id": "health-hu-tbj",
+      "publisher": "Magyar Kozlony / Njt (net.jogtar.hu)",
+      "title": "2019. evi CXXII. torveny a tarsadalombiztositas ellatasaira jogosultakrol (Tbj.)",
+      "url": "https://net.jogtar.hu/jogszabaly?docid=a1900122.tv",
+      "licence": "free to read, no licence stated",
+      "period": "consolidated text as retrieved 2026-11-17",
+      "retrieved": "2026-11-17",
+      "quote": "4. par. 1.1: 'Belfoldi: Magyarorszag teruleten ... bejelentett lakohellyel rendelkezo magyar allampolgar, a huzamos tartozkodasi jogosultsaggal rendelkezo, valamint a menekultkent vagy oltalmazottkent elismert szemely'; 43. par. (1)a: 'az a belfoldi szemely, aki nem biztositott ...'; 43. par. (2): 'megszakitas nelkul legalabb egy eve ... bejelentett lakohellyel ... rendelkezik Magyarorszag teruleten'; 25. par. (3): 'Az egeszsegugyi szolgaltatasi jarulek havi osszege 7 710 forint ... valorizalt'",
+      "measures": "Who must pay and the indexation rule. The text uses accented Hungarian; accents are dropped in this file."
+    },
+    {
+      "source_id": "health-hu-oif-residence",
+      "publisher": "Orszagos Idegenrendeszeti Foigazgatosag / Immigration and Asylum Office (oif.gov.hu)",
+      "title": "Factsheet: temporary residence permit",
+      "url": "https://oif.gov.hu/factsheets/temporary-residence-permit",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Documentary evidence must be submitted as proof that the applicant has access to comprehensive health insurance services covering all healthcare services or that (s)he can cover the costs of such services. ... (s)he can cover the costs of his/her healthcare services based on documents in proof of his/her means of subsistence available in Hungary.",
+      "measures": "The health-cover test for a temporary residence permit. It accepts proof of means, so no private premium is mandated."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "Tbj. 4. par. 1.2 treats EU free-movement persons with a registered Hungarian address as 'belfoldi', so an EU citizen can pay the HUF 12,300 contribution after the one-year registered-residence condition of 43. par. (2), without long-term residence status. A non-EU couple cannot, until they hold long-term residence.",
+  "regional": [],
+  "spot_check": "No independent second figure found. Search summaries of secondary Hungarian sites (adozona.hu, money.hu) repeat HUF 12,300 for 2026; I treated them as cross-checks only and did not cache them.",
+  "uncertainty": "The figure is the statutory charge, but a new non-EU couple on temporary residence is not eligible for it, so what they really pay in years 1 to 5 is unpriced (private cover or self-pay). If they pay private cover at EUR 100 to 200 a month, the cost would be roughly 5 to 10 times the HUF 24,600 shown. The contribution is indexed each year to July CPI and published by 31 October (Tbj. 25. par. (3)). Whether the one-year registered-residence test and the long-term residence test have been relaxed by later decree was not checked."
+}

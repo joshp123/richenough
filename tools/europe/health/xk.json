@@ -1,0 +1,40 @@
+{
+  "country": "XK",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": null,
+  "kind": "none",
+  "route": "The Ministry of Internal Affairs (MPB) page 'Leje-qendrim i perkohshem per te huajt' lists temporary permits only for family reunification, work (including owning a business), pre-university education, and higher education and research. There is no permit for people of independent means, retirees or property owners on that page; I did not read the Law on Foreigners itself (not reachable) so I cannot rule out a route in the statute. Every listed permit asks for 'Sigurimin shendetesor' (health insurance) and, except family reunification with a Kosovan citizen, proof of means. The Ministry's table of sufficient means: 5,000 EUR a year for employment, 6,000 EUR a year for reuniting with a foreign permit holder.",
+  "policy": "Law 10/L-028 on Compulsory Health Care Insurance (Official Gazette no. 11, 15 May 2026). Art. 1.5 defines a resident as the holder of a residence permit. Art. 9(1.4): 'Te gjithe banoret tjere te Republikes se Kosoves qe kane se paku 18 vjet, qe nuk jane te lidhur detyrimisht ne asnje cilesi tjeter me sigurimin e detyrueshem' are compulsorily insured as active insured persons. Art. 22(18): such a person 'paguan kontribut mujor prej shtate (7%) te bazes kontributive te dyfishit (2) te pages minimale'. Voluntary supplementary insurance (art. 8) does not replace the contribution. Art. 7 gives free emergency care to the uninsured in need. So a permit holder with no job would owe 7% of twice the minimum wage a month, each.",
+  "working": "Monthly charge per person = 7% x 2 x minimum wage = 0.14 x minimum wage. I could not read the 2026 minimum wage from an official page, so no euro amount is given. For illustration only: at a minimum wage of 350 EUR (a figure I recall from earlier years and have not verified) it would be 49.00 EUR a person, 98.00 EUR for the couple. Amount left null.",
+  "sources": [
+    {
+      "source_id": "health-xk-fund-law",
+      "publisher": "Official Gazette of the Republic of Kosovo, via Fondi i Sigurimit te Detyrueshem te Kujdesit Shendetesor",
+      "title": "Ligji nr. 10/L-028 per sigurimin e detyrueshem te kujdesit shendetesor",
+      "url": "https://fssh.rks-gov.net/wp-content/uploads/2026/05/LIGJI-PER-SIGURIMIN-E-DETYRUESHEM-TE-KUJDESIT-SHENDETESOR-2.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "Official Gazette no. 11, 15 May 2026",
+      "retrieved": "2026-11-17",
+      "quote": "'1.5. Banor - bartesi i lejes se qendrimit te leshuar nga autoriteti kompetent ...'. Neni 22(18): 'paguan kontribut mujor prej shtate (7%) te bazes kontributive te dyfishit (2) te pages minimale ne llogarine e Fondit'.",
+      "measures": "The statutory rule: a permit holder with no other basis pays 7% of twice the minimum wage a month. It does not state a euro sum."
+    },
+    {
+      "source_id": "health-xk-mia-permits",
+      "publisher": "Ministria e Puneve te Brendshme (MPB), Kosovo",
+      "title": "Leje-qendrim i perkohshem per te huajt; Amount of sufficient means of subsistence for foreigners",
+      "url": "https://mpb.rks-gov.net/f/45/Leje-qendrim-i-perkohshem-per-te-huajt",
+      "licence": "free to read, no licence stated",
+      "period": "retrieved 2026-11-17",
+      "retrieved": "2026-11-17",
+      "quote": "Permit headings: 'Qendrim i perkohshem me qellim te ribashkimit familjar', '... te punes', '... te arsimit parauniversitar', '... te arsimit te larte dhe kerkimit shkencor'; each lists 'Sigurimin shendetesor'. Means table: 'Employment category: Must prove annual financial turnover of five thousand (5000) EUR per year.'",
+      "measures": "The routes the Ministry offers. None is for independent means."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "None found. Art. 22(3) says residents insured abroad must still join and pay unless a bilateral or multilateral agreement says otherwise; the EU has no such agreement with Kosovo.",
+  "regional": [],
+  "spot_check": "None. No insurer tariff was reachable (Kosovan insurer sites were mostly down or empty).",
+  "uncertainty": "(1) Kosovo has no listed permit for this couple; a property-based or discretionary permit may exist in the Law on Foreigners, which I did not read. (2) The 7% x 2 x minimum wage rule is from the law as published in May 2026, but the Fund may not yet collect it from permit holders, and the Ministry's permit pages do not mention it. (3) The minimum wage was not verified: the formula is exact, the euro sum is not. (4) Private cover is allowed as a supplement; it does not remove the contribution (art. 8(3)). Confidence: formula medium, amount none."
+}

@@ -1,0 +1,29 @@
+{
+  "country": "MT",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": null,
+  "kind": null,
+  "route": "Global Residence Programme (third-country nationals), Global Residence Programme Rules S.L. 123.148 (LN 167/2013, amended 2014 and 2020). Condition (f): \"he is in possession of sickness insurance in respect of all risks across the whole of the European Union normally covered for Maltese nationals for himself and his dependants\". The status ends if, after the appointed day, the individual is not in possession of that insurance. Other conditions: qualifying property (purchase from EUR 275,000, or EUR 220,000 in Gozo or the south; or rent from EUR 9,600 a year, EUR 8,750 in Gozo or the south), stable resources, 15% tax on income received in Malta with a EUR 15,000 yearly minimum tax.",
+  "policy": "No policy priced. The rule asks for comprehensive private cover for all risks normally covered for Maltese nationals, valid across the EU, so a full private health policy (no co-payment or waiting-period wording).",
+  "working": "No amount computed.",
+  "sources": [
+    {
+      "source_id": "health-mt-grp-rules",
+      "publisher": "Government of Malta, Legislation Malta",
+      "title": "Global Residence Programme Rules, S.L. 123.148",
+      "url": "https://legislation.mt/eli/sl/123.148/eng/pdf",
+      "licence": "free to read, no licence stated",
+      "period": "as amended by LN 69 of 2020",
+      "retrieved": "2026-11-17",
+      "quote": "(f) he is in possession of sickness insurance in respect of all risks across the whole of the European Union normally covered for Maltese nationals for himself and his dependants;",
+      "measures": "The health-cover condition for the programme. It names no insurer and gives no premium."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "EU, EEA and Swiss nationals use the Residence Programme Rules (S.L. 123.160), whose beneficiary test (condition (a)) is 'an EU, EEA or Swiss national', and which carries the same sickness-insurance condition (f), so cover is required for them too. Not otherwise researched.",
+  "regional": [],
+  "spot_check": "None.",
+  "uncertainty": "No figure: I found no Maltese insurer tariff (the web-search budget ran out and the Residency Malta and Malta Tax sites did not give usable pages). Whether Malta's state system is open to these residents was not researched. The programme's status as currently open was not checked on the Residency Malta Agency or Malta Tax pages; I read only the consolidated Rules."
+}

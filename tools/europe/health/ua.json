@@ -1,0 +1,29 @@
+{
+  "country": "UA",
+  "currency": "UAH",
+  "period": "2026",
+  "amount": null,
+  "kind": "none",
+  "route": "No residence route for people of independent means was found. Law 3773-VI 'Про правовий статус іноземців та осіб без громадянства' Art. 4 lists the grounds for temporary residence: work or gig contract, technical aid projects, religious activity, foreign branches, banks and media, culture/science/volunteering, 100,000 EUR stake in a Ukrainian company, study, and family reunification with Ukrainian citizens, military service. None is for a non-working person living on investments. Where a permit is issued, a valid medical insurance policy is a document required for it: Art. 5 parts 4-14 (\"дійсний поліс медичного страхування\"), and visas can be refused for \"відсутності дійсного полісу медичного страхування\". Ukraine is under martial law; I am not recommending residence there.",
+  "policy": "No priced product found. Uniqa, ARX and Ingo: uniqa.ua pages were reachable but I found no foreigner product page or tariff; arx.ua did not respond; ingo.ua returned 403 to curl.",
+  "working": "No figure: the route does not exist for this household, and no insurer tariff was reachable.",
+  "sources": [
+    {
+      "source_id": "health-ua-law",
+      "publisher": "Verkhovna Rada (zakon.rada.gov.ua)",
+      "title": "Про правовий статус іноземців та осіб без громадянства, N 3773-VI (print text, Wayback copy 2025)",
+      "url": "https://zakon.rada.gov.ua/laws/show/3773-17",
+      "licence": "free to read, no licence stated",
+      "period": "text with amendments to 2024",
+      "retrieved": "2026-11-17",
+      "quote": "Підставою для видачі посвідки на тимчасове проживання ... є заява іноземця або особи без громадянства, дійсний поліс медичного страхування ...",
+      "measures": "The list of temporary-residence grounds (Art. 4) and the insurance document (Art. 5). zakon.rada.gov.ua itself did not answer from here; text read from a Wayback Machine copy, which may be missing 2025-2026 amendments."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "Not examined.",
+  "regional": [],
+  "spot_check": "None.",
+  "uncertainty": "The Wayback copy may not include amendments after 2025, and subordinate Cabinet rules on insurance minimums and any visa or e-residence schemes were not read. What the state health system gives a foreign temporary resident was not checked. No premium figure was reached."
+}

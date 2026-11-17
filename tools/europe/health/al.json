@@ -1,0 +1,73 @@
+{
+  "country": "AL",
+  "currency": "ALL",
+  "period": "2026",
+  "amount": 6800,
+  "kind": "statutory-fixed",
+  "route": "Albania has no general independent-means permit for working-age people. Law 79/2021 on Foreigners art. 39 lists the permit grounds. Two fit a non-working couple. Art. 85 'Leje qendrimi per pensionistet' is for foreigners 'qe jane ne pension ne vendin e tyre' (retired), so a 45-year-old couple does not qualify. Art. 84 'Leje qendrimi e perkohshme per perdorim te pasurise se paluajtshme ne pronesi' (temporary permit for owners of Albanian property, up to 1 year, renewable yearly) is the realistic route and is modelled here. VKM 858/2021 lists its documents: title deed, 'Deshmia e burimeve financiare te mjaftueshme' and a personal statement. Proof of means (point 10): an Albanian bank deposit of at least 300,000 ALL per person for a year, or monthly income of at least 32,000 ALL per person. Neither article nor the VKM document list for the property permit names a health-insurance document. Health cover is named for other grounds: the digital-nomad permit ('Police te sigurimit shendetesor, te vlefshme per te pakten 1 vit', which needs work for an employer abroad, so does not fit) and for family reunification, and 'te vertetoje siguracionin shendetesor' for the permanent permit.",
+  "policy": "FSDKSH voluntary membership of the compulsory scheme (Law 10383/2011). FSDKSH page: 'Per sigurimet shendetesore vullnetare, baza e llogaritjes se kontributit eshte dyfishi i pages minimale', contribution rate 3.4 per cent. The Fund page says that for foreigners the residence-permit number serves as the health-insurance number. Voluntary members have a 6-month waiting period (FSDKSH publication 'Kush Paguan'). Not an income-based charge: the base is fixed at twice the minimum wage.",
+  "working": "Base per person = 2 x 50,000 ALL = 100,000 ALL a month (50,000 ALL is the monthly minimum wage the Social Insurance Institute (ISSH) page uses for voluntary pension contributions). Contribution = 3.4% x 100,000 = 3,400 ALL a month a person. Couple = 2 x 3,400 = 6,800 ALL a month (81,600 ALL a year).",
+  "sources": [
+    {
+      "source_id": "health-al-law79",
+      "publisher": "Policia e Shtetit (consolidated text, updated 2025)",
+      "title": "Ligj nr. 79/2021 Per te huajt (perditesuar 2025)",
+      "url": "https://asp.gov.al/wp-content/uploads/2025/11/Ligj-PER-TE-HUAJT-2021-06-24-79-perditesuar-2025-PDF.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2021 as amended by Law 43/2025",
+      "retrieved": "2026-11-17",
+      "quote": "Neni 84: 'Nje leje qendrimi e perkohshme per perdorimin dhe disponimin e pasurise se paluajtshme ne Republiken e Shqiperise mund t'i leshohet nje shtetasi te huaj ... qe deshmon pronesine e nje pasurie te tille te paluajtshme'. Neni 85: 'Shtetasit e huaj, qe jane ne pension ne vendin e tyre, mund te aplikojne per nje leje qendrimi per pensioniste'.",
+      "measures": "The legal grounds for a permit for non-working foreigners. It shows the property route and the pensioner route; it does not state a health-cover duty for the property route."
+    },
+    {
+      "source_id": "health-al-vkm858",
+      "publisher": "Policia e Shtetit (copy of VKM nr. 858, 29.12.2021, updated)",
+      "title": "VKM 858/2021 documents for residence permits (text extracted from the .docx)",
+      "url": "https://asp.gov.al/wp-content/uploads/2024/11/2-vendim-2021-12-29-858-iperditesuar-LEJE-QENDRIMI-DOKUMENTACION-1.docx",
+      "licence": "free to read, no licence stated",
+      "period": "2021, updated",
+      "retrieved": "2026-11-17",
+      "quote": "'b) per leje qendrimi per perdorim te pasurise se paluajtshme: i. Certifikata e pronesise se banesës ...; ii. Deshmia e burimeve financiare te mjaftueshme ...; iii. Deklarata individuale mbi motivin e qendrimit'. Point 10: 'vertetim depozite bankare ... jo me pak se 300 000 leke per person (per 1 vit kalendarik); b) vertetim i te ardhurave mujore jo me pak se 32 000 leke per person'.",
+      "measures": "The documents the property-owner permit asks for and the means threshold. No health-insurance document is listed for this permit."
+    },
+    {
+      "source_id": "health-al-fsdksh-si",
+      "publisher": "FSDKSH (Fondi i Sigurimit te Detyrueshem te Kujdesit Shendetesor)",
+      "title": "Si te siguroheni?",
+      "url": "https://fsdksh.gov.al/si-te-siguroheni/",
+      "licence": "free to read, no licence stated",
+      "period": "current page, retrieved 2026-11-17",
+      "retrieved": "2026-11-17",
+      "quote": "'masa e kontributit te sigurimit te detyruar shendetesor eshte 3,4 per qind e bazes per llogaritjen e kontributeve'; 'Per sigurimet shendetesore vullnetare, baza e llogaritjes se kontributit eshte dyfishi i pages minimale'; 'Per te huajt, si numer i sigurimit shendetesor te detyruar do te sherbeje numri i lejes se qendrimit'.",
+      "measures": "The rate (3.4%) and base (twice the minimum wage) for voluntary members, and that foreigners are identified by permit number."
+    },
+    {
+      "source_id": "health-al-issh-voluntary",
+      "publisher": "ISSH (Instituti i Sigurimeve Shoqerore)",
+      "title": "Sigurimi vullnetar",
+      "url": "https://www.issh.gov.al/sigurimi-vullnetar/",
+      "licence": "free to read, no licence stated",
+      "period": "current page, retrieved 2026-11-17",
+      "retrieved": "2026-11-17",
+      "quote": "'Kuota mujore e sigurimit vullnetar aktualisht eshte 10,800 leke, qe i korrespondon pages minimale mujore: 50,000 leke x 21.6%'.",
+      "measures": "The minimum wage (50,000 ALL a month) that ISSH uses for contribution purposes. It is the pension-insurance page, not the health fund's own figure: I assume the same minimum wage applies to the health base."
+    },
+    {
+      "source_id": "health-al-sigal-expat",
+      "publisher": "SIGAL Uniqa Group Austria",
+      "title": "Expat Insurance (Albania)",
+      "url": "https://sigal.com.al/expat-insurance/",
+      "licence": "free to read, no licence stated",
+      "period": "retrieved 2026-11-17",
+      "retrieved": "2026-11-17",
+      "quote": "'Expenses for medical emergencies in case of illness or accident in Albania up to 5,000 Euros'; options up to 10,000 Euros emergency cover; premiums only through an online quote form.",
+      "measures": "What a private expat policy covers. It is emergency cover with low limits and no published price, so no private premium is used."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "An EU/EEA citizen has no health-cover advantage in Albania: no EU rules apply. The Albanian permit rules above do not differ by EU status in the texts read.",
+  "regional": [],
+  "spot_check": "None reached. Albanian insurers (SIGAL, INTERSIG, SIGMA) publish product terms but quotes only through online forms that need personal details, which the brief forbids. The only price check is internal: 3,400 ALL a person is about 3.4% of 100,000 ALL.",
+  "uncertainty": "(1) I could not read Law 10383/2011 or the Council of Ministers decision that sets the minimum wage for contributions; the 50,000 ALL figure comes from the ISSH pension page, which is an indirect source. If the health base uses a different minimum wage (the 2025 labour minimum wage was lower), the figure moves in proportion: at 40,000 ALL it would be 2 x 2 x 40,000 x 3.4% = 5,440 ALL for the couple. (2) The Fund's rules on whether a foreigner on a property permit may join voluntarily were not found in a primary text; the Fund's page and the 'Kush Paguan' book say anyone outside the listed groups may join voluntarily and that the permit number serves as the foreigner's insurance number. (3) The property permit lists no health cover, so joining the Fund may be optional in practice. If the couple carried only a private emergency policy, the premium is unknown. (4) Six-month waiting period for voluntary members. Confidence: low to medium."
+}

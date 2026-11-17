@@ -1,0 +1,62 @@
+{
+  "country": "BG",
+  "currency": "EUR",
+  "period": "2026 (rate in force from 1 August 2026)",
+  "amount": 49.62,
+  "kind": "statutory-fixed",
+  "route": "Bulgaria has no independent-means visa that I could confirm, and I could not read the official long-stay (type D) visa health-insurance rule: mfa.bg answers plain fetches with a Radware bot check and the Directorate Migration (mvr.bg) pages I reached say nothing on health cover. The statutory side is clear. Zakon za zdravnoto osiguryavane (ZZO) art. 33(1) point 3: 'Zadalzhitelno osigureni v Natsionalnata zdravnoosiguritelna kasa sa: ... chuzdite grazhdani ili litsata bez grazhdanstvo, na koito e razresheno dalgosrochno ili postoyanno prebivavane v Republika Balgariya'. So a couple holding long-term residence are compulsorily insured and must pay themselves if nothing else insures them.",
+  "policy": "Art. 40(5) point 1 ZZO: people with no other insurance basis pay on an income 'ne po-malak ot polovinata ot minimalniya razmer na osigurit. dohod za samoosigurvashtite se litsa'. The contribution rate for 2026 is 8% (ZBNZOK 2026, art. 2). From 1 August 2026 the minimum income for self-insured people is EUR 620.20, so the base is EUR 310.10 and the contribution EUR 24.81 a person a month. Paid by the 25th of the next month; declaration form Obrazets No 7 to the NRA. Rights lapse if more than three monthly payments are missed in 36 months.",
+  "working": "Since 1 Aug 2026: 620.20 / 2 = 310.10; x 8% = 24.808, rounded EUR 24.81 a person; x 2 = EUR 49.62 a month. Jan to Jul 2026: 550.66 / 2 = 275.33; x 8% = 22.03 a person; x 2 = EUR 44.05 a month (my arithmetic from the NRA minimum income of 550.66 reported by the same sources).",
+  "sources": [
+    {
+      "source_id": "health-bg-kik-nap",
+      "publisher": "KiK-Info (republishing a National Revenue Agency (NAP/NRA) news release, 28 Jul 2026)",
+      "title": "Zdravnoosiguritelnata vnoska za bezrabotnite stava 24,81 evro",
+      "url": "https://kik-info.com/novini/nap/Zdravnoosiguritelnata-vnoska-za-bezrabotnite-stava-2481-evro.15297.php",
+      "licence": "free to read, no licence stated",
+      "period": "from 2026-08-01",
+      "retrieved": "2026-11-17",
+      "quote": "Хората, които сами внасят задължителните си здравноосигурителни вноски ... и не са регистрирани като самоосигуряващи се ..., ще плащат по 24,81 евро от 1 август 2026 г. ... неосигурените на друго основание се осигуряват върху доход, не по-малък от половината от минималния месечен доход за самоосигуряващите се лица. Така здравноосигурителната вноска за тях се изчислява в размер на 8% върху не по-малко от 310,10 евро.",
+      "measures": "The amount for people who pay their own health contribution with no other basis. This is a commercial site's copy of an NRA release; the original on nra.bg is behind an anti-bot check, so it was not opened."
+    },
+    {
+      "source_id": "health-bg-zzo",
+      "publisher": "Natsionalna zdravnoosiguritelna kasa (NHIF), consolidated text",
+      "title": "Zakon za zdravnoto osiguryavane (current to DV br. 68/2026)",
+      "url": "https://www.nhif.bg/upload/32277/%D0%97%D0%B0%D0%BA%D0%BE%D0%BD%20%D0%B7%D0%B0%20%D0%B7%D0%B4%D1%80%D0%B0%D0%B2%D0%BD%D0%BE%D1%82%D0%BE%20%D0%BE%D1%81%D0%B8%D0%B3%D1%83%D1%80%D1%8F%D0%B2%D0%B0%D0%BD%D0%B5.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Чл. 33. (1) ... 3. чуждите граждани или лицата без гражданство, на които е разрешено дългосрочно или постоянно пребиваване в Република България ... ; Чл. 40 (5) Лицата, които не подлежат на осигуряване по ал. 1, 2 и 3, са длъжни да: 1. ... внасят осигурителни вноски върху осигурителен доход не по-малък от половината от минималния размер на осигурителния доход за самоосигуряващите се лица, определен със Закона за бюджета на държавното обществено осигуряване - до 25-о число на месеца, следващ месеца, за който се отнасят",
+      "measures": "Who is insured and the base for people with no other basis."
+    },
+    {
+      "source_id": "health-bg-nhif-budget",
+      "publisher": "NHIF",
+      "title": "Zakon za byudzheta na NZOK za 2026 g. (DV br. 68, 28.07.2026)",
+      "url": "https://www.nhif.bg/upload/32276/%D0%97%D0%B0%D0%BA%D0%BE%D0%BD%20%D0%B7%D0%B0%20%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82%D0%B0%20%D0%BD%D0%B0%20%D0%9D%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D0%BD%D0%B0%D1%82%D0%B0%20%D0%B7%D0%B4%D1%80%D0%B0%D0%B2%D0%BD%D0%BE%D0%BE%D1%81%D0%B8%D0%B3%D1%83%D1%80%D0%B8%D1%82%D0%B5%D0%BB%D0%BD%D0%B0%20%D0%BA%D0%B0%D1%81%D0%B0%20%D0%B7%D0%B0%202026%20%D0%B3..pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Чл. 2. Размерът на задължителната здравноосигурителна вноска за 2026 г. е 8 на сто.",
+      "measures": "The 2026 rate."
+    },
+    {
+      "source_id": "health-bg-kik-mod",
+      "publisher": "KiK-Info (accounting publisher, secondary)",
+      "title": "От 01.08.2026: Осигуровки, МОД, ТЗПБ, болнични",
+      "url": "https://kik-info.com/novini/novini-i-akcenti/Ot-01082026-Osigurovki-MOD-TZPB-bolnichni.208156.php",
+      "licence": "free to read, no licence stated",
+      "period": "from 2026-08-01",
+      "retrieved": "2026-11-17",
+      "quote": "Увеличава се минималният осигурителен доход за самоосигуряващите се лица на 620.20 евро ... здравната вноска за безработните е 8% върху половината от минималния осигурителен доход за самоосигуряващите се лица, тоест върху 310.10 евро. Вноската се увеличава на 24.81 евро на месец.",
+      "measures": "Cross-check of the minimum income of EUR 620.20 set by the 2026 state social insurance budget law. I did not open that law itself."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "Not checked from a primary source. An EU citizen holding a right of residence normally keeps cover through EHIC or S1 from home, or falls in the same art. 40(5) group.",
+  "regional": [],
+  "spot_check": "Two sources agree on EUR 24.81 (the NRA release copy and the KiK-Info tables), but both are the same underlying NRA number. The law texts (ZZO art. 40(5), ZBNZOK art. 2) confirm the method: 8% x 310.10 = 24.81.",
+  "uncertainty": "(1) Eligibility: ZZO art. 33(1)3 covers people with long-term or permanent residence permits. A new arrival on a D visa or first temporary permit may not be in the NHIF system yet and would then need private cover, which I did not price (no official D-visa wording and no tariff reached). (2) The EUR 620.20 minimum income comes from the state social insurance budget law, which I only saw via KiK-Info. (3) The amount rises with that minimum income each year. (4) Bulgaria joined the euro on 1 January 2026, so all figures are in euro."
+}

@@ -1,0 +1,55 @@
+{
+  "country": "DK",
+  "currency": "DKK",
+  "period": "2026",
+  "amount": 0,
+  "kind": "none",
+  "route": "No independent-means route found. nyidanmark.dk 'You want to apply' page loaded without its category list, so the route list is not confirmed from the source; earlier search results only showed work, study, au pair, family and EU categories. Not confirmed.",
+  "policy": "Residents covered by the public system are registered and given a health insurance card ('yellow card'); consultation and hospital treatment are free. The borger.dk text says 'If you work legally in Denmark, you are covered by the Danish health insurance system', and I did not retrieve what applies to a non-working resident. Optional supplement: Sygeforsikringen 'danmark' Gruppe 2 (partial cover of GP-specialist, dental, medicine): 1,138 DKK a quarter per person. Members must be healthy and under 60 to join.",
+  "working": "Public cover: no premium found, 0. Supplement (not required): 1,138 x 4 = 4,552 DKK a year each; couple 9,104 / 12 = 758.67 DKK a month. Gruppe 5 (basic dental, medicine, glasses): 435 x 4 = 1,740 a year each, couple 3,480 / 12 = 290 DKK.",
+  "sources": [
+    {
+      "source_id": "health-dk-borger",
+      "publisher": "Lifeindenmark.dk (borger.dk)",
+      "title": "Health insurance card",
+      "url": "https://lifeindenmark.borger.dk/healthcare/health-insurance/health-insurance-card",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "If you work legally in Denmark, you are covered by the Danish health insurance system. Most examinations and treatments are free, but you need to register and get a health insurance card.",
+      "measures": "Statutory cover is tax-funded, free at the point of use."
+    },
+    {
+      "source_id": "health-dk-sygeforsikring",
+      "publisher": "Sygeforsikringen 'danmark'",
+      "title": "Grupper (prices 2026)",
+      "url": "https://www.sygeforsikring.dk/grupper",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Gruppe 2 ... Pris (2026) 1.138 kr. pr. kvartal eller 4.552 kr. pr år ... Prisen er inkl. 1,1% i afgift til staten.",
+      "measures": "Mutual supplement, not a replacement for public cover."
+    },
+    {
+      "source_id": "health-dk-nyidanmark",
+      "publisher": "Danish Agency for International Recruitment and Integration (SIRI)",
+      "title": "You want to apply",
+      "url": "https://www.nyidanmark.dk/en-GB/You-want-to-apply",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "You want to apply to visit, live or work in Denmark, or apply for a passport for a foreign national.",
+      "measures": "Menu did not load; route list unconfirmed."
+    }
+  ],
+  "typical_private": {
+    "amount_per_month_couple": 758.67,
+    "description": "Sygeforsikringen 'danmark' Gruppe 2 supplement for two, 1,138 DKK a quarter each. Reimburses part of GP/specialist, dental, medicine; not a full private health policy and not required.",
+    "source_id": "health-dk-sygeforsikring"
+  },
+  "income_based_charges": [],
+  "eu_citizen_difference": "Not established.",
+  "regional": [],
+  "spot_check": "None. Tryg and Danica full-policy prices not reached.",
+  "uncertainty": "Route and non-worker coverage rules not confirmed from official sources. A full private health policy (Tryg, Danica) was not priced. Entitlement for a non-working resident under the Health Act was not verified."
+}

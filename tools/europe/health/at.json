@@ -1,0 +1,40 @@
+{
+  "country": "AT",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": 1130.5,
+  "kind": "statutory-fixed",
+  "route": "Niederlassungsbewilligung 'ausgenommen Erwerbstaetigkeit' (para 44 NAG): 'Drittstaatsangehoerigen kann eine Niederlassungsbewilligung - ausgenommen Erwerbstaetigkeit erteilt werden, wenn ... ein Quotenplatz vorhanden ist und ... deren feste und regelmaessige monatliche Einkuenfte der Hoehe nach dem Zweifachen der Richtsaetze des para 293 ASVG entsprechen.' Para 11 (2) no. 3 NAG: 'der Fremde ueber einen alle Risken abdeckenden Krankenversicherungsschutz verfuegt und diese Versicherung in Oesterreich auch leistungspflichtig ist'.",
+  "policy": "OeGK Selbstversicherung in der Krankenversicherung (ASVG): open to people not otherwise insured with residence in Austria. Fixed 565.25 EUR per person per month in 2026 (not income-based; reduction can be requested). Benefits in kind (doctor, hospital, medicines); no sick pay. Six-month waiting period before benefits in kind unless previously insured. Priced for both spouses separately.",
+  "working": "2 persons x 565.25 EUR = 1,130.50 EUR per month. (The page gives a per-person monthly figure; spouse co-insurance rules for self-insured people were not found, so no discount applied.)",
+  "sources": [
+    {
+      "source_id": "health-at-oegk-selbst",
+      "publisher": "oesterreich.gv.at (Federal Ministry of Social Affairs and Health)",
+      "title": "Selbstversicherung in der Krankenversicherung",
+      "url": "https://www.oesterreich.gv.at/de/themen/gesundheit/selbstversicherung_in_der_krankenversicherung",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Der Beitrag fuer die Selbstversicherung in der Krankenversicherung betraegt 565,25 Euro pro Monat (Wert fuer 2026).",
+      "measures": "Fixed monthly charge per self-insured person; waiting period of six months for benefits in kind."
+    },
+    {
+      "source_id": "health-at-nag",
+      "publisher": "Rechtsinformationssystem / JUSLINE (NAG text, state of 17.11.2026)",
+      "title": "NAG para 11, 42, 44",
+      "url": "https://www.jusline.at/gesetz/nag/paragraf/44",
+      "licence": "free to read, no licence stated",
+      "period": "state 2026-11-17",
+      "retrieved": "2026-11-17",
+      "quote": "der Fremde ueber einen alle Risken abdeckenden Krankenversicherungsschutz verfuegt und diese Versicherung in Oesterreich auch leistungspflichtig ist",
+      "measures": "The cover test for any residence title (para 11 (2) no. 3). Para 44 is the 'not-gainfully-employed' permit with a quota place and income of twice the ASVG standard rate. Cached as nag-par11/42/44.html."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "EU citizens with a right of residence are not subject to the NAG quota and can often use EHIC/S1 or free-movement rules; a non-EU couple needs a quota place and cover that covers all risks and is payable in Austria.",
+  "regional": [],
+  "spot_check": "No independent figure. A private Austrian full policy was not priced because no insurer publishes a tariff. A Selbstversicherung student rate (78.84) and marginal-employment rate (83.49) appear on the same pages, confirming the 565.25 is the general rate, not a reduced one.",
+  "uncertainty": "Quota places for para 44 are scarce and set yearly by decree (not researched). The twice-Richtsatz income figure for 2026 was not retrieved. Whether the OeGK accepts a newcomer on a first permit for Selbstversicherung, and whether a private policy would satisfy the authority at a lower price, was not confirmed. Reduction of the contribution is possible on application. Spouse co-insurance cost unknown."
+}

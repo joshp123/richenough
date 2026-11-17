@@ -1,0 +1,95 @@
+{
+  "country": "IS",
+  "currency": "ISK",
+  "period": "2026",
+  "amount": null,
+  "kind": "none",
+  "route": "No independent-means route. Island.is lists permits for work, students, spouses, children, au pair, parents (over 67 and financially dependent), permanent residence and 'special ties', which is granted 'only in exceptional cases' where family ties and past stays weigh most. For any permit: 'An insurance certificate must be submitted, confirming that the applicant has taken out (purchased) a health insurance that is valid in Iceland, for at least three months from the date of the registration of the applicant's legal domicile in Iceland, with a minimum coverage of ISK 2,000,000.' Means of support for special ties: 415,922 ISK a month for a married couple.",
+  "policy": "Three-month bridge policy from an Icelandic insurer (Sjóvá, TM, VIS, Vordur) with ISK 2,000,000 insured sum; Sjóvá deductible ISK 50,000, pre-existing conditions and pregnancy excluded, valid in Iceland only. After three months from registered domicile (rule from 1 August 2026, was six months) the couple are in Icelandic Health Insurance (Sjukratryggingar), tax-funded with patient fees. No individual premium was found.",
+  "working": "No premium: Sjóvá, TM and VIS show no price (quote is by application; Sjóvá says the premium is 'the minimum premium for a period of up to three months' and 'depends on the age'). Public cover: no premium found, so 0 apart from patient fees. work.iceland.is gives a general patient payment ceiling of 37,794 ISK (per person, and that page still says six months so may be out of date). Amount left null because the bridge cost is unknown.",
+  "sources": [
+    {
+      "source_id": "health-is-island-insurance",
+      "publisher": "Directorate of Immigration (Island.is)",
+      "title": "When do I enter the Icelandic health insurance system?",
+      "url": "https://island.is/en/help/directorate-of-immigration/residence-permit-general-conditions/when-do-i-enter-the-icelandic-health-insurance-system",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "As of 1 August 2026, individuals have to wait three months after a residence permit has been issued and their legal domicile registered in the Iceland National Registry before they are covered by the Icelandic Health Insurance.",
+      "measures": "The waiting period before public cover."
+    },
+    {
+      "source_id": "health-is-special-ties",
+      "publisher": "Directorate of Immigration (Island.is)",
+      "title": "Residence permit based on special ties to Iceland - requirements",
+      "url": "https://island.is/en/permit-based-on-special-ties/requirements",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "415.922 ISK for married couples per month. ... An insurance certificate must be submitted, confirming that the applicant has taken out (purchased) a health insurance that is valid in Iceland, for at least three months ... with a minimum coverage of ISK 2,000,000.",
+      "measures": "Closest permit to independent means; discretionary and for people with existing ties."
+    },
+    {
+      "source_id": "health-is-routes",
+      "publisher": "Directorate of Immigration (Island.is)",
+      "title": "Residence permits - Types",
+      "url": "https://island.is/en/help/directorate-of-immigration/residence-permits-types",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Spouses, children, students, work, au-pair, permanent permit and other residence permits",
+      "measures": "Categories listed; none for retirees or independent means."
+    },
+    {
+      "source_id": "health-is-sjova",
+      "publisher": "Sjóvá-Almennar tryggingar hf.",
+      "title": "Medical Cost Insurance (Domestic)",
+      "url": "https://www.sjova.is/en/individuals/insurance/medical-cost-insurance/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "The insured amount for medical cost insurance is ISK 2,000,000. ... The deductible is ISK 50,000 ... The price, or premium, for medical cost insurance is the minimum premium for a period of up to three months. The amount depends on the age of the insured person.",
+      "measures": "Bridge policy terms; premium not published."
+    },
+    {
+      "source_id": "health-is-vis",
+      "publisher": "VIS Insurance",
+      "title": "Domestic medical cost",
+      "url": "https://vis.is/en/medical-cost-insurance-domestic",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Domestic medical cost is short-term insurance that is valid for three months, until an individual becomes entitled to coverage from the Icelandic Health Insurance.",
+      "measures": "Second insurer; no price shown."
+    },
+    {
+      "source_id": "health-is-tm",
+      "publisher": "TM tryggingar hf.",
+      "title": "Medical Cost Insurance",
+      "url": "https://www.tm.is/en/family/medical-cost-insurance",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Check our prices (link only; no figure on page)",
+      "measures": "No published price."
+    },
+    {
+      "source_id": "health-is-routes-work-iceland",
+      "publisher": "Work in Iceland (Business Iceland / Government)",
+      "title": "Health Insurance",
+      "url": "https://work.iceland.is/working/health-insurance/",
+      "licence": "free to read, no licence stated",
+      "period": "undated, stale (says six months)",
+      "retrieved": "2026-11-17",
+      "quote": "Maximum payment General: 37.794 ISK.",
+      "measures": "Patient payment ceiling; page predates the 2026 three-month rule so figure may be outdated."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "EEA and Nordic citizens moving from another EEA state can transfer cover without the waiting period and need no residence permit for the first three months.",
+  "regional": [],
+  "spot_check": "None possible: no insurer publishes the premium. Sjóvá, TM and VIS terms agree on the three-month bridge and ISK 2,000,000.",
+  "uncertainty": "Bridge premium unknown (probably small, a one-off for three months, but not sourced). Iceland has no independent-means route, so the couple would only arrive by another route (for example family). Public patient-fee ceiling is from a stale page. An 'sjukratryggingagjald' charged to individuals was not found; I did not check the Icelandic tax pages."
+}

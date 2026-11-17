@@ -1,0 +1,39 @@
+{
+  "country": "CY",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": null,
+  "kind": null,
+  "route": "Not sourced. The route rule (Civil Registry and Migration Department) was not retrieved. What the GESY law shows: a third-country national is a GESY beneficiary only if ordinarily resident in the government-controlled areas and either holds legally acquired permanent residence under the Aliens and Immigration Law (art. 16(1)(c)) or has a legal right to equal treatment in social insurance (art. 16(1)(d)). A temporary-residence holder without those rights is therefore not in GESY and needs private cover.",
+  "policy": "No private policy priced. GESY contributions for a beneficiary with non-salary income are 2.65% of that income.",
+  "working": "No amount computed. Illustration for the tax agent only: 2.65% x EUR 100,000 of qualifying income = EUR 2,650 a year.",
+  "sources": [
+    {
+      "source_id": "health-cy-gesy-law",
+      "publisher": "CyLaw (Cyprus legal information institute), consolidated law",
+      "title": "Health Insurance System Law 89(I)/2001 (amended up to 61(I)/2026), arts 16 and 19",
+      "url": "http://www.cylaw.org/nomoi/enop/non-ind/2001_1_89/full.html",
+      "licence": "free to read, no licence stated",
+      "period": "consolidation including 60(I)/2026 and 61(I)/2026",
+      "retrieved": "2026-11-17",
+      "quote": "19.-(1) ... (δ) κάθε συνταξιούχος σε ποσοστό 2,65% επί του ποσού της σύνταξής του∙ ... (ζ) κάθε εισοδηματίας σε ποσοστό 2,65% επί του εισοδήματός του∙ ... (4)(α) ... είναι πέραν των εκατόν ογδόντα χιλιάδων ευρώ (€180.000), εισφορά καταβάλλεται μόνο επί του ποσού των εκατόν ογδόντα χιλιάδων ευρώ (€180.000).",
+      "measures": "The statutory contribution rates and the EUR 180,000 annual ceiling (rate 2.65% on a person's non-salary, non-pension 'income'), plus who is a beneficiary (art. 16)."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [
+    {
+      "name": "GESY (HIO) contribution on income",
+      "rate": "2.65% of income (art. 19(1)(ζ)); 2.65% of pension; 2.65% of salary for employees; 4% for self-employed",
+      "base": "'εισόδημα': income from the sources in art. 5 of the Income Tax Law other than salary or pension, and includes dividends as defined in the Special Defence Contribution law (definition in art. 2). Sum of salary, pension and income is capped.",
+      "includes_capital_gains": "Probably no: the definition points to Income Tax Law art. 5 sources plus dividends, and capital gains tax is a separate law. I did not read art. 5 of the Income Tax Law, so unclear. Interest and rents are not named in the definition text I read.",
+      "floor": "none stated",
+      "ceiling": "EUR 180,000 a year of combined salary, pension and income (art. 19(4))",
+      "legal_source": "Health Insurance System Law 89(I)/2001 arts 2, 16, 19"
+    }
+  ],
+  "eu_citizen_difference": "Not researched. Art. 16(1)(b) gives GESY to EU citizens who are workers or who hold permanent residence rights.",
+  "regional": [],
+  "spot_check": "None.",
+  "uncertainty": "No figure. The Cyprus residence-route rule and any private policy tariff were not reached (web-search budget ran out; gesy.org.cy and hio.org.cy are script-rendered or refuse connections). I read the law in Greek from CyLaw (windows-1253); the English translations were not read, and the contribution is paid only if the couple is a GESY beneficiary under art. 16."
+}

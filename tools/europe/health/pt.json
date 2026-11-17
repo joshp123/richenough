@@ -1,0 +1,29 @@
+{
+  "country": "PT",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": null,
+  "kind": null,
+  "route": "D7 residence visa ('Fixed residency for retirement purposes, religious purposes or people living from passive income'). Portal de Vistos, general documents for every residence visa: \"Valid travel insurance, covering necessary medical expenses, including urgent medical assistance and possible repatriation;\" with a footnote that the requirement may be waived where a bilateral agreement gives recognised cover, \"as for example in the case of Brazil (PB4) and the United Kingdom (S1)\". So the visa stage asks for travel medical cover with repatriation, not a full residents' policy.",
+  "policy": "Not priced. No insurer tariff was reached. Portugal's public system (SNS) is open to residents who register at their health centre for a utente number; the SNS24 page on user fees (taxas moderadoras) loads by script and its figures were not read.",
+  "working": "No amount computed.",
+  "sources": [
+    {
+      "source_id": "health-pt-vistos-residency",
+      "publisher": "Ministerio dos Negocios Estrangeiros, Portal de Vistos",
+      "title": "Residency (necessary documentation, national visas)",
+      "url": "https://vistos.mne.gov.pt/en/national-visas/necessary-documentation/residency",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Valid travel insurance, covering necessary medical expenses, including urgent medical assistance and possible repatriation;",
+      "measures": "The visa-stage health requirement for all residence visas including the passive-income visa. Wording asks for travel insurance; it does not set a minimum sum on this page."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "Not researched.",
+  "regional": [],
+  "spot_check": "None.",
+  "uncertainty": "No figure. I could not reach the SNS fee page content, a Portuguese insurer tariff or a regulator survey, because the web-search budget ran out and the SNS24 and SNS pages are script-rendered. I did not find any Portuguese income-based health charge, but I did not search for one beyond the SNS and visa pages. The likely answer is amount 0 once registered (kind statutory-free) with a travel-medical policy only at the visa stage, but that is not shown by a source I read."
+}

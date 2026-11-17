@@ -1,0 +1,29 @@
+{
+  "country": "SI",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": 166.98,
+  "kind": "statutory-fixed",
+  "route": "I did not reach Slovenia's immigration authority text on what health cover a temporary residence permit needs. The statutory route is the ZZZS category 'osebe s stalnim prebivalisčem v Sloveniji, ce ne izpolnjujejo pogojev za zavarovanje po eni izmed drugih tock ... in si same placujejo prispevek' (art. 15(1) point 20 ZZVZZ, basis code 048). It requires 'stalno prebivalisce' (permanent residence). A new non-EU arrival on a temporary permit usually has 'zacasno prebivalisce' and so would not qualify yet (inference from the category wording; not confirmed from an immigration source).",
+  "policy": "ZZZS self-payers, basis 048, fixed monthly contributions for 2026 per person: health contribution 37.79 EUR (5.96% of 25% of the last known average gross annual pay, per month); long-term care contribution (OZDO) 6.34 EUR (1% of the same base); plus the flat compulsory health contribution (OZP, obvezni zdravstveni prispevek) 39.36 EUR from 1 March 2026 to 28 February 2027, which basis 048 also pays. Together 83.49 EUR a person. The OZP replaced voluntary supplementary insurance on 1 January 2024 and covers co-payments, so no extra policy is needed.",
+  "working": "Per person: 37.79 + 6.34 + 39.36 = 83.49 EUR a month. Couple: 83.49 x 2 = 166.98 EUR.",
+  "sources": [
+    {
+      "source_id": "health-si-zzzs-contributions",
+      "publisher": "Zavod za zdravstveno zavarovanje Slovenije (ZZZS), Portal za zavezance",
+      "title": "Preglednica 1 (15. clen ZZVZZ) 2026; Preglednica prispevkov za OZDO; Obvezni zdravstveni prispevek",
+      "url": "https://zavezanec.zzzs.si/prispevki-za-obvezno-zdravstveno-zavarovanje/preglednica-prispevkov/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Preglednica 1 row: 'Osebe s stalnim prebivalisčem v Sloveniji, če ne izpolnjujejo pogojev za zavarovanje po eni izmed drugih točk 1. odst. 15. člena in si same plačujejo prispevek. Podlaga: 048 ... v višini 25 % zadnje znane povprečne bruto letne plače v RS, preračunane na mesec ... 5,96% ... 37,79 EUR'. OZDO table, same row: '1% trenutni znesek 6,34 EUR'. OZP page: 'Za obdobje od meseca marca 2026 ... do vključno februarja 2027, znaša obvezni zdravstveni prispevek 39,36 EUR mesečno.' and the OZP payer list names 'osebe s stalnim prebivališčem v RS, ki si same plačujejo prispevek za obvezno zdravstveno zavarovanje (048)'.",
+      "measures": "The three fixed monthly charges for a resident without any other insurance basis. The files cached are the ZZZS .docx tables (preglednica1_15_clen_2026.docx, ozdo_preglednica_2026.docx) and the HTML pages."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "An EU citizen with permanent registration in Slovenia falls in the same basis 048 and pays the same. An EU citizen insured in another member state pays no OZP ('Tuje zavarovane osebe ne plačujejo obveznega zdravstvenega prispevka') and uses EHIC or S1.",
+  "regional": [],
+  "spot_check": "Press reports (Siol, RTV SLO, February 2026) forecast OZP of 39.36 EUR from March 2026; ZZZS confirms 39.36 EUR. Consistency check: 37.79 / 0.0596 = 634.06 = 25% of 2,536.2; 6.34 = 1% of 634.06, so the health and care figures use the same base.",
+  "uncertainty": "(1) Eligibility is the main risk: the category needs permanent residence, so a couple on a first temporary permit probably cannot join ZZZS this way and would need a private policy that I could not price. (2) The OZP is re-set every 1 March by pay growth (about 5.9% this year). (3) The health and care figures move with the average pay base. (4) I did not read the ZZVZZ article text itself, only the ZZZS tables."
+}

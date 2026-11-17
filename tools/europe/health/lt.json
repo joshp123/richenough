@@ -1,0 +1,39 @@
+{
+  "country": "LT",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": null,
+  "kind": "private",
+  "route": "Not sourced. The Lithuanian legal texts (e-tar.lt, e-seimas.lrs.lt, vlk.lt, vmi.lt) sit behind a Cloudflare challenge that plain fetches cannot pass, and migracija.lt is a single-page app with no text for plain fetches. The residence-permit health rule and the list of permit grounds could not be read, so no permit route is stated.",
+  "policy": "Statutory option found: Sodra's compulsory health insurance (PSD) for residents with no other cover. Self-paying people pay 6.98% of the minimum monthly wage (MMA); in 2026 the MMA is EUR 1,153, giving EUR 80.48 a month per person. Sodra's page limits who may pay as a foreigner: it names spouses of permanent-residence holders, spouses of temporary-residence holders who work (or worked 6 months and registered at the employment service) and spouses of Lithuanian citizens, and says a foreign non-working person outside those groups who pays would not get services because 'asmuo neturejo prievoles moketi PSD imoku'. So the PSD fee is a post-permanent-residence figure (permanent residents count as residents), not a figure for the first years. Private cover for the temporary-permit years was not priced.",
+  "working": "6.98% x EUR 1,153 = EUR 80.48 a month per person (Sodra's own sum). For two people EUR 160.96 a month, but only if both are eligible (see policy). No private premium available, so 'amount' is null.",
+  "sources": [
+    {
+      "source_id": "health-lt-sodra-psd",
+      "publisher": "Valstybinio socialinio draudimo fondo valdyba (Sodra)",
+      "title": "Savarankiskai moku privalomojo sveikatos draudimo (PSD) imokas",
+      "url": "https://sodra.lt/imokos/savarankiskai-moku-privalomojo-sveikatos-draudimo-psd-imokas",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Savarankiškai besidraudžiantys asmenys kiekvieną mėnesį iki einamojo mėnesio paskutinės dienos turi sumokėti 6,98 proc. dydžio Privalomasis sveikatos draudimas \">PSD įmokas nuo Minimalioji mėnesinė alga nuo 2025 m. sausio 1 d. – 1038 Eur, nuo 2026 m. sausio 1 d. – 1153 Eur. \">MMA . 6,98 % x 1 153 € = 80, 48 €.",
+      "measures": "Monthly PSD charge per self-insured person. Fetched from a Wayback Machine snapshot of 15 Oct 2026 because sodra.lt blocks plain fetches; the live page was not read. The charge applies to people who are legally in the PSD system (Lithuanian residents with no other cover), not to every foreign resident."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [
+    {
+      "name": "PSD voluntary-by-self contribution (self-insured resident)",
+      "rate": "6.98% of the minimum monthly wage, a fixed sum",
+      "base": "MMA EUR 1,153 in 2026, not actual income",
+      "includes_capital_gains": "no: the base is the minimum wage, not income. Separate PSD on dividends or other income was not checked.",
+      "floor": "EUR 80.48 a month",
+      "ceiling": "EUR 80.48 a month for this route",
+      "legal_source": "Law on Health Insurance (Sveikatos draudimo istatymas), art. 6 and 14; not fetched. Rule as published by Sodra."
+    }
+  ],
+  "eu_citizen_difference": "Not researched. EU citizens living in Lithuania with no other cover are in the same PSD scheme on a fixed charge; whether a non-EU citizen gets the same on a temporary permit is the open point above.",
+  "regional": [],
+  "spot_check": "Sodra's 2025 figure on the same page: 6.98% x EUR 1,038 = EUR 72.45, so the 2026 rise is explained by the MMA.",
+  "uncertainty": "No premium for a private policy for the temporary-permit years, no residence-permit rule, no route: all unreachable. EUR 160.96 for two is a post-permanent-residence charge, probably several years in. If the couple could join PSD earlier, it would apply from day one. Could be wrong by the cost of the private policy in the first years, which was not found."
+}

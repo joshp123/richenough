@@ -1,0 +1,39 @@
+{
+  "country": "BE",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": 620.75,
+  "kind": "statutory-fixed",
+  "route": "Residence route not confirmed from an official page: the Belgian Immigration Office site (dofi.ibz.be) sits behind a human-check and I could not read it, and the search budget ran out before I could find another official visa page. A search result suggested a long-stay D visa requires proof of cover for Belgium and sufficient means, with private insurance accepted at the visa stage. Treated as unverified.",
+  "policy": "Once registered in the National Register (resident), the person must join a mutualite and pay the INAMI/RIZIV 'cotisation personnelle' because no social contribution is paid on professional income: 931.12 EUR per quarter per person from 1 January 2026 (normal rate). Reduced rates exist for lower incomes. Mutualite membership fees and supplementary (hospitalisation) insurance are extra and were not priced.",
+  "working": "931.12 EUR per quarter / 3 = 310.37 EUR per month per person. Couple: 2 x 310.37 = 620.75 EUR per month (620.7467). If both qualify for the 'revenu < ceiling' rate (465.55 per quarter): 2 x 465.55 / 3 = 310.37 EUR per month.",
+  "sources": [
+    {
+      "source_id": "health-be-inami-cotisation",
+      "publisher": "INAMI / RIZIV (National Institute for Health and Disability Insurance)",
+      "title": "Cotisation personnelle pour etre assure si vous ne payez pas de cotisations sociales",
+      "url": "https://www.inami.fgov.be/fr/themes/soins-de-sante-cout-et-remboursement/assurabilite/cotisation-personnelle-pour-etre-assure-si-vous-ne-payez-pas-de-cotisations-sociales",
+      "licence": "free to read, no licence stated",
+      "period": "from 2026-01-01",
+      "retrieved": "2026-11-17",
+      "quote": "Personnes inscrites dans le Registre national des personnes physiques - Normal : 931,12 EUR (montants trimestriels). Si revenu < au plafond des revenus annuels ... : 465,55 EUR (montants trimestriels).",
+      "measures": "Quarterly personal contribution per titulaire; ceilings for the reduced rate are 46,716.82 EUR (residents, from 1 Sept 2026) and 45,801.50 (from 1 March 2026)."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [
+    {
+      "name": "Reduced personal contribution (INAMI)",
+      "rate": "465.55 EUR per quarter instead of 931.12",
+      "base": "the resident's annual income compared with the ceiling under article 134 of the Royal Decree of 3 July 1996",
+      "includes_capital_gains": "unclear: the INAMI page says only 'revenu'; not researched",
+      "floor": "none",
+      "ceiling": "46,716.82 EUR from 1 Sept 2026 (45,801.50 from 1 March 2026)",
+      "legal_source": "AR 3 juillet 1996, art. 134 (as cited on the INAMI page)"
+    }
+  ],
+  "eu_citizen_difference": "An EU citizen with a right of residence is registered and pays the same contribution once a resident; EU citizens may also arrive with EHIC/S1 cover. A non-EU newcomer relies on private cover for the visa and then the mutualite.",
+  "regional": [],
+  "spot_check": "No independent figure. The previous year's contribution (2025) was 912.91 EUR per quarter on the same INAMI page, so 931.12 is a 2% indexation.",
+  "uncertainty": "Unverified: whether a non-EU newcomer registered on a first permit can join immediately or serves a waiting period (a 2010 guide and a Fedasil sheet mention six months, unclear scope). Unverified: whether a spouse can be a dependant (personne a charge) on the other's contribution, which would halve the figure. The mutualite's own fee, the mandatory hospital top-up and the visa-stage private policy cost were not found. The visa rule is unsourced."
+}

@@ -1,0 +1,72 @@
+{
+  "country": "IT",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": 232.41,
+  "kind": "statutory-fixed",
+  "route": "Elective residence visa (residenza elettiva) for people of independent means. Health rule is set per consulate. Paris: \"An international medical insurance covering the entire stay with a minimum of 30.000 € coverage and full and unlimited coverage for hospitalization. Emergency repatriation flight ... must be included.\" After arrival the ASL notice says foreigners staying over three months who are bound to insure themselves can do so \"mediante la stipula di una polizza assicurativa privata, ovvero, con l'iscrizione volontaria al SSN\" and lists RESIDENZA ELETTIVA among the permits allowing voluntary enrolment.",
+  "policy": "Voluntary enrolment in the Servizio Sanitario Nazionale (iscrizione volontaria). It is income-based with a floor: 7.5% of household income up to EUR 20,658.28 plus 4% of income between EUR 20,658.28 and EUR 51,645.69, never below EUR 2,000 a year, and capped by the formula at EUR 2,788.87 once income reaches EUR 51,645.69. The ASL notice calls the base 'reddito complessivo (nucleo fiscale)'. The figure here is that ceiling, which applies to the target household (withdrawals of EUR 60,000 to 150,000), taken as one household payment covering both spouses. Visa stage still needs a private policy (first months or year).",
+  "working": "7.5% x 20,658.28 = 1,549.37. 4% x (51,645.69 - 20,658.28 = 30,987.41) = 1,239.50. Sum = 2,788.87 EUR a year, / 12 = 232.41 EUR a month for the household. Floor case (low declared Italian income): 2,000 / 12 = 166.67 a month. If each spouse had to pay separately the ceiling doubles to 464.81 a month.",
+  "sources": [
+    {
+      "source_id": "health-it-consparigi",
+      "publisher": "Consolato Generale d'Italia a Parigi (Ministero degli Affari Esteri)",
+      "title": "Residenza elettiva / Elective residency (visa page)",
+      "url": "https://consparigi.esteri.it/it/servizi-consolari-e-visti/servizi-per-il-cittadino-straniero/visti/residenza-elettiva-elective-residency/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "An international medical insurance covering the entire stay with a minimum of 30.000 € coverage and full and unlimited coverage for hospitalization. Emergency repatriation flight as well as repatriation of mortal remains must be included. Detailed table of benefit must be provided;",
+      "measures": "One consulate's list. Other consulates differ (Adelaide: policy valid across Schengen for 12 months; London and Washington pages state no insurance line)."
+    },
+    {
+      "source_id": "health-it-asl-sassari",
+      "publisher": "ASL n. 1 Sassari (regional health authority), Distretto di Sassari",
+      "title": "Aggiornamento contributo ai sensi della Legge n. 213 del 30/12/2023, art. 1, commi 240 e 241, per l'iscrizione volontaria al SSN",
+      "url": "https://www.asl1sassari.it/wp-content/uploads/2024/03/INFORMATIVA-SU-CONTRIBUTI-ISCRIZIONE-VOLONTARIA-del-distretto-di-SS.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2024 onward (L. 213/2023)",
+      "retrieved": "2026-11-17",
+      "quote": "ALTRI MOTIVI DEL SOGGIORNO CHE CONSENTONO L'ISCRIZIONE VOLONTARIA AL SSN: - RESIDENZA ELETTIVA ... contributo annuale calcolato sul reddito complessivo (nucleo fiscale), applicando le seguenti aliquote: 7,50% fino alla quota reddito pari a € 20.658,28; 4% sugli importi eccedenti a € 20.658,28 e fino al limite di € 51.645,69; in ogni caso l'importo non potrà essere inferiore a € 2,000,00",
+      "measures": "Annual voluntary SSN contribution for an elective-residence permit holder, as applied by a local health authority. Calendar year, not divisible, no retroactive start."
+    },
+    {
+      "source_id": "health-it-italyhandbook",
+      "publisher": "Italy Handbook (independent guide, cross-check only)",
+      "title": "SSN Voluntary Enrolment vs Private Insurance: Annual Cost Compared",
+      "url": "https://italyhandbook.com/?p=4323",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Because of the upper band limit, the contribution tops out at about €2,788.87 a year, however much you ...",
+      "measures": "Third-party arithmetic that matches the ceiling I derived from the ASL rates. Not a primary source."
+    },
+    {
+      "source_id": "health-it-feather",
+      "publisher": "Feather Insurance (commercial seller, cross-check only)",
+      "title": "Private health insurance for the Italian Elective Residence Visa",
+      "url": "https://feather-insurance.com/en-it/health-insurance/expat/elective-residence-visa",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Consulate-accepted cover for your ERV application, from €72 per month.",
+      "measures": "Advertised starting price for one person, no age stated. Not a 45-year-old tariff, so not used for the figure."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [
+    {
+      "name": "Contributo iscrizione volontaria SSN",
+      "rate": "7.5% up to EUR 20,658.28; 4% from 20,658.28 to 51,645.69",
+      "base": "reddito complessivo of the prior year, Italian and foreign, of the household (nucleo fiscale)",
+      "includes_capital_gains": "unclear: 'reddito complessivo' is not defined in the ASL notice; whether foreign ETF gains count depends on how Italian tax law treats them in that household's declaration. Tax agent to decide.",
+      "floor": "EUR 2,000 a year",
+      "ceiling": "EUR 2,788.87 a year (income above EUR 51,645.69 is not counted)",
+      "legal_source": "L. 213/2023 art. 1 commi 240-241; D.M. 8 October 1986 rates (via ASL Sassari notice)"
+    }
+  ],
+  "eu_citizen_difference": "Not researched: no source on the EU-citizen position was retrieved. The elective-residence visa itself does not apply to EU citizens, who register as residents instead.",
+  "regional": [],
+  "spot_check": "italyhandbook.com computes the same ceiling (EUR 2,788.87 a year). The Constitutional Court judgment 97/2026 of 5 June 2026 concerns elective-residence holders who become disabled; it was not read in full and does not change the ordinary contribution.",
+  "uncertainty": "(1) No private-policy price for two 45-year-olds was found: the web search budget ran out and no insurer tariff for the Italian visa market was reachable. The only price seen is Feather's 'from €72 per month' (one person, age unstated). A mid-range guess from comparison sites (not used) was EUR 140 to 185 per person per month. (2) Whether the SSN contribution is one per household or one per spouse: the notice says 'nucleo fiscale' but the Ministry text was not read, so the couple could pay up to double (464.81 a month). (3) Whether capital gains from an ETF portfolio form part of 'reddito complessivo'. (4) Enrolment is by calendar year, so the first year may double up with private cover. (5) Other consulates require different cover wording."
+}

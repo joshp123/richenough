@@ -1,0 +1,129 @@
+{
+  "country": "NL",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": 284.8,
+  "kind": "statutory-fixed",
+  "route": "No independent-means residence permit found in the IND pages searched (the closest permit type found was medical treatment, which bars work). Once resident, the rule applies. Government.nl: 'You must take out Dutch health insurance within four months of your permanent residence permit coming into force.' The couple is therefore priced as residents under the Zorgverzekeringswet.",
+  "policy": "Basic health insurance (basisverzekering, Zvw), community-rated flat premium, no health underwriting, mandatory own risk (verplicht eigen risico) EUR 385 per adult in 2026. Cheapest 2026 monthly premium: VinkVink combinatie EUR 142.40 per adult at monthly payment. Wlz (long-term care) is financed through the income tax return, not a separate premium.",
+  "working": "2 x 142.40 = 284.80 EUR per month (cheapest). Average premium: 2 x 159.30 = 318.60 EUR per month. The own risk (up to 385 each) is a cost on use and is not in the premium.",
+  "sources": [
+    {
+      "source_id": "health-nl-consumentenbond2026",
+      "publisher": "Consumentenbond",
+      "title": "Zorgverzekeringen 2026: zorgpremies stijgen amper",
+      "url": "https://www.consumentenbond.nl/zorgverzekering/zorgverzekeringen-2026-zorgpremies-stijgen-amper",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "De gemiddelde maandpremie is ongeveer EUR159 bij een eigen risico van EUR385. VinkVink ... rekent in 2026 de laagste maandpremie: EUR142,40.",
+      "measures": "Cheapest and average basic premium per adult per month, 2026."
+    },
+    {
+      "source_id": "health-nl-rijksoverheid-premie",
+      "publisher": "Rijksoverheid",
+      "title": "Premie zorgverzekering",
+      "url": "https://www.rijksoverheid.nl/onderwerpen/zorgverzekering/vraag-en-antwoord/premie-zorgverzekering",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "De gemiddelde premie die mensen aan hun zorgverzekeraar moeten betalen in 2026 is EUR 1.884. Dit is gemiddeld EUR 157 per maand. ... De overheid heeft het verplicht eigen risico vastgesteld op EUR 385.",
+      "measures": "Government's nominal average premium (a planning figure, not the cheapest) and the own risk."
+    },
+    {
+      "source_id": "health-nl-zorgwijzer-premies2026",
+      "publisher": "Zorgwijzer",
+      "title": "Zorgverzekering 2026: alle premies bekend",
+      "url": "https://www.zorgwijzer.nl/zorgverzekering-2026/zorgverzekering-2026-alle-premies-bekend-overzicht",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "In 2026 kost een gemiddelde basisverzekering EUR 159,30 per maand ... De goedkoopste basisverzekering begint bij EUR 142,40 per maand",
+      "measures": "Cross-check only (comparison site)."
+    },
+    {
+      "source_id": "health-nl-govnl-residence",
+      "publisher": "Government.nl",
+      "title": "Health insurance and residence permit",
+      "url": "https://www.government.nl/topics/health-insurance/health-insurance-and-residence-permit",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "You must take out Dutch health insurance within four months of your permanent residence permit coming into force.",
+      "measures": "When the duty starts; no Dutch cover possible before a permit decision."
+    },
+    {
+      "source_id": "health-nl-toeslagen-inkomen",
+      "publisher": "Belastingdienst / Toeslagen",
+      "title": "Maximaal inkomen voor zorgtoeslag",
+      "url": "https://www.belastingdienst.nl/wps/wcm/connect/nl/zorgtoeslag/content/maximaal-inkomen-voor-zorgtoeslag",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "U kunt in 2026 zorgtoeslag krijgen als uw jaarinkomen niet boven de grens van EUR 40.857 uitkomt. Hebt u in 2026 een toeslagpartner? Dan mag het inkomen van u allebei samen niet meer dan EUR 51.142 zijn.",
+      "measures": "Income ceiling; a couple living on EUR 60,000 to 150,000 a year is above it. Asset limits not retrieved; the couple's portfolio is almost certainly above them too."
+    },
+    {
+      "source_id": "health-nl-bd-zvw",
+      "publisher": "Belastingdienst",
+      "title": "Handboek: inkomensafhankelijke bijdrage Zvw 2026",
+      "url": "https://www.belastingdienst.nl/wps/wcm/connect/fisin/fisin2026/inkomensafhankelijke_bijdrage_zorgverzekeringswet",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "De bijdrage Zvw is 4,85% van het totaal van de inkomsten ... met een maximum van EUR 79.409.",
+      "measures": "Income-based Zvw contribution. Listed bases: Dutch profit, other work, foreign pension from a benefit body, periodic payments. Box 3 (savings and investments) is not in the list."
+    },
+    {
+      "source_id": "health-nl-bd-volksverz",
+      "publisher": "Belastingdienst",
+      "title": "Handboek: premie volksverzekeringen 2026",
+      "url": "https://www.belastingdienst.nl/wps/wcm/connect/fisin/fisin2026/premie_volksverzekeringen",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Het premie-inkomen is maximaal EUR 38.883 ... 9,65% van uw premie-inkomen",
+      "measures": "Wlz rate 9.65% of box 1 premium income, capped at 38,883. Premium income is generally box 1 taxable income; box 3 is not included."
+    },
+    {
+      "source_id": "health-nl-consumentenbond",
+      "publisher": "Consumentenbond",
+      "title": "Premieoverzicht basisverzekering (2027 update, 13 Nov 2026)",
+      "url": "https://www.consumentenbond.nl/zorgverzekering/premieoverzicht-basisverzekering",
+      "licence": "free to read, no licence stated",
+      "period": "2027",
+      "retrieved": "2026-11-17",
+      "quote": "Het verplichte eigen risico stijgt van EUR385 naar EUR400. ... VinkVink ... EUR148,40.",
+      "measures": "For information: 2027 cheapest premium EUR 148.40 per adult, own risk EUR 400. Not used in the 2026 figure."
+    }
+  ],
+  "typical_private": {
+    "amount_per_month_couple": 318.6,
+    "description": "Average basic premium 2026, two adults (2 x 159.30). Supplementary (aanvullende) cover is optional and not priced.",
+    "source_id": "health-nl-consumentenbond2026"
+  },
+  "income_based_charges": [
+    {
+      "name": "Zvw income-dependent contribution",
+      "rate": "4.85% (2026)",
+      "base": "Dutch profit, other work income, foreign pension from a benefit body, periodic payments without wage tax",
+      "includes_capital_gains": "no for box 3 investment income (not in the listed bases); unclear for a foreign pension-like payment",
+      "floor": "none stated",
+      "ceiling": "contribution income capped at EUR 79,409",
+      "legal_source": "Belastingdienst Handboek 2026, inkomensafhankelijke bijdrage Zvw"
+    },
+    {
+      "name": "Wlz (long-term care) via volksverzekeringen",
+      "rate": "9.65% of premium income (AOW 17.90% and Anw 0.10% added below pension age: 27.65% total)",
+      "base": "box 1 taxable income, worldwide",
+      "includes_capital_gains": "no (box 3 not included)",
+      "floor": "none",
+      "ceiling": "premium income capped at EUR 38,883",
+      "legal_source": "Belastingdienst Handboek 2026, premie volksverzekeringen"
+    }
+  ],
+  "eu_citizen_difference": "Residents pay the same basic premium. An EU citizen may keep cover from another EU state for a time via EHIC/S1; a non-EU citizen with a Dutch permit must insure within four months. EU citizens can enter without the permit problem noted above.",
+  "regional": [],
+  "spot_check": "Zorgwijzer gives 142.40 cheapest and 159.30 average, matching Consumentenbond. The government's nominal average is 157, close to 159.30.",
+  "uncertainty": "The big uncertainty is residence, not price: I found no IND permit for people of independent means, so the NL couple may have no legal route. The cheapest policy is a combined-brand internet policy; it may restrict hospital choice (natura vs restitutie not checked). The own risk adds up to 770 EUR a year per couple if used. Wlz and Zvw income charges depend on how the Dutch tax agent classes the portfolio income. 2027 premiums are higher (cheapest 148.40). Zorgtoeslag excluded by income and assets."
+}

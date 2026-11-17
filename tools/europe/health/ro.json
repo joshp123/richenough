@@ -1,0 +1,50 @@
+{
+  "country": "RO",
+  "currency": "RON",
+  "period": "2026",
+  "amount": 405,
+  "kind": "statutory-fixed",
+  "route": "Romania has no dedicated independent-means permit that I could confirm. The relevant rule is the health-insurance condition on temporary residence. In OUG 194/2002 (foreigners' regime), an extension of the temporary right of residence needs 'g) prezinta dovada asigurarii sociale de sanatate' (proof of social health insurance), and permanent residence needs 'c) fac dovada asigurarii sociale de sanatate'. So the rule points to the public CASS system, not a private policy. The cached text is an older consolidated copy hosted by the Romanian Border Police; I could not reach legislatie.just.ro to confirm the current wording or article number.",
+  "policy": "CASS (contributia de asigurari sociale de sanatate) paid by a person with no taxable income who opts in through the Declaratia unica (form 212, chapter II, section 1, letter E, 'Sunt persoana fara venituri'). One flat annual sum per person: 10% of the base of 6 gross minimum wages in force on 1 January 2026 (4,050 lei), so 2,430 lei a person for the year. Each spouse files and pays separately. The option can be exercised at any point in the year and covers the year.",
+  "working": "6 x 4,050 = 24,300 lei; x 10% = 2,430 lei a person a year. Two people: 4,860 lei a year; / 12 = 405 lei a month.",
+  "sources": [
+    {
+      "source_id": "health-ro-anaf-cass",
+      "publisher": "ANAF (Agentia Nationala de Administrare Fiscala), regional directorate notes",
+      "title": "Completarea si depunerea Declaratiei unice privind impozitul pe venit si contributiile sociale datorate de persoanele fizice (activitati independente), and ANAF Cluj note on CASS (11 Sep 2025)",
+      "url": "https://static.anaf.ro/static/10/Ploiesti/decl_activ_independente.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2026 (and 2025 example)",
+      "retrieved": "2026-11-17",
+      "quote": "In anul 2026 CASS=(4.050 lei X 6) X 10%=24.300 X 10%=2.430 lei (decl_activ_independente.pdf, Ploiesti). Cluj note: 'O persoana fara venituri opteaza pentru plata CASS ... prin depunerea Declaratiei unice-formular 212, cap. II, sectiunea 1 litera E-Sunt persoana fara venituri. ... 6 X 4.050 lei= 24.300 lei, rezultand CASS de plata de 24.300x10%=2.430 lei'",
+      "measures": "The flat opt-in charge for one person with no income. The ANAF documents are regional-office guidance, not the Fiscal Code text itself."
+    },
+    {
+      "source_id": "health-ro-oug194",
+      "publisher": "Politia de Frontiera Romana (copy of OUG 194/2002)",
+      "title": "Ordonanta de Urgenta nr. 194 din 12 decembrie 2002 privind regimul strainilor in Romania (consolidated copy, undated)",
+      "url": "https://www.politiadefrontiera.ro/files/docu/1461043256263-oug194.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "older consolidated version",
+      "retrieved": "2026-11-17",
+      "quote": "g) prezinta dovada asigurarii sociale de sanatate; ... c) fac dovada asigurarii sociale de sanatate;",
+      "measures": "That immigration law asks for proof of social (public) health insurance on extension and for permanent residence. Currency of this copy is unverified."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [
+    {
+      "name": "CASS for people with income (Cod fiscal; article numbers not verified in this pass)",
+      "rate": "10%",
+      "base": "net annual income from independent activities, rents, investments and some other sources; ANAF guidance cached here shows thresholds of 6 and 12 gross minimum wages; exact bands not verified",
+      "includes_capital_gains": "unclear: not checked in this pass. A couple with investment withdrawals that count as taxable investment income could owe CASS on that income instead of the flat opt-in sum. Pass to the tax agent.",
+      "floor": "2,430 lei a year (6 x 4,050 x 10%)",
+      "ceiling": "not verified",
+      "legal_source": "Codul fiscal (Legea 227/2015), named in ANAF guidance cached under health-ro-anaf-cass; text itself not read"
+    }
+  ],
+  "eu_citizen_difference": "An EU citizen resident in Romania pays the same CASS opt-in sum, or may use EHIC or an S1 from another member state. Not checked beyond that.",
+  "regional": [],
+  "spot_check": "Secondary Romanian press (capital.ro, alba24.ro, economica.net, digi24.ro, bzi.ro), seen only in search summaries and not cached, all give 2,430 lei for 2026. Same figure, so they agree.",
+  "uncertainty": "(1) The base is fixed to the 1 January minimum wage; the minimum wage rose in July 2026 (press reports say to 4,325 lei), so a 2027 opt-in would be 6 x 4,325 x 10% = 2,595 lei a person, about 7% higher. (2) Law 141/2025 removed free co-insurance for a non-earning spouse from 1 September 2025 (press summary, not cached), so each spouse pays. (3) Whether IGI accepts the opt-in CASS payment as 'asigurarea sociala de sanatate' proof for a new non-EU resident was not confirmed from an IGI page. (4) No private tariff found, so there is no fallback figure if the public route is refused. (5) Romanian ANAF notes differ on the payment schedule (25% at filing and 75% later, or in full by 25 May of the following year); this changes timing, not the total."
+}

@@ -1,0 +1,40 @@
+{
+  "country": "SE",
+  "currency": "SEK",
+  "period": "2026",
+  "amount": null,
+  "kind": "none",
+  "route": "No independent-means route. Migrationsverket's 'You want to apply' list covers EU/EEA citizens, living with someone, work, visiting, study, permanent residence, citizenship, protection and long-term residents. Closest is the visitor's residence permit for tourists: 'limited so that the total time you are permitted to be here is no more than six months' ... 'You are not allowed to work or settle here.' It needs 'at least SEK 700 for each day' and 'medical travel insurance' (recommended at least EUR 30,000, valid in all Schengen countries).",
+  "policy": "No route to settle, so no statutory cover for the couple. A resident would be in county healthcare with patient fees. I did not retrieve the fee ceiling or any insurer tariff.",
+  "working": "Not computed. Nothing priced.",
+  "sources": [
+    {
+      "source_id": "health-se-migrationsverket",
+      "publisher": "Swedish Migration Agency",
+      "title": "You want to apply",
+      "url": "https://www.migrationsverket.se/en/you-want-to-apply.html",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Citizens of the EU/EEA or Nordic countries / Live with someone / Work / Visiting Sweden / Study / Permanent residence permit / ...",
+      "measures": "Category list; no independent-means permit."
+    },
+    {
+      "source_id": "health-se-migrationsverket-visit",
+      "publisher": "Swedish Migration Agency",
+      "title": "Visitor's residence permit (more than 90 days) - important to know",
+      "url": "https://www.migrationsverket.se/en/you-want-to-apply/visiting-sweden/visiting-sweden-for-more-than-90-days/flikar/important-to-know.html",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "If you want to visit Sweden as a tourist for more than 90 days, you can get a residence permit that is limited so that the total time you are permitted to be here is no more than six months. ... You are not allowed to work or settle here",
+      "measures": "Nearest route; tourist stay only."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "Not established.",
+  "regional": [],
+  "spot_check": "None.",
+  "uncertainty": "Everything about what a Swedish resident pays (region patient fees, high-cost ceiling, Skandia/If/Euro Accident premiums) is missing: the search tool hit its limit and guessed 1177.se URLs returned errors."
+}

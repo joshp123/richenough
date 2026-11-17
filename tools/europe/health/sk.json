@@ -1,0 +1,72 @@
+{
+  "country": "SK",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": null,
+  "kind": "private",
+  "route": "Slovakia has no residence permit for people of independent means. The Act on the Residence of Foreigners (404/2011) lists temporary-residence purposes in par. 22 (business), 23 (employment), 24 (study), 25 (special activity: lecturing, art, sport, internship, government programmes, treaty duties, health care, volunteering, accredited journalist), 26 (research), 27 (family reunification) and 30 (long-term resident from another member state). None fits a 45-year-old couple living on investments. Family reunification with a Slovak or resident spouse, or a business permit (par. 22), are the nearest. Whatever the purpose, par. 123 of the Act defines the required proof: 'Dokladom potvrdzujucim zdravotne poistenie sa rozumie potvrdenie na meno cudzinca o tom, ze je zdravotne poisteny na uzemi Slovenskej republiky alebo ze ma poistenu uhradu liecebnych nakladov na uzemi Slovenskej republiky.' Par. 32(9): a foreigner under par. 22, 25, 26, 27 and 30 must hand over the proof of health insurance within 30 days of receiving the residence document.",
+  "policy": "Public insurance is not open to them while on temporary residence: Act 580/2004 par. 3(2) makes a person 'verejne zdravotne poistena' if she 'ma trvaly pobyt na uzemi Slovenskej republiky'; par. 3(3) extends this to non-permanent-residents only if employed in Slovakia, self-employed with a permit, certain students and similar groups. So a non-working, non-EU couple needs commercial cover. The mainstream product found is Union's 'Zdravotne poistenie cudzincov SAFETY' (Dovera refers its customers to it with a discount): cover for emergency care up to EUR 70,000 and repatriation up to EUR 20,000 on the cheaper tier; SAFETY adds comprehensive care, including outpatient and inpatient care and prescribed medicines. Union and Dovera publish no premium; Union's calculator was not used.",
+  "working": "No premium published, so no sum. A figure would need a calculator quote, which means entering a name, date of birth and often an email, which the brief forbids.",
+  "sources": [
+    {
+      "source_id": "health-sk-zakon-404-2011",
+      "publisher": "Slov-Lex (Ministry of Justice of the Slovak Republic)",
+      "title": "Zakon c. 404/2011 Z. z. o pobyte cudzincov, par. 22-30, 32(9), 123 (version of 1 Oct 2026)",
+      "url": "https://static.slov-lex.sk/static/SK/ZZ/2011/404/20261001.html",
+      "licence": "official legal text, free to read",
+      "period": "in force from 1 Oct 2026",
+      "retrieved": "2026-11-17",
+      "quote": "Dokladom potvrdzujúcim zdravotné poistenie sa rozumie potvrdenie na meno cudzinca o tom, že je zdravotne poistený na území Slovenskej republiky alebo že má poistenú úhradu liečebných nákladov na území Slovenskej republiky.",
+      "measures": "What counts as proof of health insurance for a residence permit. It sets no minimum cover amount."
+    },
+    {
+      "source_id": "health-sk-zakon-580-2004",
+      "publisher": "Slov-Lex",
+      "title": "Zakon c. 580/2004 Z. z. o zdravotnom poisteni, par. 3, 12, 13 (version of 1 Jul 2026)",
+      "url": "https://static.slov-lex.sk/static/SK/ZZ/2004/580/20260701.html",
+      "licence": "official legal text, free to read",
+      "period": "in force from 1 Jul 2026",
+      "retrieved": "2026-11-17",
+      "quote": "Verejne zdravotne poistená je fyzická osoba, ktorá má trvalý pobyt 3 ) na území Slovenskej republiky; ... Na účely tohto zákona sa pojmom minimálny základ samostatne zárobkovo činnej osoby a poistenca podľa § 11 ods. 2 rozumie 50 % z priemernej mesačnej mzdy.",
+      "measures": "Who is in the public system (permanent residents; certain others) and the minimum base for people with no earned income."
+    },
+    {
+      "source_id": "health-sk-dovera-cudzinci",
+      "publisher": "Dovera zdravotna poistovna, a.s.",
+      "title": "Komercne zdravotne poistenie pre cudzincov so zlavou",
+      "url": "https://www.dovera.sk/poistenec/potrebujem-poradit/ako-sa-poistit-povinnosti-a-ziadosti/komercne-zdravotne-poistenie-pre-cudzincov-so-zlavou",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Komerčné zdravotné poistenie je určené cudzincom, ktorí na Slovensku ešte nemajú verejné zdravotné poistenie , najmä občanom krajín mimo EÚ. ... Po uzatvorení poistenia získate Potvrdenie o poistení , ktoré je plne akceptované cudzineckou políciou.",
+      "measures": "A public insurer confirms that commercial insurance is the route for non-EU newcomers and that the foreign police accept Union's confirmation."
+    },
+    {
+      "source_id": "health-sk-union-cudzinci",
+      "publisher": "Union poistovna, a.s.",
+      "title": "Zdravotne poistenie pre cudzincov (SAFETY and SIMPLE)",
+      "url": "https://www.union.sk/zdravotne-poistenie-pre-cudzincov/",
+      "licence": "free to read, no licence stated",
+      "period": "2026; terms dated 1 Jan 2022",
+      "retrieved": "2026-11-17",
+      "quote": "Čo je kryté: náklady na neodkladnú zdravotnú starostlivosť až do výšky 70 000 eur ... v prípade repatriácie uhradíme náklady do výšky 20 000 eur",
+      "measures": "Cover limits. No premium table or tariff was found in the page or in the 2022 terms PDF (both cached)."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [
+    {
+      "name": "Slovak public health insurance for a person with permanent residence and no employment or self-employment (par. 11(2))",
+      "rate": "15% of the assessment base (par. 12(1)(e)); the law text also shows a 16% rate in a later-effective amendment, not resolved",
+      "base": "Actual income, subject to a minimum base of 50% of the average monthly wage (par. 13(10)); the average wage figure was not retrieved",
+      "includes_capital_gains": "unclear: not read; par. 13 covers dividends separately (par. 13(14)) and caps dividend income at 60 times the average monthly wage",
+      "floor": "50% of the average monthly wage x 15%; euro amount not computed because the wage figure was not fetched",
+      "ceiling": "Not found",
+      "legal_source": "Zakon 580/2004 Z. z. par. 12(1)(e), par. 13(10), par. 16(8)(b)"
+    }
+  ],
+  "eu_citizen_difference": "An EU citizen living in Slovakia and registered as a Union citizen under par. 65 of Act 404/2011 must show 'doklad o zdravotnom poisteni' and sufficient means, but is not tied to a purpose-of-stay permit. EU citizens employed in Slovakia join the public system on day one.",
+  "regional": [],
+  "spot_check": "None possible: no premium was reachable.",
+  "uncertainty": "No sourced premium: amount is null. The legal requirement is only 'insurance that covers treatment costs in Slovakia', with no stated minimum limit, so even a cheap EUR 70,000 policy may satisfy it. After permanent residence (usually 5 years) the couple would enter public insurance and pay 15% of income with a minimum base of 50% of the average wage; the euro figure was not computed. The route itself is the bigger doubt: no permit fits this couple."
+}

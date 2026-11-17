@@ -1,0 +1,51 @@
+{
+  "country": "LV",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": 9.17,
+  "kind": "private",
+  "route": "Latvia's new Immigration Law of 20 Aug 2026 replaced the 2002 law from 15 Sept 2026. It has no permit for a 45-year-old couple living on investments. Sec. 27(1)(34) grants up to 2 years to a foreigner who can enter visa-free, has 'pietiekami iztikas lidzekli' (sufficient means) and 'ir sasniedzis Latvijas Republika noteikto pensijas vecumu' (has reached Latvia's pension age), so it does not fit age 45. Sec. 27(1)(36) grants up to 5 years for a transfer of at least EUR 150,000 to a state-created alternative investment fund held for at least 5 years plus EUR 10,000 paid to the state budget. That is the nearest route and is modelled here. Health rule: entry requires '3) ir deriga veselibas apdrosinasanas polise' (sec. 6(1)(3)); the minimum is set by Cabinet Regulation 591 of 28 July 2008: policy limit not below 'EUR 42 600 - pieprasot ilgtermina vizu ... vai uzturesanas atlauju' and cover for at least emergency care, inpatient treatment of a life-threatening condition, transport to hospital, and repatriation (points 6 and 7). The regulation will lapse on 2 Dec 2027.",
+  "policy": "If Latvia (If P&C Insurance), 'Arzemnieku veselibas apdrosinasana' (foreigners' health insurance): limit EUR 50,000 for treatment, tests, chronic-disease flare-ups, transport, repatriation; acute dental pain only EUR 200; deductible EUR 50 per event; price in the first year EUR 55 per person for age up to 64. The policy covers emergency care and critical life-threatening conditions only. It is not comprehensive care.",
+  "working": "EUR 55 x 2 people = EUR 110 a year; 110 / 12 = EUR 9.17 a month.",
+  "sources": [
+    {
+      "source_id": "health-lv-if-foreigners-policy",
+      "publisher": "If P&C Insurance AS Latvijas filiale",
+      "title": "Arzemnieku veselibas apdrosinasana",
+      "url": "https://www.if.lv/privatpersonam/apdrosinasana/arzemnieku-veselibas-apdrosinasana",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Polises cena pirmajā gadā 55 € 300 € Pašrisks 50 € 150 €",
+      "measures": "Published price of the minimum-compliant emergency-care policy, per person, first year. Does not cover routine or planned care."
+    },
+    {
+      "source_id": "health-lv-mk-591-health-insurance",
+      "publisher": "Latvijas Vestnesis / likumi.lv (Cabinet Regulation No. 591)",
+      "title": "Arzemnieku veselibas apdrosinasanas noteikumi (Regulations for the Health Insurance of Foreigners)",
+      "url": "https://likumi.lv/ta/id/179063-arzemnieku-veselibas-apdrosinasanas-noteikumi",
+      "licence": "official legal text, free to read",
+      "period": "in force; lapses 2 Dec 2027",
+      "retrieved": "2026-11-17",
+      "quote": "7.2. EUR 42 600 – pieprasot ilgtermiņa vīzu, ilgtermiņa vīzu, kas vien­laikus derīga kā īstermiņa vīza, vai uzturēšanās atļauju.",
+      "measures": "Minimum insurer liability limit and minimum services for a residence permit policy."
+    },
+    {
+      "source_id": "health-lv-immigration-law-2026",
+      "publisher": "Saeima / likumi.lv",
+      "title": "Imigracijas likums (20 Aug 2026), sec. 6 and sec. 27",
+      "url": "https://likumi.lv/ta/id/370622-imigracijas-likums",
+      "licence": "official legal text, free to read",
+      "period": "in force from 15 Sept 2026",
+      "retrieved": "2026-11-17",
+      "quote": "3) ir derīga veselības apdrošināšanas polise; ... 36) uz laiku līdz pieciem gadiem, ja ir noslēgts līgums un veikts pārskaitījums par vismaz 150 000 euro investīcijas veikšanu ne mazāk par pieciem gadiem valsts izveidotā alternatīvo ieguldījumu fonda pārvaldniekā un ārzemnieks ir samaksājis valsts budžetā 10 000 euro .",
+      "measures": "The health-policy condition, and the nearest permit route for a 45-year-old couple. Only the Latvian text was read: the English translation on likumi.lv still shows the 2002 law."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "Cabinet Regulation 591, points 4.6-4.7 and 2.7/3.2, exempt EU/EEA/Swiss citizens and their family members from the policy rule (up to 90 days, or longer when employed, self-employed or providing services). Residence of an EU citizen is a registration, not a permit.",
+  "regional": [],
+  "spot_check": "None found. Other insurers (Balta, BTA, Compensa, ERGO) were not reached: their pages did not give a price without a calculator.",
+  "uncertainty": "The EUR 9.17 is a floor: emergency and critical care only, EUR 50 deductible, EUR 200 dental, and it is the first-year price (renewal price not stated). A comprehensive private policy would cost far more, but no published price was found, so 'typical_private' is null. Whether permit applications are granted on this policy at renewal, or whether the couple could join Latvia's state-funded system as temporary residents, was not checked. The EUR 150,000 plus EUR 10,000 investment route is a steep entry cost the capital model should treat separately. Who is state-insured in Latvia was not researched."
+}

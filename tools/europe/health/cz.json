@@ -1,0 +1,77 @@
+{
+  "country": "CZ",
+  "currency": "CZK",
+  "period": "2026",
+  "amount": 3250,
+  "kind": "private",
+  "route": "Czechia has no dedicated independent-means permit. Non-EU people who are not working or studying use a long-term visa or long-term residence permit for another purpose, with proof of funds. Whatever the purpose, Act 326/1999 requires 'doklad o cestovnim zdravotnim pojisteni, ktere odpovida podminkam uvedenym v par. 180j'. Par. 180j(1): 'Vyse sjednaneho limitu pojistneho plneni na jednu pojistnou udalost cini nejmene 400 000 EUR, a to bez spolucasti pojisteneho'. Par. 180j(5): a foreigner who arrives on a travel-type policy must 'nejpozdeji do 90 dnu ode dne vstupu na uzemi Ceske republiky uzavrit cestovni zdravotni pojisteni v rozsahu komplexni zdravotni pece podle odstavce 8', and the policy must be taken out with an insurer licensed in Czechia where the application is made in the country (par. 180j(6)). Comprehensive care means (par. 180j(8)) care by the insurer's contracted providers 'bez prime uhrady nakladu na leceni pojistenym', with no exclusion of preventive care.",
+  "policy": "Pojistovna VZP (pVZP) 'Komplexni zdravotni pojisteni cizincu' (the Plus and Exclusive products have a 10 million CZK limit per event; the cheaper 'Zakladni' product has 1.8 million CZK at the low end and may not meet the EUR 400,000 rule). pVZP says its product is 'Akceptovano Odborem azylove a migracni politiky (OAMP)'. Price used: a broker's reprint of the pVZP price table, 12 months, age band 45-59: CZK 19,500 per person a year. Product tier and effective date are not stated by the broker. Slavia and UNIQA comprehensive cover is suspended or not priced (broker says UNIQA comprehensive sales were suspended on 2 Aug 2021).",
+  "working": "2 people x CZK 19,500 a year = CZK 39,000 a year; 39,000 / 12 = CZK 3,250 a month.",
+  "sources": [
+    {
+      "source_id": "health-cz-zakon-326-1999",
+      "publisher": "Czech Parliament via Zakony pro lidi (consolidated Act 326/1999 Sb. on residence of foreigners)",
+      "title": "Zakon c. 326/1999 Sb., o pobytu cizincu na uzemi Ceske republiky, par. 180j",
+      "url": "https://www.zakonyprolidi.cz/cs/1999-326",
+      "licence": "official legal text, free to read",
+      "period": "in force Nov 2026",
+      "retrieved": "2026-11-17",
+      "quote": "Výše sjednaného limitu pojistného plnění na jednu pojistnou událost činí nejméně 400 000 EUR, a to bez spoluúčasti pojištěného na výše uvedených nákladech. ... je povinen nejpozději do 90 dnů ode dne vstupu na území České republiky uzavřít cestovní zdravotní pojištění v rozsahu komplexní zdravotní péče podle odstavce 8",
+      "measures": "The legal minimum for the insurance a non-EU long-stay foreigner must hold."
+    },
+    {
+      "source_id": "health-cz-pvzp-komplexni",
+      "publisher": "Pojistovna VZP, a.s.",
+      "title": "Zakladni and Komplexni zdravotni pojisteni cizincu (product pages)",
+      "url": "https://www.pvzp.cz/podprodukty/komplexni-zdravotni-pojisteni-cizincu-plus/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Limit pojistného plnění na jednu událost 1,8 mil. Kč - 10 mil. Kč 10 milionů Kč 10 milionů Kč Akceptováno Odborem azylové a migrační politiky (OAMP)",
+      "measures": "Product limits and OAMP acceptance. The pages publish no premium; pVZP's quote form is a calculator (not used: it may collect personal data)."
+    },
+    {
+      "source_id": "health-cz-pojisteni-cizincu-broker",
+      "publisher": "Centrum Pojisteni - Insurance Center s.r.o. (pojisteni-cizincu.cz), a licensed tied agent of pVZP, UNIQA, Slavia",
+      "title": "Komplexnoe medicinskoe strahovanie PVZP (price table in CZK)",
+      "url": "https://www.pojisteni-cizincu.cz/ru/strahovka-vzp-kompleksnoe-strahovanie-chehii/",
+      "licence": "free to read, no licence stated; broker page, cross-check class only",
+      "period": "page footer: 2008-2025; table undated",
+      "retrieved": "2026-11-17",
+      "quote": "Стоимость в чешских кронах: 17-26 лет (студенты) 0-5 лет 6-14 лет 15-44 лет 45-59 лет 60-69 лет от 70 лет 4 мес ... 12 мес 12900 30330 19500 19500 19500 72450 128790",
+      "measures": "A broker's reprint of pVZP's comprehensive tariff: CZK 19,500 a year for age 15-59. This is the only price found, it is not from the insurer, and the product tier is not named."
+    },
+    {
+      "source_id": "health-cz-pojisteni-cizincu-broker",
+      "publisher": "Same broker, older price list PDF",
+      "title": "STRAHOVANIE VZP (stoimost v cheshskikh kronakh)",
+      "url": "https://www.pojisteni-cizincu.cz/assets/files/docs/vzp/strahovka-vzp.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "undated, appears about 2017-2019 (mentions a Debenhams shop)",
+      "retrieved": "2026-11-17",
+      "quote": "12 | 6975 | 16400 | 12335 | 11550 | 12860 | 27400 | 43900",
+      "measures": "Older tariff for the same product line: CZK 12,860 a year at age 45-59. Shows the price has risen about 50% since."
+    },
+    {
+      "source_id": "health-cz-vzp-obzp",
+      "publisher": "Vseobecna zdravotni pojistovna CR (VZP)",
+      "title": "Osoby bez zdanitelnych prijmu a deti cizincu",
+      "url": "https://www.vzp.cz/platci/informace/obzp",
+      "licence": "free to read, no licence stated",
+      "period": "from 1 Jan 2026",
+      "retrieved": "2026-11-17",
+      "quote": "Od 1. 1. 2026 je výše pojistného OBZP 3 024 Kč. ... OBZP si platí pojistné na zdravotní pojištění vypočtené z minimální mzdy, což je od 1. 1. 2026 částka 22 400 Kč. Pojistné tedy činí 3 024 Kč měsíčně.",
+      "measures": "Fixed monthly charge in the public system for a person with no taxable income. It applies only to people inside the public system (see policy below); this page does not say who may join."
+    }
+  ],
+  "typical_private": {
+    "amount_per_month_couple": 3250,
+    "description": "Same pVZP comprehensive policy as the main figure; no separate 'typical' premium was found.",
+    "source_id": "health-cz-pojisteni-cizincu-broker"
+  },
+  "income_based_charges": [],
+  "eu_citizen_difference": "EU/EEA citizens are exempt from the par. 180j policy (par. 180j(4) and the registration regime for Union citizens) and use the public system, or an S1/EHIC, on arrival. Not detailed here.",
+  "regional": [],
+  "spot_check": "Older broker pricelist (same product line, about 2017-2019): CZK 12,860 per person per year at 45-59, so CZK 2,143 a month for two, against CZK 3,250 now. The two do not agree because they are years apart and the newer table's product tier is unknown. Official premium not reached.",
+  "uncertainty": "The figure is a broker's reprint, not an insurer or regulator source, and could be for a lower-limit product than the EUR 400,000 rule needs (pVZP 'Plus' and 'Exclusive' have a CZK 10 million limit, about EUR 400,000 at roughly CZK 25/EUR). The real premium could be higher. Dental, outpatient cost-sharing and exclusions were not read. After permanent residence (normally 5 years) the couple would enter the public system; the VZP page then gives CZK 3,024 per person a month for a person with no taxable income (CZK 6,048 a month for two). The rule that only permanent residents (or employees) join the public system comes from general knowledge of Act 48/1997 and was not checked in this session. Income from the ETF would not change that fixed charge, but the tax agent should confirm whether capital income counts."
+}

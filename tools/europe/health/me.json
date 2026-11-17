@@ -1,0 +1,40 @@
+{
+  "country": "ME",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": null,
+  "kind": "private",
+  "route": "The Law on Foreigners (Zakon o strancima) and the Ministry of Interior's own text could not be reached: gov.me and mup.gov.me serve their pages by JavaScript and the PDF links are not discoverable without it. I therefore cannot quote the immigration rule. What is established from the health side is the Fund's rule: the Law on Compulsory Health Insurance art. 6 makes a foreigner with approved temporary stay an insured person only if employed, an entrepreneur, a pensioner of the Montenegrin system and so on (a closed list of ten groups); only foreigners with permanent stay who have no other basis join as a catch-all. A non-working couple on temporary stay is therefore outside the Fund and must carry private cover. Private cover for foreigners is sold under the name 'dobrovoljno zdravstveno osiguranje za strane drzavljane'.",
+  "policy": "No qualifying premium found. Wiener Stadtische Montenegro sells 'Zdravstveno osiguranje stranaca': sum insured up to 10,000 EUR, treatment in public health institutions in Montenegro, repatriation up to 2,000 EUR, to age 86; conditions PDF uploaded October 2026. Generali Montenegro has a page with the same product name. Prices are given only after a quote request. No price list or tariff table was found.",
+  "working": "No arithmetic: no published price. Amount left null rather than guessed.",
+  "sources": [
+    {
+      "source_id": "health-me-fzocg-law",
+      "publisher": "Fond za zdravstveno osiguranje Crne Gore",
+      "title": "Zakon o obaveznom zdravstvenom osiguranju (2024 text) and Fund page 'Osiguranici i osigurana lica Fonda'",
+      "url": "https://fzocg.me/wp-content/uploads/2025/10/Zakon-o-obaveznom-zdravstvenom-osiguranju-2024.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2024 text, page current 2026",
+      "retrieved": "2026-11-17",
+      "quote": "Clan 6: 'Osiguranici, u smislu ovog zakona, su crnogorski drzavljani sa prebivalistem u Crnoj Gori i stranci sa odobrenim stalnim ili privremenim boravkom u Crnoj Gori, koji su: 1) zaposlena lica ... 10) lica koja su u pritvoru ...'; 'stranci sa odobrenim stalnim boravkom ... koji nijesu osigurani ni po jednom osnovu'.",
+      "measures": "Who the Fund insures. A non-working foreigner on temporary stay is on none of the ten lists. Only permanent residents can join as a residual group."
+    },
+    {
+      "source_id": "health-me-wiener-foreigners",
+      "publisher": "Wiener Stadtische osiguranje a.d. Podgorica",
+      "title": "Zdravstveno osiguranje stranaca",
+      "url": "https://wiener.co.me/zdravlje-i-nezgoda/zdravstveno-osiguranje-stranaca/",
+      "licence": "free to read, no licence stated",
+      "period": "retrieved 2026-11-17",
+      "retrieved": "2026-11-17",
+      "quote": "'Ukoliko ste strani drzavljanin, a boravite u Crnoj Gori - zbog posla, studiranja ili duzeg boravka - vazno je da imate pouzdanu zdravstvenu zastitu.' 'Osigurana suma do 10.000 EUR'.",
+      "measures": "The cover a foreign resident can buy: emergency-type cover in public facilities, not comprehensive private cover. No price."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "EU citizens with temporary stay are also outside the Fund unless they fall in a listed group; the Fund's page notes that nationals of countries with a social-security treaty get care as the treaty provides. Not otherwise verified.",
+  "regional": [],
+  "spot_check": "None. Wiener and Generali Montenegro give no prices without a quote request.",
+  "uncertainty": "Large. (1) The immigration rule on health cover for temporary stay was not read. Montenegrin law and practice (property, 'other grounds' or long-stay permits) are known to ask for health insurance, but I cannot quote it. (2) No premium. The products found are emergency-only with a 10,000 EUR ceiling, which may not satisfy a long-stay permit. (3) A Montenegrin-system pensioner would pay income-based contributions: not applicable to this couple. Confidence in the figure: none (null)."
+}

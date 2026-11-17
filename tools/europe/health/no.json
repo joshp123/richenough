@@ -1,0 +1,83 @@
+{
+  "country": "NO",
+  "currency": "NOK",
+  "period": "2026",
+  "amount": 0,
+  "kind": "none",
+  "route": "No independent-means route for non-EEA nationals. UDI's 'Want to apply' menu lists family immigration, EU/EEA, work, visits (up to 90 days), study, protection, permanent residence, citizenship and a few special cases; nothing for retirees or people with own means. UDI's own-funds page applies only to EU/EEA nationals: 'health insurance or, if you are retired, you must document that you are entitled to healthcare'.",
+  "policy": "A lawfully resident non-EEA pensioner becomes a National Insurance member and is covered by the public service with user fees. For the couple 0 premium; the ceiling on patient fees (exemption card) is NOK 3,278 per person in 2026. Private cover is not required.",
+  "working": "Premium 0. Patient fees capped at NOK 3,278 per person a year = NOK 6,556 for two = NOK 546.33 a month at most (6,556 / 12), only if they use enough care.",
+  "sources": [
+    {
+      "source_id": "health-no-udi-apply",
+      "publisher": "UDI (Norwegian Directorate of Immigration)",
+      "title": "Want to apply",
+      "url": "https://www.udi.no/en/want-to-apply/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Family immigration / EU/EEA / Work immigration / Visits and holidays / Study permit / Protection (asylum) / Permanent residence / Citizenship ...",
+      "measures": "Category list: no independent-means permit for non-EEA nationals."
+    },
+    {
+      "source_id": "health-no-udi-own-funds",
+      "publisher": "UDI",
+      "title": "EU/EEA national with own funds",
+      "url": "https://www.udi.no/en/want-to-apply/residence-under-the-eueeu-regulations/eueeu-national-who-has-their-own-funds/person-with-own-funds/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "health insurance or, if you are retired, you must document that you are entitled to healthcare",
+      "measures": "Own-funds route is EU/EEA only."
+    },
+    {
+      "source_id": "health-no-helsenorge",
+      "publisher": "Helfo / Helsenorge",
+      "title": "Healthcare rights of pensioners moving to Norway",
+      "url": "https://www.helsenorge.no/en/foreigners-in-norway/healthcare-rights-of-pensioners-moving-to-norway/",
+      "licence": "free to read, no licence stated",
+      "period": "updated 12 June 2024",
+      "retrieved": "2026-11-17",
+      "quote": "If you are a pensioner from outside the EU/EEA and are lawfully resident in Norway, you will be enrolled as a member of the Norwegian National Insurance scheme and be entitled to receive healthcare services when you move here.",
+      "measures": "Statutory cover for lawful residents."
+    },
+    {
+      "source_id": "health-no-helsenorge-frikort",
+      "publisher": "Helfo / Helsenorge",
+      "title": "Exemption card for public health services",
+      "url": "https://www.helsenorge.no/en/payment-for-health-services/exemption-card-for-public-health-services/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "once you have paid more than a certain amount ... maximum limit of NOK 3,278 in approved user fees in 2026",
+      "measures": "Patient fee ceiling per person."
+    },
+    {
+      "source_id": "health-no-skatteetaten",
+      "publisher": "Norwegian Tax Administration",
+      "title": "National Insurance contributions",
+      "url": "https://www.skatteetaten.no/en/rates/national-insurance-contributions/",
+      "licence": "free to read, no licence stated",
+      "period": "page default year (2026 assumed)",
+      "retrieved": "2026-11-17",
+      "quote": "Salary income ... 7.6% ... Pension income, etc. 5.1% ... Lower limit ... NOK 99,650",
+      "measures": "Income-based contribution rates."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [
+    {
+      "name": "Trygdeavgift (National Insurance contribution)",
+      "rate": "7.6% on salary; 5.1% on pensions; 10.8% other business income",
+      "base": "personal income (personinntekt)",
+      "includes_capital_gains": "unclear: the page lists wage, business and pension income only; not checked whether investment withdrawals count",
+      "floor": "no charge below NOK 99,650",
+      "ceiling": "never more than 25% of the personal income above NOK 99,650",
+      "legal_source": "Skatteetaten rates page"
+    }
+  ],
+  "eu_citizen_difference": "EU/EEA pensioners need an S1 from the paying state; own-funds EU/EEA citizens need private insurance covering all illness costs and are not entitled to free care.",
+  "regional": [],
+  "spot_check": "None: no private premium is needed or sought.",
+  "uncertainty": "No route exists, so this models a hypothetical resident. Whether ETF withdrawals attract trygdeavgift is unchecked and goes to the tax agent. The skatteetaten page year label was not captured. Non-working residents may not become members if the stay is under 12 months (not sourced)."
+}

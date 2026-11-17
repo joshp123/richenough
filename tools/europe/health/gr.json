@@ -1,0 +1,33 @@
+{
+  "country": "GR",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": null,
+  "kind": "private",
+  "route": "Greece's permit for financially independent persons (national visa then residence permit under Law 5038/2023). The only statements I could reach on its health rule come from a visa consultancy ('Applicants must have the correct health insurance that will cover them for the full duration of their visa') and an insurance broker ('Your policy must cover at least EUR 30,000 in medical expenses', repatriation, Greek immigration offices 'want wording that explicitly covers medical treatment in Greece'). The official sources are not reachable: mfa.gr and gov.gr return 403 to plain fetches, migration.gov.gr's page for permit categories returned 404, and the FEK PDF from et.gr would not connect. The e-nomothesia.gr table of contents of Law 5038/2023 shows no obvious article for this permit in the parts I listed, and I did not locate it.",
+  "policy": "Not priced from an insurer tariff. No insurer calculator or published price list was reachable without personal details.",
+  "working": "No insurer tariff, so no arithmetic. For context only, the broker Feather's guide lists 'Basic coverage: EUR 50 to 100 per month', 'Mid-range plans: EUR 125 to 250 per month' and 'Comprehensive or international plans: EUR 250 to 500+ per month' with no age or product detail; for two adults that would be roughly EUR 100 to 200 a month at the basic end.",
+  "sources": [
+    {
+      "source_id": "health-gr-feather",
+      "publisher": "Feather Insurance (broker; cross-check only)",
+      "title": "Health insurance in Greece: Complete guide for expats (2026)",
+      "url": "https://feather-insurance.com/en-gr/blog/health-insurance-greece-guide",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Basic coverage: €50 – €100 per month; Mid-range plans: €125 – €250 per month; Comprehensive or international plans: €250 – €500+ per month; Your policy must cover at least €30,000 in medical expenses.",
+      "measures": "A broker's generic range, not an insurer tariff, not for a named product or age. Not suitable as the main source."
+    }
+  ],
+  "typical_private": {
+    "amount_per_month_couple": null,
+    "description": "Broker range of EUR 50 to 100 a month a person for 'basic coverage' and EUR 125 to 250 for mid-range, so about EUR 100 to 200 (basic) or EUR 250 to 500 (mid-range) for two. Broker figure only, not verified against an insurer.",
+    "source_id": "health-gr-feather"
+  },
+  "income_based_charges": [],
+  "eu_citizen_difference": "An EU citizen has free-movement rights and must show comprehensive sickness insurance and sufficient resources; EHIC or S1 usually does this. A non-EU couple has no such route. (General EU law, not sourced here.)",
+  "regional": [],
+  "spot_check": "None possible: only one broker range was found.",
+  "uncertainty": "No sourced figure. The broker range could be wrong by a factor of two or more for 45-year-olds on a policy that meets the visa rule (no co-payments, repatriation, Greek-language certificate). Next step: read Law 5038/2023 from et.gr or Greek MFA pages through a route that is not blocked, then price a named policy from an insurer's published terms. Greece's public system (EFKA/ESY) is a separate question: whether a financially independent person can join, and at what price, was not researched."
+}

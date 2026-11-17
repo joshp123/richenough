@@ -1,0 +1,51 @@
+{
+  "country": "HR",
+  "currency": "EUR",
+  "period": "2026",
+  "amount": null,
+  "kind": "statutory-fixed",
+  "route": "Zakon o obveznom zdravstvenom osiguranju i zdravstvenoj zastiti stranaca u RH (ZOZZS) art. 6(1): 'Stranac na privremenom boravku u Republici Hrvatskoj ..., neovisno o svrsi odobrenja privremenog boravka, a kojem pravo na obvezno zdravstveno osiguranje ili zdravstvena zastita nije osigurana po drugoj osnovi, obvezan je podnijeti prijavu na obvezno zdravstveno osiguranje ... u roku od osam dana ... te je obveznik placanja doprinosa za obvezno zdravstveno osiguranje'. So a non-working third-country couple on a temporary stay (including a digital nomad or other temporary stay) must register with HZZO and pay a contribution. HZZO's 2026 rulebook (NN 37/2026) lists the category: 'stranac ... s odobrenim privremenim boravkom ... kojem obvezno zdravstveno osiguranje ili zdravstvena zastita nisu osigurani po drugoj osnovi'. Art. 7 says full rights start only after a one-off payment 'na najnizu osnovicu' (on the lowest contribution base); art. 8 limits an unpaid foreigner to emergency care. The contribution is set per person by a Tax Administration decision (art. 9).",
+  "policy": "Compulsory HZZO insurance for temporary-stay foreigners, with the contribution fixed by the Tax Administration on the lowest monthly base. I could not find the euro amount for 2026: HZZO does not publish it, and the Tax Administration pages and Zakon o doprinosima text I reached do not state it. The voluntary supplement (dopunsko osiguranje) is open to foreigners 'ako imaju status osigurane osobe Zavoda' and costs 15.00 EUR a month a person from 1 February 2026; it covers co-payments only.",
+  "working": "Compulsory contribution: not found (see uncertainty). Supplement: 15.00 x 2 = 30.00 EUR a month for the couple (180.00 EUR a year each, 180 / 12 = 15). The `amount` is left null because the supplement alone would understate the cost.",
+  "sources": [
+    {
+      "source_id": "health-hr-zozozzs",
+      "publisher": "Narodne novine / copy at Hrvatska ljekarnicka komora (hlk.hr)",
+      "title": "Zakon o obveznom zdravstvenom osiguranju i zdravstvenoj zastiti stranaca u RH (NN 80/13, 15/18, 26/21, 46/22)",
+      "url": "https://www.hlk.hr/EasyEdit/UserFiles/propisi/2022/zakon-o-obveznom-zdravstvenom-osiguranju-i-zdravstvenoj-zastiti-stranaca-u-rh-80-13-15-18-26-21-46-22.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2022 consolidated text",
+      "retrieved": "2026-11-17",
+      "quote": "Stranac na privremenom boravku u Republici Hrvatskoj ..., neovisno o svrsi odobrenja privremenog boravka, a kojem pravo na obvezno zdravstveno osiguranje ili zdravstvena zastita nije osigurana po drugoj osnovi, obvezan je podnijeti prijavu ... te je obveznik placanja doprinosa za obvezno zdravstveno osiguranje u skladu s posebnim zakonom.",
+      "measures": "The duty to register and pay. A 2022 copy: later amendments not checked."
+    },
+    {
+      "source_id": "health-hr-nn-pravilnik-status",
+      "publisher": "Narodne novine 37/2026, item 448 (HZZO)",
+      "title": "Pravilnik o reguliranju statusa osigurane osobe u obveznom zdravstvenom osiguranju",
+      "url": "https://narodne-novine.nn.hr/clanci/sluzbeni/2026_04_37_448.html",
+      "licence": "free to read, no licence stated",
+      "period": "30 March 2026",
+      "retrieved": "2026-11-17",
+      "quote": "stranac (državljanin druge države članice EU-a, ugovorne ili treće države) s odobrenim privremenim boravkom u Republici Hrvatskoj kojem obvezno zdravstveno osiguranje ili zdravstvena zaštita nisu osigurani po drugoj osnovi",
+      "measures": "Confirms the temporary-stay insured category is current in 2026. Contains no euro amount."
+    },
+    {
+      "source_id": "health-hr-hzzo",
+      "publisher": "Hrvatski zavod za zdravstveno osiguranje (HZZO)",
+      "title": "Pitanja i odgovori: Dopunsko zdravstveno osiguranje",
+      "url": "https://hzzo.hr/pitanja-i-odgovori/22",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Stranci se mogu dopunski zdravstveno osigurati ako imaju status osigurane osobe Zavoda. ... Godišnji iznos premije iznosi 180,00 EUR, odnosno 15,00 EUR mjesečno.",
+      "measures": "Price of the voluntary supplement only, not of the compulsory contribution."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [],
+  "eu_citizen_difference": "ZOZZS art. 6 and the 2026 Pravilnik cover EU nationals on a temporary stay too, so the same registration applies to an EU citizen with no cover elsewhere. An EU citizen with an S1 or EHIC from home is insured there and does not pay.",
+  "regional": [],
+  "spot_check": "Press (Croatia Week, Index.hr, tportal.hr, seen in search results) confirm the supplement price rise from 9.29 to 15 EUR a month on 1 February 2026. No second source found for the compulsory contribution.",
+  "uncertainty": "The compulsory contribution is the missing number and is the larger part of the cost. It is the contribution rate on the lowest monthly base, set by Tax Administration decision. I did not find a published 2026 base from an official page, and will not guess it. Digital nomad rules (a separate permit with its own health-cover proof) were not read from an official source. The digital nomad permit and any private-cover requirement at first application remain unpriced."
+}

@@ -1,0 +1,61 @@
+{
+  "country": "PL",
+  "currency": "PLN",
+  "period": "2026 (Q4 2026 floor)",
+  "amount": 844.77,
+  "kind": "statutory-fixed",
+  "route": "Poland has no residence permit for people of independent means. The nearest route is the temporary residence permit for 'other circumstances' (zezwolenie na pobyt czasowy ze wzgledu na inne okolicznosci, Act on Foreigners, Dz.U. 2025 poz. 1079, art. 187-188). Art. 188(1) requires the foreigner to hold: 'ubezpieczenie zdrowotne w rozumieniu ustawy z dnia 27 sierpnia 2004 r. o swiadczeniach opieki zdrowotnej finansowanych ze srodkow publicznych lub potwierdzenie pokrycia przez ubezpieczyciela kosztow leczenia na terytorium Rzeczypospolitej Polskiej' and 'zrodlo stabilnego i regularnego dochodu wystarczajacego na pokrycie kosztow utrzymania siebie i czlonkow rodziny'. So a private insurer's confirmation is enough to get the permit; NFZ cover can follow once the permit is held. Whether the authority grants this permit to a non-working couple is discretionary and not tested here.",
+  "policy": "NFZ voluntary health insurance (dobrowolne ubezpieczenie zdrowotne). Open to foreigners who hold a temporary residence permit, permanent residence permit or EU long-term resident permit, who have no insurance title elsewhere in the EU and are not insured as a family member (NFZ guide, 14 Sept 2023). Contribution is 9% of the declared monthly income, with a floor: not less than the average monthly wage in the enterprise sector for the previous quarter (GUS notice of 20 Oct 2026: PLN 9,386.28 for Q3 2026). For Oct-Dec 2026 the minimum contribution is PLN 844.77 a month. The spouse is registered as a family member (druk ZUS ZCNA) and the NFZ page says 'Nie wiaze sie to z dodatkowa skladka', so one contribution covers both people. Full access to publicly funded care, same as other insured people. Paid to ZUS by the 20th of the following month.",
+  "working": "9,386.28 x 9% = 844.77 PLN a month (NFZ's own sum). One contribution for the couple because the spouse is a family member. 844.77 PLN is the floor, reached if the declared income is at or below PLN 9,386.28 a month. The floor moves each quarter with the GUS enterprise-sector average wage (it was not PLN 844.77 earlier in 2026; earlier quarters were not retrieved).",
+  "sources": [
+    {
+      "source_id": "health-pl-nfz-dobrowolne",
+      "publisher": "Narodowy Fundusz Zdrowia (NFZ)",
+      "title": "Jak ubezpieczyc sie dobrowolnie (Dla Pacjenta > Ubezpieczenie w NFZ); and Poradnik Pacjenta, 14-09-2023",
+      "url": "https://www.nfz.gov.pl/dla-pacjenta/ubezpieczenia-w-nfz/jak-sie-ubezpieczyc-dobrowolnie/",
+      "licence": "free to read, no licence stated",
+      "period": "Oct-Dec 2026",
+      "retrieved": "2026-11-17",
+      "quote": "Składka na dobrowolne ubezpieczenie zdrowotne za miesiące: październik, listopad, grudzień 2026 r. wynosi miesięcznie nie mniej niż 844,77 zł (9386,28 zł x 9% podstawy wymiaru składki = 844,77 zł). ... małżonek, - wstępny pozostający z ubezpieczonym we wspólnym gospodarstwie domowym, który nie podlega obowiązkowi ubezpieczenia zdrowotnego z innego tytułu. Nie wiąże się to z dodatkową składką.",
+      "measures": "Minimum monthly voluntary NFZ contribution for one insured person, spouse covered at no extra charge. Not a premium for a private policy."
+    },
+    {
+      "source_id": "health-pl-nfz-dobrowolne",
+      "publisher": "NFZ",
+      "title": "Poradnik Pacjenta: Jak ubezpieczyc sie dobrowolnie? Sprawdz, to wazne (14-09-2023)",
+      "url": "https://www.nfz.gov.pl/aktualnosci/aktualnosci-centrali/poradnik-pacjenta-jak-ubezpieczyc-sie-dobrowolnie-sprawdz-to-wazne,8466.html",
+      "licence": "free to read, no licence stated",
+      "period": "2023 (rules still shown on the 2026 page)",
+      "retrieved": "2026-11-17",
+      "quote": "Obywatele Polski oraz zamieszkający na terytorium Rzeczypospolitej Polskiej cudzoziemcy, posiadający zezwolenia na pobyt czasowy, zezwolenia na pobyt stały, zezwolenia na pobyt rezydenta długoterminowego Unii Europejskiej którzy: nie mają tytułu ubezpieczenia zdrowotnego na terenie Unii Europejskiej (UE) nie zostali zgłoszeni do ubezpieczenia zdrowotnego jako członek rodziny",
+      "measures": "Who may join. Also says an extra fee may apply after a gap in insurance of over 3 months (20% to 200% of the contribution base); it does not apply to a new arrival from outside the EU unless NFZ finds an earlier gap."
+    },
+    {
+      "source_id": "health-pl-cudzoziemcy-act",
+      "publisher": "Marszalek Sejmu / Sejm ELI API",
+      "title": "Obwieszczenie ... jednolity tekst ustawy o cudzoziemcach, Dz.U. 2025 poz. 1079",
+      "url": "https://api.sejm.gov.pl/eli/acts/DU/2025/1079/text.pdf",
+      "licence": "Polish official legal text; free to read",
+      "period": "consolidated text of 25 July 2025",
+      "retrieved": "2026-11-17",
+      "quote": "ubezpieczenie zdrowotne w rozumieniu ustawy z dnia 27 sierpnia 2004 r. o świadczeniach opieki zdrowotnej finanso- wanych ze środków publicznych lub potwierdzenie pokrycia przez ubezpieczyciela kosztów leczenia na terytorium Rzeczypospolitej Polskiej;",
+      "measures": "The health-cover condition for the 'other circumstances' temporary residence permit. The consolidated text predates later 2025-26 amendments, which were not checked."
+    }
+  ],
+  "typical_private": null,
+  "income_based_charges": [
+    {
+      "name": "NFZ voluntary health contribution",
+      "rate": "9% of declared monthly income",
+      "base": "Income the insured declares in the NFZ contract (kwota deklarowanego miesiecznego dochodu). The couple can declare as little as the floor. Whether they must or may declare ETF withdrawals or capital gains is not stated on the NFZ page.",
+      "includes_capital_gains": "unclear: the base is a self-declared income figure; NFZ page does not say what counts. Pass to the tax agent.",
+      "floor": "Average monthly wage in the enterprise sector incl. profit payouts, previous quarter (PLN 9,386.28 for Q4 2026), so contribution not under PLN 844.77",
+      "ceiling": "None found on the NFZ page",
+      "legal_source": "Ustawa z 27.08.2004 o swiadczeniach opieki zdrowotnej finansowanych ze srodkow publicznych (art. 81 and neighbours); not fetched. Source of the rule used here: NFZ page."
+    }
+  ],
+  "eu_citizen_difference": "An EU/EEA citizen covered by an insurer in another member state keeps that cover and an EHIC and cannot join the NFZ voluntary scheme ('objety powszechnym systemem ubezpieczenia zdrowotnego w jednym z krajow UE albo EFTA'). An EU citizen who moves and has no cover can join on the same terms as here.",
+  "regional": [],
+  "spot_check": "No independent second figure found. Arithmetic check: 9,386.28 x 0.09 = 844.7652, which rounds to NFZ's 844.77. The hint that the floor equals the minimum wage is wrong for this scheme: the NFZ page uses the average enterprise wage (PLN 9,386.28), not the minimum wage (PLN 4,806 from 1 Jan 2026, which NFZ uses only for volunteers: contribution PLN 432.54).",
+  "uncertainty": "(1) The floor changes every quarter: a year of cover costs about PLN 10,000 for the pair at today's floor. (2) No private-policy premium was found: Polish insurers' foreigner policies (PZU, Compensa, Signal Iduna, Luxmed, Enel-Med) hide prices behind calculators or sign-ups, so the cheaper route of a private policy for the permit step is unpriced. Luxmed and Enel-Med sell subscriptions, which are not insurance and may not count as 'potwierdzenie pokrycia przez ubezpieczyciela'. (3) The NFZ page asks non-EU applicants to 'uprawdopodobnic miejsce zamieszkania' (show residence) and a permit is needed first, so the first months need other cover. (4) Declared income above the floor raises the charge 9% of the excess. (5) Permit grant to a non-working couple is not guaranteed."
+}
