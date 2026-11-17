@@ -23,6 +23,9 @@ NUTS_COUNTRIES = set(
     "CH IS LI NO GB AL ME MK RS TR".split()
 )
 
+# Countries whose every component the Europe agent prices (NUTS and ITL countries, plus Ukraine and Kosovo).
+EUROPE_AGENT = NUTS_COUNTRIES | {"UA", "XK"}
+
 # Places the plan draws differently from ISO: Israel is priced and drawn as PS.
 PLAN_COUNTRY = {"IL": "PS"}
 

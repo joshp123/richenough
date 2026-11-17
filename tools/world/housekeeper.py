@@ -20,7 +20,7 @@ import re
 import statistics
 
 from exchange_rates import rates
-from lib import NUTS_COUNTRIES, PLAN_COUNTRY, REPO, countries, fmt, ilostat, iso3_to_iso2, read_csv
+from lib import EUROPE_AGENT, PLAN_COUNTRY, REPO, countries, fmt, ilostat, iso3_to_iso2, read_csv
 from price_level import weo
 
 HOUSEKEEPER = REPO / "tools" / "world" / "housekeeper"
@@ -211,7 +211,7 @@ def build() -> list[dict]:
                              + (". Thin: fewer than four figures" if c["n"] < 4 else "")})
     # Countries.
     for iso2, c in sorted(countries().items()):
-        if iso2 in ("US", "PS", "AQ") or not c["population"] or iso2 in NUTS_COUNTRIES:
+        if iso2 in ("US", "PS", "AQ") or not c["population"] or iso2 in EUROPE_AGENT:
             continue
         cur = c["currency"]
         if cur not in fx or not fx[cur]["monthly"] and cur != "USD":

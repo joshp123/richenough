@@ -20,7 +20,7 @@ import math
 import re
 
 from exchange_rates import rate_for_months, rates
-from lib import CACHE, NUTS_COUNTRIES, PLAN_COUNTRY, countries, fmt, wb_icp, iso3_to_iso2
+from lib import CACHE, EUROPE_AGENT, PLAN_COUNTRY, countries, fmt, wb_icp, iso3_to_iso2
 from price_level import ICP_ALIASES, NOT_CARRIED, REDENOMINATED, build as build_price_level
 
 GERMAN_PRICE_EUR = 33_340
@@ -116,7 +116,7 @@ def build() -> tuple[list[dict], dict]:
 
     rows = []
     for iso2, level in sorted(everyday.items()):
-        if iso2 in NUTS_COUNTRIES or iso2 == "US":
+        if iso2 in EUROPE_AGENT or iso2 == "US":
             continue  # the Europe and US agents own these; a row here would stand in for theirs on the site
         c = countries()[iso2]
         thin = []

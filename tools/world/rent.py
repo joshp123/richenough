@@ -210,6 +210,11 @@ def add_inferred(rows: list[dict]) -> list[dict]:
     for iso2, c in sorted(countries().items()):
         if iso2 in have or iso2 in NOT_MINE or iso2 in ("AQ", "PS") or not c["population"]:
             continue
+        if iso2 in main_city:
+            r = main_city[iso2]
+            out.append({**r, "place_code": iso2, "measured_for": f"{c['name']}: its main measured city. " + r["measured_for"],
+                        "note": r["note"] + ". Written for the country from its main city's row"})
+            continue
         g = gdp.get(iso2, {}).get("2026")
         if not g or iso2 not in price_level or c["currency"] not in fx or not fx[c["currency"]]["monthly"]:
             continue

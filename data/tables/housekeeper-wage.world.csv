@@ -166,7 +166,6 @@ TT,55.2,TTD,per_hour,2026,"Trinidad and Tobago, whole country, estimated",imf-we
 TV,7.69,AUD,per_hour,2026,"Tuvalu, whole country, estimated",imf-weo,"Basis: estimated from GDP per head (USD 8,367). Inferred, not measured: typical error about 39%"
 TW,550,TWD,per_hour,2026,Taiwan: going rate in Taipei,hh-taipei-jacker,Basis: the going rate in Taipei (see the city rows)
 TZ,3851,TZS,per_hour,2026,"Tanzania, whole country, estimated",ilostat-earnings-isic-t,"Basis: estimated from GDP per head (USD 1,325) and ILOSTAT's pay of household employees in 2025 x 2.56. Inferred, not measured: typical error about 39%"
-UA,222,UAH,per_hour,2026,"Ukraine, whole country, estimated",imf-weo,"Basis: estimated from GDP per head (USD 7,075). Inferred, not measured: typical error about 39%"
 UG,4117,UGX,per_hour,2026,"Uganda, whole country, estimated",ilostat-earnings-isic-t,"Basis: estimated from GDP per head (USD 1,453) and ILOSTAT's pay of household employees in 2021 x 2.56. Inferred, not measured: typical error about 39%"
 UY,700,UYU,per_hour,2026,Uruguay: going rate in Montevideo,hh-mvd-arreglatodo,Basis: the going rate in Montevideo (see the city rows)
 UZ,47075,UZS,per_hour,2026,"Uzbekistan, whole country, estimated",imf-weo,"Basis: estimated from GDP per head (USD 4,575). Inferred, not measured: typical error about 39%"
@@ -176,7 +175,6 @@ VN,66500,VND,per_hour,2026,Vietnam: going rate in Ho Chi Minh City and Da Nang,h
 VU,428,VUV,per_hour,2026,"Vanuatu, whole country, estimated",imf-weo,"Basis: estimated from GDP per head (USD 4,052). Inferred, not measured: typical error about 39%"
 WF,2321,XPF,per_hour,2026,"Wallis and Futuna, whole country, estimated",ilostat-earnings-isic-t,"Basis: estimated from ILOSTAT's pay of household employees in 2019 x 2.56. Inferred, not measured: typical error about 39%"
 WS,14.1,WST,per_hour,2026,"Samoa, whole country, estimated",ilostat-earnings-isic-t,"Basis: estimated from GDP per head (USD 6,303) and ILOSTAT's pay of household employees in 2022 x 2.56. Inferred, not measured: typical error about 39%"
-XK,4.98,EUR,per_hour,2026,"Kosovo, whole country, estimated",imf-weo,"Basis: estimated from GDP per head (USD 8,902). Inferred, not measured: typical error about 39%"
 YE,2237,YER,per_hour,2026,"Yemen, whole country, estimated",imf-weo,"Basis: estimated from GDP per head (USD 567). Inferred, not measured: typical error about 39%"
 ZA,63.0,ZAR,per_hour,2026,South Africa: going rate in Cape Town,hh-capetown-jobzapp,Basis: the going rate in Cape Town (see the city rows)
 ZM,40.9,ZMW,per_hour,2026,"Zambia, whole country, estimated",ilostat-earnings-isic-t,"Basis: estimated from GDP per head (USD 1,882) and ILOSTAT's pay of household employees in 2024 x 2.56. Inferred, not measured: typical error about 39%"
