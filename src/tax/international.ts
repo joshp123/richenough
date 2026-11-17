@@ -101,6 +101,7 @@ import './morocco.ts';
 import './mozambique.ts';
 import './myanmar.ts';
 import './namibia.ts';
+import './nepal.ts';
 import './netherlands.ts';
 import './new-zealand.ts';
 import './nicaragua.ts';
