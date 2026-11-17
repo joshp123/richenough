@@ -3,7 +3,7 @@ import { registerStandardTax } from './calculation.ts';
 // Law and published rates checked November 2026.
 registerStandardTax(
   "TV", "AUD",
-  "Tuvalu’s Income Tax Act excludes private capital gains from gross income. This estimate assumes a personal holding and sales of an accumulating ETF.",
-  ["tax-tv-income","tax-tv-amendments"],
+  "The income tax excludes amounts of a capital nature other than specified receipts such as disposal of business revenue assets. The model assumes private long-term holdings of offshore ETF shares.",
+  ["tax-tv-income-act"],
   () => 0,
 );
