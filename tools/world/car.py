@@ -8,19 +8,21 @@ Per month, in US dollars and then local currency:
     insurance      3.1% of price_new a year / 12 (the German anchor's ratio: 1,030 EUR on 33,340 EUR)
     fuel           12,000 km x 5.1 l/100 km x local petrol price / 12
     maintenance    80 EUR a month in Germany, scaled by the everyday price level (mostly local labour)
+    road tax       the annual tax or fee to keep the car on the road, averaged over the 8 years / 12
+                   (tools/world/car/road-tax.curated.csv; where none was found the note says so)
 
 price_new is the German list price (33,340 EUR, ADAC) scaled by ICP 2021's price level for "purchase of vehicles"
 relative to Germany, carried to 2026 like the everyday price level. ICP prices cars at what buyers pay, so import
 duties, quotas and registration charges that are part of the price (Singapore's COE, for example) are included.
 Insurance is a share of the car's value, not of local wages, because outside rich countries motor insurers price
-comprehensive cover on the vehicle's value. Annual road tax and registration fees are not included.
+comprehensive cover on the vehicle's value.
 """
 
 import math
 import re
 
 from exchange_rates import rate_for_months, rates
-from lib import CACHE, EUROPE_AGENT, PLAN_COUNTRY, countries, fmt, wb_icp, iso3_to_iso2
+from lib import CACHE, EUROPE_AGENT, PLAN_COUNTRY, REPO, countries, fmt, read_csv, wb_icp, iso3_to_iso2
 from price_level import ICP_ALIASES, NOT_CARRIED, REDENOMINATED, build as build_price_level
 
 GERMAN_PRICE_EUR = 33_340
@@ -91,12 +93,33 @@ def vehicle_price_levels(now: dict) -> dict[str, float]:
     return out
 
 
+def road_taxes() -> dict[str, dict]:
+    """Country -> road-tax row. Where only regions have a figure (Brazil's states, Ontario, NSW), the country takes
+    their mean, and the note names them."""
+    path = REPO / "tools" / "world" / "car" / "road-tax.curated.csv"
+    if not path.exists():
+        return {}
+    rows = [r for r in read_csv(path) if r["amount"] != ""]
+    out = {r["place_code"]: r for r in rows if "-" not in r["place_code"]}
+    by_country: dict[str, list[dict]] = {}
+    for r in rows:
+        if "-" in r["place_code"]:
+            by_country.setdefault(r["place_code"][:2], []).append(r)
+    for country, rs in by_country.items():
+        if country not in out:
+            mean = sum(float(r["amount"]) for r in rs) / len(rs)
+            out[country] = {**rs[0], "place_code": country, "amount": str(mean),
+                            "note": "mean of " + ", ".join(f"{r['place_code']} {r['amount']} {r['currency']}" for r in rs) + ": " + rs[0]["note"]}
+    return out
+
+
 def build() -> tuple[list[dict], dict]:
     _, info = build_price_level()
     now, imputed = info["now"], info["imputed"]
     everyday = {k: v["pli"] for k, v in {**imputed, **now}.items()}
     vehicles = vehicle_price_levels(now)
     petrol = petrol_usd_per_litre()
+    taxes = road_taxes()
     fx = rates()
     usd_per_eur = 1 / fx["EUR"]["monthly"][max(fx["EUR"]["monthly"])]
 
@@ -137,6 +160,14 @@ def build() -> tuple[list[dict], dict]:
             "fuel": LITRES_PER_MONTH * litre,
             "maintenance": GERMAN_MAINTENANCE_EUR_MONTH * usd_per_eur * level / de_everyday,
         }
+        code_for_tax = PLAN_COUNTRY.get(iso2, iso2)
+        tax = taxes.get(code_for_tax)
+        if tax:
+            tax_cur = tax["currency"]
+            tax_usd = float(tax["amount"]) / 12 * (1.0 if tax_cur == "USD" else 1 / fx[tax_cur]["monthly"][max(fx[tax_cur]["monthly"])])
+            parts["road tax"] = tax_usd
+        else:
+            thin.append("no annual road tax figure found, so none is included")
         total_usd = sum(parts.values())
         cur = c["currency"]
         xr, xr_period, _ = rate_for_months(fx.get(cur, {"monthly": {}}), ["2026-07", "2026-08", "2026-09"])
@@ -147,7 +178,9 @@ def build() -> tuple[list[dict], dict]:
             continue
         note = (f"Corolla 1.8 Hybrid, 8 years, 12,000 km a year: price new about {fmt(price, 3)} US dollars; per month in US dollars "
                 + ", ".join(f"{k} {v:,.0f}" for k, v in parts.items())
-                + f"; converted at {fmt(xr)} {cur} per US dollar ({xr_period}). Road tax and registration not included")
+                + f"; converted at {fmt(xr)} {cur} per US dollar ({xr_period})")
+        if tax:
+            note += f". Road tax: {tax['note'][:200]}"
         if thin:
             note += ". Thin: " + "; ".join(thin)
         rows.append({"place_code": code, "amount": fmt(total_usd * xr, 4), "currency": cur, "unit": "per_month", "period": "2026",
