@@ -60,6 +60,12 @@ const cases = [
   ['CW', 1.79, [55_292.14, 103_203.28, 201_235.69], 1],
   // Sint Maarten uses a 4% deemed return and the 2026 table on income less AOV/AWW.
   ['SX', 1.79, [22_556.77, 60_328.36, 151_855.29], 1],
+  ['ML', 560, [2_352_000, 4_704_000, 9_800_000], 1],
+  // Somalia Ministry of Finance manual, section XIV: $1,728 per spouse through $18k, then 15%.
+  ['SO', 1, [7_056, 16_056, 35_556], 1],
+  ['LA', 22_000, [26_400_000, 52_800_000, 110_000_000], 1],
+  // American Samoa Form 390 deductions and two Schedule D rates.
+  ['AS', 1, [5_025, 17_025, 43_540.20], 1],
 ] as const;
 
 for (const [code, exchangeRate, expected, tolerance] of cases) {
