@@ -40,6 +40,8 @@ const cases = [
   ['VI', 1, [0, 0, 17835], 1],
   // Pakistan: PKR 1.61m through 5.6m for each spouse, then 45% and the 10% surcharge above 10m.
   ['PK', 280, [5_740_000, 14_630_000, 32_648_000], 1],
+  // Kōtō Ward, household limits less the fixed premium already priced in health cover.
+  ['JP', 150, [2_784_328, 4_616_954, 8_578_379], 1],
   ['TJ', 10, [90_000, 180_000, 375_000], 1],
   // Suriname: 3% of the joint portfolio value above SRD 120,000.
   ['SR', 40, [1_436_400, 2_876_400, 5_996_400], 1],
