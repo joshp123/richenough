@@ -1,0 +1,232 @@
+insurer_country_name,iso2,zone,insurer_code
+Albania,AL,6,ALB
+Gibraltar,GI,4,GBZ
+Norway,NO,6,NOR
+Alderney,GG,4,GBA
+Greece,GR,2,GCE
+Oman,OM,5,UAO
+Algeria,DZ,6,ALG
+Greenland,GL,6,GRE
+Pakistan,PK,6,PAK
+American Samoa,AS,4,ASA
+Grenada,GD,4,GND
+Palau,PW,5,PAL
+Andorra,AD,5,AND
+Guadeloupe,GP,4,GUD
+Panama,PA,4,PAN
+Angola,AO,6,ANG
+Guam,GU,5,GUA
+Papua New Guinea,PG,6,PNG
+Anguilla,AI,4,AGU
+Guatemala,GT,2,GTM
+Paraguay,PY,4,PGY
+Antarctica,AQ,5,ANT
+Guernsey,GG,4,GBG
+Antigua & Barbuda,AG,4,ANB
+Guinea,GN,6,GUI
+Peru,PE,4,PER
+Argentina,AR,4,ARG
+Guinea-Bissau,GW,6,GUB
+Philippines,PH,6,PHI
+Armenia,AM,5,ARM
+Guyana,GY,4,GUY
+Pitcairn,PN,5,PIT
+Aruba,AW,4,ARU
+Haiti,HT,4,HAI
+Poland,PL,6,POL
+Australia,AU,5,AUS
+Heard and McDonald Islands,HM,5,HMI
+Portugal,PT,4,POR
+Austria,AT,5,AUT
+Herm,GG,5,HRM
+Puerto Rico,PR,4,PRC
+Azerbaijan,AZ,6,AZR
+Holy See (Vatican City State),VA,4,VAT
+Qatar,QA,5,UAQ
+Azores,PT,5,AZO
+Honduras,HN,2,HON
+Republic of Macedonia,MK,6,MAC
+Bahamas,BS,4,BHS
+Hong Kong,HK,2,HGK
+Reunion,RE,5,RUN
+Bahrain,BH,2,BRN
+Hungary,HU,6,HUN
+Romania,RO,6,ROM
+Bangladesh,BD,4,BDH
+Iceland,IS,6,ICL
+Rwanda,RW,5,RWA
+Barbados,BB,4,BDS
+India,IN,6,IND
+Saint Helena,SH,4,SHL
+Belgium,BE,5,BEL
+Indonesia,ID,5,IDS
+Belize,BZ,4,BLZ
+Iraq,IQ,4,IRQ
+Saint Kitts and Nevis,KN,4,STK
+Benin,BJ,6,BEN
+Ireland,IE,4,IRL
+Saint Lucia,LC,4,STL
+Bermuda,BM,4,BER
+Isle of Man,IM,4,GBM
+Saint Pierre and Miquelon,PM,4,SPM
+Bhutan,BT,5,BHU
+Israel,IL,2,ISL
+Samoa,WS,5,SAU
+Bolivia,BO,4,BOL
+Italy,IT,4,ITL
+San Marino,SM,5,SMA
+Bosnia & Herzegovina,BA,6,BOS
+Jamaica,JM,4,JAM
+Sao Tome and Principe,ST,5,SAO
+Botswana,BW,6,BTW
+Japan,JP,6,JAP
+Sark,GG,4,GBS
+Bouvet Island,BV,6,BOV
+Jersey,JE,3,GBJ
+Saudi Arabia,SA,4,SDA
+Brazil,BR,4,BRZ
+Jordan,JO,5,JOR
+Senegal,SN,5,SGL
+British Indian Ocean Territory,IO,6,BIO
+Kazakhstan,KZ,6,KAZ
+Serbia,RS,5,SER
+Brunei Darussalam,BN,6,BRU
+Kenya,KE,4,KEN
+Seychelles,SC,5,SEY
+Bulgaria,BG,5,BUL
+Kiribati,KI,5,KIR
+Sierra Leone,SL,5,SLN
+Burkina Faso,BF,5,BKF
+Kuwait,KW,4,KWT
+Burundi,BI,5,BRD
+Kyrgyzstan,KG,5,KYR
+Singapore,SG,3,SGP
+Cambodia,KH,6,CAM
+Lao People’s Democratic Rep,LA,5,LAO
+Slovakia,SK,6,SLV
+Cameroon,CM,6,CMR
+Latvia,LV,5,LAT
+Slovenia,SI,6,SLO
+Canada,CA,6,CDN
+Lebanon,LB,4,LEB
+Solomon Islands,SB,5,SOI
+Canary Islands,ES,4,CYI
+Lesotho,LS,5,LSO
+South Africa,ZA,5,RSA
+Cape Verde,CV,6,CVI
+Liberia,LR,5,LIB
+South Korea (Republic of),KR,6,KOR
+Cayman Islands,KY,4,CAY
+Libyan Arab Jamahiriya,LY,5,LBY
+Spain,ES,3,ESP
+Central African Republic,CF,5,CAR
+Liechtenstein,LI,4,LCH
+Sri Lanka,LK,6,SRL
+Chad,TD,6,CHD
+Lithuania,LT,5,LIT
+St Vincent and the Grenadines,VC,4,STV
+Chile,CL,4,CHL
+Luxembourg,LU,6,LUX
+Sth Georgia and Sth Sandwich Is,GS,4,SGS
+China,CN,7,CHN
+Macau,MO,2,MCA
+Suriname,SR,4,SME
+Christmas Island,CX,5,CHR
+Madagascar,MG,6,MAD
+Svalbard and Jan Mayen,SJ,5,SVA
+Cocos (Keeling) Islands,CC,5,COC
+Madeira,PT,4,MAE
+Colombia,CO,4,COL
+Malawi,MW,5,MLW
+Swaziland,SZ,5,SWZ
+Comoros,KM,6,COM
+Malaysia,MY,6,MAL
+Sweden,SE,6,SWE
+Cook Islands,CK,5,COK
+Maldives,MV,5,MDS
+Switzerland,CH,3,SWI
+Costa Rica,CR,4,CRC
+Mali,ML,6,MAI
+Taiwan,TW,4,TWN
+Cote d’lvoire,CI,6,COT
+Malta,MT,6,MLT
+Tajikistan,TJ,5,TAJ
+Croatia,HR,6,CRO
+Marshall Islands,MH,5,MIS
+Tanzania (United Republic of),TZ,5,TNZ
+Cyprus,CY,5,CYP
+Martinique,MQ,4,MAR
+Thailand,TH,5,THI
+Czech Republic,CZ,6,CZH
+Mauritania,MR,6,MRT
+Timor-Leste,TL,5,TIM
+Denmark,DK,6,DMK
+Mauritius,MU,5,MAU
+Togo,TG,6,TOG
+Djibouti,DJ,6,DJB
+Mayotte,YT,5,MAY
+Tokelau,TK,5,TOK
+Dominica,DM,4,DOM
+Mexico,MX,2,MEX
+Tonga,TO,5,TNG
+Dominican Republic,DO,4,DOM
+Micronesia Federated States,FM,5,MIC
+Trinidad and Tobago,TT,4,TAT
+Ecuador,EC,4,ECU
+Moldova (Republic of),MD,5,MOL
+Egypt,EG,6,EGP
+Monaco,MC,4,MNC
+Tunisia,TN,5,TUN
+El Salvador,SV,4,ELS
+Mongolia,MN,4,MNG
+Turkey,TR,5,TRK
+Equatorial Guinea,GQ,5,EGU
+Montenegro,ME,5,MTG
+Turkmenistan,TM,5,TUR
+Eritrea,ER,6,ERI
+Montserrat,MS,4,MON
+Turks and Caicos Islands,TC,4,TUK
+Estonia,EE,5,EST
+Morocco,MA,6,MOR
+Tuvalu,TV,5,TUV
+Ethiopia,ET,6,ETH
+Mozambique,MZ,6,MOZ
+UAE,AE,4,UAE
+Falkland Islands (Malvinas),FK,4,FAK
+Namibia,NA,5,NMB
+Uganda,UG,5,EAU
+Faroe Islands,FO,6,FIS
+Nauru,NR,5,NAU
+Ukraine,UA,5,UKR
+Fiji,FJ,5,FIJ
+Nepal,NP,5,NEP
+United Kingdom,GB,3,GBR
+Finland,FI,5,FIN
+Netherlands,NL,6,HOL
+Uruguay,UY,4,UGY
+France,FR,5,FRA
+Netherlands Antilles,,4,NEA
+Uzbekistan,UZ,5,UZB
+French Guiana,GF,5,FGU
+New Caledonia,NC,5,NCL
+Vanuatu,VU,5,VAN
+French Polynesia,PF,5,FPO
+New Zealand,NZ,6,NZL
+French Southern Territories,TF,5,FST
+Nicaragua,NI,4,NCA
+Vietnam,VN,5,VIT
+Gabon,GA,5,GAB
+Niger,NE,5,NGR
+Virgin Islands (British),VG,4,VIK
+Gambia,GM,6,GAM
+Nigeria,NG,5,NIG
+Virgin Islands (US),VI,4,VIU
+Georgia,GE,5,GEO
+Niue,NU,5,NIU
+Wallis and Futuna Islands,WF,5,WAL
+Germany,DE,4,GER
+Norfolk Island,NF,5,NOF
+Western Sahara,EH,5,SAH
+Ghana,GH,6,GHA
+Northern Mariana Islands,MP,5,NMI
+Zambia,ZM,5,ZAM
