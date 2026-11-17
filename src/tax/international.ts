@@ -178,6 +178,7 @@ import './thailand.ts';
 import './timor-leste.ts';
 import './tonga.ts';
 import './trinidad-and-tobago.ts';
+import './tunisia.ts';
 import './turkiye.ts';
 import './turks-and-caicos-islands.ts';
 import './tuvalu.ts';

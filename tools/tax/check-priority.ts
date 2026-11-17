@@ -42,6 +42,8 @@ const cases = [
   ['PK', 280, [5_740_000, 14_630_000, 32_648_000], 1],
   // Kōtō Ward, household limits less the fixed premium already priced in health cover.
   ['JP', 150, [2_784_328, 4_616_954, 8_578_379], 1],
+  // Tunisia: at the three scales, spouse wealth is TND 1.8m, 3.6m and 7.5m.
+  ['TN', 3, [18_000, 72_000, 225_000], 1],
   ['TJ', 10, [90_000, 180_000, 375_000], 1],
   // Suriname: 3% of the joint portfolio value above SRD 120,000.
   ['SR', 40, [1_436_400, 2_876_400, 5_996_400], 1],
