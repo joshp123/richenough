@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<!-- title and share preview tags -->
+<link rel="preload" href="/fonts/Archivo-Medium.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/Archivo-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/page.css">
+</head>
+<body>
+<main class="map" id="map"></main>
+
+<header class="card bar" id="bar">
+  <div class="bar-title"><h1 id="site-title"></h1><p id="site-subtitle"></p></div>
+  <div class="mode-switch" role="group" aria-label="Mode">
+    <button type="button" data-mode="need" aria-pressed="true">How much you need</button>
+    <button type="button" data-mode="have" aria-pressed="false">Am I gonna make it?</button>
+  </div>
+  <div class="have" id="have" hidden>
+    <label class="have-words" for="have-field">I have</label>
+    <input class="have-field" id="have-field" inputmode="numeric" autocomplete="off" spellcheck="false" aria-label="What you have invested">
+    <div class="have-slider-line">
+      <span class="ngmi">NGMI</span>
+      <input class="have-slider" id="have-slider" type="range" min="0" max="1" step="0.005" aria-label="What you have invested">
+      <span class="wagmi">WAGMI</span>
+    </div>
+  </div>
+  <div class="bar-switches">
+    <div class="segmented" role="group" aria-label="Tax">
+      <button type="button" data-regime="standard" aria-pressed="true">Normal tax</button>
+      <button type="button" data-regime="special" aria-pressed="false">Newcomer tax break</button>
+    </div>
+    <div class="segmented" id="rate" role="group" aria-label="Spend a year" hidden></div>
+  </div>
+</header>
+<div class="card bar-right" id="bar-right">
+  <button type="button" class="outline-button" id="currency-button" aria-haspopup="menu" aria-label="Currency"><span>USD</span><svg class="chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></button>
+  <button type="button" class="dark-button" id="share-button"><svg viewBox="0 0 14 15"><path d="M7 9.5V1.5M4 4l3-3 3 3M2 8v5h10V8"/></svg>Share</button>
+</div>
+<div class="menu" id="currency-menu" role="menu" hidden></div>
+
+<section class="key" id="key" aria-label="Key"></section>
+<div class="card zoom" id="zoom">
+  <button type="button" id="zoom-in" aria-label="Zoom in"><svg viewBox="0 0 14 14"><path d="M7 1v12M1 7h12"/></svg></button>
+  <button type="button" id="zoom-out" aria-label="Zoom out"><svg viewBox="0 0 14 14"><path d="M1 7h12"/></svg></button>
+  <button type="button" id="go-home" aria-label="Go to my place"><svg viewBox="0 0 16 16"><path d="M14 2L2 7l5 2 2 5z"/></svg></button>
+</div>
+<section class="card strip" id="strip" aria-label="Places"></section>
+<aside class="card details" id="details" aria-label="A place" hidden></aside>
+<div class="tooltip" id="tooltip" hidden></div>
+
+<div class="overlay" id="picker" hidden>
+  <div class="card picker" role="dialog" aria-labelledby="picker-title">
+    <div class="sheet-head"><h2 id="picker-title">Where are you?</h2><button type="button" class="round-button" data-close-picker aria-label="Close"><svg viewBox="0 0 12 12"><path d="M1 1l10 10M11 1L1 11"/></svg></button></div>
+    <input id="picker-input" type="search" placeholder="City, region or country" autocomplete="off" spellcheck="false" aria-label="Search for a place">
+    <ul id="picker-results"></ul>
+  </div>
+</div>
+<div class="overlay" id="share" hidden>
+  <div class="card share-sheet" role="dialog" aria-labelledby="share-title">
+    <div class="sheet-head"><h2 id="share-title">Share</h2><button type="button" class="round-button" data-close-share aria-label="Close"><svg viewBox="0 0 12 12"><path d="M1 1l10 10M11 1L1 11"/></svg></button></div>
+    <img id="share-picture" alt="The picture to post: the map, and what you, the place you compare with and the cheapest city need.">
+    <div class="share-buttons">
+      <button type="button" class="dark-button" data-post>Post on Twitter</button>
+      <button type="button" class="outline-button" data-copy-picture>Copy picture</button>
+      <button type="button" class="outline-button" data-copy-link>Copy link</button>
+    </div>
+    <p class="share-status" id="share-status" role="status"></p>
+  </div>
+</div>
+<!-- answer from server -->
+<script type="module" src="/page.js"></script>
+</body>
+</html>

@@ -1,6 +1,5 @@
 // The map's shapes and lines in one compact file, written by tools/map/build-map-geometry.ts and read by the page and the Worker.
-// Points are Web Mercator, scaled so the world is one unit wide and one tall (x from the antimeridian eastwards, y from the north),
-// rounded to a grid of 2^24 across. Each border is stored once, as an arc of points, each point as its difference from the one
+// Points are in the map's projection (src/projection.ts), the world one unit wide, rounded to a grid of 2^24 across. Each border is stored once, as an arc of points, each point as its difference from the one
 // before; a shape's rings are lists of arcs, as in TopoJSON. The triangles the graphics card fills come precomputed.
 
 export const gridSize = 2 ** 24;
@@ -10,6 +9,7 @@ export const lineKinds = ['country', 'state', 'region'] as const;
 export type LineKind = typeof lineKinds[number];
 
 export type MapGeometry = {
+  projection: string;
   shapeCodes: string[];
   // Every shape's rings, one after another: x and y of each point, in map units.
   points: Float32Array;
@@ -27,7 +27,7 @@ export type MapGeometry = {
 };
 
 export type GeometryHeader = {
-  shapeCodes: string[]; arcCount: number; arcPointCount: number; ringCount: number; pointCount: number; triangleIndexCount: number;
+  projection: string; shapeCodes: string[]; arcCount: number; arcPointCount: number; ringCount: number; pointCount: number; triangleIndexCount: number;
   lineArcCounts: Record<LineKind, number>;
 };
 
@@ -128,16 +128,8 @@ export function readMapGeometry(file: Uint8Array): MapGeometry {
     }
   }
   if (!reader.isDone) throw new Error('The map file has more in it than its header says');
-  return { shapeCodes: header.shapeCodes, points, ringStarts, ringIsOuter, shapeFirstRing, triangleIndices, shapeOfPoint, shapeBoxes, lines };
+  return { projection: header.projection, shapeCodes: header.shapeCodes, points, ringStarts, ringIsOuter, shapeFirstRing, triangleIndices, shapeOfPoint, shapeBoxes, lines };
 }
-
-export const mapXOf = (longitude: number) => (longitude + 180) / 360;
-export function mapYOf(latitude: number): number {
-  const clamped = Math.max(-85.0511, Math.min(85.0511, latitude)) * Math.PI / 180;
-  return 0.5 - Math.log(Math.tan(Math.PI / 4 + clamped / 2)) / (2 * Math.PI);
-}
-export const longitudeOf = (mapX: number) => mapX * 360 - 180;
-export const latitudeOf = (mapY: number) => (2 * Math.atan(Math.exp((0.5 - mapY) * 2 * Math.PI)) - Math.PI / 2) * 180 / Math.PI;
 
 // The shape a point on the map is in, by its rings (even-odd), or -1.
 export function shapeAt(geometry: MapGeometry, mapX: number, mapY: number): number {

@@ -1,5 +1,6 @@
-// Writes assets/map/shapes.bin (see src/map-geometry.ts) and assets/map/places.json: every place on the map at the finest level
-// the data supports, with its name and the place it belongs to.
+// Writes assets/map/shapes-coarse.bin and shapes-fine.bin (see src/map-geometry.ts) and assets/map/places.json: every place on
+// the map at the finest level the data supports, in the projection named in src/projection.ts, with its name and the place it
+// belongs to.
 //
 //   US counties and county-equivalents: Census cartographic boundaries 2024, 1:5,000,000 (public domain).
 //   Europe: Eurostat GISCO NUTS 2024 level 3 at 1:3,000,000 (EuroGeographics licence: free reuse with attribution);
@@ -18,7 +19,8 @@ import * as polyclip from 'polyclip-ts';
 import * as shapefile from 'shapefile';
 import * as topojsonClient from 'topojson-client';
 import * as topojsonServer from 'topojson-server';
-import { assembleRing, gridSize, lineKinds, mapXOf, mapYOf, VarintWriter, type GeometryHeader, type LineKind } from '../../src/map-geometry.ts';
+import { assembleRing, gridSize, lineKinds, VarintWriter, type GeometryHeader, type LineKind } from '../../src/map-geometry.ts';
+import { onTheMap, projection } from '../../src/projection.ts';
 
 const cache = 'cache/map';
 const downloads: Record<string, string> = {
@@ -242,11 +244,34 @@ for (const [code, polygons] of countryPolygons) {
 for (const code of ['US', ...nutsCountries]) addPlace({ code, name: countryName(code), parent: null, kind: 'country' });
 places.get('US-PR')!.parent = 'US';
 
-// ---- To map units, into one topology, so neighbours share their borders and each border is simplified once.
-const projectRing = (ring: Ring): Ring => ring.map(([longitude, latitude]) => [mapXOf(longitude), mapYOf(latitude)]);
+// ---- Only as fine as the data: a county or region is drawn as itself where a table or a tax rule names it or a place inside
+// it, and otherwise as part of the nearest place above it that has data of its own. Shapes drawn as one place share a code, and
+// no line is drawn between them.
+const codesWithData = new Set<string>();
+for (const file of (await readdir('data/tables')).filter(name => name.endsWith('.csv') && !name.startsWith('lifestyle'))) {
+  for (const line of (await readFile(`data/tables/${file}`, 'utf8')).split('\n').slice(1)) {
+    const code = line.slice(0, line.indexOf(','));
+    if (code) codesWithData.add(code);
+  }
+}
+const { taxRulesFor } = await import('../../src/tax/tax-rules.ts');
+for (const file of await readdir('src/tax')) if (file.endsWith('.ts') && !['tax-rules.ts', 'calculation.ts'].includes(file)) await import(`../../src/tax/${file}`);
+const hasData = (code: string) => codesWithData.has(code) || !!taxRulesFor([code]);
+const chainOfPlace = (code: string) => { const chain: string[] = []; for (let current: string | null = code; current; current = places.get(current)?.parent ?? null) chain.push(current); return chain; };
+for (const shape of shapes) {
+  const chain = chainOfPlace(shape.code);
+  shape.code = chain.find(hasData) ?? chain.at(-1)!;
+}
+
+// ---- To map units, into one topology, so neighbours share their borders and each border is simplified once. Each polygon goes
+// whole to whichever side of the map's edge its middle is on.
+const projectPolygon = (polygon: Polygon): Polygon => {
+  const middle = polygon[0].reduce((sum, [longitude]) => sum + longitude, 0) / polygon[0].length, turn = onTheMap(middle) - middle;
+  return polygon.map(ring => ring.map(([longitude, latitude]) => projection.project(longitude + turn, latitude)));
+};
 const features = shapes.map((shape, index) => ({
   type: 'Feature' as const, id: index, properties: {},
-  geometry: { type: 'MultiPolygon' as const, coordinates: shape.polygons.filter(polygon => polygon[0].some(point => point[1] > -60)).map(polygon => polygon.map(projectRing)) },
+  geometry: { type: 'MultiPolygon' as const, coordinates: shape.polygons.filter(polygon => polygon[0].some(point => point[1] > -60)).map(projectPolygon) },
 }));
 const topology = topojsonServer.topology({ shapes: { type: 'FeatureCollection', features } } as never, 2 ** 22) as never as {
   arcs: [number, number][][]; transform: { scale: [number, number]; translate: [number, number] }; objects: { shapes: { geometries: { arcs: number[][][]; type: string }[] } };
@@ -261,8 +286,8 @@ const absoluteArcs = topology.arcs.map(arc => {
 function simplifyArc(arc: [number, number][], smallestTriangle: number): [number, number][] {
   if (arc.length <= 2) return arc;
   const weight = new Float64Array(arc.length).fill(Infinity), removed = new Uint8Array(arc.length);
-  // Mercator blows up the far north: its coasts are simplified as if they were no further north than 50 degrees.
-  const highLatitudeDamping = arc.map(([, mapY]) => Math.min(1, (Math.cos(Math.atan(Math.sinh((0.5 - mapY) * 2 * Math.PI))) / Math.cos(50 * Math.PI / 180)) ** 2));
+  // A projection that blows up the far north has its coasts there simplified as if they were no further north than 50 degrees.
+  const highLatitudeDamping = arc.map(([mapX, mapY]) => (projection.enlargesHighLatitudes ? Math.min(1, (Math.cos(projection.invert(mapX, mapY)[1] * Math.PI / 180) / Math.cos(50 * Math.PI / 180)) ** 2) : 1));
   const area = (a: number, b: number, c: number) => highLatitudeDamping[b] * Math.abs((arc[b][0] - arc[a][0]) * (arc[c][1] - arc[a][1]) - (arc[c][0] - arc[a][0]) * (arc[b][1] - arc[a][1])) / 2;
   const previous = arc.map((_, index) => index - 1), next = arc.map((_, index) => index + 1);
   for (let index = 1; index < arc.length - 1; index++) weight[index] = area(index - 1, index, index + 1);
@@ -370,7 +395,7 @@ async function writeLevel(fileName: string, detailZoom: number): Promise<void> {
     lineArcCounts[kind] = numbers.length;
   }
 
-  const header: GeometryHeader = { shapeCodes: shapes.map(shape => shape.code), arcCount: usedArcs.length, arcPointCount, ringCount, pointCount, triangleIndexCount, lineArcCounts };
+  const header: GeometryHeader = { projection: projection.name, shapeCodes: shapes.map(shape => shape.code), arcCount: usedArcs.length, arcPointCount, ringCount, pointCount, triangleIndexCount, lineArcCounts };
   const headerBytes = Buffer.from(JSON.stringify(header)), lengthBytes = Buffer.alloc(4);
   lengthBytes.writeUInt32LE(headerBytes.length);
   const sections = [arcWriter.result(), shapeWriter.result(), triangleWriter.result(), lineWriter.result()];

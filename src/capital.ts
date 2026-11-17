@@ -4,9 +4,10 @@ import { chainOf, countryOf, type Places } from './places.ts';
 import { components, type Component, type Figure } from './snapshot.ts';
 import { taxRulesFor, type TaxRegime } from './tax/tax-rules.ts';
 
-// The two choices that recolour the whole map. Josh may change either, so each is one list here.
-export const withdrawalRates = [0.03, 0.04, 0.05] as const;
-export type WithdrawalRate = typeof withdrawalRates[number];
+// The two choices that recolour the whole map. Josh may change either, so each is one list here. The page offers a choice of
+// withdrawal rate only when this list has more than one; Palombo's 5% is fixed for now.
+export const withdrawalRates = [0.05] as const;
+export type WithdrawalRate = 0.03 | 0.04 | 0.05;
 export const defaultWithdrawalRate: WithdrawalRate = 0.05;
 export const taxRegimes: TaxRegime[] = ['standard', 'special'];
 export type Settings = { withdrawalRate: WithdrawalRate; regime: TaxRegime };

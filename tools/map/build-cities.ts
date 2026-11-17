@@ -5,7 +5,8 @@
 // Usage: node tools/map/build-cities.ts (after build-map-geometry.ts)
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
-import { readMapGeometry, shapeAt, mapXOf, mapYOf } from '../../src/map-geometry.ts';
+import { readMapGeometry, shapeAt } from '../../src/map-geometry.ts';
+import { projectPoint } from '../../src/projection.ts';
 import { GOLAN_PLACES, PALESTINE_PLACES } from './palestine-places.mjs';
 
 const smallestCity = 100_000;
@@ -37,7 +38,7 @@ function shapeCodeAt(longitude: number, latitude: number): string | null {
   for (let step = 0; step <= 6; step++) {
     const reach = step * 0.025;
     for (const [dx, dy] of step ? [[reach, 0], [-reach, 0], [0, reach], [0, -reach], [reach, reach], [-reach, reach], [reach, -reach], [-reach, -reach]] : [[0, 0]]) {
-      const shape = shapeAt(geometry, mapXOf(longitude + dx), mapYOf(latitude + dy));
+      const shape = shapeAt(geometry, ...projectPoint(longitude + dx, latitude + dy));
       if (shape >= 0) return geometry.shapeCodes[shape];
     }
   }
