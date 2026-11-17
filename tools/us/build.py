@@ -39,6 +39,18 @@ SBE = {
 PR_PLAN = ('https://docs.pr.gov/files/OCS/Seguros_Salud/Planes%20en%20Cumplimiento/'
            '2027/Cubiertas%20Individuales/Triple-S%20Salud%2C%20Inc/Triple-S%20Directo%20Plata/Tarifas.pdf')
 AAA = 'https://newsroom.aaa.com/wp-content/uploads/2026/09/8-YDC-Brochure_2026-1.pdf'
+# Annual passenger-vehicle registration comparator from NMDOT, slide 21.
+# DC uses its March 2026 Class I rate.
+CAR_REGISTRATION = {
+    'AK': 90, 'AL': 73, 'AR': 28, 'AZ': 213, 'CA': 249, 'CO': 238, 'CT': 92,
+    'DC': 70, 'DE': 40, 'FL': 32, 'GA': 20, 'HI': 196, 'IA': 216, 'ID': 61,
+    'IL': 151, 'IN': 36, 'KS': 50, 'KY': 21, 'LA': 38, 'MA': 65, 'MD': 162,
+    'ME': 50, 'MI': 123, 'MN': 235, 'MO': 30, 'MS': 28, 'MT': 233, 'NC': 60,
+    'ND': 93, 'NE': 230, 'NH': 183, 'NJ': 72, 'NM': 62, 'NV': 296, 'NY': 69,
+    'OH': 46, 'OK': 96, 'OR': 136, 'PA': 79, 'PR': 85, 'RI': 48, 'SC': 20,
+    'SD': 74, 'TN': 29, 'TX': 64, 'UT': 180, 'VA': 51, 'VT': 91, 'WA': 112,
+    'WI': 88, 'WV': 68, 'WY': 210,
+}
 
 
 def fetch(source, name, url, data=None):
@@ -283,19 +295,27 @@ def wages(counties, metros):
     return result
 
 
+def repair_labor():
+    path = fetch('us-car-ari', '2026.html', 'https://ari.app/2026/10/auto-repair-labor-rates-by-state/')
+
+    def table_rows(table):
+        return [[cell.get_text(' ', strip=True) for cell in row.find_all(['th', 'td'])]
+                for row in table.select('tr') if row.find('td')]
+
+    state_table, regional_table, *_ = BeautifulSoup(path.read_text(), 'html.parser').select('table')
+    states = {row[0]: int(re.search(r'\$(\d+)', row[3])[1])
+              for row in table_rows(state_table) if len(row) >= 4}
+    regions = {}
+    for region, codes, _, _, median, *_ in table_rows(regional_table):
+        for code in codes.split(', ') if codes else ('US',):
+            regions[code] = (int(median.strip('$')), region)
+    return states, regions
+
+
 def cars(counties):
-    guide = pdf_text(fetch('us-car-aaa', '2026.pdf', AAA))
-    sedan = guide.split('Medium Sedan')[-1].split('Medium SUV')[0]
-
-    def gas_sedan_cost(label):
-        line = next(line for line in sedan.splitlines() if line.lstrip().startswith(label))
-        values = re.findall(r'\$([\d,.]+)', line)
-        return float(values[1].replace(',', ''))
-
-    annual = gas_sedan_cost('cost per year')
-    national_fuel = gas_sedan_cost('fuel')
-    national_insurance = gas_sedan_cost('full-coverage insurance')
-    assert (annual, national_fuel, national_insurance) == (10582, 2215, 1704)
+    guide = pdf_text(fetch('us-car-aaa', '2026.pdf', AAA)).split('Small Sedan', 1)[1]
+    maintenance_per_mile = float(re.search(r'^\s*maintenance\s+([\d.]+)¢', guide, re.M)[1]) / 100
+    national_insurance = int(re.search(r'^\s*full-coverage insurance\s+\$([\d,]+)', guide, re.M)[1].replace(',', ''))
 
     naic_url = 'https://content.naic.org/sites/default/files/2024-adb-average-premium-supplement.pdf'
     naic = pdf_text(fetch('us-car-naic', '2024.pdf', naic_url))
@@ -308,7 +328,7 @@ def cars(counties):
     gas = fetch('us-car-gas', 'state-prices.html', 'https://gasprices.aaa.com/state-gas-price-averages/')
     soup = BeautifulSoup(gas.read_text(), 'html.parser')
     date = re.search(r'Price as of\s+(\d+/\d+/\d+)', soup.get_text(' ', strip=True))[1]
-    period = datetime.strptime(date, '%m/%d/%y').date().isoformat()
+    us_fuel_date = datetime.strptime(date, '%m/%d/%y').date().isoformat()
     fuel = {}
     for row in soup.select_one('table').find_all('tr'):
         cells = row.find_all('td')
@@ -320,20 +340,44 @@ def cars(counties):
         for row in rows:
             if row['LineCode'] == '1' and row['GeoFIPS']:
                 state_names[row['GeoFIPS'].strip().strip(chr(34))[:2]] = row['GeoName']
+    state_labor, regional_labor = repair_labor()
+    national_labor = regional_labor['US'][0]
+    # Toyota 2027 Hybrid LE MSRP and delivery. iSeeCars retains 58.5% at year 7
+    # and 44.8% at year 10, about 54% at year 8. Cash purchase carries no interest.
+    purchase = 25_175 + 1_295
+    depreciation = purchase * (1 - .54) / 8
+    km_per_year = 12_000
+    litres_per_year = km_per_year * 5.1 / 100
+    base_maintenance = km_per_year / 1.609344 * maintenance_per_mile
     result = {}
     for fips, (state, _) in counties.items():
+        name = state_names.get(fips[:2], 'Puerto Rico')
+        period = us_fuel_date
+        premium = national_insurance
+        labor_note = ''
         if state == 'PR':
-            result[fips] = (annual / 12, '2026', 'US', 'us-car-aaa',
-                            'US national gasoline sedan cost at 15,000 miles; Puerto Rico adjustment unavailable')
-            continue
-        name = state_names[fips[:2]]
-        # AAA's 2026 study benchmark used $4.152/gal. Keep the model's mileage
-        # and effective fuel economy fixed while substituting the local price.
-        estimate = annual - national_fuel - national_insurance
-        estimate += national_fuel * fuel[name] / 4.152
-        estimate += national_insurance * insurance[name] / national_naic
-        result[fips] = (estimate / 12, period, f'US-{state}', 'us-car-aaa',
-                        'AAA 2026 gasoline sedan at 15,000 miles; fuel adjusted using AAA state prices and insurance using NAIC 2024')
+            # DACO island-wide regular-pump range, $0.977-1.027/L, 2026-11-16.
+            fuel_per_litre = (.977 + 1.027) / 2
+            period = '2026-11-16'
+            labor = national_labor
+            labor_note = '. US benchmarks for purchase, insurance and maintenance'
+        else:
+            fuel_per_litre = fuel[name] / 3.785411784
+            premium *= insurance[name] / national_naic
+            labor = state_labor.get(name)
+            if labor is None:
+                labor, region = regional_labor[state]
+                labor_note = f'. {region} repair labor rate'
+        annual_fuel = litres_per_year * fuel_per_litre
+        registration = CAR_REGISTRATION[state]
+        # Keep the parts share at the national price; localise the assumed 40% labor share.
+        maintenance = base_maintenance * (.60 + .40 * labor / national_labor)
+        annual = depreciation + premium + annual_fuel + registration + maintenance
+        note = (f'Corolla Hybrid, cash, 8 years, 12,000 km/year. Monthly USD: '
+                f'depreciation {depreciation / 12:.0f}, insurance {premium / 12:.0f}, '
+                f'fuel {annual_fuel / 12:.0f}, registration {registration / 12:.0f}, '
+                f'maintenance {maintenance / 12:.0f}{labor_note}')
+        result[fips] = (annual / 12, period, f'US-{state}', 'us-car-toyota', note)
     return result
 
 
