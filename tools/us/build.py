@@ -11,6 +11,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+from unicodedata import normalize
 from urllib.request import Request, urlopen
 from zipfile import ZipFile
 
@@ -82,7 +83,7 @@ def write_table(component, unit, values, counties):
                 raise ValueError(f'{component} value for {fips}: {amount}')
             rows.writerow([f'US-{fips}', round(amount, 2), 'USD', unit, period, area, source, note])
     county_count = sum(area == f'US-{fips}' for fips, (_, _, area, _, _) in values.items())
-    print(f'{component}: {county_count} county, {len(values) - county_count} wider area')
+    print(f'{component}: {county_count} county, {len(values) - county_count} other reporting areas')
 
 
 def geography():
@@ -101,6 +102,66 @@ def geography():
             fips = f'{int(state):02d}{int(county):03d}'
             metros[fips] = (str(cbsa), name)
     return counties, metros
+
+
+def market_rent(counties):
+    def lookup_name(name):
+        return re.sub(r'[^a-z0-9]', '', normalize('NFKD', name).casefold())
+
+    path = fetch('us-census-places', 'sub-est2025.csv', CENSUS +
+                 '/programs-surveys/popest/datasets/2020-2025/cities/totals/sub-est2025.csv')
+    main_places = {}
+    with path.open(encoding='latin-1') as file:
+        rows = [row for row in csv.DictReader(file) if row['SUMLEV'] in ('157', '061')]
+    name_exceptions = {
+        'Boise City': 'Boise', 'Urban Honolulu': 'Honolulu',
+        'Indianapolis city (balance)': 'Indianapolis',
+        'Louisville/Jefferson County metro government (balance)': 'Louisville',
+        'Nashville-Davidson metropolitan government (balance)': 'Nashville',
+        'Augusta-Richmond County consolidated government (balance)': 'Augusta',
+        'Athens-Clarke County unified government (balance)': 'Athens',
+        'Lexington-Fayette urban county': 'Lexington',
+        'Macon-Bibb County': 'Macon',
+    }
+    for row in rows:
+        fips = row['STATE'] + row['COUNTY']
+        if fips not in counties or row['NAME'].startswith('Balance of '):
+            continue
+        population = int(row['POPESTIMATE2025'])
+        if population <= main_places.get(fips, (0, ''))[0]:
+            continue
+        name = re.sub(r' (city|town|village|borough|municipality|CDP)( \(pt\.\))?$', '', row['NAME'])
+        main_places[fips] = population, name_exceptions.get(row['NAME'], name_exceptions.get(name, name))
+
+    # Easy Rental reports the five New York City boroughs separately. The
+    # Census file calls each borough a part of New York city.
+    boroughs = {'36005': 'Bronx', '36047': 'Brooklyn', '36061': 'New York',
+                '36081': 'Queens', '36085': 'Staten Island'}
+    path = fetch('us-easy-rental', 'rents.csv', 'https://easyrental.ai/data/rents.csv')
+    market = {}
+    with path.open(encoding='utf-8-sig') as file:
+        for row in csv.DictReader(file):
+            samples = int(row['samples_2br'])
+            if not row['median_2br'] or samples < 100:
+                continue
+            key = row['state'], lookup_name(row['city'])
+            # Keep the better-sampled series when the feed splits punctuation variants.
+            if samples > int(market.get(key, {}).get('samples_2br', 0)):
+                market[key] = row
+
+    result = {}
+    for fips, (_, name) in main_places.items():
+        state, _ = counties[fips]
+        row = market.get((state, lookup_name(boroughs.get(fips, name))))
+        if row is None:
+            continue
+        area = f'{row["city"]}, {state}'
+        if fips in boroughs or fips in ('06075', '11001'):
+            area = f'US-{fips}'
+        note = (f'Median advertised rent for two bedrooms from {row["samples_2br"]} listings. '
+                f'Prices before utilities and concessions. Easy Rental rent data, {row["url"]}')
+        result[fips] = (float(row['median_2br']), row['as_of'], area, 'us-easy-rental', note)
+    return result
 
 
 def rent(counties):
@@ -146,6 +207,7 @@ def rent(counties):
             period = '2025' if year == 2025 else '2020-2024'
             result[fips] = (base, period, code, 'us-acs-rent', detail)
             break
+    result.update(market_rent(counties))
     return result
 
 
