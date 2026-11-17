@@ -59,7 +59,7 @@ for (const region of regions) {
   registerStandardTax(
     region.codes, 'EUR',
     `Spain applies the savings bands and personal minima to sales, plus the applicable wealth and solidarity taxes (${region.name}). Wealth-tax limits reduce the charge when all income is from units held more than a year. The Beckham regime requires a qualifying reason for moving to Spain, such as employment.`,
-    ['tax-es-income', 'tax-es-minima', 'tax-es-wealth', 'tax-es-solidarity', 'tax-es-beckham'],
+    ['tax-es-income', 'tax-es-minima', 'tax-es-calculation', 'tax-es-wealth', 'tax-es-solidarity', 'tax-es-beckham'],
     ({ withdrawalLocal, capitalAtStartOfYearLocal }) => {
       const gain = withdrawalLocal / 2;
       const capital = capitalAtStartOfYearLocal / 2;

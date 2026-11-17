@@ -21,7 +21,7 @@ registerTaxRules('IT', {
       taxLocal: standard,
       regimeName: 'Standard',
       explanation: 'Italy taxes gains on qualifying EU equity ETFs at 26% and charges 0.2% IVAFE on their value in an ordinary foreign account.',
-      sourceIds: ['tax-it-gains', 'tax-it-ivafe', 'tax-it-flat'],
+      sourceIds: ['tax-it-gains', 'tax-it-rt', 'tax-it-ivafe', 'tax-it-rw'],
     };
   },
 });

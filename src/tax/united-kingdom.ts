@@ -29,7 +29,7 @@ registerTaxRules('GB', {
       taxLocal: 2 * (dividendTax + 0.18 * basicGain + 0.24 * (gain - basicGain)),
       regimeName: 'Standard',
       explanation: 'HMRC taxes ETF sale gains at 18% or 24% after each spouse’s £3,000 gains allowance. The estimate also taxes reportable fund income as dividends using an illustrative 1.5% yield and adjusts sale gains for income already taxed.',
-      sourceIds: ['tax-gb-gains', 'tax-gb-income', 'tax-gb-fund', 'tax-fund-vanguard'],
+      sourceIds: ['tax-gb-gains', 'tax-gb-examples', 'tax-gb-income', 'tax-gb-fund', 'tax-fund-vanguard'],
     };
   },
 });

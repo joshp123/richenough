@@ -25,8 +25,8 @@ registerTaxRules('AU', {
     return {
       taxLocal: 2 * (Math.max(0, progressiveTax(taxable, bands) - offset) + levy),
       regimeName: 'Standard',
-      explanation: 'Australia applies the 50% long-term capital gains discount and each spouse’s own income tax bands and low-income offset. It includes the Medicare levy and assumes the couple’s private hospital cover avoids the surcharge. The 2026–27 estimate uses current rules. The announced capital gains reform would change gains accruing from July 2027.',
-      sourceIds: ['tax-au-rates', 'tax-au-cgt', 'tax-au-lito', 'tax-au-medicare', 'tax-au-cgt-reform', 'tax-au-temporary'],
+      explanation: 'Australia applies the 50% long-term capital gains discount and each spouse’s own income tax bands and low-income offset. It includes the Medicare levy and assumes private hospital cover avoids the surcharge. This is the 2026–27 estimate. Indexation and a new minimum tax apply to gains accruing from July 2027.',
+      sourceIds: ['tax-au-rates', 'tax-au-cgt', 'tax-au-lito', 'tax-au-medicare', 'tax-au-2027'],
     };
   },
 });

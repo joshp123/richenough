@@ -12,7 +12,7 @@ function portugal(codes: string[], regionalFactor: number) {
   registerStandardTax(
     codes, 'EUR',
     'Portugal taxes 70% of the gain on qualifying ETF units held at least eight years. The couple pays the lower of the separate capital gains rate and the joint income tax scale. IFICI requires qualifying work or professional income.',
-    ['tax-pt-gains', 'tax-pt-rates', 'tax-pt-income', 'tax-pt-islands', 'tax-pt-ifici'],
+    ['tax-pt-gains', 'tax-pt-rates', 'tax-pt-income', 'tax-pt-2026', 'tax-pt-guide', 'tax-pt-islands', 'tax-pt-ifici'],
     ({ withdrawalLocal }) => {
       const taxableGain = withdrawalLocal * 0.7;
       return Math.min(
