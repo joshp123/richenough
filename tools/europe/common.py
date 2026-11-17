@@ -204,7 +204,7 @@ def main_towns(nuts3_code: str, towns: pd.DataFrame | None = None) -> pd.DataFra
     towns = towns.sort_values("population", ascending=False).copy()
     iso = NUTS_TO_ISO.get(nuts3_code[:2], nuts3_code[:2])
     hits = [_geonames_hit(iso, n) or _geonames_hit(iso, l) for n, l in zip(towns["name"], towns.get("name_latin", towns["name"]))]
-    towns["city_code"] = [f"CITY-{h[0]}" if h else None for h in hits]
+    towns["city_code"] = pd.Series([f"CITY-{h[0]}" if h else None for h in hits], index=towns.index, dtype=object)
     biggest = towns["population"].max()
     towns["rank"] = [0 if h and h[2] in ("PPLC", "PPLA") and p >= biggest / 3 else 1 for h, p in zip(hits, towns["population"])]
     return towns.sort_values(["rank", "population"], ascending=[True, False]).drop(columns="rank")

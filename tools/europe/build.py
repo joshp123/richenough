@@ -52,7 +52,7 @@ def check(component: str, rows: list[dict], module: str) -> list[dict]:
         problems = []
         if r["place_code"] not in known:
             problems.append(f"unknown place {r['place_code']}")
-        if not isinstance(r["amount"], (int, float)) or math.isnan(r["amount"]) or r["amount"] <= 0:
+        if not isinstance(r["amount"], (int, float)) or math.isnan(r["amount"]) or r["amount"] < 0:
             problems.append(f"bad amount {r['amount']}")
         if not r["source_id"] or not r["measured_for"] or not r["period"]:
             problems.append("empty source_id, measured_for or period")
