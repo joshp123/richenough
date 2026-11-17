@@ -17,6 +17,17 @@ const cases = [
   ['TH', 32.7, [198400, 681000, 1946500], 1],
   ['AE', 3.6725, [0, 0, 0], 0],
   ['GE', 2.7, [0, 0, 0], 0],
+  // Territorial exclusions and standalone gains charges documented by the local authorities.
+  ['AW', 1.79, [0, 0, 0], 0],
+  ['PF', 103, [0, 0, 0], 0],
+  ['ET', 150, [1_350_000, 2_700_000, 5_625_000], 1],
+  ['CG', 560, [5_040_000, 10_080_000, 21_000_000], 1],
+  ['GA', 560, [5_712_000, 11_424_000, 23_800_000], 1],
+  // DRC brackets, 30% cap and reduction on the lower bands (CDF).
+  ['CD', 2_000, [32_033_971.20, 71_620_531.20, 149_620_531.20], 1],
+  ['BT', 86, [0, 0, 0], 0],
+  ['IR', 42_000, [0, 0, 0], 0],
+  ['TL', 1, [0, 0, 0], 0],
 ] as const;
 
 for (const [code, exchangeRate, expected, tolerance] of cases) {
