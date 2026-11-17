@@ -1,10 +1,10 @@
 import { progressiveTax, type TaxBand } from './calculation.ts';
-import { registerTaxRules } from './tax-rules.ts';
+import { registerTaxRules, type TaxRules } from './tax-rules.ts';
 
 // 2026–27 income year. Held at least a year after deemed acquisition at arrival.
 const bands: TaxBand[] = [[18_200, 0.15], [45_000, 0.30], [135_000, 0.37], [190_000, 0.45]];
 
-registerTaxRules('AU', {
+const rules: TaxRules = {
   currency: 'AUD',
   hasSpecialRegime: true,
   taxOwed: ({ withdrawalLocal }, regime) => {
@@ -28,5 +28,14 @@ registerTaxRules('AU', {
       explanation: 'Australia applies the 50% long-term capital gains discount and each spouse’s own income tax bands and low-income offset. It includes the Medicare levy and assumes private hospital cover avoids the surcharge. This is the 2026–27 estimate. Indexation and a new minimum tax apply to gains accruing from July 2027.',
       sourceIds: ['tax-au-rates', 'tax-au-cgt', 'tax-au-lito', 'tax-au-medicare', 'tax-au-2027'],
     };
+  },
+};
+
+registerTaxRules('AU', rules);
+registerTaxRules('NF', {
+  ...rules,
+  taxOwed: (year, regime) => {
+    const owed = rules.taxOwed(year, regime);
+    return { ...owed, sourceIds: [...owed.sourceIds, 'tax-au-norfolk'] };
   },
 });

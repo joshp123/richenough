@@ -4,6 +4,6 @@ import { registerStandardTax } from './calculation.ts';
 registerStandardTax(
   "ME", "EUR",
   "Montenegro taxes securities gains at 15%. Its municipal surtax applies to specified income categories, such as dividends and other capital income.",
-  ["tax-me-gains","tax-me-local"],
+  ["tax-me-gains","tax-me-local", "tax-me-municipal-law"],
   ({ withdrawalLocal }) => 0.15 * withdrawalLocal,
 );
