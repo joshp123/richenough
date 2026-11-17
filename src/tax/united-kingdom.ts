@@ -1,4 +1,4 @@
-import { fundDividendYield, progressiveTax } from './calculation.ts';
+import { fundDividendYield, nominalPortfolioReturn, progressiveTax } from './calculation.ts';
 import { registerTaxRules } from './tax-rules.ts';
 
 // 2026/27. Half the portfolio per spouse in a foreign fund with HMRC reporting status.
@@ -22,7 +22,8 @@ registerTaxRules('GB', {
     const dividendTax = progressiveTax(taxableIncome, [[500, 0.1075], [37_700, 0.3575], [125_140, 0.3935]]);
     // Allocate part of the spending withdrawal to reportable income already taxed as
     // dividends, to approximate the basis uplift over a mature portfolio's life.
-    const gain = Math.max(0, withdrawalLocal / 2 - dividends - 3_000);
+    const gainShare = 1 - fundDividendYield / nominalPortfolioReturn;
+    const gain = Math.max(0, withdrawalLocal * gainShare / 2 - 3_000);
     const basicGain = Math.min(gain, Math.max(0, 37_700 - taxableIncome));
     return {
       taxLocal: 2 * (dividendTax + 0.18 * basicGain + 0.24 * (gain - basicGain)),

@@ -1,0 +1,18 @@
+import { registerTaxRules } from './tax-rules.ts';
+
+// Law and published rates checked November 2026.
+registerTaxRules("IL", {
+  currency: "ILS",
+  hasSpecialRegime: true,
+  taxOwed: ({ withdrawalLocal }, regime) => regime === 'special' ? {
+    taxLocal: 0,
+    regimeName: "New immigrants and veteran returning residents",
+    explanation: "Qualifying new olim and veteran returning residents can exempt foreign gains for ten years. For arrivals from 2026, reporting is required.",
+    sourceIds: ["tax-il-immigrant"],
+  } : {
+    taxLocal: 0.25 * withdrawalLocal + 0.05 * Math.max(0, withdrawalLocal - 1_443_120),
+    regimeName: 'Standard',
+    explanation: "Israeli tax on real gains is 25%, plus a combined 5% surtax on investment gains above ILS 721,560 per spouse.",
+    sourceIds: ["tax-il-gains","tax-il-immigrant"],
+  },
+});

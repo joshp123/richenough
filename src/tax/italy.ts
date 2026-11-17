@@ -20,7 +20,7 @@ registerTaxRules('IT', {
     return {
       taxLocal: standard,
       regimeName: 'Standard',
-      explanation: 'Italy taxes gains on qualifying EU equity ETFs at 26% and charges 0.2% IVAFE on their value in an ordinary foreign account. The €350,000 new resident option costs more at this portfolio size.',
+      explanation: 'Italy taxes gains on qualifying EU equity ETFs at 26% and charges 0.2% IVAFE on their value in an ordinary foreign account.',
       sourceIds: ['tax-it-gains', 'tax-it-ivafe', 'tax-it-flat'],
     };
   },
