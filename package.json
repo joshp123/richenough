@@ -1,0 +1,26 @@
+{
+  "name": "enough",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@resvg/resvg-wasm": "^2.6.2",
+    "earcut": "^3.0.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "miniflare": "^4.20260730.0",
+    "playwright-core": "^1.64.1",
+    "shapefile": "^0.6.6",
+    "topojson-client": "^3.1.0",
+    "topojson-server": "^3.0.1",
+    "topojson-simplify": "^3.0.3",
+    "polyclip-ts": "^0.16.8",
+    "country-to-currency": "^3.0.2",
+    "opentype.js": "^2.0.0",
+    "subset-font": "^2.9.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "workerd@1.20260730.1": true
+  }
+}
