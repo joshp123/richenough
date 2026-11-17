@@ -29,6 +29,17 @@
       "retrieved": "2026-11-17",
       "quote": "'Ukoliko ste strani drzavljanin, a boravite u Crnoj Gori - zbog posla, studiranja ili duzeg boravka - vazno je da imate pouzdanu zdravstvenu zastitu.' 'Osigurana suma do 10.000 EUR'.",
       "measures": "The cover a foreign resident can buy: emergency-type cover in public facilities, not comprehensive private cover. No price."
+    },
+    {
+      "source_id": "health-me-lusticabay",
+      "publisher": "Lustica Bay (property developer's guide)",
+      "title": "Living in Montenegro: what to know before moving",
+      "url": "https://lusticabay.com/blog/living-in-montenegro-what-to-know-before-moving-guide/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "private cover at roughly EUR 60-150 a month depending on age and level of cover Read from a search-result excerpt; the page itself was not opened or could not be read.",
+      "measures": "Indicative monthly price of private health cover in Montenegro; not a tariff."
     }
   ],
   "typical_private": null,
@@ -36,5 +47,21 @@
   "eu_citizen_difference": "EU citizens with temporary stay are also outside the Fund unless they fall in a listed group; the Fund's page notes that nationals of countries with a social-security treaty get care as the treaty provides. Not otherwise verified.",
   "regional": [],
   "spot_check": "None. Wiener and Generali Montenegro give no prices without a quote request.",
-  "uncertainty": "Large. (1) The immigration rule on health cover for temporary stay was not read. Montenegrin law and practice (property, 'other grounds' or long-stay permits) are known to ask for health insurance, but I cannot quote it. (2) No premium. The products found are emergency-only with a 10,000 EUR ceiling, which may not satisfy a long-stay permit. (3) A Montenegrin-system pensioner would pay income-based contributions: not applicable to this couple. Confidence in the figure: none (null)."
+  "uncertainty": "Large. (1) The immigration rule on health cover for temporary stay was not read. Montenegrin law and practice (property, 'other grounds' or long-stay permits) are known to ask for health insurance, but I cannot quote it. (2) No premium. The products found are emergency-only with a 10,000 EUR ceiling, which may not satisfy a long-stay permit. (3) A Montenegrin-system pensioner would pay income-based contributions: not applicable to this couple. Confidence in the figure: none (null).",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "Nothing found that this couple must pay.",
+    "source_id": "health-me-fzocg-law"
+  },
+  "private_plan": {
+    "amount": 210,
+    "currency": "EUR",
+    "kind": "substitutive",
+    "insurer": "Wiener Stadtische and Generali Montenegro sell foreigners' policies (EUR 10,000 limit, no price); not used",
+    "product": "local or private plan in Montenegro",
+    "terms": "Guides describe basic policies with hospital and emergency cover; terms and deductibles not stated.",
+    "pricing": "Guide range EUR 60-150 a person a month; midpoint EUR 105 x 2 = EUR 210. Other guides: EUR 40-100, EUR 46-110, about EUR 150 local, EUR 250 for a family. Secondary, wide; weak.",
+    "source_id": "health-me-lusticabay"
+  }
 }

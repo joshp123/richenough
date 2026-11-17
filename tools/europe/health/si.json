@@ -18,6 +18,17 @@
       "retrieved": "2026-11-17",
       "quote": "Preglednica 1 row: 'Osebe s stalnim prebivalisčem v Sloveniji, če ne izpolnjujejo pogojev za zavarovanje po eni izmed drugih točk 1. odst. 15. člena in si same plačujejo prispevek. Podlaga: 048 ... v višini 25 % zadnje znane povprečne bruto letne plače v RS, preračunane na mesec ... 5,96% ... 37,79 EUR'. OZDO table, same row: '1% trenutni znesek 6,34 EUR'. OZP page: 'Za obdobje od meseca marca 2026 ... do vključno februarja 2027, znaša obvezni zdravstveni prispevek 39,36 EUR mesečno.' and the OZP payer list names 'osebe s stalnim prebivališčem v RS, ki si same plačujejo prispevek za obvezno zdravstveno zavarovanje (048)'.",
       "measures": "The three fixed monthly charges for a resident without any other insurance basis. The files cached are the ZZZS .docx tables (preglednica1_15_clen_2026.docx, ozdo_preglednica_2026.docx) and the HTML pages."
+    },
+    {
+      "source_id": "health-si-sava-zdravje",
+      "publisher": "Zavarovalnica Sava",
+      "title": "Prodajna mapa ZZ Zdravje, januar 2023",
+      "url": "https://avto.zav-sava.si/media/store/sl-SI/slike/Nov-sede/Prodajna-mapa-ZZ-Zdravje_januar-2023.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2023-01",
+      "retrieved": "2026-11-18",
+      "quote": "Mesecna premija za starostno skupino 20-49 let: 8,60 EUR Read from a search-result excerpt; the page itself was not opened or could not be read.",
+      "measures": "Monthly premium of a Slovenian private health product for ages 20-49."
     }
   ],
   "typical_private": null,
@@ -25,5 +36,21 @@
   "eu_citizen_difference": "An EU citizen with permanent registration in Slovenia falls in the same basis 048 and pays the same. An EU citizen insured in another member state pays no OZP ('Tuje zavarovane osebe ne plačujejo obveznega zdravstvenega prispevka') and uses EHIC or S1.",
   "regional": [],
   "spot_check": "Press reports (Siol, RTV SLO, February 2026) forecast OZP of 39.36 EUR from March 2026; ZZZS confirms 39.36 EUR. Consistency check: 37.79 / 0.0596 = 634.06 = 25% of 2,536.2; 6.34 = 1% of 634.06, so the health and care figures use the same base.",
-  "uncertainty": "(1) Eligibility is the main risk: the category needs permanent residence, so a couple on a first temporary permit probably cannot join ZZZS this way and would need a private policy that I could not price. (2) The OZP is re-set every 1 March by pay growth (about 5.9% this year). (3) The health and care figures move with the average pay base. (4) I did not read the ZZVZZ article text itself, only the ZZZS tables."
+  "uncertainty": "(1) Eligibility is the main risk: the category needs permanent residence, so a couple on a first temporary permit probably cannot join ZZZS this way and would need a private policy that I could not price. (2) The OZP is re-set every 1 March by pay growth (about 5.9% this year). (3) The health and care figures move with the average pay base. (4) I did not read the ZZVZZ article text itself, only the ZZZS tables.",
+  "statutory_must_pay": {
+    "amount": 166.98,
+    "currency": "EUR",
+    "what": "ZZZS self-payer contributions (basis 048) plus the flat OZP: 2 x EUR 83.49. Same as the file's `amount`.",
+    "source_id": "health-si-zzzs-contributions"
+  },
+  "private_plan": {
+    "amount": 17.2,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Zavarovalnica Sava",
+    "product": "ZZ Zdravje (health supplement)",
+    "terms": "Small private health product; the insurer's brochure shows limited benefits, not a full in- and out-patient plan. OZP (in the statutory figure) replaced the old voluntary supplement, so there is no mid-range private market to price.",
+    "pricing": "January 2023 sales brochure: monthly premium EUR 8.60 for ages 20-49; x 2 = EUR 17.20. Prva's similar product from EUR 7.27. Old, low-benefit; the figure is a floor, not a mid-range plan.",
+    "source_id": "health-si-sava-zdravje"
+  }
 }

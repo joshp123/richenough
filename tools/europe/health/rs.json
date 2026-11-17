@@ -40,6 +40,17 @@
       "retrieved": "2026-11-17",
       "quote": "'Da biste regulisali boravak u Republici Srbiji neophodno je da imate polisu dobrovoljnog zdravstvenog osiguranja izdatu u Republici Srbiji.' Leaflet: 'Suma osiguranja je 5000 evra po osiguranom licu. Osiguranje vazi samo na teritoriji Republike Srbije.'",
       "measures": "What a mainstream insurer sells to meet the residence rule. Emergency-type cover with a 5,000 EUR sum insured. No tariff published."
+    },
+    {
+      "source_id": "health-rs-kurir-globos",
+      "publisher": "Kurir (Serbian daily)",
+      "title": "Koliko kosta privatno zdravstveno osiguranje",
+      "url": "https://biznis.kurir.rs/info-biz/4372453/koliko-kosta-privatno-zdravstveno-osiguranje-evo-od-cega-cene-najvise-zavise-i-kako-mozete-da-obuhvatite-sve-sto-vam-treba",
+      "licence": "free to read, no licence stated",
+      "period": "2024-03-29",
+      "retrieved": "2026-11-18",
+      "quote": "cene se krecu od 20 evra, pa navise",
+      "measures": "News report of private health insurance prices in Serbia and the GlobosMedic product."
     }
   ],
   "typical_private": null,
@@ -47,5 +58,21 @@
   "eu_citizen_difference": "The law applies the same residence rule to foreigners generally; EU citizens have no S1/EHIC access to Serbian cover as residents. Not further checked.",
   "regional": [],
   "spot_check": "None.",
-  "uncertainty": "No premium found. RFZO's own site was unreachable from this machine (the live site timed out; the Wayback copy loads); the Ministry of Interior's own text on which insurance meets art. 43 was not read. Insurers (Generali, Triglav, DDOR, Wiener) give prices only through quote tools. The Generali product (5,000 EUR) is likely the cheapest qualifying cover and probably far below a comprehensive policy."
+  "uncertainty": "No premium found. RFZO's own site was unreachable from this machine (the live site timed out; the Wayback copy loads); the Ministry of Interior's own text on which insurance meets art. 43 was not read. Insurers (Generali, Triglav, DDOR, Wiener) give prices only through quote tools. The Generali product (5,000 EUR) is likely the cheapest qualifying cover and probably far below a comprehensive policy.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "RSD",
+    "what": "Nothing: the RFZO does not insure a non-working foreigner of working age on temporary residence (see the file's `policy`).",
+    "source_id": "health-rs-law-health-insurance"
+  },
+  "private_plan": {
+    "amount": 43,
+    "currency": "EUR",
+    "kind": "substitutive",
+    "insurer": "Globos osiguranje (GlobosMedic) and others",
+    "product": "voluntary private health insurance with out-patient and in-patient cover",
+    "terms": "GlobosMedic: out-patient (specialist, diagnostics) and in-patient (hospital, surgery) cover, about 800 network facilities, price depends on risks covered. Deductible not stated.",
+    "pricing": "Kurir (Mar 2024): prices 'from EUR 20' a month, varying with age and sex. A 2023 article seen in a search excerpt gives EUR 20-23 a month at ages 40-50 (URL not confirmed). EUR 21.50 x 2 = EUR 43 a month. Likely a floor for a mid-range plan.",
+    "source_id": "health-rs-kurir-globos"
+  }
 }

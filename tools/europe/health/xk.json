@@ -29,6 +29,28 @@
       "retrieved": "2026-11-17",
       "quote": "Permit headings: 'Qendrim i perkohshem me qellim te ribashkimit familjar', '... te punes', '... te arsimit parauniversitar', '... te arsimit te larte dhe kerkimit shkencor'; each lists 'Sigurimin shendetesor'. Means table: 'Employment category: Must prove annual financial turnover of five thousand (5000) EUR per year.'",
       "measures": "The routes the Ministry offers. None is for independent means."
+    },
+    {
+      "source_id": "health-xk-wage",
+      "publisher": "WageIndicator",
+      "title": "Minimum wage updated in Kosovo from 01 July 2026",
+      "url": "https://wageindicator.org/ai/work/minimum-wage/updates/2026/minimum-wage-updated-in-kosovo-from-01-july-2026-july-06-2026/",
+      "licence": "free to read, no licence stated",
+      "period": "2026-07",
+      "retrieved": "2026-11-18",
+      "quote": "EUR 3.00 per regular working hour, or EUR 500.00 gross per month for full-time work Read from a search-result excerpt; the page itself was not opened or could not be read.",
+      "measures": "Kosovo's statutory gross minimum wage from 1 July 2026 (EUR 425 from 1 January 2026)."
+    },
+    {
+      "source_id": "health-xk-wheretoemigrate",
+      "publisher": "wheretoemigrate.io (guide)",
+      "title": "Emigrate to Kosovo",
+      "url": "https://wheretoemigrate.io/emigrate-to/kosovo/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "Health insurance EUR 50/mo Read from a search-result excerpt; the page itself was not opened or could not be read.",
+      "measures": "Indicative monthly price of private health insurance for one person in Pristina."
     }
   ],
   "typical_private": null,
@@ -36,5 +58,21 @@
   "eu_citizen_difference": "None found. Art. 22(3) says residents insured abroad must still join and pay unless a bilateral or multilateral agreement says otherwise; the EU has no such agreement with Kosovo.",
   "regional": [],
   "spot_check": "None. No insurer tariff was reachable (Kosovan insurer sites were mostly down or empty).",
-  "uncertainty": "(1) Kosovo has no listed permit for this couple; a property-based or discretionary permit may exist in the Law on Foreigners, which I did not read. (2) The 7% x 2 x minimum wage rule is from the law as published in May 2026, but the Fund may not yet collect it from permit holders, and the Ministry's permit pages do not mention it. (3) The minimum wage was not verified: the formula is exact, the euro sum is not. (4) Private cover is allowed as a supplement; it does not remove the contribution (art. 8(3)). Confidence: formula medium, amount none."
+  "uncertainty": "(1) Kosovo has no listed permit for this couple; a property-based or discretionary permit may exist in the Law on Foreigners, which I did not read. (2) The 7% x 2 x minimum wage rule is from the law as published in May 2026, but the Fund may not yet collect it from permit holders, and the Ministry's permit pages do not mention it. (3) The minimum wage was not verified: the formula is exact, the euro sum is not. (4) Private cover is allowed as a supplement; it does not remove the contribution (art. 8(3)). Confidence: formula medium, amount none.",
+  "statutory_must_pay": {
+    "amount": 140,
+    "currency": "EUR",
+    "what": "Compulsory insurance under Law 10/L-028: 7% x 2 x minimum wage a person; minimum wage EUR 500 from 1 July 2026; 0.14 x 500 = EUR 70 x 2 = EUR 140. Whether the Fund yet collects it from permit holders is unconfirmed.",
+    "source_id": "health-xk-fund-law"
+  },
+  "private_plan": {
+    "amount": 100,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Not named (guides mention Illyria and Sigal; no tariff)",
+    "product": "local private health insurance",
+    "terms": "Not stated. The law allows private cover only as a supplement to the compulsory contribution.",
+    "pricing": "One guide gives 'Health insurance EUR 50/mo' for a single person in Pristina; x 2 = EUR 100. Another gives USD 20-50 basic and USD 100-300 comprehensive. Weak.",
+    "source_id": "health-xk-wheretoemigrate"
+  }
 }

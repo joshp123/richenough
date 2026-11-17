@@ -62,6 +62,17 @@
       "retrieved": "2026-11-17",
       "quote": "Salary income ... 7.6% ... Pension income, etc. 5.1% ... Lower limit ... NOK 99,650",
       "measures": "Income-based contribution rates."
+    },
+    {
+      "source_id": "health-no-if-pris",
+      "publisher": "smartepenger.no (If tariff table)",
+      "title": "Behandlingsforsikring If: pris etter alder",
+      "url": "https://www.smartepenger.no/personforsikring/2885-behandlingsforsikring-if",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "45 ar: 4 304 kr (egenandel 0 kr; siden sist oppdatert 26. mars 2026; perioden er ikke oppgitt)",
+      "measures": "Price by age of If's health insurance; period not stated on the page."
     }
   ],
   "typical_private": null,
@@ -79,5 +90,21 @@
   "eu_citizen_difference": "EU/EEA pensioners need an S1 from the paying state; own-funds EU/EEA citizens need private insurance covering all illness costs and are not entitled to free care.",
   "regional": [],
   "spot_check": "None: no private premium is needed or sought.",
-  "uncertainty": "No route exists, so this models a hypothetical resident. Whether ETF withdrawals attract trygdeavgift is unchecked and goes to the tax agent. The skatteetaten page year label was not captured. Non-working residents may not become members if the stay is under 12 months (not sourced)."
+  "uncertainty": "No route exists, so this models a hypothetical resident. Whether ETF withdrawals attract trygdeavgift is unchecked and goes to the tax agent. The skatteetaten page year label was not captured. Non-working residents may not become members if the stay is under 12 months (not sourced).",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "NOK",
+    "what": "National Insurance membership has no fixed premium; the trygdeavgift is income-based (tax code).",
+    "source_id": "health-no-helsenorge"
+  },
+  "private_plan": {
+    "amount": 717.33,
+    "currency": "NOK",
+    "kind": "supplementary",
+    "insurer": "If",
+    "product": "Helseforsikring (behandlingsforsikring), no deductible",
+    "terms": "Specialist consultation within 7 working days, treatment or surgery within 10, imaging, private hospital treatment when the public cannot treat within the guarantee, physiotherapy, psychology up to 10 sessions. No deductible (egenandel 0).",
+    "pricing": "If's price table lists 4,304 NOK for age 45 without stating the period; read as a year because bytt.no says a standard health insurance costs 3,000-8,000 NOK a year. 2 x 4,304 / 12 = 717.33 a month. If it were monthly, the figure would be twelve times higher; unlikely for the product.",
+    "source_id": "health-no-if-pris"
+  }
 }

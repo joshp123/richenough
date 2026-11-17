@@ -29,6 +29,28 @@
       "retrieved": "2026-11-17",
       "quote": "g) prezinta dovada asigurarii sociale de sanatate; ... c) fac dovada asigurarii sociale de sanatate;",
       "measures": "That immigration law asks for proof of social (public) health insurance on extension and for permanent residence. Currency of this copy is unverified."
+    },
+    {
+      "source_id": "health-ro-regina-maria-oar",
+      "publisher": "Regina Maria via the Romanian Order of Architects (OAR)",
+      "title": "Abonamente individuale Regina Maria, oferta speciala OAR 2023",
+      "url": "https://oar.archi/wp-content/uploads/2023/05/Abonamente-individuale-Regina-Maria-oferta-speciala-OAR-2023.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2023-05",
+      "retrieved": "2026-11-18",
+      "quote": "Pret lista: 64 lei/luna, Pret promo: 48 lei/luna ... 109 lei/luna ... 184 lei/luna (list price). Read from a search-result excerpt; the page itself was not opened or could not be read.",
+      "measures": "Monthly list prices of Regina Maria individual subscriptions in 2023, tier alignment uncertain."
+    },
+    {
+      "source_id": "health-ro-capital-2026",
+      "publisher": "Capital.ro",
+      "title": "Costul asigurarilor private de sanatate in Europa in 2026",
+      "url": "https://www.capital.ro/costul-asigurarilor-private-de-sanatate-in-europa-in-2026-diferente-majore-intre-tarile-din-ue.html",
+      "licence": "free to read, no licence stated",
+      "period": "2026-03-30",
+      "retrieved": "2026-11-18",
+      "quote": "Pentru pachetele de baza, preturile pornesc de la aproximativ 50-100 RON pe luna",
+      "measures": "Starting price of basic private clinic packages in Romania."
     }
   ],
   "typical_private": null,
@@ -46,5 +68,21 @@
   "eu_citizen_difference": "An EU citizen resident in Romania pays the same CASS opt-in sum, or may use EHIC or an S1 from another member state. Not checked beyond that.",
   "regional": [],
   "spot_check": "Secondary Romanian press (capital.ro, alba24.ro, economica.net, digi24.ro, bzi.ro), seen only in search summaries and not cached, all give 2,430 lei for 2026. Same figure, so they agree.",
-  "uncertainty": "(1) The base is fixed to the 1 January minimum wage; the minimum wage rose in July 2026 (press reports say to 4,325 lei), so a 2027 opt-in would be 6 x 4,325 x 10% = 2,595 lei a person, about 7% higher. (2) Law 141/2025 removed free co-insurance for a non-earning spouse from 1 September 2025 (press summary, not cached), so each spouse pays. (3) Whether IGI accepts the opt-in CASS payment as 'asigurarea sociala de sanatate' proof for a new non-EU resident was not confirmed from an IGI page. (4) No private tariff found, so there is no fallback figure if the public route is refused. (5) Romanian ANAF notes differ on the payment schedule (25% at filing and 75% later, or in full by 25 May of the following year); this changes timing, not the total."
+  "uncertainty": "(1) The base is fixed to the 1 January minimum wage; the minimum wage rose in July 2026 (press reports say to 4,325 lei), so a 2027 opt-in would be 6 x 4,325 x 10% = 2,595 lei a person, about 7% higher. (2) Law 141/2025 removed free co-insurance for a non-earning spouse from 1 September 2025 (press summary, not cached), so each spouse pays. (3) Whether IGI accepts the opt-in CASS payment as 'asigurarea sociala de sanatate' proof for a new non-EU resident was not confirmed from an IGI page. (4) No private tariff found, so there is no fallback figure if the public route is refused. (5) Romanian ANAF notes differ on the payment schedule (25% at filing and 75% later, or in full by 25 May of the following year); this changes timing, not the total.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "RON",
+    "what": "Nothing fixed. CASS is 10% of income with a floor of 6 minimum wages (RON 2,430 a person a year; RON 405 a month for two, the file's `amount`). It is income-based, so it goes to the tax code.",
+    "source_id": "health-ro-anaf-cass"
+  },
+  "private_plan": {
+    "amount": 218,
+    "currency": "RON",
+    "kind": "supplementary",
+    "insurer": "Regina Maria (MedLife and Sanador similar)",
+    "product": "individual subscription, middle tier",
+    "terms": "Out-patient clinic subscription: consultations, lab tests, imaging at network clinics. Not insurance; no hospital cover at the middle tier.",
+    "pricing": "2023 OAR members' flyer lists individual tiers at RON 64, 109, 184 (and 419 for Comfort Premium, which adds hospitalisation) a month at list price; middle tier RON 109 x 2 = RON 218. Capital.ro (March 2026) says basic packages start at RON 50-100 a month. 2023 prices; no 2026 Regina Maria list reached. Very weak.",
+    "source_id": "health-ro-regina-maria-oar"
+  }
 }

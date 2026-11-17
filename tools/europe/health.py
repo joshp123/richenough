@@ -1,8 +1,9 @@
 """Health cover for the couple (two 45-year-olds, non-working, new residents from outside the EU/EEA/Switzerland).
 
-One monthly figure for both people, in local currency: the premium of the cover the residence route requires
-(private policy, or statutory cover where a fixed charge applies), 0 where statutory cover is free and private cover
-is not required. Income-based charges are not in the figure; they are listed in each country's file for the tax code.
+The coordinator's rule (18 Nov 2026), the same for every place on the site: the mid-range local private plan a
+well-off couple who have just moved there would buy (in-patient and out-patient, moderate deductible, not worldwide
+expat cover), plus any statutory premium or fixed contribution a resident must pay. One monthly figure for both, in
+local currency. Income-based charges are not in it; they are listed in each country's file for the tax code.
 
 Switzerland is computed from the Federal Office of Public Health's open premium data, by canton. Every other country
 is read from health/<cc>.json (written from the country's own official sources; see health/README in the notes at
@@ -42,30 +43,13 @@ def _sources() -> list[dict]:
     return list(out.values())
 
 
-# Where a country's file has no sourced figure but its residence route requires insurance, the cheapest mainstream
-# international policy that carries the cover stands in: Care Expat World (Barmenia) Basic, EUR 1,200 deductible,
+# Where a country's file has no priced private plan, the cheapest mainstream international policy stands in: Care Expat World (Barmenia) Basic, EUR 1,200 deductible,
 # age band 45-49, EUR 170 a month each (tools/world/health/care-expat-world.rates.csv, area 1). It is dearer than
 # local products where we could compare (Spain: 238 against 340), so it is an upper bound for the country.
 FALLBACK_ID = "health-eu-care-expat"
-FALLBACK_COUNTRIES = ["GR", "MT", "CY", "HR", "SK", "LT", "ME", "RS", "MK", "XK", "TR", "UA"]
+FALLBACK_COUNTRIES = ["UA"]  # the only country where no local private plan was priced
 FALLBACK_EUR = 2 * 170.0
 
-# Countries whose file has no priced figure but where a resident couple is covered by the public system with no
-# fixed charge (an income-based charge, if any, is in the tax code). The note says why.
-PUBLIC_FREE = {
-    "PT": ("health-pt-vistos-residency", "Statutory, free: residents register with the SNS (Servico Nacional de Saude) "
-           "for a utente number; the D7 visa stage asks only for travel medical insurance. No fixed premium. Most "
-           "well-off residents also buy private cover; not included."),
-    "FR": ("health-fr-ameli-puma", "Statutory, no fixed premium: PUMa covers residents without a job by right of stable, "
-           "regular residence (after about 3 months). Its income-based charge, the cotisation subsidiaire maladie "
-           "(6.5% of capital income above half the PASS), belongs to the tax code. A complementary mutuelle is "
-           "usual; not included."),
-    "SE": (None, "Public, tax-funded county healthcare for registered residents, no premium. Sweden has no residence "
-           "route for a non-working couple from outside the EU; figure is what a resident pays."),
-    "FI": (None, "Public, tax-funded healthcare for permanent residents (Kela), no premium; figure is what a resident pays."),
-    "IS": (None, "Public, tax-funded healthcare after six months' legal residence, no premium; a bridge policy covers "
-           "the first months. Iceland has no residence route for a non-working couple from outside the EEA."),
-}
 
 SOURCES = [c.source(
     CH_ID, "Federal Office of Public Health (FOPH/BAG), Switzerland",
@@ -120,38 +104,81 @@ def _swiss_rows() -> list[dict]:
     return out
 
 
+def _fx() -> dict[str, float]:
+    """Units of each currency per euro, from the world table's units per US dollar."""
+    import csv
+    with (c.TABLES / "exchange-rates.world.csv").open() as f:
+        per_usd = {r["currency"]: float(r["amount"]) for r in csv.DictReader(f)}
+    return {cur: v / per_usd["EUR"] for cur, v in per_usd.items()}
+
+
+def _in(amount: float, currency: str, target: str, fx: dict) -> float:
+    return amount if currency == target else amount / fx[currency] * fx[target]
+
+
+def _private(d: dict, fx: dict) -> tuple[float, str, str] | None:
+    """(monthly amount for two in the file's currency, description, source_id) of the mid-range private plan."""
+    p = d.get("private_plan") or {}
+    if p.get("amount") is None:
+        return None
+    amount = _in(float(p["amount"]), p["currency"], d["currency"], fx)
+    what = (f"private plan {p.get('insurer', '')}, {p.get('product', '')} ({p.get('kind', '')}): "
+            f"{p['amount']:,.2f} {p['currency']} for two. {p.get('pricing', '')}")
+    return amount, what, p.get("source_id") or d["sources"][0]["source_id"]
+
+
+def _statutory(d: dict, fx: dict) -> tuple[float, str]:
+    """(monthly amount for two in the file's currency, description) of the statutory part.
+
+    A premium or fixed contribution residents must pay counts. Where the private plan only supplements the public
+    system and the couple's way into it is a voluntary scheme with a fixed contribution (Italy, Poland, Estonia,
+    Romania, Albania), that contribution counts too: without it the plan would leave them with no hospital cover.
+    """
+    s = d.get("statutory_must_pay") or {}
+    if s.get("amount"):
+        return _in(float(s["amount"]), s.get("currency") or d["currency"], d["currency"], fx), f"compulsory: {s.get('what', '')}"
+    p = d.get("private_plan") or {}
+    if p.get("kind") == "supplementary" and d.get("kind") == "statutory-fixed" and d.get("amount"):
+        return float(d["amount"]), (f"voluntary statutory base the supplementary plan relies on: {d.get('policy', '')[:300]} "
+                                    f"{float(d['amount']):,.2f} {d['currency']} for two")
+    return 0.0, f"no compulsory premium: {s.get('what', 'none')}"
+
+
 def rows() -> list[dict]:
-    out = _swiss_rows()
+    fx = _fx()
+    files = {d["country"]: d for d in _country_files()}
+    out = []
+    swiss_private = _private(files["CH"], fx) if "CH" in files else None
+    for r in _swiss_rows():
+        if swiss_private:
+            r["note"] = (f"Compulsory basic insurance {r['amount']:,.2f} CHF + {swiss_private[1]} "
+                         f"Basic: {r['note']}")
+            r["amount"] = round(r["amount"] + swiss_private[0], 2)
+        out.append(r)
     regions = c.nuts3()
-    for d in _country_files():
-        iso = d["country"]
+    for iso, d in files.items():
+        if iso == "CH":
+            continue
         mine = regions[regions["iso"] == iso]
         if mine.empty:
             continue
-        if d.get("amount") is None and iso in PUBLIC_FREE:
-            source_id, note = PUBLIC_FREE[iso]
-            source_id = source_id or (d["sources"][0]["source_id"] if d.get("sources") else None)
-            for nuts in mine["nuts"]:
-                out.append(c.row(c.place(nuts), 0.0, d["currency"], "per_month", d["period"], iso, source_id, note))
-            continue
-        if d.get("amount") is None:
+        private = _private(d, fx)
+        if iso == "LI":
+            statutory = (float(d["amount"]), f"compulsory basic insurance (OKP) with accident cover: {d.get('working', '')}")
+        else:
+            statutory = _statutory(d, fx)
+        if private is None:
             if iso not in FALLBACK_COUNTRIES:
                 continue
-            for nuts in mine["nuts"]:
-                out.append(c.row(
-                    c.place(nuts), FALLBACK_EUR, "EUR", "per_month", "2026", iso, FALLBACK_ID,
-                    "Stand-in, no local tariff reached: the residence route needs health insurance, priced as an "
-                    "international policy (Care Expat World Basic, EUR 1,200 deductible, EUR 170 each at 45 to 49, "
-                    "two people). An upper bound; local products are cheaper where we could compare."))
-            continue
-        regional = {r["nuts"]: r for r in d.get("regional") or [] if r.get("amount") is not None}
-        short = f"{d['kind']}: {d['policy']}"
+            amount = statutory[0] + _in(FALLBACK_EUR, "EUR", d["currency"], fx)
+            note = (f"Stand-in, no local private tariff found: an international policy for Europe (Care Expat World "
+                    f"Basic, EUR 170 each at 45 to 49), an upper bound for a local plan. Statutory: {statutory[1]}")
+            source_id = FALLBACK_ID
+        else:
+            amount = statutory[0] + private[0]
+            note = (f"Statutory {statutory[0]:,.2f} {d['currency']} ({statutory[1]}) + {private[1]}")
+            source_id = private[2]
         for nuts in mine["nuts"]:
-            hit = next((regional[k] for k in sorted(regional, key=len, reverse=True) if nuts.startswith(k)), None)
-            if hit:
-                out.append(c.row(c.place(nuts), hit["amount"], d["currency"], "per_month", d["period"],
-                                 c.place(hit["nuts"]), hit["source_id"], hit["note"]))
-            else:
-                out.append(c.row(c.place(nuts), d["amount"], d["currency"], "per_month", d["period"], iso,
-                                 d["sources"][0]["source_id"], f"National figure. {short} Working: {d['working']}"))
+            out.append(c.row(c.place(nuts), round(amount, 2), d["currency"], "per_month", d["period"], iso, source_id,
+                             f"National figure for two 45-year-olds who have just moved there. {note}"))
     return out

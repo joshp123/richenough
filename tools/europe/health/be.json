@@ -18,6 +18,17 @@
       "retrieved": "2026-11-17",
       "quote": "Personnes inscrites dans le Registre national des personnes physiques - Normal : 931,12 EUR (montants trimestriels). Si revenu < au plafond des revenus annuels ... : 465,55 EUR (montants trimestriels).",
       "measures": "Quarterly personal contribution per titulaire; ceilings for the reduced rate are 46,716.82 EUR (residents, from 1 Sept 2026) and 45,801.50 (from 1 March 2026)."
+    },
+    {
+      "source_id": "health-be-mc-hospi2026",
+      "publisher": "Mutualite Chretienne (MC)",
+      "title": "Assurances hospitalisation, brochure 2026",
+      "url": "https://cm-mc.bynder.com/m/185cb8a8f58294f9/original/Assurances-hospitalisation-brochure-2026.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "De 25 a 49 ans: Hospi + 5,19 EUR, Hospi +100 12,39 EUR, Hospi +200 31,97 EUR (par mois; primes pour les assures ayant souscrit avant l'age de 45 ans; si vous souscrivez apres 45 ans, une majoration sera appliquee)",
+      "measures": "Monthly premium of the MC's hospitalisation tiers by age band, 2026. Single-room tier is Hospi +100 and +200."
     }
   ],
   "typical_private": null,
@@ -35,5 +46,21 @@
   "eu_citizen_difference": "An EU citizen with a right of residence is registered and pays the same contribution once a resident; EU citizens may also arrive with EHIC/S1 cover. A non-EU newcomer relies on private cover for the visa and then the mutualite.",
   "regional": [],
   "spot_check": "No independent figure. The previous year's contribution (2025) was 912.91 EUR per quarter on the same INAMI page, so 931.12 is a 2% indexation.",
-  "uncertainty": "Unverified: whether a non-EU newcomer registered on a first permit can join immediately or serves a waiting period (a 2010 guide and a Fedasil sheet mention six months, unclear scope). Unverified: whether a spouse can be a dependant (personne a charge) on the other's contribution, which would halve the figure. The mutualite's own fee, the mandatory hospital top-up and the visa-stage private policy cost were not found. The visa rule is unsourced."
+  "uncertainty": "Unverified: whether a non-EU newcomer registered on a first permit can join immediately or serves a waiting period (a 2010 guide and a Fedasil sheet mention six months, unclear scope). Unverified: whether a spouse can be a dependant (personne a charge) on the other's contribution, which would halve the figure. The mutualite's own fee, the mandatory hospital top-up and the visa-stage private policy cost were not found. The visa rule is unsourced.",
+  "statutory_must_pay": {
+    "amount": 620.75,
+    "currency": "EUR",
+    "what": "INAMI/RIZIV personal contribution, 2 x 931.12 EUR a quarter, as in the first round (2 x 310.375 a month).",
+    "source_id": "health-be-inami-cotisation"
+  },
+  "private_plan": {
+    "amount": 63.94,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Mutualite Chretienne (MC)",
+    "product": "Hospi +200 (hospitalisation insurance, single room)",
+    "terms": "In-patient only: single-room supplements up to 100 EUR a day, doctors' fee supplements at twice the legal tariff, care 30 days before and 90 days after hospital stay; maximum 100 EUR a year excess in a single room. No out-patient cover beyond that. 6-month waiting period. Needs MC membership (the INAMI contribution covers it).",
+    "pricing": "Brochure 2026 gives 31.97 EUR a month per adult aged 25-49, for people who subscribe before age 45; a surcharge applies for subscribing after 45 and the brochure does not give its size, so 2 x 31.97 = 63.94 is a lower bound for a 45-year-old couple. Market guides quote 60-90 EUR a month per person for single-room cover (secondary, comparator site).",
+    "source_id": "health-be-mc-hospi2026"
+  }
 }

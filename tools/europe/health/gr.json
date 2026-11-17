@@ -29,5 +29,21 @@
   "eu_citizen_difference": "An EU citizen has free-movement rights and must show comprehensive sickness insurance and sufficient resources; EHIC or S1 usually does this. A non-EU couple has no such route. (General EU law, not sourced here.)",
   "regional": [],
   "spot_check": "None possible: only one broker range was found.",
-  "uncertainty": "No sourced figure. The broker range could be wrong by a factor of two or more for 45-year-olds on a policy that meets the visa rule (no co-payments, repatriation, Greek-language certificate). Next step: read Law 5038/2023 from et.gr or Greek MFA pages through a route that is not blocked, then price a named policy from an insurer's published terms. Greece's public system (EFKA/ESY) is a separate question: whether a financially independent person can join, and at what price, was not researched."
+  "uncertainty": "No sourced figure. The broker range could be wrong by a factor of two or more for 45-year-olds on a policy that meets the visa rule (no co-payments, repatriation, Greek-language certificate). Next step: read Law 5038/2023 from et.gr or Greek MFA pages through a route that is not blocked, then price a named policy from an insurer's published terms. Greece's public system (EFKA/ESY) is a separate question: whether a financially independent person can join, and at what price, was not researched.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "Nothing fixed: the financially independent person permit requires private cover and Greek residents pay no compulsory premium that applies to this couple.",
+    "source_id": "health-gr-feather"
+  },
+  "private_plan": {
+    "amount": 375,
+    "currency": "EUR",
+    "kind": "substitutive",
+    "insurer": "Greek and international insurers (none named with a price)",
+    "product": "mid-range private plan",
+    "terms": "Hospital stays, specialist visits, diagnostics; permit needs at least EUR 30,000 medical cover and repatriation. Deductibles and co-payments not stated; cheapest plans have higher deductibles and 3-6 month waits for pre-existing conditions.",
+    "pricing": "Broker's range for 'Mid-range plans' EUR 125-250 a month (not split by age, read as per person); midpoint EUR 187.50 x 2 = EUR 375. No Greek insurer tariff (Interamerican, Eurolife, Ethniki) is published; weak.",
+    "source_id": "health-gr-feather"
+  }
 }

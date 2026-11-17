@@ -29,6 +29,28 @@
       "retrieved": "2026-11-17",
       "quote": "If you have a municipality of residence in Finland, you have the right to use public healthcare services.",
       "measures": "Residence-based cover."
+    },
+    {
+      "source_id": "health-fi-nordea",
+      "publisher": "Nordea Finland",
+      "title": "Terveysvakuutus: hintaesimerkit",
+      "url": "https://www.nordea.fi/henkiloasiakkaat/palvelumme/vakuutukset/henkilovakuutukset/terveysvakuutus.html",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "Jaana, 45 v.: 28,58 EUR/kk (lainaasiakas), 30,29 EUR/kk, perushinta 33,72 EUR/kk; kiintea turvamaara 30 000 EUR, omavastuu 150 EUR / vakuutusvuosi",
+      "measures": "Monthly price of Nordea's terveysvakuutus at age 45, with its limits."
+    },
+    {
+      "source_id": "health-fi-taloustaito",
+      "publisher": "Taloustaito",
+      "title": "Kallis sairausvakuutus pitaa valita fiksusti",
+      "url": "https://www.taloustaito.fi/Rahat/2025/kallis-sairausvakuutus-pitaa-valita-fiksusti/",
+      "licence": "free to read, no licence stated",
+      "period": "2025",
+      "retrieved": "2026-11-18",
+      "quote": "Aikuisen sairauskuluvakuutuksen vakuutusmaksu on tuhatkunta euroa tai jopa lahempana kahtatuhatta etenkin iakkaammalla vakuutetulla (19.5.2025)",
+      "measures": "Cross-check: price of an adult medical-expense policy, per year."
     }
   ],
   "typical_private": null,
@@ -46,5 +68,21 @@
   "eu_citizen_difference": "EHIC or UK GHIC holders do not need private insurance for a student permit (Migri). Otherwise not established.",
   "regional": [],
   "spot_check": "None.",
-  "uncertainty": "No Finnish figures reached: the search tool hit its limit, Migri pages block curl (Cloudflare), and guessed Kela, Vero and THL URLs returned 404. Migri quotes came from the live page through the fetch tool, not saved."
+  "uncertainty": "No Finnish figures reached: the search tool hit its limit, Migri pages block curl (Cloudflare), and guessed Kela, Vero and THL URLs returned 404. Migri quotes came from the live page through the fetch tool, not saved.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "Covered by Kela's national health insurance once resident; the sairaanhoitomaksu is income-based (tax code). No fixed premium.",
+    "source_id": "health-fi-kela"
+  },
+  "private_plan": {
+    "amount": 67.44,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Nordea (insurance product)",
+    "product": "Terveysvakuutus (health insurance), EUR 30,000 sum insured, EUR 150 deductible",
+    "terms": "Covers doctor fees, imaging, laboratory tests and surgery in Finland up to 30,000 EUR a year. Excludes medicines, preventive care, mental health and rehabilitation. It is a basic product; a comprehensive adult medical-expense policy is quoted at about 1,000 EUR a year (about 83 a month) in a Finnish money magazine, so the true mid-range figure may be higher.",
+    "pricing": "Nordea's price example for a 45-year-old: base price 33.72 EUR a month (28.58 for loan customers); x2 = 67.44.",
+    "source_id": "health-fi-nordea"
+  }
 }

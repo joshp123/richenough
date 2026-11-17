@@ -51,6 +51,17 @@
       "retrieved": "2026-11-17",
       "quote": "*The price provided by the calculator is indicative.",
       "measures": "Not used: premium calculator needs JavaScript and personal data; no published price table."
+    },
+    {
+      "source_id": "health-ee-feather",
+      "publisher": "Feather Insurance (broker selling its own expat policy, so a sales-side view)",
+      "title": "Two expats in Estonia comparing health insurance policies",
+      "url": "https://feather-insurance.com/en-ee/blog/health-insurance-guide-estonia",
+      "licence": "free to read, no licence stated",
+      "period": "2026-09",
+      "retrieved": "2026-11-18",
+      "quote": "Pricing typically falls between EUR 40 and EUR 150 a month depending on age and scope",
+      "measures": "Indicative monthly price of local private health plans for a 45-year-old; no insurer tariff."
     }
   ],
   "typical_private": null,
@@ -58,5 +69,21 @@
   "eu_citizen_difference": "Not sourced. I expect EU citizens need no permit and can buy the same Tervisekassa contract, but I did not retrieve a page saying so.",
   "regional": [],
   "spot_check": "Searches showed third-party sites quoting 272 EUR from July 2026 and the earlier 2026 Tervisekassa page 257.50 EUR; the live Tervisekassa page (updated 03.11.26) says 272.00. Not independently confirmed elsewhere.",
-  "uncertainty": "No route exists for non-working independent-means couples, so 544 EUR is what residents without other cover pay, not a visa cost. Before the permit a private policy is needed and I found no published tariff. Premium changes each year with the average wage. Wording of Aliens Act s.120 not retrieved."
+  "uncertainty": "No route exists for non-working independent-means couples, so 544 EUR is what residents without other cover pay, not a visa cost. Before the permit a private policy is needed and I found no published tariff. Premium changes each year with the average wage. Wording of Aliens Act s.120 not retrieved.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "Nothing compulsory. Tervisekassa voluntary insurance (EUR 544 a month for two, in the file's `amount`) is optional, so it is left out; see addendum.",
+    "source_id": "health-ee-haigekassa"
+  },
+  "private_plan": {
+    "amount": 180,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "ERGO, If, Swedbank, SEB (named as popular local insurers; no tariff reached)",
+    "product": "local private health plan",
+    "terms": "Indicative local plans: mostly Estonia or Schengen only, age limits, pre-existing conditions excluded. In- and out-patient split, deductible and co-payments not stated.",
+    "pricing": "Source's sample row for a 45-year-old on a permit: EUR 60-120 a month (page says 'single person or couple'; read as per person); midpoint EUR 90 x 2 = EUR 180. Same page gives a general range EUR 40-150. Indicative, unsourced by the broker.",
+    "source_id": "health-ee-feather"
+  }
 }

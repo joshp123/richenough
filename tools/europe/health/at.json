@@ -29,6 +29,17 @@
       "retrieved": "2026-11-17",
       "quote": "der Fremde ueber einen alle Risken abdeckenden Krankenversicherungsschutz verfuegt und diese Versicherung in Oesterreich auch leistungspflichtig ist",
       "measures": "The cover test for any residence title (para 11 (2) no. 3). Para 44 is the 'not-gainfully-employed' permit with a quota place and income of twice the ASVG standard rate. Cached as nag-par11/42/44.html."
+    },
+    {
+      "source_id": "health-at-checkeverything",
+      "publisher": "CheckEverything.at",
+      "title": "Private Krankenversicherung Kosten \u00d6sterreich 2026",
+      "url": "https://www.checkeverything.at/de/blog/private-krankenversicherung-kosten-monat-oesterreich",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "Alter 40: Sonderklasse Komfort ca. 110-150 EUR, Privatarzt/Wahlarzt ca. 35-85 EUR; Alter 50: Komfort ca. 150-200 EUR, Privatarzt ca. 50-120 EUR (Stand 20. April 2026, ohne Selbstbehalt)",
+      "measures": "Monthly indicative premiums by age for Austrian Sonderklasse and out-patient private tariffs; a broker blog, not an insurer tariff."
     }
   ],
   "typical_private": null,
@@ -36,5 +47,21 @@
   "eu_citizen_difference": "EU citizens with a right of residence are not subject to the NAG quota and can often use EHIC/S1 or free-movement rules; a non-EU couple needs a quota place and cover that covers all risks and is payable in Austria.",
   "regional": [],
   "spot_check": "No independent figure. A private Austrian full policy was not priced because no insurer publishes a tariff. A Selbstversicherung student rate (78.84) and marginal-employment rate (83.49) appear on the same pages, confirming the 565.25 is the general rate, not a reduced one.",
-  "uncertainty": "Quota places for para 44 are scarce and set yearly by decree (not researched). The twice-Richtsatz income figure for 2026 was not retrieved. Whether the OeGK accepts a newcomer on a first permit for Selbstversicherung, and whether a private policy would satisfy the authority at a lower price, was not confirmed. Reduction of the contribution is possible on application. Spouse co-insurance cost unknown."
+  "uncertainty": "Quota places for para 44 are scarce and set yearly by decree (not researched). The twice-Richtsatz income figure for 2026 was not retrieved. Whether the OeGK accepts a newcomer on a first permit for Selbstversicherung, and whether a private policy would satisfy the authority at a lower price, was not confirmed. Reduction of the contribution is possible on application. Spouse co-insurance cost unknown.",
+  "statutory_must_pay": {
+    "amount": 1130.5,
+    "currency": "EUR",
+    "what": "OeGK Selbstversicherung, 2 x 565.25 EUR a month (fixed). Residents without other cover must be insured; this is the route the first round priced.",
+    "source_id": "health-at-oegk-selbst"
+  },
+  "private_plan": {
+    "amount": 450.0,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Austrian private insurers (comparison-site table, no insurer named)",
+    "product": "Sonderklasse Komfort plus Privatarzt/Wahlarzt (ambulant) tariff",
+    "terms": "Hospital: Sonderklasse (private ward, free choice of doctor) without deductible; out-patient: private-doctor tariff. Waiting periods and health questions apply, not stated by the source.",
+    "pricing": "Source gives monthly ranges by age: age 40 Komfort 110-150, Privatarzt 35-85; age 50 Komfort 150-200, Privatarzt 50-120. Age 45 is the interpolated midpoint: Komfort 152.50 + Privatarzt 72.50 = 225 EUR each, x2 = 450. Interpolation is the agent's, not the source's. Source says the figures are indicative guides from public insurer information (20 April 2026).",
+    "source_id": "health-at-checkeverything"
+  }
 }

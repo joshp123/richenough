@@ -62,6 +62,17 @@
       "retrieved": "2026-11-17",
       "quote": "Minimum cotisable (1x SSM) 2.703,74 EUR ... Ass.continuee 5,60%",
       "measures": "Cross-check of the minimum base and rate (a union leaflet, not official)."
+    },
+    {
+      "source_id": "health-lu-reassurez",
+      "publisher": "Reassurez-moi",
+      "title": "Mutuelle sante pour frontalier au Luxembourg",
+      "url": "https://reassurez-moi.fr/guide/mutuelle-sante/frontalier/luxembourg",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "En moyenne, le prix d'une mutuelle pour frontalier Luxembourg oscille entre 55 EUR et 68 EUR par mois pour un adulte seul.",
+      "measures": "Comparator's generic monthly range for one adult; not age-specific and not a Luxembourg insurer's tariff."
     }
   ],
   "typical_private": null,
@@ -69,5 +80,21 @@
   "eu_citizen_difference": "An EU citizen resident in Luxembourg can often rely on EHIC/S1 or on EU-state cover while resident, and the same voluntary scheme is open to residents of EU/EEA/Switzerland. A non-EU couple with no residence route has none.",
   "regional": [],
   "spot_check": "The 2025 CCSS notice gives 151.41 at the 2,703.74 base; the current CCSS page gives 155.19 at 2,771.33, a 2.5% step. Both use 5.60%.",
-  "uncertainty": "The residence route is the main doubt: no independent-means permit found. The CCSS page shows 2,771.33 as the minimum wage while its footer is dated Aug 2025, and the January 2026 notices use 2,703.74; the 2026 monthly figure is therefore between 151.41 and 155.19. I did not find a separate long-term-care contribution for voluntary members. Three-month wait for reimbursement."
+  "uncertainty": "The residence route is the main doubt: no independent-means permit found. The CCSS page shows 2,771.33 as the minimum wage while its footer is dated Aug 2025, and the January 2026 notices use 2,703.74; the 2026 monthly figure is therefore between 151.41 and 155.19. I did not find a separate long-term-care contribution for voluntary members. Three-month wait for reimbursement.",
+  "statutory_must_pay": {
+    "amount": 310.38,
+    "currency": "EUR",
+    "what": "CCSS voluntary insurance, 5.60% of the minimum social wage per person, as in the first round (both together 310.38 a month).",
+    "source_id": "health-lu-ccss-volontaire"
+  },
+  "private_plan": {
+    "amount": 123.0,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Luxembourg insurers (Foyer Medicis, Baloise, LaLux; no tariff published)",
+    "product": "Mutuelle / complementary hospital and care cover",
+    "terms": "Reimburses co-payments and fee supplements after the CNS/CCSS share. Cover levels not stated.",
+    "pricing": "Only a comparator's generic range was found: 55-68 EUR a month for one adult (Reassurez-moi, page updated 3 Sept 2026, frontaliers, no age stated). Midpoint 61.50 x2 = 123. Foyer's own pages give no price (online quote tool only). Weak.",
+    "source_id": "health-lu-reassurez"
+  }
 }

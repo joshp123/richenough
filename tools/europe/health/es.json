@@ -129,5 +129,21 @@
     }
   ],
   "spot_check": "No second insurer tariff retrieved. Sanitas own visa page says its International Residents product starts 'desde 95,15 EUR/mes' (per person, age not stated), consistent in order of magnitude with 118.74 at age 45-49. The Sanitas Mas Salud 'Sin copago' product in Madrid, age 45-49, 2-3 insureds, costs 124.02 per person but carries waiting periods, so it would not meet the visa rule. Comparison sites (flagged, not used) give 65 to 150 EUR per person at age 45.",
-  "uncertainty": "Single insurer. I assumed the '2 asegurados' cell is a per-person premium; if it is the premium for the pair, the figure would be about 119 EUR, half. Consulate wording varies, and some consulates also ask for repatriation, which the Visado product includes. New-business premium for year one; renewals rise with age band (50-54 band: 127.38 x 2 for Visado 2 insured, Resto) and with claims-inflation. Some insurers may sell cheaper visa-grade products (an Adeslas or Asisa tariff was not retrieved), so the true cheapest could be 10 to 30% lower."
+  "uncertainty": "Single insurer. I assumed the '2 asegurados' cell is a per-person premium; if it is the premium for the pair, the figure would be about 119 EUR, half. Consulate wording varies, and some consulates also ask for repatriation, which the Visado product includes. New-business premium for year one; renewals rise with age band (50-54 band: 127.38 x 2 for Visado 2 insured, Resto) and with claims-inflation. Some insurers may sell cheaper visa-grade products (an Adeslas or Asisa tariff was not retrieved), so the true cheapest could be 10 to 30% lower.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "No statutory premium; the private policy is the visa requirement.",
+    "source_id": "health-es-consulado"
+  },
+  "private_plan": {
+    "amount": 237.84,
+    "currency": "EUR",
+    "kind": "substitutive",
+    "insurer": "Sanitas",
+    "product": "Residents Visado (visa-grade, no co-payments, no waiting periods)",
+    "terms": "Full private cover valid in Spain, in-patient and out-patient, no co-payments, no waiting periods, repatriation.",
+    "pricing": "Sanitas tariff for 2 insured aged 45-49, rest of Spain, April 2026: 237.84 EUR a month (same figure as the first round).",
+    "source_id": "health-es-sanitas-precios"
+  }
 }

@@ -89,7 +89,10 @@ def rows():
             out.append(c.row(
                 c.place(nuts), new, "CHF", "per_month", "2024", c.city_code("CH", town), SOURCE_ID,
                 f"Average net rent of a 3-room flat let to its tenants less than two years ago in the city of {town} "
-                f"(3 Zimmer, no service charges; all 3-room tenancies in the city average CHF {total:.0f})."))
+                f"(3 Zimmer, no service charges; all 3-room tenancies in the city average CHF {total:.0f}). Official "
+                f"agreed rents include cooperative and city-owned flats that newcomers rarely get, so a newcomer on the "
+                f"open market pays more: Eurostat's 2025 estate-agent survey and listings put a two-bed in Zurich or "
+                f"Geneva at roughly CHF 2,800 to 3,400."))
             continue
         premium = national_three * ratio[name] / ratio["Schweiz"]
         out.append(c.row(

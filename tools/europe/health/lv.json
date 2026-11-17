@@ -40,6 +40,17 @@
       "retrieved": "2026-11-17",
       "quote": "3) ir derīga veselības apdrošināšanas polise; ... 36) uz laiku līdz pieciem gadiem, ja ir noslēgts līgums un veikts pārskaitījums par vismaz 150 000 euro investīcijas veikšanu ne mazāk par pieciem gadiem valsts izveidotā alternatīvo ieguldījumu fonda pārvaldniekā un ārzemnieks ir samaksājis valsts budžetā 10 000 euro .",
       "measures": "The health-policy condition, and the nearest permit route for a 45-year-old couple. Only the Latvian text was read: the English translation on likumi.lv still shows the 2002 law."
+    },
+    {
+      "source_id": "health-lv-lsm-2021",
+      "publisher": "LSM.lv (Latvian public broadcaster)",
+      "title": "Daudz smeke: polise par 50-70 eiro dargaka ka Latvija apdrosinat veselibu par savu naudu",
+      "url": "https://www.lsm.lv/raksts/zinas/latvija/07.07.2021-daudz-smeke-polise-par-50-70-eiro-dargaka-ka-latvija-apdrosinat-veselibu-par-savu-naudu.a411552/",
+      "licence": "free to read, no licence stated",
+      "period": "2021-07",
+      "retrieved": "2026-11-18",
+      "quote": "If apdrosinasana polises videja cena pirmaja gada ir apmeram 200 eiro, ... pieskaitot stacionaru lidz 500 eiro",
+      "measures": "News report of individual health policy prices in Latvia; 2021, so older than the other figures."
     }
   ],
   "typical_private": null,
@@ -47,5 +58,21 @@
   "eu_citizen_difference": "Cabinet Regulation 591, points 4.6-4.7 and 2.7/3.2, exempt EU/EEA/Swiss citizens and their family members from the policy rule (up to 90 days, or longer when employed, self-employed or providing services). Residence of an EU citizen is a registration, not a permit.",
   "regional": [],
   "spot_check": "None found. Other insurers (Balta, BTA, Compensa, ERGO) were not reached: their pages did not give a price without a calculator.",
-  "uncertainty": "The EUR 9.17 is a floor: emergency and critical care only, EUR 50 deductible, EUR 200 dental, and it is the first-year price (renewal price not stated). A comprehensive private policy would cost far more, but no published price was found, so 'typical_private' is null. Whether permit applications are granted on this policy at renewal, or whether the couple could join Latvia's state-funded system as temporary residents, was not checked. The EUR 150,000 plus EUR 10,000 investment route is a steep entry cost the capital model should treat separately. Who is state-insured in Latvia was not researched."
+  "uncertainty": "The EUR 9.17 is a floor: emergency and critical care only, EUR 50 deductible, EUR 200 dental, and it is the first-year price (renewal price not stated). A comprehensive private policy would cost far more, but no published price was found, so 'typical_private' is null. Whether permit applications are granted on this policy at renewal, or whether the couple could join Latvia's state-funded system as temporary residents, was not checked. The EUR 150,000 plus EUR 10,000 investment route is a steep entry cost the capital model should treat separately. Who is state-insured in Latvia was not researched.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "Nothing a couple like this can pay: no public cover is open to a non-working non-EU couple on a temporary permit.",
+    "source_id": "health-lv-immigration-law-2026"
+  },
+  "private_plan": {
+    "amount": 58.33,
+    "currency": "EUR",
+    "kind": "substitutive",
+    "insurer": "If, ERGO, Compensa Life (the only insurers selling individual policies per the source)",
+    "product": "individual outpatient and inpatient programme",
+    "terms": "Typical individual programmes cover 50-80% of costs up to annual limits (for example EUR 500 specialist and EUR 1,500 inpatient on Compensa's first-year policy). Deductible and waiting periods not stated. Limited to Latvia or the Baltics.",
+    "pricing": "LSM (2021): If about EUR 200 a year first year, up to EUR 500 with inpatient; Compensa Life EUR 169-199 first year, EUR 200-300 by year three; ERGO Priora from EUR 132.48, Priora plus from EUR 294.60. A 2025 broker tender document (search excerpt) shows Compensa Life basic programme at EUR 350 a person. Taken EUR 350 a person a year x 2 / 12 = EUR 58.33 a month. Weak: old and annual-style figures.",
+    "source_id": "health-lv-lsm-2021"
+  }
 }

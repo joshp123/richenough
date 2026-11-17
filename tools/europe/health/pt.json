@@ -18,6 +18,17 @@
       "retrieved": "2026-11-17",
       "quote": "Valid travel insurance, covering necessary medical expenses, including urgent medical assistance and possible repatriation;",
       "measures": "The visa-stage health requirement for all residence visas including the passive-income visa. Wording asks for travel insurance; it does not set a minimum sum on this page."
+    },
+    {
+      "source_id": "health-pt-deco-medis",
+      "publisher": "DECO PROteste",
+      "title": "Seguro de saude: Multicare ou Medis?",
+      "url": "https://www.deco.proteste.pt/saude/seguro-saude/noticias/seguro-saude-multicare-medis",
+      "licence": "free to read, no licence stated",
+      "period": "2024",
+      "retrieved": "2026-11-18",
+      "quote": "Para um consumidor de 40 anos: Multicare 2 853 EUR por ano (internamento ate 50 mil EUR, ambulatorio 1.000 EUR); Medis Opcao 2 918 EUR por ano (ambulatorio 2.500 EUR)",
+      "measures": "Annual premium of two mid-range plans at age 40, 2024 article."
     }
   ],
   "typical_private": null,
@@ -25,5 +36,21 @@
   "eu_citizen_difference": "Not researched.",
   "regional": [],
   "spot_check": "None.",
-  "uncertainty": "No figure. I could not reach the SNS fee page content, a Portuguese insurer tariff or a regulator survey, because the web-search budget ran out and the SNS24 and SNS pages are script-rendered. I did not find any Portuguese income-based health charge, but I did not search for one beyond the SNS and visa pages. The likely answer is amount 0 once registered (kind statutory-free) with a travel-medical policy only at the visa stage, but that is not shown by a source I read."
+  "uncertainty": "No figure. I could not reach the SNS fee page content, a Portuguese insurer tariff or a regulator survey, because the web-search budget ran out and the SNS24 and SNS pages are script-rendered. I did not find any Portuguese income-based health charge, but I did not search for one beyond the SNS and visa pages. The likely answer is amount 0 once registered (kind statutory-free) with a travel-medical policy only at the visa stage, but that is not shown by a source I read.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "SNS registration has no premium; user fees only.",
+    "source_id": "health-pt-vistos-residency"
+  },
+  "private_plan": {
+    "amount": 153.0,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Medis (Ageas)",
+    "product": "Medis Opcao 2: hospitalisation capital 50,000 EUR, ambulatory 2,500 EUR",
+    "terms": "In-patient up to 50,000 EUR and out-patient up to 2,500 EUR a year; co-payment terms not stated by the source.",
+    "pricing": "DECO PROteste (21 Nov 2024) price for a 40-year-old: 918 EUR a year; /12 = 76.50, x2 = 153. The source gives no age-45 price, which would be higher; premiums rose about 10% on average in 2026. So a lower bound. Multicare 2 is 853 a year at 40.",
+    "source_id": "health-pt-deco-medis"
+  }
 }

@@ -51,6 +51,17 @@
       "retrieved": "2026-11-17",
       "quote": "Kalacağı süreyi kapsayan geçerli sağlık sigortası bulunmayanlar (Art. 15(1)(e), visa); Geçerli sağlık sigortasına sahip olmak (Art. 43(1)(ç), long-term permit)",
       "measures": "The law's health-cover wording. The residence-permit regulation and circular 2024/34 were not read."
+    },
+    {
+      "source_id": "health-tr-feather",
+      "publisher": "Feather Insurance (broker selling its own expat policy, so a sales-side view)",
+      "title": "Health insurance in Turkey: how to choose the right plan",
+      "url": "https://feather-insurance.com/en-tr/blog/health-insurance-turkey-guide",
+      "licence": "free to read, no licence stated",
+      "period": "2026-Q1",
+      "retrieved": "2026-11-18",
+      "quote": "45, single | TRY 10,000 to 22,000 (~USD 300-660) per year; indicative Q1 2026 market rates",
+      "measures": "Indicative annual price of Turkish private health insurance by age."
     }
   ],
   "typical_private": null,
@@ -68,5 +79,21 @@
   "eu_citizen_difference": "None found: no EU preference in the residence-permit health rule or in GSS. Reciprocity (mütekabiliyet) is a condition in Art. 60(1)(d); a person insured under another country's scheme is outside GSS.",
   "regional": [],
   "spot_check": "None possible: no private tariff was published by AXA, Anadolu, Mapfre or Allianz (Allianz returned 403). Searched: AXA product and information form PDFs (no price table), Anadolu's foreigner page via fetch (states no premium), Mapfre site links.",
-  "uncertainty": "The private premium for year 1 is unknown, so amount is null; ages 45 are inside AXA's 0-55 band. The GSS figure 7,927.20 TRY a month depends on three unverified readings (floor equals gross minimum wage; no income test for foreigners; spouse can be a dependant) and the one-year residence wait. It is also not confirmed that a property or tourism permit holder counts as resident for GSS."
+  "uncertainty": "The private premium for year 1 is unknown, so amount is null; ages 45 are inside AXA's 0-55 band. The GSS figure 7,927.20 TRY a month depends on three unverified readings (floor equals gross minimum wage; no income test for foreigners; spouse can be a dependant) and the one-year residence wait. It is also not confirmed that a property or tourism permit holder counts as resident for GSS.",
+  "statutory_must_pay": {
+    "amount": 7927.2,
+    "currency": "TRY",
+    "what": "SGK general health insurance (GSS) from the second year of residence: 12% of twice the daily minimum wage x 30 (the file's computation; one premium for the couple if the spouse counts as dependant). Nothing in year one, when private cover is required.",
+    "source_id": "health-tr-sgk"
+  },
+  "private_plan": {
+    "amount": 2666.67,
+    "currency": "TRY",
+    "kind": "substitutive",
+    "insurer": "Allianz Turkiye, AXA Sigorta, Anadolu Sigorta, Mapfre, Acibadem Sigorta (named; no tariff)",
+    "product": "comprehensive private plan meeting the residence-permit minimums",
+    "terms": "Permit minimums from April 2025: out-patient TRY 15,000, in-patient TRY 150,000 at non-contracted hospitals, unlimited at contracted ones. Indemnity-based; pre-existing conditions often excluded. Deductible not stated.",
+    "pricing": "Feather (Q1 2026 indicative): age 45, single, TRY 10,000-22,000 a year; midpoint TRY 16,000 / 12 = TRY 1,333.33 x 2 = TRY 2,666.67 a month. The source says Turkish premiums rise 50-80% a year, so a November 2026 quote is probably higher. Year one only; from year two GSS applies and private cover is optional, so the table should not add both without a decision.",
+    "source_id": "health-tr-feather"
+  }
 }

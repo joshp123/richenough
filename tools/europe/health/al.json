@@ -62,6 +62,17 @@
       "retrieved": "2026-11-17",
       "quote": "'Expenses for medical emergencies in case of illness or accident in Albania up to 5,000 Euros'; options up to 10,000 Euros emergency cover; premiums only through an online quote form.",
       "measures": "What a private expat policy covers. It is emergency cover with low limits and no published price, so no private premium is used."
+    },
+    {
+      "source_id": "health-al-armenian-lawyer",
+      "publisher": "armenian-lawyer.com (law-firm guide)",
+      "title": "Healthcare in Albania: insurance requirements, facilities and medical services for expats",
+      "url": "https://armenian-lawyer.com/business-immigration/healthcare-in-albania-insurance-requirements-facilities-and-medical-services-for-expats/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "Albsig plans: starting from EUR 450 per year for a basic tier, up to starting at EUR 610 yearly for the highest coverage tier. Read from a search-result excerpt; the page itself was not opened or could not be read.",
+      "measures": "Annual price range of Albanian local private health plans."
     }
   ],
   "typical_private": null,
@@ -69,5 +80,21 @@
   "eu_citizen_difference": "An EU/EEA citizen has no health-cover advantage in Albania: no EU rules apply. The Albanian permit rules above do not differ by EU status in the texts read.",
   "regional": [],
   "spot_check": "None reached. Albanian insurers (SIGAL, INTERSIG, SIGMA) publish product terms but quotes only through online forms that need personal details, which the brief forbids. The only price check is internal: 3,400 ALL a person is about 3.4% of 100,000 ALL.",
-  "uncertainty": "(1) I could not read Law 10383/2011 or the Council of Ministers decision that sets the minimum wage for contributions; the 50,000 ALL figure comes from the ISSH pension page, which is an indirect source. If the health base uses a different minimum wage (the 2025 labour minimum wage was lower), the figure moves in proportion: at 40,000 ALL it would be 2 x 2 x 40,000 x 3.4% = 5,440 ALL for the couple. (2) The Fund's rules on whether a foreigner on a property permit may join voluntarily were not found in a primary text; the Fund's page and the 'Kush Paguan' book say anyone outside the listed groups may join voluntarily and that the permit number serves as the foreigner's insurance number. (3) The property permit lists no health cover, so joining the Fund may be optional in practice. If the couple carried only a private emergency policy, the premium is unknown. (4) Six-month waiting period for voluntary members. Confidence: low to medium."
+  "uncertainty": "(1) I could not read Law 10383/2011 or the Council of Ministers decision that sets the minimum wage for contributions; the 50,000 ALL figure comes from the ISSH pension page, which is an indirect source. If the health base uses a different minimum wage (the 2025 labour minimum wage was lower), the figure moves in proportion: at 40,000 ALL it would be 2 x 2 x 40,000 x 3.4% = 5,440 ALL for the couple. (2) The Fund's rules on whether a foreigner on a property permit may join voluntarily were not found in a primary text; the Fund's page and the 'Kush Paguan' book say anyone outside the listed groups may join voluntarily and that the permit number serves as the foreigner's insurance number. (3) The property permit lists no health cover, so joining the Fund may be optional in practice. If the couple carried only a private emergency policy, the premium is unknown. (4) Six-month waiting period for voluntary members. Confidence: low to medium.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "ALL",
+    "what": "Nothing compulsory. FSDKSH voluntary membership (ALL 6,800 a month for two, the file's `amount`) is optional, so it is left out; see addendum.",
+    "source_id": "health-al-fsdksh-si"
+  },
+  "private_plan": {
+    "amount": 88.33,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Albsig and others (Sigal quotes only on request)",
+    "product": "local private plans, basic to comprehensive",
+    "terms": "Local plans from basic to comprehensive; terms, deductible and waiting periods not stated. Sigal's expat page lists emergency-only options of EUR 5,000-10,000 and gives no prices.",
+    "pricing": "Guide listing Albsig plans from EUR 450 a year (basic) to EUR 610 a year (top tier), and local plans generally EUR 450-760 a year; midpoint of the Albsig range EUR 530 a person a year x 2 / 12 = EUR 88.33 a month. Secondary source, not a tariff; priced in euro as quoted.",
+    "source_id": "health-al-armenian-lawyer"
+  }
 }

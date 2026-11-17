@@ -40,6 +40,17 @@
       "retrieved": "2026-11-17",
       "quote": "Stranci se mogu dopunski zdravstveno osigurati ako imaju status osigurane osobe Zavoda. ... Godišnji iznos premije iznosi 180,00 EUR, odnosno 15,00 EUR mjesečno.",
       "measures": "Price of the voluntary supplement only, not of the compulsory contribution."
+    },
+    {
+      "source_id": "health-hr-student-insurance",
+      "publisher": "student-insurance.com (broker guide)",
+      "title": "Croatia: health insurance for students and residents",
+      "url": "https://www.student-insurance.com/countries/croatia/",
+      "licence": "free to read, no licence stated",
+      "period": "2026-06",
+      "retrieved": "2026-11-18",
+      "quote": "Self-paid HZZO voluntary insurance for foreign students costs roughly EUR 70-110/month ... Private Comprehensive (premium): EUR 50-100/month",
+      "measures": "A broker's estimate of the self-paid HZZO contribution for foreigners (written for students; same Tax Administration payment) and of private plans. Not official."
     }
   ],
   "typical_private": null,
@@ -47,5 +58,21 @@
   "eu_citizen_difference": "ZOZZS art. 6 and the 2026 Pravilnik cover EU nationals on a temporary stay too, so the same registration applies to an EU citizen with no cover elsewhere. An EU citizen with an S1 or EHIC from home is insured there and does not pay.",
   "regional": [],
   "spot_check": "Press (Croatia Week, Index.hr, tportal.hr, seen in search results) confirm the supplement price rise from 9.29 to 15 EUR a month on 1 February 2026. No second source found for the compulsory contribution.",
-  "uncertainty": "The compulsory contribution is the missing number and is the larger part of the cost. It is the contribution rate on the lowest monthly base, set by Tax Administration decision. I did not find a published 2026 base from an official page, and will not guess it. Digital nomad rules (a separate permit with its own health-cover proof) were not read from an official source. The digital nomad permit and any private-cover requirement at first application remain unpriced."
+  "uncertainty": "The compulsory contribution is the missing number and is the larger part of the cost. It is the contribution rate on the lowest monthly base, set by Tax Administration decision. I did not find a published 2026 base from an official page, and will not guess it. Digital nomad rules (a separate permit with its own health-cover proof) were not read from an official source. The digital nomad permit and any private-cover requirement at first application remain unpriced.",
+  "statutory_must_pay": {
+    "amount": 180,
+    "currency": "EUR",
+    "what": "HZZO compulsory insurance for foreigners on temporary residence, fixed monthly payment set by the Tax Administration. Not on HZZO's own pages; 2 x EUR 90 (midpoint of EUR 70-110 a person).",
+    "source_id": "health-hr-student-insurance"
+  },
+  "private_plan": {
+    "amount": 150,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Allianz, Generali, Croatia osiguranje (named in guides; no tariff reached)",
+    "product": "private comprehensive plan on top of HZZO",
+    "terms": "Private cover for faster access and private clinics; terms, deductible and waiting periods not stated. The state supplementary policy (dopunsko, EUR 15 a person from 1 Feb 2026, co-payments only) is separate and not included.",
+    "pricing": "Source lists 'Private Comprehensive (premium): EUR 50-100/month'; midpoint EUR 75 x 2 = EUR 150. Another guide quotes EUR 50-150. Indicative only.",
+    "source_id": "health-hr-student-insurance"
+  }
 }

@@ -40,6 +40,17 @@
       "retrieved": "2026-11-17",
       "quote": "ubezpieczenie zdrowotne w rozumieniu ustawy z dnia 27 sierpnia 2004 r. o świadczeniach opieki zdrowotnej finanso- wanych ze środków publicznych lub potwierdzenie pokrycia przez ubezpieczyciela kosztów leczenia na terytorium Rzeczypospolitej Polskiej;",
       "measures": "The health-cover condition for the 'other circumstances' temporary residence permit. The consolidated text predates later 2025-26 amendments, which were not checked."
+    },
+    {
+      "source_id": "health-pl-freenance",
+      "publisher": "Freenance (comparison site)",
+      "title": "Best Private Health Insurance in Poland 2026: Medicover vs LuxMed vs Enel-Med",
+      "url": "https://freenance.io/insurance/best-health-insurance-poland-2026/",
+      "licence": "free to read, no licence stated",
+      "period": "2026-Q1",
+      "retrieved": "2026-11-18",
+      "quote": "LuxMed Komfort ~260 PLN (mid); Medicover Standard ~310; Enel-Med Rozszerzony ~220; approximate as of Q1 2026 for individual plans",
+      "measures": "Approximate monthly prices of three Polish private subscription tiers; derived from the insurers' sites, not a tariff."
     }
   ],
   "typical_private": null,
@@ -57,5 +68,21 @@
   "eu_citizen_difference": "An EU/EEA citizen covered by an insurer in another member state keeps that cover and an EHIC and cannot join the NFZ voluntary scheme ('objety powszechnym systemem ubezpieczenia zdrowotnego w jednym z krajow UE albo EFTA'). An EU citizen who moves and has no cover can join on the same terms as here.",
   "regional": [],
   "spot_check": "No independent second figure found. Arithmetic check: 9,386.28 x 0.09 = 844.7652, which rounds to NFZ's 844.77. The hint that the floor equals the minimum wage is wrong for this scheme: the NFZ page uses the average enterprise wage (PLN 9,386.28), not the minimum wage (PLN 4,806 from 1 Jan 2026, which NFZ uses only for volunteers: contribution PLN 432.54).",
-  "uncertainty": "(1) The floor changes every quarter: a year of cover costs about PLN 10,000 for the pair at today's floor. (2) No private-policy premium was found: Polish insurers' foreigner policies (PZU, Compensa, Signal Iduna, Luxmed, Enel-Med) hide prices behind calculators or sign-ups, so the cheaper route of a private policy for the permit step is unpriced. Luxmed and Enel-Med sell subscriptions, which are not insurance and may not count as 'potwierdzenie pokrycia przez ubezpieczyciela'. (3) The NFZ page asks non-EU applicants to 'uprawdopodobnic miejsce zamieszkania' (show residence) and a permit is needed first, so the first months need other cover. (4) Declared income above the floor raises the charge 9% of the excess. (5) Permit grant to a non-working couple is not guaranteed."
+  "uncertainty": "(1) The floor changes every quarter: a year of cover costs about PLN 10,000 for the pair at today's floor. (2) No private-policy premium was found: Polish insurers' foreigner policies (PZU, Compensa, Signal Iduna, Luxmed, Enel-Med) hide prices behind calculators or sign-ups, so the cheaper route of a private policy for the permit step is unpriced. Luxmed and Enel-Med sell subscriptions, which are not insurance and may not count as 'potwierdzenie pokrycia przez ubezpieczyciela'. (3) The NFZ page asks non-EU applicants to 'uprawdopodobnic miejsce zamieszkania' (show residence) and a permit is needed first, so the first months need other cover. (4) Declared income above the floor raises the charge 9% of the excess. (5) Permit grant to a non-working couple is not guaranteed.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "PLN",
+    "what": "Nothing compulsory. NFZ voluntary insurance (PLN 844.77 a month for the couple, the file's `amount`) is optional, so it is left out; see addendum.",
+    "source_id": "health-pl-nfz-dobrowolne"
+  },
+  "private_plan": {
+    "amount": 520,
+    "currency": "PLN",
+    "kind": "supplementary",
+    "insurer": "LUX MED (Medicover and Enel-Med are close)",
+    "product": "LUX MED mid-tier subscription 'Komfort'",
+    "terms": "Out-patient subscription: 20+ specialties, 1 MRI/CT a year, 8 rehabilitation visits, dental check-up, 2 mental-health sessions. No hospital cover (NFZ voluntary would cover hospital). No deductible; the benefits are service-based.",
+    "pricing": "Freenance table, 'approximate as of Q1 2026 for individual plans', adult age 25-45: LUX MED mid tier about PLN 260 a month; PLN 260 x 2 = PLN 520. Medicover Standard about PLN 310, Enel-Med Rozszerzony about PLN 220. Rankomat (May 2023) gives LUX MED Rozszerzony PLN 275 and Kompleksowy PLN 370 for ages 0-70.",
+    "source_id": "health-pl-freenance"
+  }
 }

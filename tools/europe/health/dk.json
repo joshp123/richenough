@@ -40,6 +40,17 @@
       "retrieved": "2026-11-17",
       "quote": "You want to apply to visit, live or work in Denmark, or apply for a passport for a foreign national.",
       "measures": "Menu did not load; route list unconfirmed."
+    },
+    {
+      "source_id": "health-dk-dss-basis",
+      "publisher": "Dansk Sundhedssikring",
+      "title": "Basis: presentation 2026",
+      "url": "https://www.ds-sundhed.dk/media/pmphdpk1/basis-praesentation-2026.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "Privatkunde (18-66 ar. Udlober ved 67 ar) 4.033 kr. Arlig pris pr. person. Aegtefaelle 4.033 kr. Priserne er inklusive 1,1 % i statsafgift",
+      "measures": "Annual price per person of Basis private health insurance, 2026 presentation."
     }
   ],
   "typical_private": {
@@ -51,5 +62,21 @@
   "eu_citizen_difference": "Not established.",
   "regional": [],
   "spot_check": "None. Tryg and Danica full-policy prices not reached.",
-  "uncertainty": "Route and non-worker coverage rules not confirmed from official sources. A full private health policy (Tryg, Danica) was not priced. Entitlement for a non-working resident under the Health Act was not verified."
+  "uncertainty": "Route and non-worker coverage rules not confirmed from official sources. A full private health policy (Tryg, Danica) was not priced. Entitlement for a non-working resident under the Health Act was not verified.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "DKK",
+    "what": "Public health care is free for residents; no premium. Income-based charges are in the tax code.",
+    "source_id": "health-dk-borger"
+  },
+  "private_plan": {
+    "amount": 672.17,
+    "currency": "DKK",
+    "kind": "supplementary",
+    "insurer": "Dansk Sundhedssikring",
+    "product": "Basis (private health insurance, Danish: sundhedsforsikring)",
+    "terms": "Fast access to private treatment (physiotherapy, chiropractor, psychologist, specialist diagnosis, minor operations). Not a full hospital policy; Denmark's public hospitals are free. Deductible and waiting-period terms not read.",
+    "pricing": "Price list 30 Oct 2025: 4,033 DKK a year per person aged 18-66 (private customer) and the same for a spouse, incl. 1.1% state levy. 2 x 4,033 / 12 = 672.17 a month. Same price at every age in the band.",
+    "source_id": "health-dk-dss-basis"
+  }
 }

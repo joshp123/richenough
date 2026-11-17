@@ -51,6 +51,17 @@
       "retrieved": "2026-11-17",
       "quote": "VHI will have price change on the following plans: PMI 31 12, PMI 44 16, PMI 49 10, PMI 67 10",
       "measures": "Shows that further price changes come on 1 Dec 2026 (four legacy Vhi plans); cheapest plan used here is not among them."
+    },
+    {
+      "source_id": "health-ie-hia-q2-2026",
+      "publisher": "Health Insurance Authority (Ireland)",
+      "title": "Quarter 2 2026 Market Bulletin",
+      "url": "https://www.hia.ie/sites/default/files/2026-09/Quarter%202%202026%20Market%20Bulletin%20PR.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "Weighted average adult premium: EUR 1,950, compared to EUR 1960 in Q1 2026, and EUR 1,899 at the start of the year",
+      "measures": "Regulator's weighted average annual premium per adult across all plans bought."
     }
   ],
   "typical_private": {
@@ -62,5 +73,21 @@
   "eu_citizen_difference": "An EU/EEA citizen can live in Ireland without a Stamp 0 and the income test, and may use EHIC while temporarily resident. A non-EU couple needs Stamp 0, the EUR 50,000 income test and private cover to enter and renew.",
   "regional": [],
   "spot_check": "Laya Healthcare 'Inspire Assist' lists EUR 127.92 a month per adult with private-hospital cover (EUR 100 excess, EUR 200 per night shortfall in a private room), 15% above Irish Life's 111.00. Vhi 'One Plan' EUR 140.38. Same regulator data; not independent of the main source.",
-  "uncertainty": "HSE ordinary-residence rules not retrieved from an HSE page (the pages are not machine-readable here and search was exhausted). From general knowledge, not verified: a person who is, or intends to be, resident in Ireland for at least a year is ordinarily resident, and may use public hospitals with statutory charges; the Stamp 0 rule bars State benefits. About 150 plan pages failed to download (server errors), including all of Level Health and some current plans, so 'cheapest' covers 240 plans, not the whole market. 'Full cover in private hospitals' may require stricter plans than BeneFit 1 (semi-private rate, excess); a stricter reading could double the figure. Prices change on 1 Dec 2026. Loading is applied to the gross price, and the HIA price may already be net of tax relief, in which case the loaded figure is still proportional."
+  "uncertainty": "HSE ordinary-residence rules not retrieved from an HSE page (the pages are not machine-readable here and search was exhausted). From general knowledge, not verified: a person who is, or intends to be, resident in Ireland for at least a year is ordinarily resident, and may use public hospitals with statutory charges; the Stamp 0 rule bars State benefits. About 150 plan pages failed to download (server errors), including all of Level Health and some current plans, so 'cheapest' covers 240 plans, not the whole market. 'Full cover in private hospitals' may require stricter plans than BeneFit 1 (semi-private rate, excess); a stricter reading could double the figure. Prices change on 1 Dec 2026. Loading is applied to the gross price, and the HIA price may already be net of tax relief, in which case the loaded figure is still proportional.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "No statutory premium; public hospital charges are small (not a premium).",
+    "source_id": "health-ie-irishimmigration-retire"
+  },
+  "private_plan": {
+    "amount": 325.0,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Market weighted average (Vhi 48.3%, Laya 27.1%, Irish Life Health 20.6%)",
+    "product": "Average plan actually bought (weighted average adult premium)",
+    "terms": "What people across the market actually buy, in-patient and out-patient mix; deductibles and waiting periods vary by plan.",
+    "pricing": "Health Insurance Authority Q2 2026 bulletin: weighted average adult premium EUR 1,950 a year; 1,950 / 12 = 162.50, x2 = 325.00. Not age-specific (the HIA gives no age 45 average). The first round's 270.84 was the cheapest private-room plan.",
+    "source_id": "health-ie-hia-q2-2026"
+  }
 }

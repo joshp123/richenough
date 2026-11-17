@@ -95,6 +95,17 @@
       "retrieved": "2026-11-17",
       "quote": "Het verplichte eigen risico stijgt van EUR385 naar EUR400. ... VinkVink ... EUR148,40.",
       "measures": "For information: 2027 cheapest premium EUR 148.40 per adult, own risk EUR 400. Not used in the 2026 figure."
+    },
+    {
+      "source_id": "health-nl-zorgwijzer-aanvullend",
+      "publisher": "Zorgwijzer / BNNVARA Kassa",
+      "title": "Zorgverzekering 2026: aanvullende tandartsverzekering (search excerpts)",
+      "url": "https://www.zorgwijzer.nl/zorgverzekering-2026/de-3-goedkoopste-zorgverzekeringen-met-tandartsdekking-in-2026",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "Zorgwijzer's comparison for a forty-year-old with a dental and physiotherapy package averages EUR 33,90 per maand; NN Zorg Voordelig + Zorg Tand EUR 153,15 per month in total (80% up to EUR 250)",
+      "measures": "Typical monthly price of a supplementary package; the 33.90 figure was read from a search excerpt, the cheapest-total page from the page itself."
     }
   ],
   "typical_private": {
@@ -125,5 +136,21 @@
   "eu_citizen_difference": "Residents pay the same basic premium. An EU citizen may keep cover from another EU state for a time via EHIC/S1; a non-EU citizen with a Dutch permit must insure within four months. EU citizens can enter without the permit problem noted above.",
   "regional": [],
   "spot_check": "Zorgwijzer gives 142.40 cheapest and 159.30 average, matching Consumentenbond. The government's nominal average is 157, close to 159.30.",
-  "uncertainty": "The big uncertainty is residence, not price: I found no IND permit for people of independent means, so the NL couple may have no legal route. The cheapest policy is a combined-brand internet policy; it may restrict hospital choice (natura vs restitutie not checked). The own risk adds up to 770 EUR a year per couple if used. Wlz and Zvw income charges depend on how the Dutch tax agent classes the portfolio income. 2027 premiums are higher (cheapest 148.40). Zorgtoeslag excluded by income and assets."
+  "uncertainty": "The big uncertainty is residence, not price: I found no IND permit for people of independent means, so the NL couple may have no legal route. The cheapest policy is a combined-brand internet policy; it may restrict hospital choice (natura vs restitutie not checked). The own risk adds up to 770 EUR a year per couple if used. Wlz and Zvw income charges depend on how the Dutch tax agent classes the portfolio income. 2027 premiums are higher (cheapest 148.40). Zorgtoeslag excluded by income and assets.",
+  "statutory_must_pay": {
+    "amount": 284.8,
+    "currency": "EUR",
+    "what": "Basic health insurance, cheapest 2026 premium 2 x 142.40, as in the first round (average premium 318.60).",
+    "source_id": "health-nl-consumentenbond2026"
+  },
+  "private_plan": {
+    "amount": 67.8,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Dutch insurers (Zorgwijzer comparison, no single insurer)",
+    "product": "Aanvullende verzekering with dental and physiotherapy",
+    "terms": "Supplementary package: dental (typically 75-80% up to 250-750 EUR a year), physiotherapy. Basic cover already includes hospital and GP care. Own risk 385 EUR is in the basic cover.",
+    "pricing": "Zorgwijzer comparison for a 40-year-old: dental plus physiotherapy package averages 33.90 EUR a month; x2 = 67.80. Cross-check: Consumentenbond a.s.r. dental from 10.00 to 48.40 a month.",
+    "source_id": "health-nl-zorgwijzer-aanvullend"
+  }
 }

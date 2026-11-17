@@ -29,6 +29,17 @@
       "retrieved": "2026-11-17",
       "quote": "If you want to visit Sweden as a tourist for more than 90 days, you can get a residence permit that is limited so that the total time you are permitted to be here is no more than six months. ... You are not allowed to work or settle here",
       "measures": "Nearest route; tourist stay only."
+    },
+    {
+      "source_id": "health-se-lf-prisblad",
+      "publisher": "Lansforsakringar",
+      "title": "Prisblad Sjukvardsforsakring Individuell (galler fran 2026-01-01)",
+      "url": "https://www.lansforsakringar.se/48c8e3/globalassets/aa-global/dokument/prislistor/10221-prisblad-individuell-sjukvardsforsakring.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "Pris i kronor per person och manad: 16-29 518, 30-39 647, 40-49 778, 50-54 934 (med tillaggspaket 524, 750, 970, 1 261); Sjalvrisken ... ar 750 kronor",
+      "measures": "Monthly premium by age band for an individual health insurance, 2026."
     }
   ],
   "typical_private": null,
@@ -36,5 +47,21 @@
   "eu_citizen_difference": "Not established.",
   "regional": [],
   "spot_check": "None.",
-  "uncertainty": "Everything about what a Swedish resident pays (region patient fees, high-cost ceiling, Skandia/If/Euro Accident premiums) is missing: the search tool hit its limit and guessed 1177.se URLs returned errors."
+  "uncertainty": "Everything about what a Swedish resident pays (region patient fees, high-cost ceiling, Skandia/If/Euro Accident premiums) is missing: the search tool hit its limit and guessed 1177.se URLs returned errors.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "SEK",
+    "what": "County health care has patient fees only; no premium.",
+    "source_id": "health-se-migrationsverket"
+  },
+  "private_plan": {
+    "amount": 1556.0,
+    "currency": "SEK",
+    "kind": "supplementary",
+    "insurer": "Lansforsakringar",
+    "product": "Sjukvardsforsakring Individuell (without tillaggspaket)",
+    "terms": "Fast access to private specialist care, surgery and rehabilitation, psychologist, physiotherapy; excess 750 SEK per visit; guarantee: specialist advice within 7 working days, surgery within 20 days. Health declaration needed.",
+    "pricing": "Price sheet valid from 1 Jan 2026, age 40-49: 778 SEK per person a month (970 with the supplementary package); x2 = 1,556.",
+    "source_id": "health-se-lf-prisblad"
+  }
 }

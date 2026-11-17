@@ -18,6 +18,17 @@
       "retrieved": "2026-11-17",
       "quote": "(f) he is in possession of sickness insurance in respect of all risks across the whole of the European Union normally covered for Maltese nationals for himself and his dependants;",
       "measures": "The health-cover condition for the programme. It names no insurer and gives no premium."
+    },
+    {
+      "source_id": "health-mt-localsinsider",
+      "publisher": "Locals Insider",
+      "title": "Private health insurance in Malta (author's quote comparison, Sept 2026)",
+      "url": "https://localsinsider.com/travel-insurance/private-health-insurance-in-malta/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "Annual quotes for both people (aged 37 and 42): Atlas Private Hospital Value Plus EUR 649.10; GasanMamo Key EUR 1,140; Atlas Private Hospital Full EUR 1,161; Laferla Silver EUR 1,425; MAPFRE Hospital In & Out EUR 1,442",
+      "measures": "Real insurer quotes obtained by one resident for two people, September 2026."
     }
   ],
   "typical_private": null,
@@ -25,5 +36,21 @@
   "eu_citizen_difference": "EU, EEA and Swiss nationals use the Residence Programme Rules (S.L. 123.160), whose beneficiary test (condition (a)) is 'an EU, EEA or Swiss national', and which carries the same sickness-insurance condition (f), so cover is required for them too. Not otherwise researched.",
   "regional": [],
   "spot_check": "None.",
-  "uncertainty": "No figure: I found no Maltese insurer tariff (the web-search budget ran out and the Residency Malta and Malta Tax sites did not give usable pages). Whether Malta's state system is open to these residents was not researched. The programme's status as currently open was not checked on the Residency Malta Agency or Malta Tax pages; I read only the consolidated Rules."
+  "uncertainty": "No figure: I found no Maltese insurer tariff (the web-search budget ran out and the Residency Malta and Malta Tax sites did not give usable pages). Whether Malta's state system is open to these residents was not researched. The programme's status as currently open was not checked on the Residency Malta Agency or Malta Tax pages; I read only the consolidated Rules.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "No statutory premium for the couple; private cover is the residence rule.",
+    "source_id": "health-mt-grp-rules"
+  },
+  "private_plan": {
+    "amount": 96.75,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Atlas Insurance",
+    "product": "Private Hospital Full (in-patient and out-patient specialist cover; priced with GasanMamo Key as the alternative, 1,140 EUR)",
+    "terms": "Full settlement in Malta's supporting hospitals plus pre-hospital investigations and specialist care; excess not stated. Worldwide except USA. Not the cheapest hospital-only plan (649 EUR for two).",
+    "pricing": "A resident's September 2026 comparison of real quotes for two residents aged 37 and 42: Atlas Private Hospital Full EUR 1,161 a year for both; /12 = 96.75. Ages are below 45, so a 45-year-old couple pays somewhat more.",
+    "source_id": "health-mt-localsinsider"
+  }
 }

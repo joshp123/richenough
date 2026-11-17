@@ -1,77 +1,87 @@
 {
- "country": "LI",
- "currency": "CHF",
- "period": "2026",
- "amount": 784.0,
- "kind": "private",
- "route": "Non-working residence (B permit). Third-country nationals: Art. 20 with Art. 26 Auslaendergesetz (AuG); the government decides once a quarter. Ausländer- und Passamt (APA) page: \"Alle Staatsangehörige, die keiner Erwerbstätigkeit in Liechtenstein nachgehen und über genügend finanzielle Mittel verfügen, sodass keine Sozialhilfe in Anspruch genommen werden muss. Die B-Bewilligung berechtigt zur Wohnsitznahme im FL von mehr als 12 Monaten.\" Fee on a positive decision CHF 1'060. The APA pages do not name a health-cover condition for the permit; the cover is the compulsory OKP that follows from residence: \"Wer in Liechtenstein wohnt oder arbeitstätig ist, muss sich gegen die Folgen von Krankheit und Unfall versichern ... spätestens drei Monate nach Ihrem Zuzug\" (Concordia FL). The half of permits that is drawn by lot (8 a year for non-working people) is open to EEA citizens only: Swiss and UK citizens cannot take part. A non-EEA couple depends on the discretionary government allocation; the number of places for third-country non-working people is not on the pages I could read.",
- "policy": "FKB, OKP (obligatory basic insurance) with accident cover (\"mit Unfall\", needed because a non-working person has no employer accident insurance), adult 21+, annual franchise CHF 4,000 (20% co-pay, capped so total cost-sharing is at most CHF 4,200 a year per person), outpatient care and general ward of a Liechtenstein contract hospital. All insurers must accept anyone without health questions and the benefits are set by law. Ordinary franchise (CHF 500) is CHF 392 a month each. FKB is one of three LI insurers (Concordia, FKB, Swica per the LKV); I could only read FKB's tariff, so it may not be the cheapest of the three.",
- "working": "Ordinary franchise (CHF 500, the standard cover the Swiss figure also uses): FKB 2026 CHF 392.00 a month each with accident cover, x2 = CHF 784.00. (Agent's first choice, CHF 4,000 franchise at CHF 252 each = CHF 504, is kept in the notes; changed by the component owner to match Switzerland's standard-franchise definition.) 2026 monthly premium, adult 21+, with accident, franchise CHF 4,000: CHF 252.00 each; x2 = CHF 504.00 a month. Ordinary franchise (CHF 500): CHF 392.00 x2 = CHF 784.00. Franchise 1,500: 352x2=704. Franchise 2,500: 312x2=624. Check that the figures are monthly: the cost-sharing table says the CHF 1,500 franchise gives a discount of CHF 480 a year; 392-352 = 40 a month = 480 a year. 2027 tariff (published): CHF 268 (franchise 4,000) and CHF 412 (ordinary) each, so CHF 536 and CHF 824 for two.",
- "sources": [
-  {
-   "source_id": "health-li-fkb",
-   "publisher": "FKB (Liechtenstein health insurer)",
-   "title": "Prämientarife Heilungskosten ab 1. Januar 2026, Einzeln",
-   "url": "https://www.fkb.li/fileadmin/user_upload/Dokumente/2026/Praemienblatt_Einzeln_2026.pdf",
-   "licence": "free to read, no licence stated",
-   "period": "2026",
-   "retrieved": "2026-11-17",
-   "quote": "Obligatorische Krankenpflegeversicherung (OKP) Jahresfranchise CHF 4000 | ab 21 Jahren | ohne Unfall CHF 238.00 | mit Unfall CHF 252.00; ordentliche Jahresfranchise ab 21 Jahren: ohne Unfall CHF 378.00, mit Unfall CHF 392.00",
-   "measures": "Monthly OKP premium per adult, the same for all adults 21+ (not by age, not by gender). Cached with the 2027 sheet, the franchise/co-pay leaflet and the OKP information sheet."
+  "country": "LI",
+  "currency": "CHF",
+  "period": "2026",
+  "amount": 784.0,
+  "kind": "private",
+  "route": "Non-working residence (B permit). Third-country nationals: Art. 20 with Art. 26 Auslaendergesetz (AuG); the government decides once a quarter. Ausländer- und Passamt (APA) page: \"Alle Staatsangehörige, die keiner Erwerbstätigkeit in Liechtenstein nachgehen und über genügend finanzielle Mittel verfügen, sodass keine Sozialhilfe in Anspruch genommen werden muss. Die B-Bewilligung berechtigt zur Wohnsitznahme im FL von mehr als 12 Monaten.\" Fee on a positive decision CHF 1'060. The APA pages do not name a health-cover condition for the permit; the cover is the compulsory OKP that follows from residence: \"Wer in Liechtenstein wohnt oder arbeitstätig ist, muss sich gegen die Folgen von Krankheit und Unfall versichern ... spätestens drei Monate nach Ihrem Zuzug\" (Concordia FL). The half of permits that is drawn by lot (8 a year for non-working people) is open to EEA citizens only: Swiss and UK citizens cannot take part. A non-EEA couple depends on the discretionary government allocation; the number of places for third-country non-working people is not on the pages I could read.",
+  "policy": "FKB, OKP (obligatory basic insurance) with accident cover (\"mit Unfall\", needed because a non-working person has no employer accident insurance), adult 21+, annual franchise CHF 4,000 (20% co-pay, capped so total cost-sharing is at most CHF 4,200 a year per person), outpatient care and general ward of a Liechtenstein contract hospital. All insurers must accept anyone without health questions and the benefits are set by law. Ordinary franchise (CHF 500) is CHF 392 a month each. FKB is one of three LI insurers (Concordia, FKB, Swica per the LKV); I could only read FKB's tariff, so it may not be the cheapest of the three.",
+  "working": "Ordinary franchise (CHF 500, the standard cover the Swiss figure also uses): FKB 2026 CHF 392.00 a month each with accident cover, x2 = CHF 784.00. (Agent's first choice, CHF 4,000 franchise at CHF 252 each = CHF 504, is kept in the notes; changed by the component owner to match Switzerland's standard-franchise definition.) 2026 monthly premium, adult 21+, with accident, franchise CHF 4,000: CHF 252.00 each; x2 = CHF 504.00 a month. Ordinary franchise (CHF 500): CHF 392.00 x2 = CHF 784.00. Franchise 1,500: 352x2=704. Franchise 2,500: 312x2=624. Check that the figures are monthly: the cost-sharing table says the CHF 1,500 franchise gives a discount of CHF 480 a year; 392-352 = 40 a month = 480 a year. 2027 tariff (published): CHF 268 (franchise 4,000) and CHF 412 (ordinary) each, so CHF 536 and CHF 824 for two.",
+  "sources": [
+    {
+      "source_id": "health-li-fkb",
+      "publisher": "FKB (Liechtenstein health insurer)",
+      "title": "Prämientarife Heilungskosten ab 1. Januar 2026, Einzeln",
+      "url": "https://www.fkb.li/fileadmin/user_upload/Dokumente/2026/Praemienblatt_Einzeln_2026.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Obligatorische Krankenpflegeversicherung (OKP) Jahresfranchise CHF 4000 | ab 21 Jahren | ohne Unfall CHF 238.00 | mit Unfall CHF 252.00; ordentliche Jahresfranchise ab 21 Jahren: ohne Unfall CHF 378.00, mit Unfall CHF 392.00",
+      "measures": "Monthly OKP premium per adult, the same for all adults 21+ (not by age, not by gender). Cached with the 2027 sheet, the franchise/co-pay leaflet and the OKP information sheet."
+    },
+    {
+      "source_id": "health-li-fkb",
+      "publisher": "FKB",
+      "title": "Ordentliche Kostenbeteiligung (Franchise and co-pay)",
+      "url": "https://www.fkb.li/fileadmin/user_upload/32_Ordentliche_Kostenbeteiligung_4_.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "current",
+      "retrieved": "2026-11-17",
+      "quote": "CHF 4'000.00 | 20% | CHF 200.00 | CHF 4'200.00 | Rabatt pro Jahr CHF 1'680.00 (ordinary: CHF 500 franchise, 20%, CHF 900, total CHF 1'400)",
+      "measures": "What the insured pays on top of the premium before and after the franchise."
+    },
+    {
+      "source_id": "health-li-apa",
+      "publisher": "Liechtensteinische Landesverwaltung (Ausländer- und Passamt)",
+      "title": "Vergabe Aufenthaltsbewilligung (B) / Auslosung Aufenthaltsbewilligung (B)",
+      "url": "https://www.llv.li/de/privatpersonen/beruf-und-arbeitsplatz/wohnsitz-in-liechtenstein-ohne-erwerbstaetigkeit/vergabe-aufenthaltsbewilligung-b-",
+      "licence": "free to read, no licence stated (llv.li returns 403 to plain curl; read through a Wayback Machine copy of 2026)",
+      "period": "updated 03.09.2025 and 30.10.2025",
+      "retrieved": "2026-11-17",
+      "quote": "bei Nicht EWR- und Nicht CH-Staatsangehörigen findet Art. 20 in Verbindung mit Art. 26 des Ausländergesetzes (AUG, LGBl. 2008 Nr. 311) Anwendung ... Die Regierung entscheidet einmal pro Quartal über die Anträge zur erwerbslosen Wohnsitznahme ... Insgesamt werden jährlich 8 Aufenthaltsbewilligungen für nichterwerbstätige EWR-Bürger verlost.",
+      "measures": "The permit route for non-working residents and its quota. Names no health-insurance condition."
+    },
+    {
+      "source_id": "health-li-concordia",
+      "publisher": "CONCORDIA Liechtenstein",
+      "title": "Krankenversicherung Liechtenstein (neu in Liechtenstein)",
+      "url": "https://www.concordia.li/de/privatpersonen/lebenssituationen/neu-in-liechtenstein.html",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Wer in Liechtenstein wohnt oder arbeitstätig ist, muss sich gegen die Folgen von Krankheit und Unfall versichern ... Versichern Sie sich und Ihre Angehörigen spätestens drei Monate nach Ihrem Zuzug ... Jeder Krankenversicherer muss Sie vorbehaltslos - d. h. ohne Gesundheitsprüfung - in die obligatorische Krankenversicherung (OKP) aufnehmen.",
+      "measures": "The compulsory-cover rule and open acceptance. An insurer's summary of the law (KVG); the statute itself (gesetze.li) returned HTTP 500 to curl."
+    },
+    {
+      "source_id": "health-li-lkv",
+      "publisher": "Liechtensteinischer Krankenkassenverband (LKV)",
+      "title": "Home page",
+      "url": "https://lkv.li/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-17",
+      "quote": "Liechtensteinischer Krankenkassenverband (CONCORDIA, FKB, SWICA)",
+      "measures": "Names the insurers in the market."
+    }
+  ],
+  "typical_private": {
+    "amount_per_month_couple": 864.0,
+    "description": "FKB eOKP (extended OKP) with accident, ordinary franchise: CHF 432.00 each x 2. Supplementary cover (dental, semi-private hospital) would add more: FKB's Kombinierte Spitalversicherung semi-private (age 41-50, no franchise) is CHF 244 a month each, not included.",
+    "source_id": "health-li-fkb"
   },
-  {
-   "source_id": "health-li-fkb",
-   "publisher": "FKB",
-   "title": "Ordentliche Kostenbeteiligung (Franchise and co-pay)",
-   "url": "https://www.fkb.li/fileadmin/user_upload/32_Ordentliche_Kostenbeteiligung_4_.pdf",
-   "licence": "free to read, no licence stated",
-   "period": "current",
-   "retrieved": "2026-11-17",
-   "quote": "CHF 4'000.00 | 20% | CHF 200.00 | CHF 4'200.00 | Rabatt pro Jahr CHF 1'680.00 (ordinary: CHF 500 franchise, 20%, CHF 900, total CHF 1'400)",
-   "measures": "What the insured pays on top of the premium before and after the franchise."
-  },
-  {
-   "source_id": "health-li-apa",
-   "publisher": "Liechtensteinische Landesverwaltung (Ausländer- und Passamt)",
-   "title": "Vergabe Aufenthaltsbewilligung (B) / Auslosung Aufenthaltsbewilligung (B)",
-   "url": "https://www.llv.li/de/privatpersonen/beruf-und-arbeitsplatz/wohnsitz-in-liechtenstein-ohne-erwerbstaetigkeit/vergabe-aufenthaltsbewilligung-b-",
-   "licence": "free to read, no licence stated (llv.li returns 403 to plain curl; read through a Wayback Machine copy of 2026)",
-   "period": "updated 03.09.2025 and 30.10.2025",
-   "retrieved": "2026-11-17",
-   "quote": "bei Nicht EWR- und Nicht CH-Staatsangehörigen findet Art. 20 in Verbindung mit Art. 26 des Ausländergesetzes (AUG, LGBl. 2008 Nr. 311) Anwendung ... Die Regierung entscheidet einmal pro Quartal über die Anträge zur erwerbslosen Wohnsitznahme ... Insgesamt werden jährlich 8 Aufenthaltsbewilligungen für nichterwerbstätige EWR-Bürger verlost.",
-   "measures": "The permit route for non-working residents and its quota. Names no health-insurance condition."
-  },
-  {
-   "source_id": "health-li-concordia",
-   "publisher": "CONCORDIA Liechtenstein",
-   "title": "Krankenversicherung Liechtenstein (neu in Liechtenstein)",
-   "url": "https://www.concordia.li/de/privatpersonen/lebenssituationen/neu-in-liechtenstein.html",
-   "licence": "free to read, no licence stated",
-   "period": "2026",
-   "retrieved": "2026-11-17",
-   "quote": "Wer in Liechtenstein wohnt oder arbeitstätig ist, muss sich gegen die Folgen von Krankheit und Unfall versichern ... Versichern Sie sich und Ihre Angehörigen spätestens drei Monate nach Ihrem Zuzug ... Jeder Krankenversicherer muss Sie vorbehaltslos - d. h. ohne Gesundheitsprüfung - in die obligatorische Krankenversicherung (OKP) aufnehmen.",
-   "measures": "The compulsory-cover rule and open acceptance. An insurer's summary of the law (KVG); the statute itself (gesetze.li) returned HTTP 500 to curl."
-  },
-  {
-   "source_id": "health-li-lkv",
-   "publisher": "Liechtensteinischer Krankenkassenverband (LKV)",
-   "title": "Home page",
-   "url": "https://lkv.li/",
-   "licence": "free to read, no licence stated",
-   "period": "2026",
-   "retrieved": "2026-11-17",
-   "quote": "Liechtensteinischer Krankenkassenverband (CONCORDIA, FKB, SWICA)",
-   "measures": "Names the insurers in the market."
+  "income_based_charges": [],
+  "eu_citizen_difference": "The OKP premium and rules are the same. An EEA citizen can enter the lottery for 8 non-working B permits a year (Art. 37-38 PFZG) and has a right to a permit under Art. 19 with Art. 22 PFZG if the means test is met; a Briton or Canadian cannot enter the lottery and needs the discretionary Art. 20/26 AuG permit. Swiss citizens are excluded from the lottery.",
+  "regional": [],
+  "spot_check": "No second insurer's tariff could be read (Concordia and Swica FL premium tables not found; llv.li and statistikportal.li return 403). Internal check only: the franchise discounts in FKB's leaflet (CHF 480, 960, 1,680 a year) match the monthly differences in the tariff sheet (40, 80, 140 a month). Liechtenstein OKP premiums are set per insurer, not community-rated by region.",
+  "uncertainty": "1) The amount assumes the CHF 4,000 franchise, which exposes each person to up to CHF 4,200 a year; at the ordinary franchise the couple pays CHF 784 a month. 2) FKB may not be the cheapest of three insurers. 3) The main risk is access: there is no entitlement for a non-EEA couple, and the published quota/criteria for third-country non-working permits could not be read. 4) 2027 premiums are about 6% higher (published). 5) Residence permit conditions beyond the quoted page (means thresholds, health cover at application) are unread, so the OKP is modelled as the cover the couple must take on arrival.",
+  "private_plan": {
+    "amount": 488.0,
+    "currency": "CHF",
+    "kind": "supplementary",
+    "insurer": "FKB (Liechtenstein)",
+    "product": "Kombinierte Spitalversicherung semi-private, age 41-50, no franchise",
+    "terms": "In-patient: semi-private ward with free choice of doctor; no out-patient beyond the compulsory OKP cover.",
+    "pricing": "FKB tariff for ages 41-50: CHF 244 a month each (already read for li.json in the first round), x2 = 488. The compulsory OKP premium is computed in code.",
+    "source_id": "health-li-fkb"
   }
- ],
- "typical_private": {
-  "amount_per_month_couple": 864.0,
-  "description": "FKB eOKP (extended OKP) with accident, ordinary franchise: CHF 432.00 each x 2. Supplementary cover (dental, semi-private hospital) would add more: FKB's Kombinierte Spitalversicherung semi-private (age 41-50, no franchise) is CHF 244 a month each, not included.",
-  "source_id": "health-li-fkb"
- },
- "income_based_charges": [],
- "eu_citizen_difference": "The OKP premium and rules are the same. An EEA citizen can enter the lottery for 8 non-working B permits a year (Art. 37-38 PFZG) and has a right to a permit under Art. 19 with Art. 22 PFZG if the means test is met; a Briton or Canadian cannot enter the lottery and needs the discretionary Art. 20/26 AuG permit. Swiss citizens are excluded from the lottery.",
- "regional": [],
- "spot_check": "No second insurer's tariff could be read (Concordia and Swica FL premium tables not found; llv.li and statistikportal.li return 403). Internal check only: the franchise discounts in FKB's leaflet (CHF 480, 960, 1,680 a year) match the monthly differences in the tariff sheet (40, 80, 140 a month). Liechtenstein OKP premiums are set per insurer, not community-rated by region.",
- "uncertainty": "1) The amount assumes the CHF 4,000 franchise, which exposes each person to up to CHF 4,200 a year; at the ordinary franchise the couple pays CHF 784 a month. 2) FKB may not be the cheapest of three insurers. 3) The main risk is access: there is no entitlement for a non-EEA couple, and the published quota/criteria for third-country non-working permits could not be read. 4) 2027 premiums are about 6% higher (published). 5) Residence permit conditions beyond the quoted page (means thresholds, health cover at application) are unread, so the OKP is modelled as the cover the couple must take on arrival."
 }

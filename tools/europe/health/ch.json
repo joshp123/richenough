@@ -1,0 +1,30 @@
+{
+  "country": "CH",
+  "currency": "CHF",
+  "period": "2026",
+  "amount": null,
+  "note": "Compulsory premiums are computed in code from the BAG open data; this file holds only the supplementary private plan.",
+  "private_plan": {
+    "amount": 287.3,
+    "currency": "CHF",
+    "kind": "supplementary",
+    "insurer": "Eight Swiss insurers (HelloSafe table: Concordia, Groupe Mutuel, Helsana, Visana, KPT, Axa, Sanitas, CSS)",
+    "product": "Halbprivat (semi-private) hospital supplementary insurance",
+    "terms": "In-patient only: semi-private ward (two-bed room) and free choice of doctor in the listed hospitals; no out-patient. Cantons, ages and deductibles not stated by the source.",
+    "pricing": "HelloSafe table, monthly CHF per person: 82.60, 119.40, 119.80, 138.80, 148.50, 148.80, 149, 150.50; median 143.65, x2 = 287.30. The page states no age, sex or canton, so a 45-year-old may pay more: Liechtenstein's FKB tariff for ages 41-50 is 244 a month each (see li.json). Weak.",
+    "source_id": "health-ch-hellosafe"
+  },
+  "sources": [
+    {
+      "source_id": "health-ch-hellosafe",
+      "publisher": "HelloSafe",
+      "title": "Beste Zusatzversicherungen in der Schweiz im Jahr 2026",
+      "url": "https://hellosafe.ch/de/krankenversicherung/zusatzversicherung",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "Spitalversicherung Halbprivat: Concordia 82.60 CHF / Monat, Groupe Mutuel 119.40, Helsana 119.80, Visana 138.80, Axa 148.50, KPT 148.80, Sanitas 149, CSS 150.50",
+      "measures": "Comparison site's monthly semi-private premiums by insurer; age, sex and canton not stated."
+    }
+  ]
+}

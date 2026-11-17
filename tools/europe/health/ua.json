@@ -25,5 +25,21 @@
   "eu_citizen_difference": "Not examined.",
   "regional": [],
   "spot_check": "None.",
-  "uncertainty": "The Wayback copy may not include amendments after 2025, and subordinate Cabinet rules on insurance minimums and any visa or e-residence schemes were not read. What the state health system gives a foreign temporary resident was not checked. No premium figure was reached."
+  "uncertainty": "The Wayback copy may not include amendments after 2025, and subordinate Cabinet rules on insurance minimums and any visa or e-residence schemes were not read. What the state health system gives a foreign temporary resident was not checked. No premium figure was reached.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "UAH",
+    "what": "Nothing: the state's guaranteed medical programme is free at the point of use for residents.",
+    "source_id": "health-ua-law"
+  },
+  "private_plan": {
+    "amount": null,
+    "currency": "UAH",
+    "kind": "supplementary",
+    "insurer": "Uniqa, ARX, Ingo, VUSO (insurers reached; none published a tariff)",
+    "product": "voluntary medical insurance (DMS)",
+    "terms": "Not found.",
+    "pricing": "No price found for a private adult plan after two searches (English and Ukrainian). Only short-stay figures turned up (foreigners' cover from EUR 1.62 a day, war-risk cover EUR 3.56-4.40 a day), which are travel policies and not comparable. No figure given.",
+    "source_id": "health-ua-law"
+  }
 }

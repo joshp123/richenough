@@ -6,8 +6,8 @@ spending, US = 100) and log(GDP per head) across those countries; each country t
 region left without one, gets its country's prediction, one figure for the whole country (no invented variation
 inside it), with measured_for set to the country and a note that starts "Inferred". The world-data agent does the
 same for countries outside Europe.
-
-Liechtenstein is the exception: it takes the measured figure of the neighbouring Swiss canton of St. Gallen.
+Only countries measured in at least three regions, or in half of them, train the fit, so a country measured only in
+its capital does not pass the capital's rent off as typical.
 """
 
 import csv
@@ -22,10 +22,6 @@ SOURCES = [c.source(GDP_ID, "Eurostat", "Gross domestic product at market prices
                     "https://ec.europa.eu/eurostat/databrowser/view/nama_10_pc/default/table",
                     "CC BY 4.0 (Eurostat reuse policy)", "2024",
                     "Used only to infer rents for countries with no rent source.")]
-
-PROXY = {"LI": ("CH055", "the neighbouring Swiss canton of St. Gallen, whose Rhine valley towns share Vaduz's market; "
-                         "Liechtenstein's statistics office could not be reached")}
-
 
 def _fx() -> dict[str, float]:
     """Units of each currency per euro, from the world table's units per US dollar."""
@@ -68,25 +64,18 @@ def fill(existing: list[dict]) -> list[dict]:
     for r in existing:
         if r["measured_for"].startswith("CITY-") or r["measured_for"] == r["place_code"]:
             local.setdefault(iso_of[r["place_code"]], []).append(r["amount"] / fx[r["currency"]])
-    typical = {iso: statistics.median(v) for iso, v in local.items() if len(v) >= 1}
+    size = regions.groupby("iso").size()
+    typical = {iso: statistics.median(v) for iso, v in local.items() if len(v) >= 3 or len(v) >= size[iso] / 2}
     train = [iso for iso in typical if iso in levels and iso in gdp]
     beta, sd = _ols([[math.log(levels[i]["amount"]), math.log(gdp[i])] for i in train], [math.log(typical[i]) for i in train])
     beta_p, sd_p = _ols([[math.log(levels[i]["amount"])] for i in train], [math.log(typical[i]) for i in train])
 
     out = []
-    by_place = {r["place_code"]: r for r in existing}
     for region in regions.itertuples():
         code = c.place(region.nuts)
         if code in covered:
             continue
         iso = region.iso
-        if iso in PROXY:
-            nuts, why = PROXY[iso]
-            src = by_place.get(c.place(nuts))
-            if src:
-                out.append(c.row(code, src["amount"], src["currency"], src["unit"], src["period"], c.place(nuts),
-                                 src["source_id"], f"Proxy: the figure for {why}. {src['note']}"))
-            continue
         if iso not in levels or iso == "FR":  # Mayotte is too unlike metropolitan France to infer from it
             continue
         pl = levels[iso]["amount"]

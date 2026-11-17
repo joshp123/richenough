@@ -51,6 +51,17 @@
       "retrieved": "2026-11-17",
       "quote": "Увеличава се минималният осигурителен доход за самоосигуряващите се лица на 620.20 евро ... здравната вноска за безработните е 8% върху половината от минималния осигурителен доход за самоосигуряващите се лица, тоест върху 310.10 евро. Вноската се увеличава на 24.81 евро на месец.",
       "measures": "Cross-check of the minimum income of EUR 620.20 set by the 2026 state social insurance budget law. I did not open that law itself."
+    },
+    {
+      "source_id": "health-bg-feather",
+      "publisher": "Feather Insurance (broker selling its own expat policy, so a sales-side view)",
+      "title": "Two expats in Bulgaria comparing health insurance policies",
+      "url": "https://feather-insurance.com/en-bg/blog/health-insurance-guide-bulgaria",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "Domestic top-up plans are typically EUR 30 to EUR 80 a month ... Age 45, single or couple: EUR 50-80 individual",
+      "measures": "Indicative monthly price of a Bulgarian private top-up plan by profile; no insurer tariff."
     }
   ],
   "typical_private": null,
@@ -58,5 +69,21 @@
   "eu_citizen_difference": "Not checked from a primary source. An EU citizen holding a right of residence normally keeps cover through EHIC or S1 from home, or falls in the same art. 40(5) group.",
   "regional": [],
   "spot_check": "Two sources agree on EUR 24.81 (the NRA release copy and the KiK-Info tables), but both are the same underlying NRA number. The law texts (ZZO art. 40(5), ZBNZOK art. 2) confirm the method: 8% x 310.10 = 24.81.",
-  "uncertainty": "(1) Eligibility: ZZO art. 33(1)3 covers people with long-term or permanent residence permits. A new arrival on a D visa or first temporary permit may not be in the NHIF system yet and would then need private cover, which I did not price (no official D-visa wording and no tariff reached). (2) The EUR 620.20 minimum income comes from the state social insurance budget law, which I only saw via KiK-Info. (3) The amount rises with that minimum income each year. (4) Bulgaria joined the euro on 1 January 2026, so all figures are in euro."
+  "uncertainty": "(1) Eligibility: ZZO art. 33(1)3 covers people with long-term or permanent residence permits. A new arrival on a D visa or first temporary permit may not be in the NHIF system yet and would then need private cover, which I did not price (no official D-visa wording and no tariff reached). (2) The EUR 620.20 minimum income comes from the state social insurance budget law, which I only saw via KiK-Info. (3) The amount rises with that minimum income each year. (4) Bulgaria joined the euro on 1 January 2026, so all figures are in euro.",
+  "statutory_must_pay": {
+    "amount": 49.62,
+    "currency": "EUR",
+    "what": "NHIF contribution for two people with no other insurance basis (8% x EUR 310.10 each, from 1 Aug 2026); compulsory for long-term or permanent residents. Same figure as the file's `amount`.",
+    "source_id": "health-bg-kik-nap"
+  },
+  "private_plan": {
+    "amount": 130,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "DZI, Bulstrad, Euroins (named by the source; no insurer tariff reached)",
+    "product": "local voluntary top-up plan",
+    "terms": "Faster access to private specialists and hospitals on top of NHIF; Bulgaria-only; often age limits and pre-existing conditions excluded. Deductible and co-payments not stated by the source.",
+    "pricing": "Source's profile row 'Age 45, single or couple: EUR 50-80 individual' per month; midpoint EUR 65 x 2 people = EUR 130 a month. A broker's indicative range, not an insurer tariff. A second guide (Innovires) lists Bulstrad EUR 300-850 and Allianz Bulgaria EUR 400-1,200 with no column headers (probably annual); not used.",
+    "source_id": "health-bg-feather"
+  }
 }

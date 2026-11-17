@@ -18,6 +18,17 @@
       "retrieved": "2026-11-17",
       "quote": "19.-(1) ... (δ) κάθε συνταξιούχος σε ποσοστό 2,65% επί του ποσού της σύνταξής του∙ ... (ζ) κάθε εισοδηματίας σε ποσοστό 2,65% επί του εισοδήματός του∙ ... (4)(α) ... είναι πέραν των εκατόν ογδόντα χιλιάδων ευρώ (€180.000), εισφορά καταβάλλεται μόνο επί του ποσού των εκατόν ογδόντα χιλιάδων ευρώ (€180.000).",
       "measures": "The statutory contribution rates and the EUR 180,000 annual ceiling (rate 2.65% on a person's non-salary, non-pension 'income'), plus who is a beneficiary (art. 16)."
+    },
+    {
+      "source_id": "health-cy-zeno2026",
+      "publisher": "Zeno Legal",
+      "title": "Cyprus private health insurance cost 2026",
+      "url": "https://www.zenolegal.com/resources/cyprus-private-health-insurance-cost-2026",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "Local top-up cover, age 35-50: ~EUR 700-1,200 per year (indicative market ranges only, not official tariffs; updated 17 November 2026)",
+      "measures": "Indicative annual premium by age band for local top-up cover in Cyprus."
     }
   ],
   "typical_private": null,
@@ -35,5 +46,21 @@
   "eu_citizen_difference": "Not researched. Art. 16(1)(b) gives GESY to EU citizens who are workers or who hold permanent residence rights.",
   "regional": [],
   "spot_check": "None.",
-  "uncertainty": "No figure. The Cyprus residence-route rule and any private policy tariff were not reached (web-search budget ran out; gesy.org.cy and hio.org.cy are script-rendered or refuse connections). I read the law in Greek from CyLaw (windows-1253); the English translations were not read, and the contribution is paid only if the couple is a GESY beneficiary under art. 16."
+  "uncertainty": "No figure. The Cyprus residence-route rule and any private policy tariff were not reached (web-search budget ran out; gesy.org.cy and hio.org.cy are script-rendered or refuse connections). I read the law in Greek from CyLaw (windows-1253); the English translations were not read, and the contribution is paid only if the couple is a GESY beneficiary under art. 16.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "GESY contribution is 2.65% of non-salary income (tax code), no fixed premium.",
+    "source_id": "health-cy-gesy-law"
+  },
+  "private_plan": {
+    "amount": 158.33,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Local insurers (Universal Life, Trust, Eurolife and others; no tariff published)",
+    "product": "Local top-up cover on GESY (faster private specialist and hospital access)",
+    "terms": "Assumes GESY for primary care; adds private specialist and hospital access. Source gives no deductible or limits.",
+    "pricing": "Zeno Legal indicative market range for ages 35-50: 700-1,200 EUR a year per person; midpoint 950 / 12 = 79.17 a month each, x2 = 158.33. Not a tariff: a law-firm guide says there is no regulated tariff.",
+    "source_id": "health-cy-zeno2026"
+  }
 }

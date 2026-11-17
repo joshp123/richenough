@@ -40,6 +40,28 @@
       "retrieved": "2026-11-17",
       "quote": "Le taux de la cotisation est dégressif. Il est fixé à 6,5 % ... Le montant de la cotisation est égal à : 6,5 % x (A - 0,5 x Pass) x [(1 - R / (0,2 x Pass)] ... A = revenus constituant l'assiette de la cotisation, retenus dans la limite de 8 Pass ... revenus de capital du patrimoine compris entre 23 550 € (soit 50 % du Pass) et 376 800 € (soit 8 fois le Pass). ... La base de calcul ... : revenus fonciers ; capitaux mobiliers ; plus-values de cession à titre onéreux de biens ou de droits de toute nature ...",
       "measures": "The income-based charge on PUMa beneficiaries who do not work in France. Page shows the 2025 PASS (47,100); the 2026 PASS is 48,060 per secondary sources, not read on Urssaf."
+    },
+    {
+      "source_id": "health-fr-echanges",
+      "publisher": "Echanges Assurances",
+      "title": "Prix moyen d'une mutuelle par age (guide mis a jour avril 2026)",
+      "url": "https://www.echangesassurances.org/mutuelle-sante/comparatif-prix/prix-moyen-par-age/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "Personne seule, 45 ans (province): Basique 42-60 EUR, Intermediaire 68-92 EUR, Premium 102-138 EUR par mois; Ile-de-France intermediaire 78-105 EUR",
+      "measures": "Indicative monthly mutuelle prices at age 45 by level, from online comparison data."
+    },
+    {
+      "source_id": "health-fr-reassurez",
+      "publisher": "Reassurez-moi",
+      "title": "Mutuelle sante pour couple",
+      "url": "https://reassurez-moi.fr/guide/mutuelle-sante/couple",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "45-60 ans (mutuelle pour couple actif): 90 EUR par mois en moyenne (donnees du comparateur de septembre 2026; ces montants restent des moyennes issues d'un panel)",
+      "measures": "Cross-check: average couple mutuelle price."
     }
   ],
   "typical_private": null,
@@ -57,5 +79,21 @@
   "eu_citizen_difference": "Not researched. EU citizens do not need the visiteur visa. Whether an EU citizen without a job faces the same CSM was not read in a source.",
   "regional": [],
   "spot_check": "Secondary sources found in the search (Keobiz, Clementine, Indy, Hayot: not fetched) give the same 6.5% rate and a 2026 PASS of EUR 48,060. Not independently confirmed on an official page.",
-  "uncertainty": "No private-premium figure: the web-search budget ran out and no insurer tariff for French visa-grade expat cover was reachable (France-Visas returns 403 to automated fetches). The free statutory route (PUMa) is the likely long-run position, but I did not read the page that sets the waiting period after arrival, nor confirm that visiteur-card holders are always allowed in. The CSM thresholds shown are 2025; 2026 values are higher by about 2%."
+  "uncertainty": "No private-premium figure: the web-search budget ran out and no insurer tariff for French visa-grade expat cover was reachable (France-Visas returns 403 to automated fetches). The free statutory route (PUMa) is the likely long-run position, but I did not read the page that sets the waiting period after arrival, nor confirm that visiteur-card holders are always allowed in. The CSM thresholds shown are 2025; 2026 values are higher by about 2%.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "PUMa has no premium; the cotisation subsidiaire maladie is income-based (tax code).",
+    "source_id": "health-fr-ameli-puma"
+  },
+  "private_plan": {
+    "amount": 160.0,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Market range from comparison sites (no insurer named)",
+    "product": "Mutuelle, intermediate level (hospital incl. dental and optical at mid level)",
+    "terms": "Complementary cover (mutuelle) on top of PUMa: reimburses co-payments and fee supplements; intermediate level. Deductibles do not apply in individual contracts; waiting periods vary.",
+    "pricing": "Echanges Assurances: person aged 45, province, intermediate level 68-92 EUR a month (midpoint 80); Ile-de-France 78-105. 2 x 80 = 160. Cross-check: Reassurez-moi gives 90 EUR for a couple aged 45-60 (Sept 2026 panel) and Magnolia 115 EUR per person aged 45-54; sources disagree by up to 2x.",
+    "source_id": "health-fr-echanges"
+  }
 }

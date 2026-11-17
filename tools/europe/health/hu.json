@@ -40,6 +40,17 @@
       "retrieved": "2026-11-17",
       "quote": "Documentary evidence must be submitted as proof that the applicant has access to comprehensive health insurance services covering all healthcare services or that (s)he can cover the costs of such services. ... (s)he can cover the costs of his/her healthcare services based on documents in proof of his/her means of subsistence available in Hungary.",
       "measures": "The health-cover test for a temporary residence permit. It accepts proof of means, so no private premium is mandated."
+    },
+    {
+      "source_id": "health-hu-capital-ro",
+      "publisher": "Capital.ro (Romanian business news; author Corina Chiriac)",
+      "title": "Costul asigurarilor private de sanatate in Europa in 2026",
+      "url": "https://www.capital.ro/costul-asigurarilor-private-de-sanatate-in-europa-in-2026-diferente-majore-intre-tarile-din-ue.html",
+      "licence": "free to read, no licence stated",
+      "period": "2026-03-30",
+      "retrieved": "2026-11-18",
+      "quote": "Standard: 15.000 - 30.000 HUF / luna (~38 - 75 EUR) ... Premium: peste 40.000 HUF / luna (peste 100 EUR)",
+      "measures": "Monthly price tiers of private health insurance in Hungary; the article does not name its data source."
     }
   ],
   "typical_private": null,
@@ -47,5 +58,21 @@
   "eu_citizen_difference": "Tbj. 4. par. 1.2 treats EU free-movement persons with a registered Hungarian address as 'belfoldi', so an EU citizen can pay the HUF 12,300 contribution after the one-year registered-residence condition of 43. par. (2), without long-term residence status. A non-EU couple cannot, until they hold long-term residence.",
   "regional": [],
   "spot_check": "No independent second figure found. Search summaries of secondary Hungarian sites (adozona.hu, money.hu) repeat HUF 12,300 for 2026; I treated them as cross-checks only and did not cache them.",
-  "uncertainty": "The figure is the statutory charge, but a new non-EU couple on temporary residence is not eligible for it, so what they really pay in years 1 to 5 is unpriced (private cover or self-pay). If they pay private cover at EUR 100 to 200 a month, the cost would be roughly 5 to 10 times the HUF 24,600 shown. The contribution is indexed each year to July CPI and published by 31 October (Tbj. 25. par. (3)). Whether the one-year registered-residence test and the long-term residence test have been relaxed by later decree was not checked."
+  "uncertainty": "The figure is the statutory charge, but a new non-EU couple on temporary residence is not eligible for it, so what they really pay in years 1 to 5 is unpriced (private cover or self-pay). If they pay private cover at EUR 100 to 200 a month, the cost would be roughly 5 to 10 times the HUF 24,600 shown. The contribution is indexed each year to July CPI and published by 31 October (Tbj. 25. par. (3)). Whether the one-year registered-residence test and the long-term residence test have been relaxed by later decree was not checked.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "HUF",
+    "what": "Nothing for a new resident: the HUF 12,300 a person service contribution (HUF 24,600 for two, the file's `amount`) is open only once a long-term residence permit is held.",
+    "source_id": "health-hu-nav-szolgaltatasi-jarulek"
+  },
+  "private_plan": {
+    "amount": 62500,
+    "currency": "HUF",
+    "kind": "substitutive",
+    "insurer": "Generali, Allianz, Union, Medicover (named by guides; no tariff reached)",
+    "product": "private health insurance, standard to premium tier",
+    "terms": "Standard tier: GP, specialists, imaging (MRI/CT), more specialties. Premium tier: private hospitalisation, complex dental, international treatment. Deductible and co-payments not stated.",
+    "pricing": "Capital.ro (30 Mar 2026): Standard HUF 15,000-30,000 a month, Premium over HUF 40,000. In-patient cover only appears in Premium, so the figure takes the midpoint of the Standard midpoint (22,500) and the Premium floor (40,000) = HUF 31,250 a person x 2 = HUF 62,500. A Privatbankar article puts cheap per-person plans at HUF 5,000-8,000 (outpatient only) and an individually bought policy at 'several tens of thousands'.",
+    "source_id": "health-hu-capital-ro"
+  }
 }

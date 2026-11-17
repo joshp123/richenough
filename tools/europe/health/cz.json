@@ -73,5 +73,21 @@
   "eu_citizen_difference": "EU/EEA citizens are exempt from the par. 180j policy (par. 180j(4) and the registration regime for Union citizens) and use the public system, or an S1/EHIC, on arrival. Not detailed here.",
   "regional": [],
   "spot_check": "Older broker pricelist (same product line, about 2017-2019): CZK 12,860 per person per year at 45-59, so CZK 2,143 a month for two, against CZK 3,250 now. The two do not agree because they are years apart and the newer table's product tier is unknown. Official premium not reached.",
-  "uncertainty": "The figure is a broker's reprint, not an insurer or regulator source, and could be for a lower-limit product than the EUR 400,000 rule needs (pVZP 'Plus' and 'Exclusive' have a CZK 10 million limit, about EUR 400,000 at roughly CZK 25/EUR). The real premium could be higher. Dental, outpatient cost-sharing and exclusions were not read. After permanent residence (normally 5 years) the couple would enter the public system; the VZP page then gives CZK 3,024 per person a month for a person with no taxable income (CZK 6,048 a month for two). The rule that only permanent residents (or employees) join the public system comes from general knowledge of Act 48/1997 and was not checked in this session. Income from the ETF would not change that fixed charge, but the tax agent should confirm whether capital income counts."
+  "uncertainty": "The figure is a broker's reprint, not an insurer or regulator source, and could be for a lower-limit product than the EUR 400,000 rule needs (pVZP 'Plus' and 'Exclusive' have a CZK 10 million limit, about EUR 400,000 at roughly CZK 25/EUR). The real premium could be higher. Dental, outpatient cost-sharing and exclusions were not read. After permanent residence (normally 5 years) the couple would enter the public system; the VZP page then gives CZK 3,024 per person a month for a person with no taxable income (CZK 6,048 a month for two). The rule that only permanent residents (or employees) join the public system comes from general knowledge of Act 48/1997 and was not checked in this session. Income from the ETF would not change that fixed charge, but the tax agent should confirm whether capital income counts.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "CZK",
+    "what": "Nothing fixed: public insurance (VZP) is not open to a non-working non-EU couple on a long-term residence permit; they must hold commercial cover until permanent residence (see the file's `route`).",
+    "source_id": "health-cz-zakon-326-1999"
+  },
+  "private_plan": {
+    "amount": 3250,
+    "currency": "CZK",
+    "kind": "substitutive",
+    "insurer": "Pojistovna VZP (pVZP)",
+    "product": "Komplexni zdravotni pojisteni cizincu",
+    "terms": "In- and out-patient comprehensive cover for foreigners, accepted by the immigration office; limit CZK 10 million per event on the Plus and Exclusive tiers. Deductible and co-payments not read.",
+    "pricing": "Same figure as the file's `amount`: broker reprint of the pVZP table, age band 45-59, CZK 19,500 per person a year; 2 x 19,500 / 12 = CZK 3,250 a month. Product tier and date are not stated by the broker. A search excerpt of Charles University's Slavia price list (2025) shows about CZK 1,200 a month for a basic foreigners' policy, so this is mid-range rather than basic.",
+    "source_id": "health-cz-pojisteni-cizincu-broker"
+  }
 }

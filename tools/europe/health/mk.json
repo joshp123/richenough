@@ -18,6 +18,17 @@
       "retrieved": "2026-11-17",
       "quote": "Член 72: 'На странец му се одобрува привремен престој ... ако: има средства за издржување ... има здравствено осигурување'. Член 119: 'државјанин на држава членка на Европската Унија или на ОЕЦД ... стекнал право на сопственост на стан, станбена зграда или куќа ... во износ од најмалку 40.000 евра, му се одобрува привремен престој'.",
       "measures": "The permit conditions and the property route. It requires health insurance but, in the text read, does not say what kind for temporary stay."
+    },
+    {
+      "source_id": "health-mk-expatlife",
+      "publisher": "expatlife.ai (aggregator)",
+      "title": "North Macedonia healthcare for expats",
+      "url": "https://expatlife.ai/north-macedonia/healthcare",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "local private plans (Eurolink, Triglav) at about EUR 30-60 a month Read from a search-result excerpt; the page itself was not opened or could not be read.",
+      "measures": "Indicative monthly price of local private health plans in North Macedonia."
     }
   ],
   "typical_private": null,
@@ -25,5 +36,21 @@
   "eu_citizen_difference": "Art. 119 also admits EU and OECD nationals, so a British or Canadian couple is not disadvantaged against EU citizens on the property route. EU citizens have no EHIC-based access here.",
   "regional": [],
   "spot_check": "None.",
-  "uncertainty": "No figure. Missing: the Fund's rule for foreigners on temporary stay and its fixed charge (if any), the Ministry's guidance on which cover satisfies art. 72, and any insurer tariff (Sava, Triglav, Eurolink and Sigal MK pages list products but no prices). The 'kind' field is null because I cannot say whether the cover is statutory or private."
+  "uncertainty": "No figure. Missing: the Fund's rule for foreigners on temporary stay and its fixed charge (if any), the Ministry's guidance on which cover satisfies art. 72, and any insurer tariff (Sava, Triglav, Eurolink and Sigal MK pages list products but no prices). The 'kind' field is null because I cannot say whether the cover is statutory or private.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "MKD",
+    "what": "Not established: whether a non-working foreign resident can or must pay the Health Insurance Fund is unknown (fzo.org.mk is behind a bot check). Left at 0.",
+    "source_id": "health-mk-law-foreigners"
+  },
+  "private_plan": {
+    "amount": 90,
+    "currency": "EUR",
+    "kind": "substitutive",
+    "insurer": "Eurolink, Triglav (named by the source)",
+    "product": "local private plans",
+    "terms": "Not stated.",
+    "pricing": "Source: local private plans about EUR 30-60 a month; midpoint EUR 45 x 2 = EUR 90. International plans EUR 50-120. Low-confidence aggregator; no tariff.",
+    "source_id": "health-mk-expatlife"
+  }
 }

@@ -83,5 +83,21 @@
   "eu_citizen_difference": "An EU citizen exercising free movement who is a non-employed resident needs sufficient resources and comprehensive sickness cover under freedom-of-movement law, and can often keep S1/EHIC-based cover from a home state. A non-EU couple has no such route and must take a German substitutive PKV policy before entry.",
   "regional": [],
   "spot_check": "Basistarif ceiling 1,017.19 EUR per person (BMG) versus 590.30 EUR (HanseMerkur): the commercial tariff is 58% of the ceiling. HanseMerkur's own employee-tariff table (age 35) shows gross 569.73 EUR per person before the employer share, which is consistent with 590.30 at 45 for a thinner tariff. Not an independent insurer.",
-  "uncertainty": "Single insurer figure. Eligibility of a non-employed couple for the self-employed tariff is unconfirmed; if only Basistarif is available the figure is about 2,034 EUR (+72%). Health underwriting: PKV can load or refuse for health history, and premiums rise with age and medical inflation (PKV-Verband and press report rises of about 13% for 2026, not checked here). The dated page may change. Residence permit success depends on the foreigners office; para 7 is discretionary. A GKV path was not priced."
+  "uncertainty": "Single insurer figure. Eligibility of a non-employed couple for the self-employed tariff is unconfirmed; if only Basistarif is available the figure is about 2,034 EUR (+72%). Health underwriting: PKV can load or refuse for health history, and premiums rise with age and medical inflation (PKV-Verband and press report rises of about 13% for 2026, not checked here). The dated page may change. Residence permit success depends on the foreigners office; para 7 is discretionary. A GKV path was not priced.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "Private insurance is the substitute for statutory cover for this couple; no statutory premium. The care insurance (Pflegepflichtversicherung) is inside the private premium.",
+    "source_id": "health-de-hansemerkur-kosten"
+  },
+  "private_plan": {
+    "amount": 1180.6,
+    "currency": "EUR",
+    "kind": "substitutive",
+    "insurer": "HanseMerkur",
+    "product": "Start Fit (KVS3) with PSV, EKV2, Kurtagegeld and PVN care insurance, EUR 1,000 annual deductible",
+    "terms": "In-patient (one- or two-bed room, chief-physician treatment), out-patient and dental, EUR 1,000 deductible, includes compulsory care insurance and 10% statutory surcharge. It is the insurer's self-employed tariff; the page does not say a non-employed person may buy it.",
+    "pricing": "Insurer's own price table at age 45: 590.30 EUR a month per person, unisex, x2 = 1,180.60. Same figure as the first round (amount in de.json).",
+    "source_id": "health-de-hansemerkur-kosten"
+  }
 }

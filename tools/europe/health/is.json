@@ -84,6 +84,17 @@
       "retrieved": "2026-11-17",
       "quote": "Maximum payment General: 37.794 ISK.",
       "measures": "Patient payment ceiling; page predates the 2026 three-month rule so figure may be outdated."
+    },
+    {
+      "source_id": "health-is-expat-range",
+      "publisher": "Foyer Global Health / globalhealth.insurance",
+      "title": "The cost of living in Iceland",
+      "url": "https://globalhealth.insurance/destination/the-cost-of-living-in-iceland/",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "monthly premiums for international expat health insurance at approximately ISK 15,000-35,000/month depending on age and coverage",
+      "measures": "Secondary expat-insurance guide range; not an Icelandic insurer's tariff."
     }
   ],
   "typical_private": null,
@@ -91,5 +102,21 @@
   "eu_citizen_difference": "EEA and Nordic citizens moving from another EEA state can transfer cover without the waiting period and need no residence permit for the first three months.",
   "regional": [],
   "spot_check": "None possible: no insurer publishes the premium. Sjóvá, TM and VIS terms agree on the three-month bridge and ISK 2,000,000.",
-  "uncertainty": "Bridge premium unknown (probably small, a one-off for three months, but not sourced). Iceland has no independent-means route, so the couple would only arrive by another route (for example family). Public patient-fee ceiling is from a stale page. An 'sjukratryggingagjald' charged to individuals was not found; I did not check the Icelandic tax pages."
+  "uncertainty": "Bridge premium unknown (probably small, a one-off for three months, but not sourced). Iceland has no independent-means route, so the couple would only arrive by another route (for example family). Public patient-fee ceiling is from a stale page. An 'sjukratryggingagjald' charged to individuals was not found; I did not check the Icelandic tax pages.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "ISK",
+    "what": "Icelandic Health Insurance has no premium once the couple have been resident for the qualifying period; patient co-payments are capped monthly.",
+    "source_id": "health-is-routes"
+  },
+  "private_plan": {
+    "amount": 50000.0,
+    "currency": "ISK",
+    "kind": "supplementary",
+    "insurer": "Icelandic insurers (Sjova, Vordur, TM); no published tariff",
+    "product": "Private health or expat plan",
+    "terms": "Not required after enrolment. Expat plans are for the first months and for dental, which public cover mostly excludes.",
+    "pricing": "Only an expat guide's range was found: ISK 15,000-35,000 a month per person depending on age and cover. Midpoint 25,000 x2 = 50,000. No insurer tariff could be read (Sjova page gives no figure). Very weak.",
+    "source_id": "health-is-expat-range"
+  }
 }

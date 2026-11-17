@@ -18,6 +18,17 @@
       "retrieved": "2026-11-17",
       "quote": "Savarankiškai besidraudžiantys asmenys kiekvieną mėnesį iki einamojo mėnesio paskutinės dienos turi sumokėti 6,98 proc. dydžio Privalomasis sveikatos draudimas \">PSD įmokas nuo Minimalioji mėnesinė alga nuo 2025 m. sausio 1 d. – 1038 Eur, nuo 2026 m. sausio 1 d. – 1153 Eur. \">MMA . 6,98 % x 1 153 € = 80, 48 €.",
       "measures": "Monthly PSD charge per self-insured person. Fetched from a Wayback Machine snapshot of 15 Oct 2026 because sodra.lt blocks plain fetches; the live page was not read. The charge applies to people who are legally in the PSD system (Lithuanian residents with no other cover), not to every foreign resident."
+    },
+    {
+      "source_id": "health-lt-ld-offer",
+      "publisher": "AB Lietuvos draudimas",
+      "title": "Sveikatos draudimas privatiems (offer May 2024; limits repeated in Sept 2025 offer)",
+      "url": "https://ld.lt/sites/default/files/2024-05/SD_pasi%C5%ABlymas_privatiems_2024%2005_LT.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2024-05",
+      "retrieved": "2026-11-18",
+      "quote": "Maksimalus: Ambulatorinis gydymas 80 %, be limito; Stacionarinis gydymas 80 %, 500 Eur; Menesio imoka 56,00 / 53,34 / 51,34 / 48,67",
+      "measures": "Insurer's published monthly premiums and limits for four private packages, by individual or family contract."
     }
   ],
   "typical_private": null,
@@ -35,5 +46,21 @@
   "eu_citizen_difference": "Not researched. EU citizens living in Lithuania with no other cover are in the same PSD scheme on a fixed charge; whether a non-EU citizen gets the same on a temporary permit is the open point above.",
   "regional": [],
   "spot_check": "Sodra's 2025 figure on the same page: 6.98% x EUR 1,038 = EUR 72.45, so the 2026 rise is explained by the MMA.",
-  "uncertainty": "No premium for a private policy for the temporary-permit years, no residence-permit rule, no route: all unreachable. EUR 160.96 for two is a post-permanent-residence charge, probably several years in. If the couple could join PSD earlier, it would apply from day one. Could be wrong by the cost of the private policy in the first years, which was not found."
+  "uncertainty": "No premium for a private policy for the temporary-permit years, no residence-permit rule, no route: all unreachable. EUR 160.96 for two is a post-permanent-residence charge, probably several years in. If the couple could join PSD earlier, it would apply from day one. Could be wrong by the cost of the private policy in the first years, which was not found.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "Nothing a couple like this can pay: Sodra's PSD (EUR 80.48 a person, 6.98% of the EUR 1,153 minimum wage) is open to spouses of residents who work, not to a non-working non-EU couple.",
+    "source_id": "health-lt-sodra-psd"
+  },
+  "private_plan": {
+    "amount": 112,
+    "currency": "EUR",
+    "kind": "substitutive",
+    "insurer": "Lietuvos draudimas (AB)",
+    "product": "Sveikatos draudimas privatiems, package 'Maksimalus'",
+    "terms": "Out-patient: 80% of costs, no limit. In-patient (day surgery, day hospital, out-patient surgery only, not overnight stays): 80%, EUR 500 a person a year. Dental EUR 150, medicines EUR 60, rehabilitation EUR 150. No deductible stated. Offer is for clients with no health insurance contract in the last 6 months. A spouse can be insured in the same contract.",
+    "pricing": "Price table of the May 2024 offer, individual monthly premium for 'Maksimalus' EUR 56.00 (family per-member rates start at EUR 53.34); EUR 56.00 x 2 = EUR 112.00. Prices are for 2024; the Sept 2025 offer (same limits) has prices the PDF text did not expose. Column reading (first price column = individual) is mine.",
+    "source_id": "health-lt-ld-offer"
+  }
 }

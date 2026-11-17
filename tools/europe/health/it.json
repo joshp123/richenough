@@ -51,6 +51,17 @@
       "retrieved": "2026-11-17",
       "quote": "Consulate-accepted cover for your ERV application, from €72 per month.",
       "measures": "Advertised starting price for one person, no age stated. Not a 45-year-old tariff, so not used for the figure."
+    },
+    {
+      "source_id": "health-it-moneyside",
+      "publisher": "Moneyside",
+      "title": "Costo assicurazione sanitaria (guida 2026)",
+      "url": "https://www.moneyside.app/it/learn/assicurazioni/costo-assicurazione-sanitaria",
+      "licence": "free to read, no licence stated",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "quote": "Single 41-50: base 300-500, intermedia 700-1.100, completa 1.200-1.800 EUR l'anno; coppia di 45 anni, buona salute: 1.400-1.800 euro annui per entrambi (10 aprile 2026)",
+      "measures": "Annual premium ranges for Italian individual health policies by age and tier; a guide site, not an insurer tariff."
     }
   ],
   "typical_private": null,
@@ -68,5 +79,21 @@
   "eu_citizen_difference": "Not researched: no source on the EU-citizen position was retrieved. The elective-residence visa itself does not apply to EU citizens, who register as residents instead.",
   "regional": [],
   "spot_check": "italyhandbook.com computes the same ceiling (EUR 2,788.87 a year). The Constitutional Court judgment 97/2026 of 5 June 2026 concerns elective-residence holders who become disabled; it was not read in full and does not change the ordinary contribution.",
-  "uncertainty": "(1) No private-policy price for two 45-year-olds was found: the web search budget ran out and no insurer tariff for the Italian visa market was reachable. The only price seen is Feather's 'from €72 per month' (one person, age unstated). A mid-range guess from comparison sites (not used) was EUR 140 to 185 per person per month. (2) Whether the SSN contribution is one per household or one per spouse: the notice says 'nucleo fiscale' but the Ministry text was not read, so the couple could pay up to double (464.81 a month). (3) Whether capital gains from an ETF portfolio form part of 'reddito complessivo'. (4) Enrolment is by calendar year, so the first year may double up with private cover. (5) Other consulates require different cover wording."
+  "uncertainty": "(1) No private-policy price for two 45-year-olds was found: the web search budget ran out and no insurer tariff for the Italian visa market was reachable. The only price seen is Feather's 'from €72 per month' (one person, age unstated). A mid-range guess from comparison sites (not used) was EUR 140 to 185 per person per month. (2) Whether the SSN contribution is one per household or one per spouse: the notice says 'nucleo fiscale' but the Ministry text was not read, so the couple could pay up to double (464.81 a month). (3) Whether capital gains from an ETF portfolio form part of 'reddito complessivo'. (4) Enrolment is by calendar year, so the first year may double up with private cover. (5) Other consulates require different cover wording.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "The voluntary SSN enrolment is optional and income-based (tax code); the elective-residence route is met by a private policy.",
+    "source_id": "health-it-consparigi"
+  },
+  "private_plan": {
+    "amount": 133.33,
+    "currency": "EUR",
+    "kind": "supplementary",
+    "insurer": "Italian insurers (Moneyside guide; UniSalute, Allianz and others named in results)",
+    "product": "Intermediate individual health policy",
+    "terms": "Intermediate tier: wide hospital network, in-patient and out-patient diagnostics; premium fixed by entry age.",
+    "pricing": "Moneyside (10 April 2026): couple both about 45, good health, wide network, intermediate: 1,400-1,800 EUR a year 'per entrambi' (ambiguous whether total or each; read as total); midpoint 1,600 / 12 = 133.33. Single aged 41-50, intermediate: 700-1,100 a year each, which is 117 a month for two at the midpoint, so consistent.",
+    "source_id": "health-it-moneyside"
+  }
 }

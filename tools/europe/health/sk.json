@@ -51,6 +51,17 @@
       "retrieved": "2026-11-17",
       "quote": "Čo je kryté: náklady na neodkladnú zdravotnú starostlivosť až do výšky 70 000 eur ... v prípade repatriácie uhradíme náklady do výšky 20 000 eur",
       "measures": "Cover limits. No premium table or tariff was found in the page or in the 2022 terms PDF (both cached)."
+    },
+    {
+      "source_id": "health-sk-union-safety",
+      "publisher": "Union poistovna (via University of Veterinary Medicine Kosice)",
+      "title": "Health insurance for foreigners (Union SAFETY price sheet 2025)",
+      "url": "https://www.uvlf.sk/uploads/source/pics-oznamy/2025/Health-insurance-for-foreigners.pdf",
+      "licence": "free to read, no licence stated",
+      "period": "2025",
+      "retrieved": "2026-11-18",
+      "quote": "SR akutne aj chronicke stavy: 1 mesiac 48 EUR ... 1 rok 540 EUR",
+      "measures": "Insurer's indicative prices for the SAFETY foreigners' policy by duration."
     }
   ],
   "typical_private": null,
@@ -68,5 +79,21 @@
   "eu_citizen_difference": "An EU citizen living in Slovakia and registered as a Union citizen under par. 65 of Act 404/2011 must show 'doklad o zdravotnom poisteni' and sufficient means, but is not tied to a purpose-of-stay permit. EU citizens employed in Slovakia join the public system on day one.",
   "regional": [],
   "spot_check": "None possible: no premium was reachable.",
-  "uncertainty": "No sourced premium: amount is null. The legal requirement is only 'insurance that covers treatment costs in Slovakia', with no stated minimum limit, so even a cheap EUR 70,000 policy may satisfy it. After permanent residence (usually 5 years) the couple would enter public insurance and pay 15% of income with a minimum base of 50% of the average wage; the euro figure was not computed. The route itself is the bigger doubt: no permit fits this couple."
+  "uncertainty": "No sourced premium: amount is null. The legal requirement is only 'insurance that covers treatment costs in Slovakia', with no stated minimum limit, so even a cheap EUR 70,000 policy may satisfy it. After permanent residence (usually 5 years) the couple would enter public insurance and pay 15% of income with a minimum base of 50% of the average wage; the euro figure was not computed. The route itself is the bigger doubt: no permit fits this couple.",
+  "statutory_must_pay": {
+    "amount": 0,
+    "currency": "EUR",
+    "what": "Nothing: public insurance needs permanent residence or employment; a non-working non-EU couple on temporary residence buys commercial cover (income-based charges for permanent residents are in the file).",
+    "source_id": "health-sk-zakon-580-2004"
+  },
+  "private_plan": {
+    "amount": 90,
+    "currency": "EUR",
+    "kind": "substitutive",
+    "insurer": "Union poistovna",
+    "product": "Zdravotne poistenie cudzincov SAFETY (acute and chronic conditions, Slovakia plus Schengen)",
+    "terms": "Out-patient and in-patient care up to EUR 70,000, repatriation EUR 20,000, dental to EUR 300. Price depends on a health questionnaire. Deductible and waiting periods not stated.",
+    "pricing": "Union's price table, 1 year EUR 540 per person (EUR 405 with the student discount, not used); EUR 540 / 12 = EUR 45 x 2 = EUR 90 a month. It is a foreigners' visa-grade policy, not a Slovak mid-range plan; no local mid-range tariff was found.",
+    "source_id": "health-sk-union-safety"
+  }
 }
