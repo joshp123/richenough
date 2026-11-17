@@ -56,6 +56,10 @@ const cases = [
   // Lesotho: each spouse owes LSL 15,552 through 77,760, then 30% less the personal credit.
   ['LS', 18, [283_968, 607_968, 1_309_968], 1],
   ['NU', 1.7, [0, 0, 0], 0],
+  // Curaçao uses a 10% deemed return, 19.5% cap less credits, AOV/AWW and AVBZ.
+  ['CW', 1.79, [55_292.14, 103_203.28, 201_235.69], 1],
+  // Sint Maarten uses a 4% deemed return and the 2026 table on income less AOV/AWW.
+  ['SX', 1.79, [22_556.77, 60_328.36, 151_855.29], 1],
 ] as const;
 
 for (const [code, exchangeRate, expected, tolerance] of cases) {
