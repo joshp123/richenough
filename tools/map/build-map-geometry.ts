@@ -118,24 +118,25 @@ const nutsCountryToIso = (code: string) => ({ EL: 'GR', UK: 'GB', TL: 'GB' } as 
 // The parts of Ukraine that Russia's constitution names, as Natural Earth codes its regions. Crimea and Sevastopol are already
 // Russia's in Natural Earth's regions.
 const ukrainianRegionsInRussiasConstitution = new Set(['UA-14', 'UA-09', 'UA-23', 'UA-65']);
+// Natural Earth 5.1.2 gives Moscow city the code of Moscow region and the other way round.
+const regionCodeFixes: Record<string, string> = { 'RU-MOW': 'RU-MOS', 'RU-MOS': 'RU-MOW' };
+const regionNamesInRussiasConstitution: Record<string, string> = { 'UA-43': 'Crimea', 'UA-40': 'Sevastopol', 'UA-14': 'Donetsk', 'UA-09': 'Luhansk', 'UA-23': 'Zaporizhzhia', 'UA-65': 'Kherson' };
 const usTerritoriesKeptAsCountries = new Set(['60', '66', '69', '78']); // American Samoa, Guam, Northern Mariana Islands, US Virgin Islands
 // The Golan Heights: everything of Natural Earth's Israel east of the line the Syrian border followed before 1967.
 const golanCut: Ring = [[35.62, 33.6], [35.652, 33.276], [35.626, 33.222], [35.64, 33.13], [35.616, 33.02], [35.632, 32.913], [35.651, 32.87],
   [35.642, 32.81], [35.636, 32.765], [35.663, 32.705], [35.594, 32.703], [35.594, 32.6], [36.3, 32.6], [36.3, 33.6], [35.62, 33.6]];
 
-// Countries drawn by their first-level regions: those whose tables or tax rules name one of Natural Earth's regions (ISO 3166-2).
+// Countries drawn by their first-level regions: those whose tables give figures under one of Natural Earth's regions' codes
+// (ISO 3166-2), read from the tables' place codes alone.
 async function countriesWithRegionData(regionCodes: Set<string>): Promise<Set<string>> {
   const countries = new Set<string>();
-  for (const folder of ['data/tables', 'src/tax']) {
-    if (!existsSync(folder)) continue;
-    for (const file of await readdir(folder)) {
-      if (!/\.(csv|ts)$/.test(file)) continue;
-      for (const [code] of (await readFile(`${folder}/${file}`, 'utf8')).matchAll(/\b[A-Z]{2}-[A-Z0-9]{1,3}\b/g)) {
-        if (regionCodes.has(code)) countries.add(code.slice(0, 2));
-      }
+  for (const file of (await readdir('data/tables')).filter(name => name.endsWith('.csv'))) {
+    for (const line of (await readFile(`data/tables/${file}`, 'utf8')).split('\n').slice(1)) {
+      const code = line.slice(0, line.indexOf(','));
+      if (regionCodes.has(code)) countries.add(code.slice(0, 2));
     }
   }
-  for (const drawnOtherwise of ['US', 'RU', 'UA', 'PS', 'IL', 'GB', 'XK', 'PR']) countries.delete(drawnOtherwise);
+  for (const drawnOtherwise of ['US', 'UA', 'PS', 'IL', 'GB', 'XK', 'PR']) countries.delete(drawnOtherwise);
   return countries;
 }
 
@@ -160,7 +161,7 @@ for (const feature of nuts.features) {
     const code = id.slice(0, length);
     addPlace({ code: `NUTS-${code}`, name: nutsNames.get(code) ?? feature.properties.NAME_LATN, parent: nutsParent(code, country), kind: length === id.length ? 'county' : 'region' });
   }
-  addShape(`NUTS-${id}`, country, `NUTS-${id.slice(0, 3)}`, polygonsOf(feature.geometry));
+  addShape(`NUTS-${id}`, country, country, polygonsOf(feature.geometry));
 }
 const itl = await readJson('itl3_2025_bgc.geojson');
 const itlNames = new Map<string, string>();
@@ -173,7 +174,7 @@ for (const feature of itl.features) {
     const code = id.slice(0, length);
     addPlace({ code: `NUTS-${code}`, name: itlNames.get(code) ?? feature.properties.ITL325NM, parent: nutsParent(code, 'GB'), kind: length === id.length ? 'county' : 'region' });
   }
-  addShape(`NUTS-${id}`, 'GB', `NUTS-${id.slice(0, 3)}`, polygonsOf(feature.geometry));
+  addShape(`NUTS-${id}`, 'GB', 'GB', polygonsOf(feature.geometry));
 }
 nutsCountries.add('GB');
 
@@ -231,11 +232,13 @@ for (const [code, polygons] of countryPolygons) {
   } else if (code === 'PR') {
     // Puerto Rico is drawn by its municipalities, as part of the United States' county file.
   } else if (regionCountries.has(code)) {
-    const regions = admin1.features.filter((feature: { properties: { iso_a2: string } }) => feature.properties.iso_a2 === code);
-    for (const region of regions) {
-      const { iso_3166_2, name } = region.properties;
-      addPlace({ code: iso_3166_2, name, parent: code, kind: 'state' });
-      addShape(iso_3166_2, code, iso_3166_2, polygonsOf(region.geometry));
+    // Russia's regions include the six in its constitution, under Natural Earth's codes for them.
+    const isRegionOf = ({ iso_a2, adm0_a3, iso_3166_2 }: { iso_a2: string; adm0_a3: string; iso_3166_2: string }) =>
+      (code === 'RU' ? adm0_a3 === 'RUS' || ukrainianRegionsInRussiasConstitution.has(iso_3166_2) : iso_a2 === code);
+    for (const region of admin1.features.filter((feature: { properties: Parameters<typeof isRegionOf>[0] }) => isRegionOf(feature.properties))) {
+      const { name } = region.properties, iso_3166_2 = regionCodeFixes[region.properties.iso_3166_2] ?? region.properties.iso_3166_2;
+      addPlace({ code: iso_3166_2, name: regionNamesInRussiasConstitution[iso_3166_2] ?? name ?? countryName(code), parent: code, kind: 'state' });
+      addShape(iso_3166_2, code, code, polygonsOf(region.geometry));
     }
   } else {
     addShape(code, code, code, polygons);
@@ -247,17 +250,20 @@ places.get('US-PR')!.parent = 'US';
 // ---- Only as fine as the data: a county or region is drawn as itself where a table or a tax rule names it or a place inside
 // it, and otherwise as part of the nearest place above it that has data of its own. Shapes drawn as one place share a code, and
 // no line is drawn between them.
+// A row counts for the place it was measured for: a country's figure copied under each of its regions counts for the country.
+const chainOfPlace = (code: string) => { const chain: string[] = []; for (let current: string | null = code; current; current = places.get(current)?.parent ?? null) chain.push(current); return chain; };
+const csvCells = (line: string) => [...line.matchAll(/("([^"]|"")*"|[^,]*)(,|$)/g)].map(match => match[1].replace(/^"|"$/g, '').replaceAll('""', '"'));
 const codesWithData = new Set<string>();
 for (const file of (await readdir('data/tables')).filter(name => name.endsWith('.csv') && !name.startsWith('lifestyle'))) {
   for (const line of (await readFile(`data/tables/${file}`, 'utf8')).split('\n').slice(1)) {
-    const code = line.slice(0, line.indexOf(','));
-    if (code) codesWithData.add(code);
+    const [code, , , , , measuredFor] = csvCells(line);
+    if (!code) continue;
+    codesWithData.add(chainOfPlace(code).slice(1).includes(measuredFor) ? measuredFor : code);
   }
 }
 const { taxRulesFor } = await import('../../src/tax/tax-rules.ts');
 for (const file of await readdir('src/tax')) if (file.endsWith('.ts') && !['tax-rules.ts', 'calculation.ts'].includes(file)) await import(`../../src/tax/${file}`);
 const hasData = (code: string) => codesWithData.has(code) || !!taxRulesFor([code]);
-const chainOfPlace = (code: string) => { const chain: string[] = []; for (let current: string | null = code; current; current = places.get(current)?.parent ?? null) chain.push(current); return chain; };
 for (const shape of shapes) {
   const chain = chainOfPlace(shape.code);
   shape.code = chain.find(hasData) ?? chain.at(-1)!;

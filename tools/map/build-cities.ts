@@ -45,7 +45,14 @@ function shapeCodeAt(longitude: number, latitude: number): string | null {
   return null;
 }
 
-type City = [id: number, name: string, longitude: number, latitude: number, population: number, shapeCode: string, isCapital: 0 | 1, otherNames: string];
+// How well known a city is, which decides how early its label shows: 0 for the cities in Palombo’s post, 1 for capitals of
+// half a million and cities of 2.5 million, 2 for other cities of a million and capitals of 100,000, 3 for the rest.
+const palomboCityIds = new Set((existsSync('data/reference/palombo-2026-11-17.csv') ? (await readFile('data/reference/palombo-2026-11-17.csv', 'utf8')).split('\n').slice(1) : []).map(line => line.split(',')[1]).filter(Boolean));
+const fameOf = (id: string, population: number, isCapital: boolean) => (palomboCityIds.has(id) ? 0 : (isCapital && population >= 5e5) || population >= 2.5e6 ? 1 : population >= 1e6 || (isCapital && population >= 1e5) ? 2 : 3);
+// A city within this distance of a bigger one is part of it (Brooklyn of New York, Callao of Lima) and gets no dot of its own.
+const sameCityKm = 25;
+
+type City = [id: number, name: string, longitude: number, latitude: number, population: number, shapeCode: string, isCapital: 0 | 1, otherNames: string, fame: number];
 const cities: City[] = [];
 let withoutShape = 0;
 for (const line of (await readFile(`${cache}/cities15000.txt`, 'utf8')).split('\n')) {
@@ -64,9 +71,16 @@ for (const line of (await readFile(`${cache}/cities15000.txt`, 'utf8')).split('\
   if (population < smallestCity && !isCapital && !namedCityIds.has(id)) continue;
   const shapeCode = shapeCodeAt(longitude, latitude);
   if (!shapeCode) { withoutShape++; continue; }
-  cities.push([Number(id), name, Number(longitude.toFixed(4)), Number(latitude.toFixed(4)), population, shapeCode, isCapital ? 1 : 0, otherNames]);
+  cities.push([Number(id), name, Number(longitude.toFixed(4)), Number(latitude.toFixed(4)), population, shapeCode, isCapital ? 1 : 0, otherNames, fameOf(id, population, isCapital)]);
 }
-cities.sort((a, b) => b[4] - a[4]);
-await writeFile('assets/map/cities.json', JSON.stringify(cities));
-const missing = [...namedCityIds].filter(id => !cities.some(city => String(city[0]) === id));
-console.log(`${cities.length} cities, ${withoutShape} off the map; named cities not found: ${missing.join(' ') || 'none'}`);
+cities.sort((a, b) => a[8] - b[8] || b[4] - a[4]);
+const kept: City[] = [];
+const kilometresBetween = (a: City, b: City) => 111 * Math.hypot(a[3] - b[3], (a[2] - b[2]) * Math.cos(a[3] * Math.PI / 180));
+for (const city of cities) {
+  const isPartOfBiggerCity = city[8] > 0 && !city[6] && kept.some(other => kilometresBetween(city, other) < sameCityKm);
+  if (!isPartOfBiggerCity) kept.push(city);
+}
+kept.sort((a, b) => b[4] - a[4]);
+await writeFile('assets/map/cities.json', JSON.stringify(kept));
+const missing = [...palomboCityIds].filter(id => !kept.some(city => String(city[0]) === id));
+console.log(`${kept.length} cities (${cities.length - kept.length} merged into a bigger city nearby), ${withoutShape} off the map; Palombo's cities missing: ${missing.join(' ') || 'none'}`);

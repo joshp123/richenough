@@ -4,9 +4,10 @@ import type { Snapshot } from './snapshot.ts';
 export type PlaceKind = 'country' | 'state' | 'county' | 'region';
 // From assets/map/places.json: name, the code of the place it belongs to (null for a country), and what kind of place it is.
 export type PlaceRows = Record<string, [name: string, parent: string | null, kind: PlaceKind]>;
-// From assets/map/cities.json, biggest first.
-export type CityRow = [id: number, name: string, longitude: number, latitude: number, population: number, shapeCode: string, isCapital: 0 | 1, otherNames: string];
-export type City = { code: string; name: string; longitude: number; latitude: number; population: number; shapeCode: string; isCapital: boolean; otherNames: string[] };
+// From assets/map/cities.json, biggest first. fame: 0 for Palombo's cities, 1 for capitals of half a million and cities of 2.5
+// million, 2 for other cities of a million and capitals of 100,000, 3 for the rest (tools/map/build-cities.ts).
+export type CityRow = [id: number, name: string, longitude: number, latitude: number, population: number, shapeCode: string, isCapital: 0 | 1, otherNames: string, fame: number];
+export type City = { code: string; name: string; longitude: number; latitude: number; population: number; shapeCode: string; isCapital: boolean; otherNames: string[]; fame: number };
 
 export type Places = {
   rows: PlaceRows;
@@ -16,8 +17,8 @@ export type Places = {
 };
 
 export function createPlaces(rows: PlaceRows, cityRows: CityRow[], snapshot: Snapshot): Places {
-  const cities = cityRows.map(([id, name, longitude, latitude, population, shapeCode, isCapital, otherNames]) => ({
-    code: `CITY-${id}`, name, longitude, latitude, population, shapeCode, isCapital: isCapital === 1, otherNames: otherNames ? otherNames.split('|') : [],
+  const cities = cityRows.map(([id, name, longitude, latitude, population, shapeCode, isCapital, otherNames, fame]) => ({
+    code: `CITY-${id}`, name, longitude, latitude, population, shapeCode, isCapital: isCapital === 1, otherNames: otherNames ? otherNames.split('|') : [], fame,
   }));
   return { rows, cities, cityByCode: new Map(cities.map(city => [city.code, city])), snapshot };
 }

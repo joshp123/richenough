@@ -4,7 +4,7 @@ import advanceWidths from '../assets/fonts/archivo-advance-widths.json' with { t
 import { fillOf, noFigureColour, stepColours, stepEnds } from './colours.ts';
 import type { MapGeometry } from './map-geometry.ts';
 import { svgMap } from './map-svg.ts';
-import { formatCapital, formatSignedCapital, formatWhole } from './money.ts';
+import { formatCapital, formatShort, formatSignedCapital, formatWhole } from './money.ts';
 import { countryOf, flagCodesOf, nameOf, type Places } from './places.ts';
 import { projection, projectPoint } from './projection.ts';
 import { verdictFill, verdictInk, verdictOf, type Mode } from './verdict.ts';
@@ -77,7 +77,12 @@ const haveUsDollars = (input: PictureInput) => input.have / perUnit(input, input
 const capitalOf = (input: PictureInput, code: string) => { const figure = input.figures.figureOf(code); return figure.kind === 'figure' ? figure.capitalUsDollars : null; };
 const colourOf = (input: PictureInput, usDollars: number | null) => fillOf(input.mode, usDollars, haveUsDollars(input));
 // What a place's label says: what it needs, or what the visitor would have spare or be short.
-const placeAmount = (input: PictureInput, need: number) => (input.mode === 'need' ? money(input, need) : formatSignedCapital((haveUsDollars(input) - need) * perUnit(input, input.currency), input.currency));
+const placeAmount = (input: PictureInput, need: number) => {
+  if (input.mode === 'need') return money(input, need);
+  const difference = (haveUsDollars(input) - need) * perUnit(input, input.currency);
+  return Math.abs(difference) >= 95_000 * perUnit(input, input.currency) ? formatSignedCapital(difference, input.currency)
+    : `${difference < 0 ? '−' : '+'}${formatShort(Math.max(1_000, Math.abs(difference)), input.currency)}`;
+};
 
 // A frame on the world map: the world as wide as the frame, the given latitude in the middle of its height.
 type Frame = { width: number; height: number; left: number; top: number; scale: number };
@@ -188,13 +193,16 @@ export function pictureSvg(input: PictureInput): string {
   svg += mapLabels(input, frame, mapTop, 2, [[key.box[0], key.box[1] - 8, key.box[2], mapTop + mapHeight]], [input.visitor, input.compared].filter((code): code is string => !!code), 2) + key.svg;
 
   const third = input.mode === 'have' ? 'Most to spare' : 'Needs least';
-  const list = [
-    ...(input.visitor ? [{ code: input.visitor, role: 'Me' }] : []), ...(input.compared ? [{ code: input.compared, role: 'Compared with' }] : []),
-    ...(input.figures.least ? [{ code: input.figures.least, role: third }] : []),
-  ].filter((row, index, all) => all.findIndex(other => other.code === row.code) === index).slice(0, 3);
+  // A place that fills two roles (I live where it costs least) gets one row naming both.
+  const list: { code: string; role: string }[] = [];
+  for (const [code, role] of [[input.visitor, 'Me'], [input.compared, 'Compared with'], [input.figures.least, third]] as const) {
+    if (!code) continue;
+    const same = list.find(row => row.code === code);
+    if (same) same.role += ` · ${role.toLowerCase()}`; else list.push({ code, role });
+  }
   const rowsTop = mapTop + mapHeight + 8, rowsBottom = pictureHeight - 112, rowHeight = (rowsBottom - rowsTop) / 3;
   list.forEach((row, index) => {
-    const top = rowsTop + index * rowHeight, middle = top + rowHeight / 2, capital = capitalOf(input, row.code);
+    const top = rowsTop + (3 - list.length) * rowHeight / 2 + index * rowHeight, middle = top + rowHeight / 2, capital = capitalOf(input, row.code);
     if (index) svg += `<rect x="${margin}" y="${top}" width="${right - margin}" height="2" fill="${ink}" fill-opacity="0.08"/>`;
     svg += flag(input, row.code, margin, middle - 44, 88, 8);
     const name = nameOf(input.places, row.code), nameSize = fittedSize(name, 58, 700, 520, -0.01);

@@ -58,6 +58,16 @@ for (const file of (await readdir('data/tables')).filter(name => name.endsWith('
   }
 }
 
+// A figure measured for a bigger place than the row names (a country's figure copied under each region) also stands for that
+// bigger place, so the map can draw the regions as one when nothing else varies between them.
+const places: Record<string, [string, string | null, string]> = JSON.parse(await readFile('assets/map/places.json', 'utf8'));
+const ancestorsOf = (code: string) => { const chain: string[] = []; for (let current = places[code]?.[1] ?? null; current; current = places[current]?.[1] ?? null) chain.push(current); return chain; };
+for (const component of components) {
+  for (const [code, figure] of Object.entries(figures[component])) {
+    if (ancestorsOf(code).includes(figure.measuredFor)) figures[component][figure.measuredFor] ??= figure;
+  }
+}
+
 // The lifestyle every place is priced for.
 const lifestyleRows = Object.fromEntries((await readCsv('data/tables/lifestyle.csv')).map(row => [row.item, row]));
 const lifestyle: Snapshot['lifestyle'] = {
@@ -137,7 +147,6 @@ for (const [id, source] of Object.entries(standInSources)) sources[id] ??= sourc
 for (const component of components) for (const figure of Object.values(figures[component])) if (!sources[figure.sourceId]) problems.push(`no source ${figure.sourceId} in data/sources.csv`);
 
 // Each country's currency, for its own money beside the dollars.
-const places: Record<string, [string, string | null, string]> = JSON.parse(await readFile('assets/map/places.json', 'utf8'));
 const currencyOfCountry: Record<string, string> = {};
 for (const [code, [, parent]] of Object.entries(places)) {
   if (parent !== null) continue;

@@ -10,7 +10,7 @@ import { currencyName, formatCapital, formatRounded, formatShort, formatSignedCa
 import { contextOf, countryOf, createPlaces, measuredForWords, nameOf, plainLetters, type CityRow, type PlaceRows } from '../src/places.ts';
 import { projectPoint } from '../src/projection.ts';
 import type { Snapshot } from '../src/snapshot.ts';
-import { clampHave, haveAtSliderPosition, sliderPositionOfHave, twoFigures, verdictFill, verdictInk, verdictOf, type Mode, type VerdictWord } from '../src/verdict.ts';
+import { clampHave, haveAtSliderPosition, sliderPositionOfHave, twoFigures, verdictFill, verdictInk as verdictInkOnLight, verdictInkOnDark, verdictOf, type Mode, type VerdictWord } from '../src/verdict.ts';
 import { siteSubtitle, siteTitle } from '../src/words.ts';
 import { worldFigures, type WorldFigures } from '../src/world-figures.ts';
 import { flagCanvas, flagHtml } from './flags.ts';
@@ -56,7 +56,9 @@ const mainCurrency = () => state.currency ?? 'USD';
 const perUsDollar = (currency: string) => (currency === 'USD' ? 1 : snapshot.exchangeRates[currency]?.perUsDollar ?? NaN);
 const secondCurrency = () => (visitorCurrency !== mainCurrency() ? visitorCurrency : mainCurrency() !== 'USD' ? 'USD' : null);
 const money = (usDollars: number) => formatCapital(usDollars * perUsDollar(mainCurrency()), mainCurrency());
-const signedMoney = (usDollars: number) => formatSignedCapital(usDollars * perUsDollar(mainCurrency()), mainCurrency());
+// A difference with its sign: +$0.3M, or −$40K where a tenth of a million would round it away.
+const signedMoney = (usDollars: number) => (Math.abs(usDollars) >= 95_000 ? formatSignedCapital(usDollars * perUsDollar(mainCurrency()), mainCurrency())
+  : `${usDollars < 0 ? '−' : '+'}${formatShort(Math.max(1_000, Math.abs(usDollars)) * perUsDollar(mainCurrency()), mainCurrency())}`);
 // A sum in the chosen currency to two significant figures: $95,000, $2,300.
 const roundedMoney = (usDollars: number) => formatRounded(usDollars * perUsDollar(mainCurrency()), mainCurrency());
 function secondMoney(usDollars: number): string | null {
@@ -68,6 +70,8 @@ const verdict = (needUsDollars: number): VerdictWord => verdictOf(needUsDollars,
 // Places with no figure take the page's own grey, darker in dark mode.
 const noFigureOnPage = () => getComputedStyle(document.documentElement).getPropertyValue('--no-figure').trim() || noFigureColour;
 const fill = (needUsDollars: number | null) => fillOf(state.mode, needUsDollars, haveUsDollars(), noFigureOnPage());
+const isDark = () => matchMedia('(prefers-color-scheme: dark)').matches;
+const verdictInk = new Proxy({} as Record<VerdictWord, string>, { get: (_, word: VerdictWord) => (isDark() ? verdictInkOnDark : verdictInkOnLight)[word] });
 const verdictWord = (word: VerdictWord) => `<b style="color:${verdictInk[word]}">${word}</b>`;
 
 // ---- The visitor's place: from the link, else from where the request came from.
@@ -115,7 +119,7 @@ function themeTheMap(): void {
     return [0, 2, 4].map(start => parseInt(hex.slice(start, start + 2), 16) / 255) as [number, number, number];
   };
   const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
-  mapView.setTheme({ sea: fractions('--sea'), line: isDark ? fractions('--sea') : [1, 1, 1], ink: fractions('--ink') });
+  mapView.setTheme({ sea: fractions('--sea'), line: isDark ? fractions('--sea') : [1, 1, 1], ink: fractions('--ink'), isDark });
 }
 themeTheMap();
 
@@ -135,11 +139,14 @@ function colourTheMap(): void {
 let labels: MapLabel[] = [];
 function labelTheCities(): void {
   const { cityCapital } = figures(), previous = new Map(labels.map(label => [label.code, label]));
-  labels = places.cities.filter(city => cityCapital.has(city.code)).map(city => {
-    const [x, y] = projectPoint(city.longitude, city.latitude), need = cityCapital.get(city.code)!;
+  // Every city with a figure, and the visitor's and compared city even without one, so home always has its pin.
+  const named = new Set([state.visitor, state.compared].filter(Boolean) as string[]);
+  labels = places.cities.filter(city => cityCapital.has(city.code) || named.has(city.code)).map(city => {
+    const [x, y] = projectPoint(city.longitude, city.latitude), need = cityCapital.get(city.code) ?? null;
     return {
-      code: city.code, x, y, name: city.name, amount: placeAmount(need), amountColour: state.mode === 'need' ? null : verdictInk[verdict(need)],
-      colour: fill(need), flag: previous.get(city.code)?.flag ?? null, priority: city.population * (city.isCapital ? 2 : 1),
+      code: city.code, x, y, name: city.name, amount: need === null ? '' : placeAmount(need),
+      amountColours: state.mode === 'need' || need === null ? null : { onLight: verdictInkOnLight[verdict(need)], onDark: verdictInkOnDark[verdict(need)] },
+      colour: fill(need), flag: previous.get(city.code)?.flag ?? null, fame: named.has(city.code) ? 0 : city.fame, population: city.population,
     };
   });
   mapView.setLabels(labels);
@@ -214,7 +221,7 @@ function renderKey(): void {
     element('key').innerHTML = `<div class="key-title">$1M is enough</div>
       <div class="key-row"><div class="key-steps">${stepColours.map(colour => `<i style="background:${colour}"></i>`).join('')}</div>
       <span class="key-none"><i style="background:var(--no-figure)"></i>No figure</span></div>
-      <div class="key-ticks">${stepEnds.map(end => `<span class="${end === 1e6 ? 'key-turn' : ''} ${[0.75e6, 1.25e6].includes(end) ? 'key-minor' : ''}">$${end / 1e6}M</span>`).join('')}</div>`;
+      <div class="key-ticks">${stepEnds.map(end => `<span class="${end === 1e6 ? 'key-turn' : ''} ${[0.75e6, 1.25e6, 1.5e6, 2.5e6].includes(end) ? 'key-minor' : ''}">$${end / 1e6}M</span>`).join('')}</div>`;
     return;
   }
   element('key').innerHTML = `<div class="key-verdicts"><b class="key-have">With ${formatShort(state.have, mainCurrency())}</b>
@@ -238,7 +245,12 @@ function placeCell({ role, shortRole, code, picker, emptyWords = '' }: Cell): st
   const chevron = picker ? '<svg class="chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg>' : '';
   const nameButton = `<button type="button" class="cell-name" ${picker ? `data-pick="${picker}"` : `data-open="${code}"`}>${flag}<span>${name}</span>${chevron}</button>`;
   let amount = '', side = '', roleWords = `<span class="long">${role}</span><span class="short">${shortRole}</span>`;
-  if (code && need === null) amount = `<span class="cell-amount cell-unknown">${figureWords(figures().figureOf(code))}</span>`;
+  if (code && need === null) {
+    // On a phone the missing figure moves up beside the role, so the place's name keeps the whole line.
+    const status = figureWords(figures().figureOf(code));
+    amount = `<span class="cell-amount cell-unknown">${status}</span>`;
+    roleWords += `<span class="cell-status"> · ${status}</span>`;
+  }
   else if (code && need !== null && state.mode === 'need') {
     const second = secondMoney(need);
     amount = `<span class="cell-amount"><i style="background:${fill(need)}"></i><b>${money(need)}</b>${second ? `<small>(${second})</small>` : ''}</span>`;
@@ -280,14 +292,17 @@ element('strip').addEventListener('click', event => {
 
 // ---- A place's details, the same in both modes but for one line in the second.
 const costWords: Record<string, string> = {
-  rent: 'Rent, two-bed flat', everyday: 'Everyday spending', car: 'One car',
+  rent: 'Rent, two-bed flat in the main town', everyday: 'Everyday spending', car: 'One car',
   housekeeper: `Housekeeper, ${snapshot.lifestyle.housekeeperHoursPerWeek} hours a week`, health: 'Private health cover', trips: 'A few trips a year',
 };
 const sourceWords = (sourceId: string) => snapshot.sources[sourceId]?.publisher ?? sourceId;
+// One short line under each cost: where the figure was measured and who published it ("Portugal · World Bank"), or that it is a
+// stand-in. The full titles, dates and licences are under All sources.
+const shortWords = (words: string) => words.split(/[,(:;]/)[0].trim();
 function costLine(cost: Extract<PlaceFigure, { kind: 'figure' }>['costs'][number]): string {
   if (!cost.figure) return 'The same everywhere';
-  const where = measuredForWords(places, cost.figure.measuredFor);
-  return `${escapeHtml(where)} · ${escapeHtml(sourceWords(cost.figure.sourceId))}${cost.figure.period ? `, ${escapeHtml(cost.figure.period)}` : ''}${cost.isStandIn ? ' · <em>stand-in</em>' : ''}`;
+  const where = shortWords(measuredForWords(places, cost.figure.measuredFor));
+  return `${escapeHtml(where)} · ${cost.isStandIn ? '<em>stand-in</em>' : escapeHtml(shortWords(sourceWords(cost.figure.sourceId)))}`;
 }
 const closeIcon = '<svg viewBox="0 0 12 12"><path d="M1 1l10 10M11 1L1 11"/></svg>';
 function renderDetails(): void {
@@ -318,9 +333,9 @@ function renderDetails(): void {
   const taxMonthly = figure.tax.usDollarsPerYear / 12, shades = ['#10151C', '#10151CCC', '#10151C99', '#10151C73', '#10151C52', '#10151C38'];
   const bar = figure.costs.map((cost, index) => `<i style="flex-grow:${cost.usDollarsPerMonth};background:${shades[index]}"></i>`).join('') + `<i class="bar-tax" style="flex-grow:${taxMonthly}"></i>`;
   const taxShare = Math.round(figure.tax.usDollarsPerYear / figure.withdrawalUsDollarsPerYear * 100);
-  const taxSources = figure.tax.sourceIds.map(sourceWords).filter((words, index, all) => all.indexOf(words) === index).slice(0, 2).join(', ');
+  const taxSource = figure.tax.isStandIn ? '<em>stand-in</em>' : escapeHtml(shortWords(sourceWords(figure.tax.sourceIds[0] ?? '')));
   const rows = figure.costs.map((cost, index) => `<li><i style="background:${shades[index]}"></i><div><b>${costWords[cost.part]}</b><small>${costLine(cost)}</small></div><span>${roundedMoney(cost.usDollarsPerMonth)}</span></li>`).join('')
-    + `<li class="tax-row"><i></i><div><b>Tax, ${taxShare}% of what you sell</b><small>${escapeHtml(nameOf(places, country))} · ${escapeHtml(taxSources)}${figure.tax.isStandIn ? ' · <em>stand-in</em>' : ''}</small></div><span>${roundedMoney(taxMonthly)}</span></li>`;
+    + `<li class="tax-row"><i></i><div><b>Tax, ${taxShare}% of what you sell</b><small>${escapeHtml(nameOf(places, country))} · ${taxSource}</small></div><span>${roundedMoney(taxMonthly)}</span></li>`;
   const otherRegime: Settings = { ...state.settings, regime: state.settings.regime === 'standard' ? 'special' : 'standard' };
   const otherNeed = figure.tax.hasSpecialRegime ? needOf(code, otherRegime) : null;
   const otherRow = otherNeed === null || Math.abs(otherNeed - need) < 5e3 ? '' : `<div class="details-other"><span>${otherRegime.regime === 'special' ? 'With the newcomer tax break' : 'With normal tax'}</span>
@@ -330,8 +345,8 @@ function renderDetails(): void {
     <p class="details-sentence">${sentence}</p>
     <div class="details-costs"><div class="details-costs-head"><b>What it pays for</b><span>a month</span></div><div class="cost-bar">${bar}</div><ul>${rows}</ul>
     <div class="details-total"><b>${Math.round(rate * 100)}% of ${money(need)}, a month</b><b>${formatWhole(figure.withdrawalUsDollarsPerYear / 12 * perUsDollar(mainCurrency()), mainCurrency())}</b></div></div>
-    ${otherRow}${hasStandIn(figure) ? '<p class="details-note">Figures marked stand-in come from Alessandro Palombo’s post until our own sources cover this place.</p>' : ''}${detailsButtons(code)}
-    <div class="details-sources" hidden>${sourcesList(figure)}</div>`;
+    ${otherRow}${detailsButtons(code)}
+    <div class="details-sources" hidden>${hasStandIn(figure) ? '<p>Figures marked stand-in come from Alessandro Palombo’s post until our own sources cover this place.</p>' : ''}${sourcesList(figure)}</div>`;
 }
 function detailsButtons(code: string): string {
   const compare = state.visitor && state.visitor !== code && state.compared !== code ? `<button type="button" class="button button-dark" data-compare="${code}">Compare with ${escapeHtml(nameOf(places, state.visitor))}</button>` : '';
@@ -340,29 +355,52 @@ function detailsButtons(code: string): string {
 }
 function sourcesList(figure: Extract<PlaceFigure, { kind: 'figure' }>): string {
   const ids = [...new Set([...figure.costs.flatMap(cost => (cost.figure ? [cost.figure.sourceId] : [snapshot.lifestyle.sourceIds.trips])), ...figure.tax.sourceIds, snapshot.lifestyle.sourceIds.everyday])];
-  return `<ul>${ids.map(id => snapshot.sources[id]).filter(Boolean).map(source => `<li>${source.url ? `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener">${escapeHtml(source.title)}</a>` : escapeHtml(source.title)}<small>${escapeHtml(source.publisher)}${source.licence ? ` · ${escapeHtml(source.licence)}` : ''}</small></li>`).join('')}</ul>`;
+  return `<ul>${ids.map(id => snapshot.sources[id]).filter(Boolean).map(source => `<li>${source.url ? `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener">${escapeHtml(source.title)}</a>` : escapeHtml(source.title)}<small>${[source.publisher, source.period, source.licence].filter(Boolean).map(escapeHtml).join(' · ')}</small></li>`).join('')}</ul>`;
 }
 element('details').addEventListener('click', event => {
   const target = event.target as HTMLElement;
   if (target.closest('[data-close-details]')) openPlace(null, false);
-  else if (target.closest('[data-compare]')) { state.compared = target.closest<HTMLElement>('[data-compare]')!.dataset.compare!; update(); }
+  else if (target.closest('[data-compare]')) compareWith(target.closest<HTMLElement>('[data-compare]')!.dataset.compare!);
   else if (target.closest('[data-here]')) { state.visitor = target.closest<HTMLElement>('[data-here]')!.dataset.here!; if (state.compared === state.visitor) state.compared = null; update(); }
   else if (target.closest('[data-sources]')) { const list = element('details').querySelector<HTMLElement>('.details-sources')!; list.hidden = !list.hidden; }
 });
 
-function openPlace(code: string | null, move: boolean): void {
-  state.opened = code;
-  update();
-  if (!code || !move) return;
+// Where a place is on the map, as a box in map units: a city's point, or the box round a region's shapes.
+function boxOf(code: string): [number, number, number, number] | null {
   const city = places.cityByCode.get(code);
-  if (city) { mapView.show(...projectPoint(city.longitude, city.latitude), Math.max(mapView.zoomLevel(), 5)); return; }
+  if (city) { const [x, y] = projectPoint(city.longitude, city.latitude); return [x, y, x, y]; }
   let west = Infinity, north = Infinity, east = -Infinity, south = -Infinity;
   geometry.shapeCodes.forEach((shapeCode, shape) => {
     if (shapeCode !== code) return;
     west = Math.min(west, geometry.shapeBoxes[shape * 4]); north = Math.min(north, geometry.shapeBoxes[shape * 4 + 1]);
     east = Math.max(east, geometry.shapeBoxes[shape * 4 + 2]); south = Math.max(south, geometry.shapeBoxes[shape * 4 + 3]);
   });
-  if (Number.isFinite(west)) mapView.show((west + east) / 2, (north + south) / 2, Math.min(8, Math.max(2, Math.log2(0.5 * Math.min(innerWidth, innerHeight) / 256 / Math.max(east - west, south - north)))));
+  return Number.isFinite(west) ? [west, north, east, south] : null;
+}
+// Bring places into the part of the map the cards leave uncovered, as large as fits.
+function showPlaces(codes: string[]): void {
+  const boxes = codes.map(boxOf).filter((box): box is [number, number, number, number] => !!box);
+  if (!boxes.length) return;
+  const box: [number, number, number, number] = [Math.min(...boxes.map(b => b[0])), Math.min(...boxes.map(b => b[1])), Math.max(...boxes.map(b => b[2])), Math.max(...boxes.map(b => b[3]))];
+  const isPoint = box[2] - box[0] < 1e-4 && box[3] - box[1] < 1e-4;
+  if (isPoint) mapView.show(box[0], box[1], Math.max(mapView.zoomLevel(), 4.5));
+  else mapView.showBox(...box);
+}
+
+// Open a place's details. On a phone the sheet covers most of the map, so the place moves into the strip of map above it; on a
+// laptop the map moves only when the place was chosen from a list.
+function openPlace(code: string | null, move: boolean): void {
+  state.opened = code;
+  update();
+  if (code && (move || isPhone())) showPlaces([code]);
+}
+
+// Compare with a place: back to the map with both places in view and the comparison along the bottom.
+function compareWith(code: string): void {
+  state.compared = code;
+  state.opened = null;
+  update();
+  showPlaces([state.visitor, code].filter(Boolean) as string[]);
 }
 
 // ---- The place list: search every city, region and country the map draws.
@@ -370,7 +408,7 @@ type Pick = 'visitor' | 'compared';
 let picking: Pick = 'visitor';
 const searchEntries = [
   ...places.cities.map(city => ({ code: city.code, names: [city.name, ...city.otherNames].map(plainLetters), rank: city.population })),
-  ...Object.entries(places.rows).map(([code, [name, , kind]]) => ({ code, names: [plainLetters(name)], rank: kind === 'country' ? 5e7 : kind === 'state' ? 2e6 : 1e5 })),
+  ...Object.entries(places.rows).map(([code, [name, , kind]]) => ({ code, names: [plainLetters(name ?? code)], rank: kind === 'country' ? 5e7 : kind === 'state' ? 2e6 : 1e5 })),
 ].sort((a, b) => b.rank - a.rank);
 function openPicker(pick: Pick): void {
   picking = pick;
@@ -397,9 +435,12 @@ element('picker-input').addEventListener('keydown', event => { if (event.key ===
 element('picker').addEventListener('click', event => {
   const target = event.target as HTMLElement, picked = target.closest<HTMLElement>('[data-picked]');
   if (picked) {
-    if (picking === 'visitor') state.visitor = picked.dataset.picked!; else state.compared = picked.dataset.picked!;
     element('picker').hidden = true;
-    openPlace(picked.dataset.picked!, true);
+    if (picking === 'compared') { compareWith(picked.dataset.picked!); return; }
+    state.visitor = picked.dataset.picked!;
+    if (state.compared === state.visitor) state.compared = null;
+    update();
+    showPlaces([state.visitor, state.compared].filter(Boolean) as string[]);
   } else if (target === element('picker') || target.closest('[data-close-picker]')) element('picker').hidden = true;
 });
 
@@ -443,30 +484,36 @@ element('go-home').addEventListener('click', () => { if (state.visitor) openPlac
 // ---- Everything that follows from the state, and the link that holds it.
 let figuresDrawnFor = '';
 function update(): void {
-  const drawnFor = `${state.mode}|${state.settings.withdrawalRate}|${state.settings.regime}|${haveUsDollars()}|${mainCurrency()}`;
+  const drawnFor = `${state.mode}|${state.settings.withdrawalRate}|${state.settings.regime}|${haveUsDollars()}|${mainCurrency()}|${state.visitor}|${state.compared}|${isDark()}`;
   if (drawnFor !== figuresDrawnFor) { figuresDrawnFor = drawnFor; colourTheMap(); labelTheCities(); }
   renderBar(); renderKey(); renderStrip(); renderDetails();
   const opened = state.opened, isCity = !!opened && places.cityByCode.has(opened);
   mapView.setHighlightedShape(opened && !isCity ? geometry.shapeCodes.indexOf(opened) : -1);
-  mapView.setEmphasis({ dark: state.visitor, ringed: isCity ? opened : null });
+  mapView.setEmphasis({ dark: state.visitor, ringed: isCity ? opened : null, named: [state.visitor, state.compared].filter(Boolean) as string[] });
   history.replaceState(null, '', `/${linkQuery(places, state)}`);
   coverMap();
 }
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { themeTheMap(); figuresDrawnFor = ''; update(); });
 
-// The cards over the map: the world fits between them, and no label goes under them.
+// The cards over the map: places are brought into the part they leave uncovered, and no label goes under them. An open place's
+// details cover the right of the map on a laptop and most of it on a phone.
 function coverMap(): void {
-  const boxes = ['bar', 'have', 'bar-right', 'strip', 'key', 'zoom', 'details'].map(id => element(id)).filter(card => !card.hidden).map(card => card.getBoundingClientRect());
+  const cards = ['bar', 'have', 'bar-right', 'strip', 'key', 'zoom', 'details'].map(id => element(id)).filter(card => !card.hidden);
   const top = Math.max(...['bar', 'have'].map(id => element(id)).filter(card => !card.hidden).map(card => card.getBoundingClientRect().bottom));
-  const strip = element('strip').getBoundingClientRect();
-  mapView.setCovers({ top, bottom: innerHeight - strip.top + (isPhone() ? 0 : element('key').offsetHeight + 12), left: 0, right: 0, boxes });
+  const strip = element('strip').getBoundingClientRect(), details = element('details');
+  const detailsBox = details.hidden ? null : details.getBoundingClientRect();
+  const bottom = detailsBox && isPhone() ? innerHeight - detailsBox.top : innerHeight - strip.top + (isPhone() ? 0 : element('key').offsetHeight + 12);
+  const right = detailsBox && !isPhone() ? innerWidth - detailsBox.left : 0;
+  mapView.setCovers({ top, bottom, left: 0, right, boxes: cards.map(card => card.getBoundingClientRect()) });
 }
 addEventListener('resize', coverMap);
 
 update();
+// The first view: the whole world on a laptop; on a phone, the visitor's part of it.
 const visitorCity = state.visitor && places.cityByCode.get(state.visitor);
 if (state.opened) openPlace(state.opened, true);
-else if (isPhone() && visitorCity) mapView.show(...projectPoint(visitorCity.longitude, visitorCity.latitude), 3.2, false);
+else if (isPhone() && visitorCity) mapView.show(...projectPoint(visitorCity.longitude, visitorCity.latitude), 3.7, false);
+else mapView.showWorld(false);
 document.body.classList.add('is-ready');
 
 // The detailed shapes, once the page is up.

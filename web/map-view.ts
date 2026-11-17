@@ -1,5 +1,5 @@
 // The map on the page: shapes and borders drawn by the graphics card, so a pan or zoom costs one frame, and city labels drawn on a
-// canvas above it. Which labels show is decided once for each half step of zoom, biggest city first, so panning never moves or
+// canvas above it. Which labels show is decided once for each half step of zoom, best known city first, so panning never moves or
 // swaps them and zooming in only adds more.
 import { zoom as d3Zoom, zoomIdentity, type ZoomTransform } from 'd3-zoom';
 import { select } from 'd3-selection';
@@ -8,21 +8,24 @@ import { lineKinds, shapeAt, type LineKind, type MapGeometry } from '../src/map-
 import { projection } from '../src/projection.ts';
 
 export type MapLabel = {
-  // amountColour: the amount's own colour where it carries a verdict, else null for ink.
-  code: string; x: number; y: number; name: string; amount: string; amountColour: string | null; colour: string;
+  // amountColours: the amount's own colour where it carries a verdict, for a light label and for a dark one, else null for the
+  // label's ink. amount may be empty, for the visitor's or compared place when it has no figure. colour: the dot's fill.
+  code: string; x: number; y: number; name: string; amount: string; amountColours: { onLight: string; onDark: string } | null; colour: string;
   flag: HTMLCanvasElement | null;
-  priority: number;
+  // fame: how well known the city is, 0 the most (src/places.ts); it decides the zoom at which its label may first show.
+  fame: number; population: number;
 };
 export type MapCovers = { top: number; bottom: number; left: number; right: number; boxes: DOMRect[] };
 type ScreenBox = [left: number, top: number, right: number, bottom: number];
 
 // The colours around the places, as fractions: the sea, the lines between places, and the outline of an opened place.
-export type MapTheme = { sea: [number, number, number]; line: [number, number, number]; ink: [number, number, number] };
+export type MapTheme = { sea: [number, number, number]; line: [number, number, number]; ink: [number, number, number]; isDark: boolean };
+// The zoom at which a label may first show, by fame: the best known from the whole world, the least known only up close.
+const firstLevelOfFame = [0, 0, 4, 6];
+const labelMargin = 9;
 const deepestZoom = 10, labelStep = 0.5;
 const labelHeight = 22, labelPadLeft = 4, labelPadRight = 7, labelGap = 5, flagWidth = 17, flagHeight = 12, dotRadius = 4, dotGap = 5;
 const labelFont = (weight: number) => `${weight} 12px Archivo, system-ui, sans-serif`;
-// A colour lightened for the dark label, so a verdict's colour still reads on ink.
-const towardsWhite = (hex: string, share: number) => `rgb(${[1, 3, 5].map(start => Math.round(parseInt(hex.slice(start, start + 2), 16) * (1 - share) + 255 * share)).join(',')})`;
 
 const projectShader = `
 uniform vec2 scale; uniform vec2 translate; uniform vec2 viewport;
@@ -74,7 +77,7 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
   };
   const fill = compile(fillVertex, fillFragment), line = compile(lineVertex, lineFragment);
 
-  let theme: MapTheme = { sea: [0.914, 0.933, 0.953], line: [1, 1, 1], ink: [0.063, 0.082, 0.11] };
+  let theme: MapTheme = { sea: [0.914, 0.933, 0.953], line: [1, 1, 1], ink: [0.063, 0.082, 0.11], isDark: false };
   let geometry: MapGeometry | null = null;
   let fillVao: WebGLVertexArrayObject | null = null, fillIndexCount = 0;
   const lineVaos = new Map<string, { vao: WebGLVertexArrayObject; count: number }>();
@@ -160,17 +163,17 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
     .on('zoom', event => { transform = event.transform; draw(); if (event.sourceEvent) events.moved(); });
   const selection = select(labelCanvas).call(zoomBehaviour).on('dblclick.zoom', null);
 
+  // The world fills the screen's width, running behind the cards, with the inhabited latitudes in the middle; the cards over the
+  // map never move it, only the labels keep clear of them.
+  const middleLatitude = 17;
   function fit(): void {
     const rect = container.getBoundingClientRect();
     size = { width: Math.max(1, Math.round(rect.width)), height: Math.max(1, Math.round(rect.height)) };
-    // The world (without Antarctica's empty south) fills the space the cards leave, as large as fits.
-    const top = covers.top + 8, bottom = size.height - covers.bottom - 8, width = size.width - 16;
-    const worldTop = projection.project(0, 84)[1], worldBottom = projection.project(0, -57)[1];
-    baseScale = Math.min(width, (bottom - top) / (worldBottom - worldTop));
-    baseTranslate = [(size.width - baseScale) / 2, top + ((bottom - top) - (worldBottom - worldTop) * baseScale) / 2 - worldTop * baseScale];
-    const smallest = 1, largest = 2 ** deepestZoom * 256 / baseScale;
-    zoomBehaviour.scaleExtent([smallest, largest]).extent([[0, 0], [size.width, size.height]])
-      .translateExtent([[baseTranslate[0] - size.width / 2, baseTranslate[1] + worldTop * baseScale - size.height / 2], [baseTranslate[0] + baseScale + size.width / 2, baseTranslate[1] + worldBottom * baseScale + size.height / 2]]);
+    baseScale = size.width;
+    baseTranslate = [0, size.height / 2 - projection.project(0, middleLatitude)[1] * baseScale];
+    const worldTop = projection.project(0, 84)[1] * baseScale + baseTranslate[1], worldBottom = projection.project(0, -60)[1] * baseScale + baseTranslate[1];
+    zoomBehaviour.scaleExtent([1, 2 ** deepestZoom * 256 / baseScale]).extent([[0, 0], [size.width, size.height]])
+      .translateExtent([[-size.width * 0.15, Math.min(0, worldTop)], [size.width * 1.15, Math.max(size.height, worldBottom)]]);
     const pixelRatio = devicePixelRatio || 1;
     for (const canvas of [shapeCanvas, labelCanvas]) {
       canvas.width = Math.round(size.width * pixelRatio); canvas.height = Math.round(size.height * pixelRatio);
@@ -180,17 +183,27 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
 
   // Move the view so a point sits in the middle of the uncovered map, at a zoom level, gliding there unless asked not to.
   function show(x: number, y: number, level: number, glide = true): void {
-    const scale = 256 * 2 ** level, k = scale / baseScale;
+    const scale = 256 * 2 ** Math.max(level, Math.log2(baseScale / 256)), k = scale / baseScale;
     const middleX = covers.left + (size.width - covers.left - covers.right) / 2, middleY = covers.top + (size.height - covers.top - covers.bottom) / 2;
     const target = zoomIdentity.translate(middleX - (x * scale + baseTranslate[0] * k), middleY - (y * scale + baseTranslate[1] * k)).scale(k);
     if (glide && !matchMedia('(prefers-reduced-motion: reduce)').matches) selection.transition().duration(600).call(zoomBehaviour.transform, target);
     else selection.call(zoomBehaviour.transform, target);
   }
-  const showWorld = (glide = true) => (glide ? selection.transition().duration(600).call(zoomBehaviour.transform, zoomIdentity) : selection.call(zoomBehaviour.transform, zoomIdentity));
+  // Show a box of the map (west, north, east, south in map units) as large as fits in the uncovered part.
+  function showBox(west: number, north: number, east: number, south: number, glide = true): void {
+    const width = Math.max(80, size.width - covers.left - covers.right - 120), height = Math.max(80, size.height - covers.top - covers.bottom - 80);
+    const scale = Math.min(width / Math.max(east - west, 1e-6), height / Math.max(south - north, 1e-6));
+    show((west + east) / 2, (north + south) / 2, Math.min(7, Math.log2(scale / 256)), glide);
+  }
+  // The whole world, its inhabited latitudes in the middle of the part the cards leave uncovered.
+  function showWorld(glide = true): void {
+    const target = zoomIdentity.translate(0, covers.top / 2 - covers.bottom / 2);
+    if (glide) selection.transition().duration(600).call(zoomBehaviour.transform, target); else selection.call(zoomBehaviour.transform, target);
+  }
   const zoomBy = (factor: number) => selection.transition().duration(250).call(zoomBehaviour.scaleBy, factor);
 
   // ---- Labels: placed once per half step of zoom.
-  let labels: MapLabel[] = [], emphasis: { dark: string | null; ringed: string | null } = { dark: null, ringed: null };
+  let labels: MapLabel[] = [], emphasis: { dark: string | null; ringed: string | null; named: string[] } = { dark: null, ringed: null, named: [] };
   const placementCache = new Map<number, Map<string, 'right' | 'left'>>();
   const measure = labelCanvas.getContext('2d')!;
   const widths = new Map<string, number>();
@@ -223,13 +236,18 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
       for (let column = Math.floor(box[0] / 256); column <= Math.floor(box[2] / 256); column++) for (let row = Math.floor(box[1] / 256); row <= Math.floor(box[3] / 256); row++) cells.push(column * 1e6 + row);
       return cells;
     };
-    const isFree = (index: number, box: ScreenBox) => cellsOf(box).every(cell => !(grids[index].get(cell) ?? []).some(other => overlaps(other, box, 3)));
+    const isFree = (index: number, box: ScreenBox) => cellsOf(box).every(cell => !(grids[index].get(cell) ?? []).some(other => overlaps(other, box, labelMargin)));
+    const sideFreeAt = (label: MapLabel, index: number) => {
+      const scale = 256 * 2 ** levels[index];
+      return (['right', 'left'] as const).find(candidate => isFree(index, boxAt(label, candidate, label.x * scale, label.y * scale)));
+    };
     for (const label of labels) {
-      for (let index = 0; index < levels.length; index++) {
-        const scale = 256 * 2 ** levels[index];
-        const side = (['right', 'left'] as const).find(candidate => isFree(index, boxAt(label, candidate, label.x * scale, label.y * scale)));
+      for (let index = levels.indexOf(firstLevelOfFame[label.fame] ?? 5); index < levels.length; index++) {
+        let side = sideFreeAt(label, index);
         if (!side) continue;
+        // Shown from this level on, on whichever side is free at each closer level (the last side where neither is).
         for (let later = index; later < levels.length; later++) {
+          side = sideFreeAt(label, later) ?? side;
           const laterScale = 256 * 2 ** levels[later], box = boxAt(label, side, label.x * laterScale, label.y * laterScale);
           for (const cell of cellsOf(box)) { if (!grids[later].has(cell)) grids[later].set(cell, []); grids[later].get(cell)!.push(box); }
           found[later].set(label.code, side);
@@ -243,63 +261,65 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
   // Placements depend only on which cities are labelled and their names, so new amounts or colours keep them.
   let placedFor = '';
   function setLabels(next: MapLabel[]): void {
-    labels = [...next].sort((a, b) => b.priority - a.priority);
+    labels = [...next].sort((a, b) => a.fame - b.fame || b.population - a.population);
     const key = labels.map(label => `${label.code}:${label.name}`).join('|');
     if (key !== placedFor) { placedFor = key; placementCache.clear(); widths.clear(); }
     draw();
   }
 
   let drawnLabels: { label: MapLabel; box: ScreenBox; dot: [number, number] }[] = [];
+  // A label is placed with room for any amount, but drawn only as wide as what it says.
+  function drawnWidth(context: CanvasRenderingContext2D, label: MapLabel): number {
+    context.font = labelFont(500); const nameWidth = context.measureText(label.name).width;
+    context.font = labelFont(700); const amountWidth = label.amount ? context.measureText(label.amount).width + labelGap : 0;
+    return labelPadLeft + flagWidth + labelGap + nameWidth + amountWidth + labelPadRight;
+  }
   function drawLabels(context: CanvasRenderingContext2D): void {
     const level = Math.max(0, Math.min(deepestZoom, Math.floor(zoomLevel() / labelStep) * labelStep));
     const placements = labels.length ? placementsAt(level) : new Map();
     const blocked: ScreenBox[] = covers.boxes.map(box => [box.left - 4, box.top - 4, box.right + 4, box.bottom + 4]);
     drawnLabels = [];
     const isInside = (box: ScreenBox) => box[0] >= 2 && box[1] >= 2 && box[2] <= size.width - 2 && box[3] <= size.height - 2;
-    // The visitor's and the opened place's labels first, wherever they fit.
-    const emphasised = [...new Set([emphasis.ringed, emphasis.dark])].filter(Boolean).map(code => labels.find(label => label.code === code)).filter(Boolean) as MapLabel[];
+    // The visitor's, the compared and the opened place's labels first, wherever they fit.
+    const emphasised = [...new Set([emphasis.ringed, emphasis.dark, ...emphasis.named])].filter(Boolean).map(code => labels.find(label => label.code === code)).filter(Boolean) as MapLabel[];
     for (const label of [...emphasised, ...labels.filter(candidate => placements.has(candidate.code) && !emphasised.includes(candidate))]) {
       const [x, y] = toScreen(label.x, label.y);
       if (x < -200 || x > size.width + 200 || y < -50 || y > size.height + 50) continue;
-      const sides = [placements.get(label.code) ?? 'right', placements.get(label.code) === 'left' ? 'right' : 'left'] as const;
-      const isEmphasised = emphasised.includes(label);
-      const box = (isEmphasised ? sides : sides.slice(0, 1)).map(side => boxAt(label, side, x, y))
-        .find(candidate => isInside(candidate) && !blocked.some(other => overlaps(candidate, other, 0)) && !drawnLabels.some(other => overlaps(candidate, other.box, 2)));
+      const placed = placements.get(label.code) ?? 'right', width = drawnWidth(context, label);
+      const boxOn = (side: 'right' | 'left'): ScreenBox => {
+        const left = side === 'right' ? x + dotRadius + dotGap : x - dotRadius - dotGap - width;
+        return [left, y - labelHeight / 2, left + width, y + labelHeight / 2];
+      };
+      const box = ([placed, placed === 'right' ? 'left' : 'right'] as const).map(boxOn)
+        .find(candidate => isInside(candidate) && !blocked.some(other => overlaps(candidate, other, 0)) && !drawnLabels.some(other => overlaps(candidate, other.box, 4)));
       if (!box) continue;
       drawnLabels.push({ label, box, dot: [x, y] });
     }
-    const drawDot = (x: number, y: number, colour: string) => {
-      context.beginPath(); context.arc(x, y, dotRadius + 1.5, 0, Math.PI * 2); context.fillStyle = '#10151C'; context.fill();
-      context.beginPath(); context.arc(x, y, dotRadius + 1, 0, Math.PI * 2); context.fillStyle = '#FFFFFF'; context.fill();
-      context.beginPath(); context.arc(x, y, dotRadius - 0.5, 0, Math.PI * 2); context.fillStyle = colour; context.fill();
-    };
-    // Cities whose labels come one step closer show as dots already, where they are clear of the labels.
-    const comingSoon = placementsAt(Math.min(deepestZoom, level + 1));
-    for (const label of labels) {
-      if (!comingSoon.has(label.code) || drawnLabels.some(drawn => drawn.label === label)) continue;
-      const [x, y] = toScreen(label.x, label.y), dotBox: ScreenBox = [x - dotRadius, y - dotRadius, x + dotRadius, y + dotRadius];
-      if (x < 0 || x > size.width || y < 0 || y > size.height || blocked.some(other => overlaps(dotBox, other, 0)) || drawnLabels.some(other => overlaps(dotBox, other.box, 1))) continue;
-      drawDot(x, y, label.colour);
-    }
+    // Ordinary labels are white on a light map and a dark slate on a dark one; the visitor's label is the strongest either way.
+    const plain = theme.isDark ? { fill: '#252D38', ink: '#EDF1F5', flagEdge: '#FFFFFF40' } : { fill: '#FFFFFF', ink: '#10151C', flagEdge: '#10151C33' };
+    const strong = theme.isDark ? { fill: '#EDF1F5', ink: '#10151C', flagEdge: '#10151C33' } : { fill: '#10151C', ink: '#FFFFFF', flagEdge: '#FFFFFF59' };
     for (const { label, box, dot } of [...drawnLabels].reverse()) {
-      const isDark = label.code === emphasis.dark, isRinged = label.code === emphasis.ringed;
-      drawDot(dot[0], dot[1], label.colour);
+      const isStrong = label.code === emphasis.dark, isRinged = label.code === emphasis.ringed, look = isStrong ? strong : plain;
+      context.beginPath(); context.arc(dot[0], dot[1], dotRadius + 1.5, 0, Math.PI * 2); context.fillStyle = '#10151C'; context.fill();
+      context.beginPath(); context.arc(dot[0], dot[1], dotRadius + 1, 0, Math.PI * 2); context.fillStyle = '#FFFFFF'; context.fill();
+      context.beginPath(); context.arc(dot[0], dot[1], dotRadius - 0.5, 0, Math.PI * 2); context.fillStyle = label.colour; context.fill();
       context.beginPath(); context.roundRect(box[0], box[1], box[2] - box[0], labelHeight, 5);
       context.shadowColor = '#10151C33'; context.shadowBlur = 2; context.shadowOffsetY = 1;
-      context.fillStyle = isDark ? '#10151C' : '#FFFFFF'; context.fill();
+      context.fillStyle = look.fill; context.fill();
       context.shadowColor = 'transparent';
-      if (isRinged) { context.lineWidth = 2; context.strokeStyle = '#10151C'; context.stroke(); }
+      if (isRinged) { context.lineWidth = 2; context.strokeStyle = theme.isDark ? '#EDF1F5' : '#10151C'; context.stroke(); }
       if (label.flag) {
         context.save(); context.beginPath(); context.roundRect(box[0] + labelPadLeft, box[1] + (labelHeight - flagHeight) / 2, flagWidth, flagHeight, 2); context.clip();
         context.drawImage(label.flag, box[0] + labelPadLeft, box[1] + (labelHeight - flagHeight) / 2, flagWidth, flagHeight);
         context.restore();
         context.beginPath(); context.roundRect(box[0] + labelPadLeft + 0.25, box[1] + (labelHeight - flagHeight) / 2 + 0.25, flagWidth - 0.5, flagHeight - 0.5, 2);
-        context.lineWidth = 0.5; context.strokeStyle = isDark ? '#FFFFFF59' : '#10151C33'; context.stroke();
+        context.lineWidth = 0.5; context.strokeStyle = look.flagEdge; context.stroke();
       }
-      context.fillStyle = isDark ? '#FFFFFF' : '#10151C'; context.textBaseline = 'middle';
+      context.fillStyle = look.ink; context.textBaseline = 'middle';
       context.font = labelFont(500); context.fillText(label.name, box[0] + labelPadLeft + flagWidth + labelGap, box[1] + labelHeight / 2 + 0.5);
       const nameWidth = context.measureText(label.name).width;
-      if (label.amountColour) context.fillStyle = isDark ? towardsWhite(label.amountColour, 0.55) : label.amountColour;
+      const isLightLabel = theme.isDark === isStrong;
+      if (label.amountColours) context.fillStyle = isLightLabel ? label.amountColours.onLight : label.amountColours.onDark;
       context.font = labelFont(700); context.fillText(label.amount, box[0] + labelPadLeft + flagWidth + labelGap + nameWidth + labelGap, box[1] + labelHeight / 2 + 0.5);
     }
   }
@@ -368,13 +388,20 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
   });
   labelCanvas.addEventListener('pointerleave', () => events.hovered(-1, null, 0, 0));
 
+  // Measured now, so a place opened by the link can be shown at once, and again whenever the window changes size.
+  fit();
   new ResizeObserver(() => fit()).observe(container);
   return {
-    setGeometry, setShapeColours, setLabels, setHighlightedShape, show, showWorld, zoomBy, fit, redraw: draw,
+    setGeometry, setShapeColours, setLabels, setHighlightedShape, show, showBox, showWorld, zoomBy, fit, redraw: draw,
     setEmphasis(next: typeof emphasis) { emphasis = next; draw(); },
     setTheme(next: MapTheme) { theme = next; draw(); },
-    setCovers(next: MapCovers) { covers = next; fit(); },
+    setCovers(next: MapCovers) { covers = next; draw(); },
     get geometry() { return geometry; },
+    // The zoom from which a place's label shows, for checks, or null if it never does.
+    labelLevelOf(code: string): number | null {
+      for (let level = 0; level <= deepestZoom; level += labelStep) if (placementsAt(level).has(code)) return level;
+      return null;
+    },
     zoomLevel,
   };
 }

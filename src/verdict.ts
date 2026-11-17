@@ -12,6 +12,8 @@ export function verdictOf(needed: number, have: number): VerdictWord {
 // The map's fill for each verdict, and the colour of words and amounts that carry it. Close is amber: those places are still short.
 export const verdictFill: Record<VerdictWord, string> = { WAGMI: '#1B7F4C', Close: '#F2CF7A', NGMI: '#E6BDB7' };
 export const verdictInk: Record<VerdictWord, string> = { WAGMI: '#1B7F4C', Close: '#A05A00', NGMI: '#B4263B' };
+// The same words on dark cards and labels, light enough to read at 4.5:1 or better.
+export const verdictInkOnDark: Record<VerdictWord, string> = { WAGMI: '#5FD394', Close: '#F3C766', NGMI: '#FF8F8F' };
 
 // What the visitor has: $1,000,000 unless they say otherwise, typed between $50,000 and $20,000,000. The slider runs from
 // $100,000 to $10,000,000 in even steps of size, so a million sits in its middle, and snaps to two significant figures.

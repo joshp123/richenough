@@ -6,14 +6,15 @@ It has two modes. "How much you need" colours each place by what it needs, in ei
 
 ## How a place's figure is worked out
 
-Spending S a year = 12 × (rent of a two-bed flat + everyday spending + one car + a housekeeper 8 hours a week + private health cover) + trips. Everyday spending is $3,500 a month at US prices times the place's price level; the lifestyle is `data/tables/lifestyle.csv`. The couple sells 5% of their capital C each year. C is the smallest capital at which that withdrawal, less the place's tax on it (`src/tax/`), pays for S; `src/capital.ts` solves for it. Each component comes from the place itself, else the nearest place above it (county, state, country), else a stand-in from Alessandro Palombo's post, marked "stand-in" on the page.
+Spending S a year = 12 × (rent of a two-bed flat in the region's main town + everyday spending + one car + a housekeeper 8 hours a week + private health cover) + trips. Everyday spending is $3,500 a month at US prices times the place's price level; the lifestyle is `data/tables/lifestyle.csv`. The couple sells 5% of their capital C each year. C is the smallest capital at which that withdrawal, less the place's tax on it (`src/tax/`), pays for S; `src/capital.ts` solves for it. Each component comes from the place itself, else the nearest place above it (county, state, country), else a stand-in from Alessandro Palombo's post, marked "stand-in" on the page.
 
 ## Data
 
 - `data/tables/*.csv`: one table per component and area, written by the data tools in `tools/us`, `tools/europe`, `tools/world`; columns and place codes are in `.agent/plan.md` (private).
 - `data/sources.csv`: every source behind a figure.
 - `src/tax/`: each place's tax rules, registered by place code.
-- `assets/map/`: the shapes, places and cities, written by `tools/map/`. Shapes are drawn only as finely as the data: a county or region appears where a table or a tax rule names it, and otherwise merges into the place above it, so the map files are rebuilt when the tables change.
+- `assets/map/`: the shapes, places and cities, written by `tools/map/`. Shapes are drawn only as finely as the data: a county or region appears where a table or a tax rule gives a figure measured for it (a country's figure copied under each region counts for the country), and otherwise merges into the place above it. Countries outside the US and Europe are split into first-level regions when a table's `place_code` column names one (today Canada, Australia, New Zealand, Japan, Korea, China, Taiwan, Kazakhstan, Brazil and Russia). Rebuild the map files when the tables change.
+- Cities: GeoNames places of 100,000 people, capitals and Palombo's cities. A city within 25 km of a bigger one is part of it (Brooklyn of New York). Each has a fame (Palombo's cities, then capitals of half a million and cities of 2.5 million, then cities of a million) that decides the zoom at which its label may show.
 - `data/snapshot.json`: the tables, sources, stand-ins and exchange rates in the form the page loads.
 
 Rebuild everything the page loads, in this order (Node 24; `devenv shell` provides it):

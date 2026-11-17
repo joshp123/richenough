@@ -19,8 +19,8 @@ async function openPage(size: keyof typeof sizes, colorScheme: 'light' | 'dark',
   page.on('pageerror', error => problems.push(`${size} ${colorScheme}: ${error.message}`));
   await page.goto(siteAddress + path);
   await page.waitForFunction(() => document.body.classList.contains('is-ready'));
-  // The detailed map arrives after the page is ready.
-  await page.waitForTimeout(1500);
+  // The detailed map and the labels' flags arrive after the page is ready.
+  await page.waitForTimeout(3000);
   return page;
 }
 const photograph = (page: Page, name: string) => page.screenshot({ path: `${folder}/${name}.png` });
@@ -42,58 +42,72 @@ async function frameTimes(page: Page): Promise<string> {
   });
 }
 
+const openAt = async (page: Page, path: string) => {
+  await page.goto(siteAddress + path);
+  await page.waitForFunction(() => document.body.classList.contains('is-ready'));
+  // The detailed map and the labels' flags arrive after the page is ready.
+  await page.waitForTimeout(3000);
+};
 for (const size of ['laptop', 'phone', 'wide'] as const) {
   for (const colorScheme of ['light', 'dark'] as const) {
-    const page = await openPage(size, colorScheme);
-    await photograph(page, `${size}-${colorScheme}-01-first-load`);
-    if (colorScheme === 'dark') { await page.close(); continue; }
-    console.log(`${size}: ${await frameTimes(page)}`);
+    const name = `${size}-${colorScheme}`, page = await openPage(size, colorScheme);
+    await photograph(page, `${name}-01-first-load`);
+    if (size === 'wide') { await page.close(); continue; }
+    if (colorScheme === 'light') console.log(`${size}: ${await frameTimes(page)}`);
 
-    // Search: the visitor says where they are.
-    await page.getByRole('button', { name: /Amsterdam|Choose a place/ }).first().click();
-    await page.getByRole('searchbox', { name: 'Search for a place' }).fill('lisb');
-    await photograph(page, `${size}-02-search-lisbon`);
-    await page.getByRole('searchbox', { name: 'Search for a place' }).press('Enter');
-    await page.waitForTimeout(900);
-    await photograph(page, `${size}-03-lisbon-details`);
-
-    // A place on the map: a US county, opened by tapping it.
-    await page.goto(`${siteAddress}/?place=us-06037`);
-    await page.waitForFunction(() => document.body.classList.contains('is-ready'));
-    await page.waitForTimeout(1500);
-    await photograph(page, `${size}-04-los-angeles-county`);
-    await page.getByRole('button', { name: 'Compare with' }).first().click().catch(() => {});
-    await page.waitForTimeout(400);
-    await photograph(page, `${size}-05-compared`);
-
-    // The first mode's share picture, then the second mode: what the visitor has, and the currency.
-    await page.goto(`${siteAddress}/?me=lisbon&vs=los-angeles`);
-    await page.waitForFunction(() => document.body.classList.contains('is-ready'));
-    await page.waitForTimeout(1000);
-    if (size === 'laptop') await writeFile(`${folder}/picture-7x8-how-much-you-need.png`, Buffer.from(await (await fetch(`${siteAddress}/picture.png?me=lisbon&vs=los-angeles&also=EUR`)).arrayBuffer()));
+    // The second mode, from the first load: the map must not move.
     await page.getByRole('button', { name: 'Am I gonna make it?' }).click();
-    await page.waitForTimeout(300);
-    await photograph(page, `${size}-06-am-i-gonna-make-it`);
+    await page.waitForTimeout(400);
+    await photograph(page, `${name}-02-am-i-gonna-make-it`);
     await page.locator('#have-slider').fill('0.7');
     await page.waitForTimeout(300);
-    await photograph(page, `${size}-06b-have-two-and-a-half-million`);
+    await photograph(page, `${name}-03-have-two-and-a-half-million`);
+    await page.getByRole('button', { name: 'How much you need' }).click();
+    await page.waitForTimeout(300);
+
+    // Search: the visitor says where they are, and the map comes back with them on it.
+    await page.locator('[data-pick="visitor"]').click();
+    await page.getByRole('searchbox', { name: 'Search for a place' }).fill('lisb');
+    await photograph(page, `${name}-04-search-lisbon`);
+    await page.getByRole('searchbox', { name: 'Search for a place' }).press('Enter');
+    await page.waitForTimeout(900);
+    await photograph(page, `${name}-05-you-are-in-lisbon`);
+
+    // A place's details, then comparing with it from there.
+    await openAt(page, '/?me=amsterdam&place=lisbon');
+    await photograph(page, `${name}-06-lisbon-details`);
+    await page.getByRole('button', { name: /^Compare with/ }).click();
+    await page.waitForTimeout(900);
+    await photograph(page, `${name}-07-compared-with-lisbon`);
+
+    // A US county, opened from its link.
+    await openAt(page, '/?place=us-06037');
+    await photograph(page, `${name}-08-los-angeles-county`);
+
+    // The currency and sharing, in each mode.
+    await openAt(page, '/?me=amsterdam&vs=lisbon');
     await page.locator('#currency-button').click();
-    await photograph(page, `${size}-07-currency-list`);
+    await photograph(page, `${name}-09-currency-list`);
     await page.getByRole('menuitemradio', { name: /Euro/ }).click();
     await page.waitForTimeout(300);
-    await photograph(page, `${size}-08-in-euros`);
-
-    // Sharing.
     await page.locator('#share-button').click();
     await page.waitForFunction(() => (document.getElementById('share-picture') as HTMLImageElement).complete, null, { timeout: 30000 });
     await page.waitForTimeout(500);
-    await photograph(page, `${size}-09-share`);
-    if (size === 'laptop') {
-      const pictureAddress = await page.locator('#share-picture').getAttribute('src');
-      const picture = await (await fetch(siteAddress + pictureAddress)).arrayBuffer();
-      await writeFile(`${folder}/picture-7x8.png`, Buffer.from(picture));
-      const preview = await (await fetch(`${siteAddress}/preview.png${pictureAddress!.slice('/picture.png'.length)}`)).arrayBuffer();
-      await writeFile(`${folder}/preview-2x1.png`, Buffer.from(preview));
+    await photograph(page, `${name}-10-share-how-much-you-need`);
+    if (size === 'laptop' && colorScheme === 'light') {
+      const address = await page.locator('#share-picture').getAttribute('src');
+      await writeFile(`${folder}/picture-7x8-how-much-you-need.png`, Buffer.from(await (await fetch(siteAddress + address)).arrayBuffer()));
+      await writeFile(`${folder}/preview-2x1.png`, Buffer.from(await (await fetch(`${siteAddress}/preview.png${address!.slice('/picture.png'.length)}`)).arrayBuffer()));
+    }
+    await page.keyboard.press('Escape');
+    await page.getByRole('button', { name: 'Am I gonna make it?' }).click();
+    await page.locator('#share-button').click();
+    await page.waitForFunction(() => (document.getElementById('share-picture') as HTMLImageElement).complete, null, { timeout: 30000 });
+    await page.waitForTimeout(500);
+    await photograph(page, `${name}-11-share-am-i-gonna-make-it`);
+    if (size === 'laptop' && colorScheme === 'light') {
+      const address = await page.locator('#share-picture').getAttribute('src');
+      await writeFile(`${folder}/picture-7x8.png`, Buffer.from(await (await fetch(siteAddress + address)).arrayBuffer()));
     }
     await page.close();
   }
