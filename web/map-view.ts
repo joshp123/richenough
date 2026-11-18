@@ -404,13 +404,6 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
     setTheme(next: MapTheme) { theme = next; draw(); },
     setCovers(next: MapCovers) { covers = next; draw(); },
     get geometry() { return geometry; },
-    // Where a point of the map is on the screen, for checks.
-    screenOf: (x: number, y: number) => toScreen(x, y),
-    // The zoom from which a place's label shows, for checks, or null if it never does.
-    labelLevelOf(code: string): number | null {
-      for (let level = 0; level <= deepestZoom; level += labelStep) if (placementsAt(level).has(code)) return level;
-      return null;
-    },
     zoomLevel,
   };
 }

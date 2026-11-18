@@ -41,11 +41,6 @@ export function formatShort(amount: number, currency: string): string {
   return `${symbol}${Math.round(amount / 1e3)}K`;
 }
 
-// A difference with its sign, to a tenth of a million: +$0.3M, −$0.9M (with a true minus sign).
-export function formatSignedCapital(amount: number, currency: string): string {
-  return `${amount < 0 ? '−' : '+'}${formatCapital(Math.abs(amount), currency)}`;
-}
-
 // A difference in words-sized money: to a tenth of a million, or in thousands where a tenth of a million would round it away
 // ($40K, not $0.0M).
 export function formatDifference(amount: number, currency: string): string {

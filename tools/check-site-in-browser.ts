@@ -25,7 +25,9 @@ async function openPage(size: keyof typeof sizes, colorScheme: 'light' | 'dark',
 }
 // Every photograph is also checked for text a visitor cannot read whole: text ending in "…", an element that hides part of its
 // text, and in "Am I gonna make it?" an amount written with a sign (+$0.3M), which Josh found confusing.
+let photographCount = 0;
 async function photograph(page: Page, name: string): Promise<void> {
+  photographCount++;
   await page.screenshot({ path: `${folder}/${name}.png` });
   const found = await page.evaluate(() => {
     const out: string[] = [], isHaveMode = document.body.dataset.mode === 'have';
@@ -164,4 +166,5 @@ await twitter.setContent(`<body style="margin:24px;font:14px system-ui;backgroun
 await twitter.waitForTimeout(300);
 await twitter.screenshot({ path: `${folder}/twitter-sizes.png`, fullPage: true });
 await browser.close();
-console.log(problems.length ? `Problems:\n${[...new Set(problems)].join('\n')}` : 'No errors in the browser console.');
+console.log(problems.length ? `Problems:\n${[...new Set(problems)].join('\n')}`
+  : `Checked ${photographCount} photographs: no browser errors, no text cut short or ending in "…", no signed amounts in "Am I gonna make it?", and every named place found.`);

@@ -534,4 +534,4 @@ fetch(DATA_PATHS.fineShapes).then(response => response.arrayBuffer()).then(bytes
 });
 
 // For checking from a browser's console or a test.
-Object.assign(window, { enough: { state, places, figures, mapView, openPlace, update, projectPoint } });
+Object.assign(window, { enough: { state, places, figures, mapView, openPlace, update } });
