@@ -4,7 +4,7 @@
 # ///
 """Israel (country PS on this site): Central Bureau of Statistics, average monthly rent of a 3-room flat.
 
-Written by AI on 2026.11.17 by model claude sonnet 5.5, for the Enough site.
+Written by AI on 2026.11.17 by model claude sonnet 5.5, for the Rich enough site.
 
 Source: CBS "Table 4.9 Average Monthly Prices of Rent (NIS), by Residential District, Big Cities and
 Size Group (Rooms)", Price Statistics Monthly No. 7/2026, latest quarter 2026 Q2. In Israeli usage a

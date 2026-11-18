@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Median asking rent of two-bedroom flats on Property24 (South Africa), for the Enough world rent table.
+"""Median asking rent of two-bedroom flats on Property24 (South Africa), for the Rich enough world rent table.
 
 Property24 lists every active rental ad per city. We save each results page (two bedrooms, all pages) in
 cache/property24-za/<slug>/, keep the ads whose title says Apartment / Flat, and take the median asking price.

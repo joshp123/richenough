@@ -3,7 +3,7 @@
 # ///
 """Median asking rent of two-bedroom flats on Mubawab (Morocco), from saved listing pages.
 
-Written by AI on 2026.11.17 by model claude sonnet 5.5, for the Enough site.
+Written by AI on 2026.11.17 by model claude sonnet 5.5, for the Rich enough site.
 
 Downloads the first PAGES result pages of "appartements à louer" for each city into
 cache/ma-mubawab-listings/<city>/ (skipped if already saved) and takes the median of

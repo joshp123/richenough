@@ -3,7 +3,7 @@
 # ///
 """Belarus: median asking rent of two-room flats in Minsk on Realt.by, from saved listing pages.
 
-Written by AI on 2026.11.17 by model claude sonnet 5.5, for the Enough site.
+Written by AI on 2026.11.17 by model claude sonnet 5.5, for the Rich enough site.
 
 Saves every result page of "long-term flat rent in Minsk" (90 listings a page) to
 cache/by-realt/ and takes the median of listings with 2 rooms and a total area of 50 to 100 m2.

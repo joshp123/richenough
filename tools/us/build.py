@@ -58,7 +58,7 @@ def fetch(source, name, url, data=None):
     path = CACHE / source / name
     if not path.is_file() or path.stat().st_size == 0:
         path.parent.mkdir(parents=True, exist_ok=True)
-        request = Request(url, data, {'User-Agent': 'Enough data rebuild', 'Content-Type': 'application/json'})
+        request = Request(url, data, {'User-Agent': 'Rich enough data rebuild', 'Content-Type': 'application/json'})
         temporary = path.with_suffix(path.suffix + '.part')
         try:
             with urlopen(request, timeout=60) as response, temporary.open('wb') as output:

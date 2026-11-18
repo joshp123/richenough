@@ -1,6 +1,6 @@
 # Rent of a two-bed flat: Middle East, North Africa, Caucasus, Central Asia, Russia and nearby
 
-Written by AI on 2026.11.17 by model claude sonnet 5.5, for the agent that owns the world cost data on the Enough site.
+Written by AI on 2026.11.17 by model claude sonnet 5.5, for the agent that owns the world cost data on the Rich enough site.
 
 Run `uv run tools/world/rent/mena-eurasia-build.py > rent-two-bedroom.mena-eurasia.csv` (add `--sources` for the sources list). It joins `mena-eurasia.curated.csv` (hand-read figures, with `url` and `quote`) and the five scripts here: Rosstat (Russia), Israel's CBS, Mubawab (Morocco), Realt.by (Belarus), OpenSooq (six Arab countries). Where two sources cover one place, the table keeps the first in the order curated, CBS, Rosstat, Mubawab, Realt.by, OpenSooq. The build gives 178 rows in the table's columns and a sources list of 34. Amounts are monthly, in local currency. A figure published per year or per m2 is converted and says so in `note`. Raw pages are in `cache/<source_id>/`.
 

@@ -1,6 +1,6 @@
 # Annual road tax for the reference car, outside the US and Europe
 
-Written by AI on 2026.11.18 by model claude sonnet 5.5, for the Enough project. Nothing is committed. Files: `road-tax.curated.csv` (25 rows), `road-tax.sources.csv` (56 sources), `road_tax.py` (the arithmetic; it also checks that every `quote` appears on the saved page), pages in `cache/road-tax-*/`.
+Written by AI on 2026.11.18 by model claude sonnet 5.5, for the Rich enough project. Nothing is committed. Files: `road-tax.curated.csv` (25 rows), `road-tax.sources.csv` (56 sources), `road_tax.py` (the arithmetic; it also checks that every `quote` appears on the saved page), pages in `cache/road-tax-*/`.
 
 ## What the figure is
 

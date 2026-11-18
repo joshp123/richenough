@@ -248,7 +248,7 @@ def rows():
 
 
 SOURCES = [
-    c.source("car-europe-model", "Enough project (this module)",
+    c.source("car-europe-model", "Our model (Eurostat prices)",
              "Europe car cost model: a German anchor scaled by Eurostat price levels, with national petrol and annual tax",
              "tools/europe/car.py (this repository)", "Derived from the sources below; the model is ours", "2026",
              "Written by AI on 2026.11.17 by model claude sonnet 5.5. See .agent/research/europe/car.md for the method and inputs."),

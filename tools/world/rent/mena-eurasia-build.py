@@ -4,7 +4,7 @@
 # ///
 """All MENA and Eurasia rent rows in one table, and one sources list.
 
-Written by AI on 2026.11.17 by model claude sonnet 5.5, for the Enough site.
+Written by AI on 2026.11.17 by model claude sonnet 5.5, for the Rich enough site.
 
 Joins the curated rows and every script in this folder. Where two sources give the same place, the
 earlier one in PRIORITY wins (the others stay in the notes as cross-checks).

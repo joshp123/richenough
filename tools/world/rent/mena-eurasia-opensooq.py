@@ -3,7 +3,7 @@
 # ///
 """Very thin fallback: median asking rent of two-bedroom flats on OpenSooq, for countries with no better free source.
 
-Written by AI on 2026.11.17 by model claude sonnet 5.5, for the Enough site.
+Written by AI on 2026.11.17 by model claude sonnet 5.5, for the Rich enough site.
 
 OpenSooq runs classifieds in most Arab countries. For each country this saves the first PAGES pages of
 "apartments for rent, 2 bedrooms" (30 cards a page, country-wide) to cache/opensooq/<country>/ and takes

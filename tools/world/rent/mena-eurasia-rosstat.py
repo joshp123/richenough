@@ -4,7 +4,7 @@
 # ///
 """Russia: Rosstat's average price of renting a two-room flat from a private person, by region.
 
-Written by AI on 2026.11.17 by model claude sonnet 5.5, for the Enough site.
+Written by AI on 2026.11.17 by model claude sonnet 5.5, for the Rich enough site.
 
 Source: Rosstat, "Средние потребительские цены на отдельные виды товаров и услуг по Российской
 Федерации, федеральным округам, субъектам Российской Федерации и обследуемым городам (в 2026 г.)",
