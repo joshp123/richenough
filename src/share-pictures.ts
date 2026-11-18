@@ -193,11 +193,6 @@ function keyCard(input: PictureInput, x: number, y: number, scale: number): { sv
   return { svg, box: [x, y, x + width + 48 * scale, y + 118 * scale] };
 }
 
-const verdictRuns = (input: PictureInput, capital: number): Run[] => {
-  const word = verdictOf(capital, haveUsDollars(input));
-  return [{ words: ' · ', weight: 400, colour: grey }, { words: word, weight: 700, colour: verdictInk[word] }];
-};
-
 export const pictureWidth = 1400, pictureHeight = 1600;
 export function pictureSvg(input: PictureInput): string {
   const margin = 64, right = pictureWidth - margin;
@@ -235,15 +230,18 @@ export function pictureSvg(input: PictureInput): string {
       rightColumn += text('needs', right - secondWidth - amountWidth - 18, middle + 22, 34, 400, grey, 'end');
       rightWidth = secondWidth + amountWidth + verbWidth;
     } else {
-      const { amount, side } = differenceWords(input, capital), colour = verdictInk[verdictOf(capital, haveUsDollars(input))];
-      const sideWidth = textWidth(` ${side}`, 36, 700), amountWidth = textWidth(amount, 68, 800, -0.035), needs = `needs ${money(input, capital)}`;
-      rightColumn += text(` ${side}`, right, middle + 6, 36, 700, colour, 'end') + text(amount, right - sideWidth, middle + 6, 68, 800, colour, 'end', -0.035);
+      // The verdict word stands before the amount, in the same colour: "NGMI  $0.2M short".
+      const word = verdictOf(capital, haveUsDollars(input)), colour = verdictInk[word], { amount, side } = differenceWords(input, capital);
+      const sideWidth = textWidth(` ${side}`, 36, 700), amountWidth = textWidth(amount, 68, 800, -0.035), wordWidth = textWidth(word, 36, 800) + 20;
+      const needs = `needs ${money(input, capital)}`;
+      rightColumn += text(` ${side}`, right, middle + 6, 36, 700, colour, 'end') + text(amount, right - sideWidth, middle + 6, 68, 800, colour, 'end', -0.035)
+        + text(word, right - sideWidth - amountWidth - 20, middle + 6, 36, 800, colour, 'end');
       rightColumn += text(needs, right, middle + 48, 28, 400, grey, 'end');
-      rightWidth = Math.max(sideWidth + amountWidth, textWidth(needs, 28, 400));
+      rightWidth = Math.max(wordWidth + sideWidth + amountWidth, textWidth(needs, 28, 400));
     }
     const nameLeft = margin + 140, { lines, size } = nameLines(nameOf(input.places, row.code), 52, right - rightWidth - 36 - nameLeft);
     const nameTop = lines.length === 1 ? middle + 34 : middle + 12;
-    svg += runs([{ words: row.role, weight: 400, colour: grey }, ...(capital === null || input.mode === 'need' ? [] : verdictRuns(input, capital))], nameLeft, lines.length === 1 ? middle - 20 : middle - 36, 28);
+    svg += text(row.role, nameLeft, lines.length === 1 ? middle - 20 : middle - 36, 28, 400, grey);
     lines.forEach((line, lineIndex) => { svg += text(line, nameLeft, nameTop + lineIndex * size * 1.05, size, 700, ink, 'start', -0.01); });
     svg += rightColumn;
   });

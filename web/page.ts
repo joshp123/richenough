@@ -257,9 +257,10 @@ function placeCell({ role, shortRole, code, picker, emptyWords = '' }: Cell): st
     const second = secondMoney(need);
     figure = `<i style="background:${fill(need)}"></i><span class="cell-verb">needs</span><b>${money(need)}</b>${second ? `<small>(${second})</small>` : ''}`;
   } else if (code && need !== null) {
-    const word = verdict(need);
-    roleWords += ` · ${verdictWord(word)}`;
-    figure = `<i style="background:${verdictInk[word]}"></i><b style="color:${verdictInk[word]}">${differenceWords(need)}</b><small>needs ${money(need)}</small>`;
+    // The verdict word stands before the amount, as on the share picture: "NGMI $2.4M short".
+    const word = verdict(need), colour = verdictInk[word];
+    const amount = formatDifference((haveUsDollars() - need) * perUsDollar(mainCurrency()), mainCurrency());
+    figure = `<i style="background:${colour}"></i><b class="cell-word" style="color:${colour}">${word}</b><b style="color:${colour}">${amount}<span class="cell-side"> ${verdictSide(word)}</span></b><small>needs ${money(need)}</small>`;
   }
   return `<div class="cell"><div class="cell-role">${roleWords}</div>${nameButton}<div class="cell-figure">${figure}</div></div>`;
 }
@@ -335,7 +336,7 @@ function renderDetails(): void {
   const comparison = visitorNeed === null ? '' : `${money(Math.abs(need - visitorNeed))} ${need < visitorNeed ? 'less' : 'more'} than ${escapeHtml(nameOf(places, state.visitor!))}.`;
   const word = verdict(need);
   const verdictLine = state.mode === 'have'
-    ? `<p class="details-verdict">${verdictWord(word)} · ${differenceWords(need)} with ${formatWhole(state.have, mainCurrency())}.${comparison ? ` ${comparison}` : ''}</p>`
+    ? `<p class="details-verdict">${verdictWord(word)} <b style="color:${verdictInk[word]}">${differenceWords(need)}</b> with ${formatWhole(state.have, mainCurrency())}.${comparison ? ` ${comparison}` : ''}</p>`
     : comparison ? `<p class="details-verdict">${comparison}</p>` : '';
   const country = countryOf(places, code), countryWords = countryInSentence(places, country).replace(/^the /, 'The ');
   const tax = taxWords(figure.tax, need, figure.withdrawalUsDollarsPerYear, countryWords, country === 'US', roundedMoney);
