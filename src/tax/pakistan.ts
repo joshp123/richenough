@@ -13,14 +13,8 @@ const superTaxRates: TaxBand[] = [
 
 registerTaxRules('PK', {
   currency: 'PKR',
-  hasSpecialRegime: true,
-  taxOwed: ({ withdrawalLocal }, regime) => {
-    if (regime === 'special') return {
-      taxLocal: 0,
-      regimeName: 'Returning Pakistani citizens',
-      explanation: 'Section 51 exempts foreign gains in the year a Pakistani citizen returns and the following year if they were non-resident for the previous four tax years.',
-      sourceIds: ['tax-pk-ito'],
-    };
+  hasSpecialRegime: false,
+  taxOwed: ({ withdrawalLocal }) => {
     const gainPerSpouse = withdrawalLocal / 2;
     const incomeTax = progressiveTax(gainPerSpouse, bands);
     const surcharge = gainPerSpouse > 10_000_000 ? incomeTax * 0.1 : 0;
@@ -28,7 +22,7 @@ registerTaxRules('PK', {
     return {
       taxLocal: 2 * (incomeTax + surcharge + gainPerSpouse * superTaxRate),
       regimeName: 'Standard',
-      explanation: 'The couple sells shares in an offshore ETF company on a foreign exchange outside Pakistan’s clearing system. Section 37 applies the ordinary bands to each spouse’s gains. Surcharges apply above PKR 10 million and PKR 150 million per spouse.',
+      explanation: 'The couple sells shares in an offshore ETF company on a foreign exchange outside Pakistan’s clearing system. Section 37 applies the ordinary bands to each spouse’s gains. Surcharges apply above PKR 10 million and PKR 150 million per spouse. Section 51 exempts foreign gains for qualifying returning Pakistani citizens in the year of return and the following tax year.',
       sourceIds: ['tax-pk-ito'],
     };
   },

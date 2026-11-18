@@ -1,4 +1,4 @@
-import { registerTaxRules } from './tax-rules.ts';
+import { registerStandardTax } from './calculation.ts';
 
 // Tax year 2026/27, Income-tax Act 2025 as amended by the Finance Act 2026.
 function capitalGainsTax(gain: number): number {
@@ -13,18 +13,9 @@ function capitalGainsTax(gain: number): number {
   return 1.04 * withSurcharge;
 }
 
-registerTaxRules('IN', {
-  currency: 'INR',
-  hasSpecialRegime: true,
-  taxOwed: ({ withdrawalLocal }, regime) => regime === 'special' ? {
-    taxLocal: 0,
-    regimeName: 'Resident but not ordinarily resident',
-    explanation: 'Qualifying newcomers can exclude foreign passive gains when the proceeds are first received abroad. Both spouses need to meet the residence history test. The relief ends after they become ordinarily resident.',
-    sourceIds: ['tax-in-act'],
-  } : {
-    taxLocal: 2 * capitalGainsTax(withdrawalLocal / 2),
-    regimeName: 'Standard',
-    explanation: 'India taxes the gain on an equity fund held overseas for more than 24 months at 12.5%, plus surcharge where applicable and a 4% cess. Each resident spouse uses a ₹400,000 basic exemption.',
-    sourceIds: ['tax-in-act', 'tax-in-gains'],
-  },
-});
+registerStandardTax(
+  'IN', 'INR',
+  'India taxes gains on offshore fund units held over 24 months at 12.5%, plus surcharge where applicable and a 4% cess. Each spouse uses a ₹400,000 basic exemption. Resident but Not Ordinarily Resident status can exempt gains received abroad, normally for two to four tax years after a full-time move, depending on the days and years already spent in India.',
+  ['tax-in-act', 'tax-in-gains', 'tax-in-residential-status'],
+  ({ withdrawalLocal }) => 2 * capitalGainsTax(withdrawalLocal / 2),
+);

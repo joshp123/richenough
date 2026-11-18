@@ -7,7 +7,7 @@ registerTaxRules('HU', {
   taxOwed: ({ withdrawalLocal }, regime) => regime === 'special' ? {
     taxLocal: 0,
     regimeName: 'Mature long-term investment accounts',
-    explanation: 'Gains from investments in qualifying TBSZ accounts are exempt after five full years. This estimates the tax once accounts mature. The couple must fund the intervening years and may owe tax when selling existing holdings to fund the accounts.',
+    explanation: 'Gains from investments in qualifying TBSZ accounts are exempt after five full years. The couple can open successive accounts and keep the exemption as each matures. The couple must fund the intervening years and may owe tax when selling existing holdings to fund the accounts.',
     sourceIds: ['tax-hu-tbsz', 'tax-hu-tbsz-etfs'],
   } : {
     taxLocal: withdrawalLocal * 0.15,

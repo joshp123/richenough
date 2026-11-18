@@ -104,3 +104,39 @@ for (const [code, exchangeRate, expected, tolerance] of cases) {
 }
 
 console.log(`Passed ${cases.length * 3} tax comparisons in local currency`);
+
+// Short newcomer breaks must give the same bill even when the map's special setting is selected.
+const shortBreaks = [
+  ['CL', /three years/],
+  ['DO', /third tax year/],
+  ['GB', /four UK tax years/],
+  ['IN', /two to four tax years/],
+  ['KR', /five years/],
+  ['NZ', /four years/],
+  ['PK', /following tax year/],
+  ['TZ', /two years/],
+] as const;
+const year = { withdrawalLocal: 100_000_000, capitalAtStartOfYearLocal: 2_000_000_000 };
+
+for (const [code, duration] of shortBreaks) {
+  const rules = taxRulesFor([code]);
+  assert(rules, code);
+  assert.equal(rules.hasSpecialRegime, false, code);
+  const ordinary = rules.taxOwed(year, 'standard');
+  assert.deepEqual(rules.taxOwed(year, 'special'), ordinary, code);
+  assert.match(ordinary.explanation, duration, code);
+}
+
+// The special bill includes mandatory recurring costs for both spouses.
+for (const [code, withdrawalLocal, expectedTax] of [
+  ['IT', 2_000_000, 350_000],
+  ['SM', 250_000, 20_000],
+  ['UY', 2_400_000, 747.12638],
+] as const) {
+  const rules = taxRulesFor([code]);
+  assert(rules?.hasSpecialRegime, code);
+  const result = rules.taxOwed({ withdrawalLocal, capitalAtStartOfYearLocal: withdrawalLocal * 20 }, 'special');
+  assert(Math.abs(result.taxLocal - expectedTax) < 0.01, code);
+}
+
+console.log(`Passed ${shortBreaks.length} short-break checks and 3 recurring-cost checks`);

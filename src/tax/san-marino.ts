@@ -11,8 +11,8 @@ registerTaxRules('SM', {
       return {
         taxLocal: atypicalTax,
         regimeName: 'Atypical residence',
-        explanation: 'Approved first-time residents with foreign income can pay 7% on foreign gains for up to 15 years. Each spouse pays between €10,000 and €100,000 a year. Applicants need local housing, their own health cover and sufficient resources.',
-        sourceIds: ['tax-sm-atypical', 'tax-sm-atypical-2026', 'tax-sm-irg'],
+        explanation: 'Approved first-time residents with foreign income can pay 7% on foreign gains for up to 15 years. Each spouse pays between €10,000 and €100,000 a year. Applicants can rent locally and must have their own health cover and sufficient resources. The €1,000 application fee is one-off.',
+        sourceIds: ['tax-sm-atypical', 'tax-sm-atypical-2026', 'tax-sm-atypical-application', 'tax-sm-irg'],
       };
     }
     return {

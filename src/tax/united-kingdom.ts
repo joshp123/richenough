@@ -4,17 +4,8 @@ import { registerTaxRules } from './tax-rules.ts';
 // 2026/27. Half the portfolio per spouse in a foreign fund with HMRC reporting status.
 registerTaxRules('GB', {
   currency: 'GBP',
-  hasSpecialRegime: true,
-  taxOwed: ({ withdrawalLocal, capitalAtStartOfYearLocal }, regime) => {
-    if (regime === 'special') {
-      return {
-        taxLocal: 0,
-        regimeName: 'Foreign income and gains (first four tax years)',
-        explanation: 'Both spouses claim relief on their foreign ETF gains and income. Each needs ten prior consecutive non-resident tax years. Relief ends after four UK tax years.',
-        sourceIds: ['tax-gb-fig'],
-      };
-    }
-
+  hasSpecialRegime: false,
+  taxOwed: ({ withdrawalLocal, capitalAtStartOfYearLocal }) => {
     const dividends = fundDividendYield * capitalAtStartOfYearLocal / 2;
     const personalAllowance = Math.max(0, 12_570 - Math.max(0, dividends - 100_000) / 2);
     const taxableIncome = Math.max(0, dividends - personalAllowance);
@@ -28,8 +19,8 @@ registerTaxRules('GB', {
     return {
       taxLocal: 2 * (dividendTax + 0.18 * basicGain + 0.24 * (gain - basicGain)),
       regimeName: 'Standard',
-      explanation: 'HMRC taxes ETF sale gains at 18% or 24% after each spouse’s £3,000 gains allowance. The estimate also taxes reportable fund income as dividends using an illustrative 1.5% yield and adjusts sale gains for income already taxed.',
-      sourceIds: ['tax-gb-gains', 'tax-gb-examples', 'tax-gb-income', 'tax-gb-fund', 'tax-fund-vanguard'],
+      explanation: 'HMRC taxes ETF sale gains at 18% or 24% after each spouse’s £3,000 gains allowance. The estimate also taxes reportable fund income as dividends using an illustrative 1.5% yield and adjusts sale gains for income already taxed. The Foreign Income and Gains regime can cover the first four UK tax years after ten consecutive years abroad.',
+      sourceIds: ['tax-gb-gains', 'tax-gb-examples', 'tax-gb-income', 'tax-gb-fund', 'tax-fund-vanguard', 'tax-gb-fig'],
     };
   },
 });

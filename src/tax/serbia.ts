@@ -6,13 +6,13 @@ registerTaxRules("RS", {
   hasSpecialRegime: true,
   taxOwed: ({ withdrawalLocal }, regime) => regime === 'special' ? {
     taxLocal: 0,
-    regimeName: "Securities held over ten years",
-    explanation: "A resident can exempt gains on qualifying securities held for more than ten consecutive years. The scenario assumes the couple has held the units long enough or sells units in acquisition order.",
-    sourceIds: ["tax-rs-gains"],
+    regimeName: "Shares held for at least ten years",
+    explanation: "A resident can exempt gains on qualifying shares held for at least ten consecutive years. The estimate assumes that the couple sells shares in a foreign corporate ETF that qualify as securities and meet the holding period.",
+    sourceIds: ["tax-rs-gains","tax-rs-gains-holding"],
   } : {
     taxLocal: 0.15 * withdrawalLocal,
     regimeName: 'Standard',
-    explanation: "Serbia taxes gains on listed securities at 15%. The estimate uses an exchange-listed foreign fund treated as a security under the ten-year exemption.",
+    explanation: "Serbia taxes gains on listed securities at 15%.",
     sourceIds: ["tax-rs-gains"],
   },
 });

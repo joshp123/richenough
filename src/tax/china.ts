@@ -7,8 +7,8 @@ registerTaxRules("CN", {
   taxOwed: ({ withdrawalLocal }, regime) => regime === 'special' ? {
     taxLocal: 0,
     regimeName: "Six-year foreign income rule",
-    explanation: "Residents without Chinese domicile can exempt foreign income paid by an overseas entity or person before the six-year test is met. A single absence of more than 30 consecutive days restarts the count. Both spouses must qualify.",
-    sourceIds: ["tax-cn-iit","tax-cn-six"],
+    explanation: "Both spouses must remain non-domiciled and receive the foreign income from an overseas payer. They can keep the exemption by taking a trip outside mainland China of more than 30 consecutive days before each six-year period ends, while maintaining tax residence in China.",
+    sourceIds: ["tax-cn-iit","tax-cn-six","tax-cn-six-reset"],
   } : {
     taxLocal: 0.20 * withdrawalLocal,
     regimeName: 'Standard',

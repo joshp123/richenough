@@ -360,25 +360,16 @@ for (const fips of ['19007', '19029', '19151', '19161', '19165', '19189']) {
 
 registerTaxRules('US-PR', {
   currency: 'USD',
-  hasSpecialRegime: true,
-  taxOwed: ({ withdrawalLocal }, regime) => {
+  hasSpecialRegime: false,
+  taxOwed: ({ withdrawalLocal }) => {
     const gain = Math.max(0, withdrawalLocal);
-    if (regime === 'special') {
-      return {
-        taxLocal: 0,
-        regimeName: 'Act 60 resident investor, 2026 application',
-        explanation: 'Models a qualifying application through 2026 and a 0% decree through 2035. The optional extension through 2055 and new applications from 2027 carry a 4% rate. Primary home ownership, annual donations and fees also apply.',
-        sourceIds: ['tax-us-pr-act60', 'tax-us-pr-irs'],
-      };
-    }
-
     const taxable = excess(gain, 7_000);
     const regular = progressiveTax(taxable, [[9_000, .07], [25_000, .14], [41_500, .25], [61_500, .33]]);
     return {
       taxLocal: Math.min(regular * (gain <= 100_000 ? .92 : .95), .15 * taxable),
       regimeName: 'Standard',
-      explanation: 'Puerto Rico taxes qualifying long-term gains at up to 15%. The estimate assumes bona fide residence and appreciation arising after the move.',
-      sourceIds: ['tax-us-pr-treasury', 'tax-us-pr-irs'],
+      explanation: 'Puerto Rico taxes qualifying long-term gains at up to 15%. The estimate assumes bona fide residence and appreciation arising after the move. Act 60’s 0% decree ends in 2035. The 4% decree through 2055 requires buying and keeping a primary home, at least $10,000 in annual donations and a $5,000 annual report fee. This estimate uses a rental budget.',
+      sourceIds: ['tax-us-pr-treasury', 'tax-us-pr-irs', 'tax-us-pr-act60', 'tax-us-pr-incentives-code'],
     };
   },
 });

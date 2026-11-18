@@ -11,9 +11,9 @@ const rules: TaxRules = {
     if (regime === 'special') {
       return {
         taxLocal: 0,
-        regimeName: 'Temporary resident',
-        explanation: 'Qualifying temporary visa holders generally owe no Australian tax on gains from a foreign ETF. Neither spouse can be an Australian citizen, permanent resident or protected New Zealand visa holder. The relief ends when temporary-resident status ends.',
-        sourceIds: ['tax-au-temporary'],
+        regimeName: 'Temporary residents on New Zealand special category visas',
+        explanation: 'Qualifying Australian temporary residents generally owe no Australian tax on gains from a foreign ETF. This estimate assumes both spouses are New Zealand citizens with non-protected Special Category visas (subclass 444), which allow an indefinite stay and are available again on each entry if they remain eligible. The exemption ends if either spouse becomes an Australian permanent resident or citizen.',
+        sourceIds: ['tax-au-temporary', 'tax-au-444'],
       };
     }
     const taxable = withdrawalLocal / 4;

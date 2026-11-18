@@ -10,7 +10,6 @@ const federal = [0, 0, .15 * (250_000 - 32_200 - 98_900)];
 function check(label: string, codes: string[], expected: number[], regime: TaxRegime = 'standard'): void {
   const rules = taxRulesFor(codes);
   assert.ok(rules, label);
-  if (regime === 'special') assert.equal(rules.hasSpecialRegime, true, label);
   withdrawals.forEach((withdrawalLocal, i) => {
     const result = rules.taxOwed({ withdrawalLocal, capitalAtStartOfYearLocal: 20 * withdrawalLocal }, regime);
     assert.ok(Math.abs(result.taxLocal - expected[i]) <= 1,
@@ -53,13 +52,19 @@ check('Portland, Multnomah', ['CITY-5746545', 'US-41051', 'US-OR'], [
 ]);
 
 // San Juan Form 482 Schedule A2. Use the lesser of the 15% and ordinary computations.
-check('San Juan', ['US-72127', 'US-PR'], [
-  .92 * (3_430 + .25 * (53_000 - 41_500)), .15 * 113_000, .15 * 243_000,
-]);
-check('San Juan, Act 60 2026 decree', ['US-72127', 'US-PR'], [0, 0, 0], 'special');
+const sanJuan = ['US-72127', 'US-PR'];
+const puertoRico = taxRulesFor(sanJuan)!;
+assert.equal(puertoRico.hasSpecialRegime, false);
+const puertoRicoTax = [.92 * (3_430 + .25 * (53_000 - 41_500)), .15 * 113_000, .15 * 243_000];
+check('San Juan', sanJuan, puertoRicoTax);
+check('San Juan with the special setting selected', sanJuan, puertoRicoTax, 'special');
+assert.match(
+  puertoRico.taxOwed({ withdrawalLocal: 60_000, capitalAtStartOfYearLocal: 1_200_000 }, 'standard').explanation,
+  /Act 60’s 0% decree ends in 2035/,
+);
 
 const seattle = taxRulesFor(['US-53033', 'US-WA'])!;
 const gain = 1_400_000;
 assert.equal(seattle.taxOwed({ withdrawalLocal: gain, capitalAtStartOfYearLocal: 20 * gain }, 'standard').taxLocal,
   77_220 + 150_820 + 43_700 + 70_000 + 10_890);
-console.log('25 tax checks passed across seven places, including the Washington surcharge and Puerto Rico special regime.');
+console.log('25 tax checks passed across seven places, including the Washington surcharge and Puerto Rico in both tax settings.');
