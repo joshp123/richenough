@@ -171,7 +171,7 @@ export function aboutPage(places: Places, stylesPath: string): string {
 <p>These are all the sources behind the figures, by what they price. Each licence is as its publisher states it.</p>
 <div class="about-sources">${groups}</div>
 
-<p class="about-credit">${escapeHtml(madeBy[0].toUpperCase() + madeBy.slice(1))}. Figures as of ${new Date(`${snapshot.builtOn}T12:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}. The site’s code is free to reuse under the MIT licence.</p>
+<p class="about-credit">${escapeHtml(madeBy[0].toUpperCase() + madeBy.slice(1))}. Figures as of ${new Date(`${snapshot.builtOn}T12:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}. <a href="https://github.com/joshp123/richenough">The site’s code</a> is free to reuse under the MIT licence.</p>
 </main>
 </body>
 </html>`;
