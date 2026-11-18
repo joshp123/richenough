@@ -87,6 +87,10 @@ const cases = [
   ['CU', 24, [659_880, 1_379_880, 2_939_880], 1],
   ['SY', 110, [0, 0, 0], 0],
   ['NE', 560, [2_352_000, 4_704_000, 9_800_000], 1],
+  // The BES return lists gains from selling substantial interests, which this couple does not hold.
+  ['BQ', 1, [0, 0, 0], 0],
+  // Svalbard's annual resolution: 16% of uplifted gains after two allowances, plus wealth tax.
+  ['SJ', 10, [158_720 + 58_000, 323_840 + 154_000, 681_600 + 362_000], 1],
 ] as const;
 
 for (const [code, exchangeRate, expected, tolerance] of cases) {
@@ -114,6 +118,7 @@ const shortBreaks = [
   ['KR', /five years/],
   ['NZ', /four years/],
   ['PK', /following tax year/],
+  ['SJ', /five years/],
   ['TZ', /two years/],
 ] as const;
 const year = { withdrawalLocal: 100_000_000, capitalAtStartOfYearLocal: 2_000_000_000 };
