@@ -110,7 +110,7 @@ const mapView = createMapView(element('map'), {
     tooltip.style.transform = `translate(${Math.min(clientX + 14, innerWidth - tooltip.offsetWidth - 8)}px, ${clientY + 16}px)`;
   },
 });
-mapView.setGeometry(geometry);
+mapView.setGeometry(geometry, 'coarse');
 
 // The map's sea and lines follow the page's light or dark colours.
 function themeTheMap(): void {
@@ -195,7 +195,9 @@ element('currency-button').addEventListener('click', event => {
   closeMenus();
   if (!wasHidden) return;
   const currencies = [...new Set(['USD', visitorCurrency, ...widelyHeldCurrencies])].filter(currency => Number.isFinite(perUsDollar(currency)));
-  menu.innerHTML = currencies.map(currency => `<button type="button" role="menuitemradio" aria-checked="${currency === mainCurrency()}" data-currency="${currency}"><span>${escapeHtml(currencyName(currency))}</span><small>${currency}</small></button>`).join('');
+  // A phone's bar has no room for the tax switch, so on a phone it is the last row of this menu.
+  menu.innerHTML = currencies.map(currency => `<button type="button" role="menuitemradio" aria-checked="${currency === mainCurrency()}" data-currency="${currency}"><span>${escapeHtml(currencyName(currency))}</span><small>${currency}</small></button>`).join('')
+    + `<div class="menu-tax segmented" role="group" aria-label="Tax">${(['standard', 'special'] as const).map(regime => `<button type="button" data-regime="${regime}" aria-pressed="${state.settings.regime === regime}">${regime === 'standard' ? 'Normal tax' : 'Newcomer tax break'}</button>`).join('')}</div>`;
   const box = (event.currentTarget as HTMLElement).getBoundingClientRect();
   menu.style.top = `${box.bottom + 6}px`;
   menu.style.left = `${Math.max(8, Math.min(innerWidth - 8 - 260, box.right - 260))}px`;
@@ -215,14 +217,16 @@ document.addEventListener('pointerdown', event => { if (!(event.target as HTMLEl
 
 // ---- The key: the dollar scale, or the three verdicts.
 function renderKey(): void {
+  // On a phone, whose bar has no tax switch, the key says when the tax break is on.
+  const taxBreak = state.settings.regime === 'special' ? '<div class="key-tax">With the newcomer tax break</div>' : '';
   if (state.mode === 'need') {
-    element('key').innerHTML = `<div class="key-title">$1M is enough</div>
+    element('key').innerHTML = `${taxBreak}<div class="key-title">$1M is enough</div>
       <div class="key-row"><div class="key-steps">${stepColours.map(colour => `<i style="background:${colour}"></i>`).join('')}</div>
       <span class="key-none"><i style="background:var(--no-figure)"></i>No figure</span></div>
       <div class="key-ticks">${stepEnds.map(end => `<span class="${end === 1e6 ? 'key-turn' : ''} ${[0.75e6, 1.25e6, 1.5e6, 2.5e6].includes(end) ? 'key-minor' : ''}">$${end / 1e6}M</span>`).join('')}</div>`;
     return;
   }
-  element('key').innerHTML = `<div class="key-verdicts"><b class="key-have">With ${formatShort(state.have, mainCurrency())}</b>
+  element('key').innerHTML = `${taxBreak}<div class="key-verdicts"><b class="key-have">With ${formatShort(state.have, mainCurrency())}</b>
     <span><i style="background:${verdictFill.WAGMI}"></i>${verdictWord('WAGMI')}<span class="key-words"> enough</span></span>
     <span><i style="background:${verdictFill.Close}"></i><span>Close<span class="key-words">, up to a quarter short</span></span></span>
     <span><i style="background:${verdictFill.NGMI}"></i>${verdictWord('NGMI')}<span class="key-words"> not enough</span></span>
@@ -346,8 +350,8 @@ function renderDetails(): void {
     + `<li class="tax-row"><i></i><div><b>Tax, ${taxShare}% of what you sell</b><small>${escapeHtml(nameOf(places, country))} · ${taxSource}</small></div><span>${roundedMoney(taxMonthly)}</span></li>`;
   const otherRegime: Settings = { ...state.settings, regime: state.settings.regime === 'standard' ? 'special' : 'standard' };
   const otherNeed = figure.tax.hasSpecialRegime ? needOf(code, otherRegime) : null;
-  const otherRow = otherNeed === null || Math.abs(otherNeed - need) < 5e3 ? '' : `<div class="details-other"><span>${otherRegime.regime === 'special' ? 'With the newcomer tax break' : 'With normal tax'}</span>
-    <span><b>${money(otherNeed)}</b><small>${money(Math.abs(otherNeed - need))} ${otherNeed < need ? 'less' : 'more'}</small></span></div>`;
+  const otherRow = otherNeed === null || Math.abs(otherNeed - need) < 5e3 ? '' : `<button type="button" class="details-other" data-regime="${otherRegime.regime}"><span>${otherRegime.regime === 'special' ? 'With the newcomer tax break' : 'With normal tax'}</span>
+    <span><b>${money(otherNeed)}</b><small>${money(Math.abs(otherNeed - need))} ${otherNeed < need ? 'less' : 'more'}</small></span></button>`;
   panel.innerHTML = `${head}
     <div class="details-figure"><b class="details-capital">${money(need)}</b>${second ? `<span class="details-local">(${second})</span>` : ''}</div>${verdictLine}
     <p class="details-sentence">${sentence}</p>
@@ -529,7 +533,7 @@ fetch(DATA_PATHS.fineShapes).then(response => response.arrayBuffer()).then(bytes
   const fine = readMapGeometry(new Uint8Array(bytes));
   if (fine.shapeCodes.join() !== geometry.shapeCodes.join()) throw new Error('The detailed map has different places');
   geometry = fine;
-  mapView.setGeometry(fine);
+  mapView.setGeometry(fine, 'fine');
   update();
 });
 

@@ -44,8 +44,13 @@ async function photograph(page: Page, name: string): Promise<void> {
   for (const problem of found) problems.push(`${name}: ${problem}`);
 }
 
-// How long the map takes to draw while it moves: frames during sixty small zoom and pan steps.
-async function frameTimes(page: Page): Promise<string> {
+// How long the map takes to draw while it moves: frames during sixty small zoom and pan steps, after the pointer arrives on the map
+// as a visitor's does before they scroll, or a finger lands as it does before it drags.
+async function frameTimes(page: Page, size: keyof typeof sizes): Promise<string> {
+  const { width, height } = sizes[size];
+  if (size === 'phone') await page.evaluate(([x, y]) => document.querySelector('.map-labels')!.dispatchEvent(new PointerEvent('pointerdown', { pointerType: 'touch', clientX: x, clientY: y, bubbles: true })), [width / 2, height / 2]);
+  else await page.mouse.move(width / 2, height / 2);
+  await page.waitForTimeout(100);
   return page.evaluate(async () => {
     const view = (window as unknown as { enough: { mapView: { zoomBy(factor: number): unknown } } }).enough.mapView;
     const canvas = document.querySelector('.map-labels')!, box = canvas.getBoundingClientRect(), gaps: number[] = [];
@@ -61,6 +66,13 @@ async function frameTimes(page: Page): Promise<string> {
   });
 }
 
+// Josh's rule: the map is the product. At phone size it must keep at least 560 of the screen's 844 px between the bar and the strip.
+async function phoneMapHeight(page: Page, photo: string): Promise<void> {
+  const height = await page.evaluate(() => document.getElementById('strip')!.getBoundingClientRect().top - document.querySelector('.bar')!.getBoundingClientRect().bottom);
+  console.log(`${photo}: ${Math.round(height)} px of map between the bar and the strip`);
+  if (height < 560) problems.push(`${photo}: only ${Math.round(height)} px of map between the bar and the strip; the least is 560`);
+}
+
 const openAt = async (page: Page, path: string) => {
   await page.goto(siteAddress + path);
   await page.waitForFunction(() => document.body.classList.contains('is-ready'));
@@ -71,13 +83,15 @@ for (const size of ['laptop', 'phone', 'wide'] as const) {
   for (const colorScheme of ['light', 'dark'] as const) {
     const name = `${size}-${colorScheme}`, page = await openPage(size, colorScheme);
     await photograph(page, `${name}-01-first-load`);
+    if (size === 'phone') await phoneMapHeight(page, `${name}-01-first-load`);
     if (size === 'wide') { await page.close(); continue; }
-    if (colorScheme === 'light') console.log(`${size}: ${await frameTimes(page)}`);
+    if (colorScheme === 'light') console.log(`${size}: ${await frameTimes(page, size)}`);
 
     // The second mode, from the first load: the map must not move.
     await page.getByRole('button', { name: 'Am I gonna make it?' }).click();
     await page.waitForTimeout(400);
     await photograph(page, `${name}-02-am-i-gonna-make-it`);
+    if (size === 'phone') await phoneMapHeight(page, `${name}-02-am-i-gonna-make-it`);
     await page.locator('#have-slider').fill('0.7');
     await page.waitForTimeout(300);
     await photograph(page, `${name}-03-have-two-and-a-half-million`);

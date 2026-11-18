@@ -57,6 +57,43 @@ function segmentsOf(lines: Float32Array[]): Float32Array {
   return segments;
 }
 
+// Fills and lines are cut into a grid of buckets over the map, each with the box round what it holds, so a frame draws only the
+// buckets in view: zoomed in on a region, a small share of the world's points.
+const bucketColumns = 32, bucketRows = 32;
+type Bucket = { start: number; count: number; box: [west: number, north: number, east: number, south: number] };
+function bucketOf(x: number, y: number): number {
+  const column = Math.min(bucketColumns - 1, Math.max(0, Math.floor(x * bucketColumns)));
+  const row = Math.min(bucketRows - 1, Math.max(0, Math.floor(y / projection.worldHeight * bucketRows)));
+  return row * bucketColumns + column;
+}
+// Items sorted by bucket, given each item's bucket and box: the new order and the buckets.
+function sortIntoBuckets(itemCount: number, bucketOfItem: (item: number) => number, boxOfItem: (item: number, box: number[]) => void): { order: Uint32Array; buckets: Bucket[] } {
+  const buckets: Bucket[] = Array.from({ length: bucketColumns * bucketRows }, () => ({ start: 0, count: 0, box: [Infinity, Infinity, -Infinity, -Infinity] }));
+  const itemBuckets = new Uint16Array(itemCount), box = [0, 0, 0, 0];
+  for (let item = 0; item < itemCount; item++) {
+    const bucket = buckets[itemBuckets[item] = bucketOfItem(item)];
+    bucket.count++;
+    boxOfItem(item, box);
+    if (box[0] < bucket.box[0]) bucket.box[0] = box[0]; if (box[1] < bucket.box[1]) bucket.box[1] = box[1];
+    if (box[2] > bucket.box[2]) bucket.box[2] = box[2]; if (box[3] > bucket.box[3]) bucket.box[3] = box[3];
+  }
+  let start = 0;
+  for (const bucket of buckets) { bucket.start = start; start += bucket.count; }
+  const next = buckets.map(bucket => bucket.start), order = new Uint32Array(itemCount);
+  for (let item = 0; item < itemCount; item++) order[next[itemBuckets[item]]++] = item;
+  return { order, buckets };
+}
+// The runs of buckets whose boxes meet the view, merged where they lie next to each other in memory.
+function visibleRuns(buckets: Bucket[], view: [number, number, number, number]): [start: number, count: number][] {
+  const runs: [number, number][] = [];
+  for (const bucket of buckets) {
+    if (!bucket.count || bucket.box[2] < view[0] || bucket.box[0] > view[2] || bucket.box[3] < view[1] || bucket.box[1] > view[3]) continue;
+    const last = runs[runs.length - 1];
+    if (last && last[0] + last[1] === bucket.start) last[1] += bucket.count; else runs.push([bucket.start, bucket.count]);
+  }
+  return runs;
+}
+
 export function createMapView(container: HTMLElement, events: { placeAt(x: number, y: number, shape: number, labelCode: string | null): void; moved(): void; hovered(shape: number, labelCode: string | null, clientX: number, clientY: number): void }) {
   container.innerHTML = '<canvas class="map-shapes"></canvas><canvas class="map-labels" role="img" aria-label="Map"></canvas>';
   const shapeCanvas = container.querySelector<HTMLCanvasElement>('.map-shapes')!, labelCanvas = container.querySelector<HTMLCanvasElement>('.map-labels')!;
@@ -75,34 +112,50 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
     const uniforms = new Proxy({} as Record<string, WebGLUniformLocation | null>, { get: (cache, name: string) => (cache[name] ??= gl.getUniformLocation(program, name)) });
     return { program, uniforms };
   };
-  const fill = compile(fillVertex, fillFragment), line = compile(lineVertex, lineFragment);
+  const fill = compile(fillVertex, fillFragment), line = compile(lineVertex, lineFragment), segmentAttribute = gl.getAttribLocation(line.program, 'segment');
 
   let theme: MapTheme = { sea: [0.914, 0.933, 0.953], line: [1, 1, 1], ink: [0.063, 0.082, 0.11], isDark: false };
+  // Two levels of detail on the graphics card: the coarse one is drawn when zoomed out, where its simplification is under a pixel,
+  // and the fine one closer in. Clicks and the opened place's outline always use the finest level loaded.
+  type Drawable = { fillVao: WebGLVertexArrayObject; fillBuckets: Bucket[]; lines: Map<LineKind, LineDrawable> };
+  const levelsOfDetail: { coarse?: Drawable; fine?: Drawable } = {};
+  const fineFromZoom = 4;
   let geometry: MapGeometry | null = null;
-  let fillVao: WebGLVertexArrayObject | null = null, fillIndexCount = 0;
-  const lineVaos = new Map<string, { vao: WebGLVertexArrayObject; count: number }>();
+  const lineVaos = new Map<string, LineDrawable>();
   const colourTexture = gl.createTexture();
   let colourBytes: Uint8Array = new Uint8Array(0);
 
-  function lineVao(segments: Float32Array) {
+  type LineDrawable = { vao: WebGLVertexArrayObject; buffer: WebGLBuffer; count: number; buckets: Bucket[] };
+  function lineVao(unsorted: Float32Array): LineDrawable {
+    const { order, buckets } = sortIntoBuckets(unsorted.length / 4,
+      item => bucketOf((unsorted[item * 4] + unsorted[item * 4 + 2]) / 2, (unsorted[item * 4 + 1] + unsorted[item * 4 + 3]) / 2),
+      (item, box) => {
+        const at = item * 4;
+        box[0] = Math.min(unsorted[at], unsorted[at + 2]); box[1] = Math.min(unsorted[at + 1], unsorted[at + 3]);
+        box[2] = Math.max(unsorted[at], unsorted[at + 2]); box[3] = Math.max(unsorted[at + 1], unsorted[at + 3]);
+      });
+    const segments = new Float32Array(unsorted.length);
+    order.forEach((item, index) => segments.set(unsorted.subarray(item * 4, item * 4 + 4), index * 4));
     const vao = gl.createVertexArray()!;
     gl.bindVertexArray(vao);
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0, -1, 1, -1, 1, 1, 0, -1, 1, 1, 0, 1]), gl.STATIC_DRAW);
     const corner = gl.getAttribLocation(line.program, 'corner');
     gl.enableVertexAttribArray(corner); gl.vertexAttribPointer(corner, 2, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    const buffer = gl.createBuffer()!;
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(gl.ARRAY_BUFFER, segments, gl.STATIC_DRAW);
     const segment = gl.getAttribLocation(line.program, 'segment');
     gl.enableVertexAttribArray(segment); gl.vertexAttribPointer(segment, 4, gl.FLOAT, false, 0, 0); gl.vertexAttribDivisor(segment, 1);
     gl.bindVertexArray(null);
-    return { vao, count: segments.length / 4 };
+    return { vao, buffer, count: segments.length / 4, buckets };
   }
 
-  function setGeometry(next: MapGeometry): void {
+  function setGeometry(next: MapGeometry, detail: 'coarse' | 'fine'): void {
     if (next.projection !== projection.name) throw new Error(`The map file is in ${next.projection}, the page in ${projection.name}`);
-    geometry = next;
-    fillVao = gl.createVertexArray();
+    if (geometry && next.shapeCodes.length !== geometry.shapeCodes.length) throw new Error('The two levels of detail have different places');
+    if (detail === 'fine' || !geometry) geometry = next;
+    const fillVao = gl.createVertexArray()!;
     gl.bindVertexArray(fillVao);
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
     gl.bufferData(gl.ARRAY_BUFFER, next.points, gl.STATIC_DRAW);
@@ -112,11 +165,19 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
     gl.bufferData(gl.ARRAY_BUFFER, Float32Array.from(next.shapeOfPoint), gl.STATIC_DRAW);
     const shape = gl.getAttribLocation(fill.program, 'shape');
     gl.enableVertexAttribArray(shape); gl.vertexAttribPointer(shape, 1, gl.FLOAT, false, 0, 0);
+    const { points, triangleIndices } = next, corner = (triangle: number, which: number, axis: number) => points[triangleIndices[triangle * 3 + which] * 2 + axis];
+    const { order, buckets: fillBuckets } = sortIntoBuckets(triangleIndices.length / 3,
+      triangle => bucketOf((corner(triangle, 0, 0) + corner(triangle, 1, 0) + corner(triangle, 2, 0)) / 3, (corner(triangle, 0, 1) + corner(triangle, 1, 1) + corner(triangle, 2, 1)) / 3),
+      (triangle, box) => {
+        box[0] = Math.min(corner(triangle, 0, 0), corner(triangle, 1, 0), corner(triangle, 2, 0)); box[1] = Math.min(corner(triangle, 0, 1), corner(triangle, 1, 1), corner(triangle, 2, 1));
+        box[2] = Math.max(corner(triangle, 0, 0), corner(triangle, 1, 0), corner(triangle, 2, 0)); box[3] = Math.max(corner(triangle, 0, 1), corner(triangle, 1, 1), corner(triangle, 2, 1));
+      });
+    const sortedIndices = new Uint32Array(triangleIndices.length);
+    order.forEach((triangle, index) => sortedIndices.set(triangleIndices.subarray(triangle * 3, triangle * 3 + 3), index * 3));
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer());
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, next.triangleIndices, gl.STATIC_DRAW);
-    fillIndexCount = next.triangleIndices.length;
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, sortedIndices, gl.STATIC_DRAW);
     gl.bindVertexArray(null);
-    for (const kind of lineKinds) lineVaos.set(kind, lineVao(segmentsOf(next.lines[kind])));
+    levelsOfDetail[detail] = { fillVao, fillBuckets, lines: new Map(lineKinds.map(kind => [kind, lineVao(segmentsOf(next.lines[kind]))])) };
     setHighlightedShape(highlightedShape);
     draw();
   }
@@ -310,10 +371,12 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
       context.beginPath(); context.arc(dot[0], dot[1], dotRadius + 1.5, 0, Math.PI * 2); context.fillStyle = '#10151C'; context.fill();
       context.beginPath(); context.arc(dot[0], dot[1], dotRadius + 1, 0, Math.PI * 2); context.fillStyle = '#FFFFFF'; context.fill();
       context.beginPath(); context.arc(dot[0], dot[1], dotRadius - 0.5, 0, Math.PI * 2); context.fillStyle = label.colour; context.fill();
+      // The shadow is a second, slightly larger shape behind the label: a blurred canvas shadow made the first frame of each
+      // gesture take hundreds of milliseconds in Safari.
+      context.beginPath(); context.roundRect(box[0] - 0.5, box[1], box[2] - box[0] + 1, labelHeight + 1.5, 5.5);
+      context.fillStyle = '#10151C29'; context.fill();
       context.beginPath(); context.roundRect(box[0], box[1], box[2] - box[0], labelHeight, 5);
-      context.shadowColor = '#10151C33'; context.shadowBlur = 2; context.shadowOffsetY = 1;
       context.fillStyle = look.fill; context.fill();
-      context.shadowColor = 'transparent';
       if (isRinged) { context.lineWidth = 2; context.strokeStyle = theme.isDark ? '#EDF1F5' : '#10151C'; context.stroke(); }
       if (label.flag) {
         context.save(); context.beginPath(); context.roundRect(box[0] + labelPadLeft, box[1] + (labelHeight - flagHeight) / 2, flagWidth, flagHeight, 2); context.clip();
@@ -332,20 +395,23 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
   }
 
   // ---- Drawing, at most once a frame.
-  let frameRequested = false;
+  let frameRequested = false, drawnAt = 0;
   function draw(): void {
     if (frameRequested) return;
     frameRequested = true;
     requestAnimationFrame(() => {
-      frameRequested = false;
+      frameRequested = false; drawnAt = performance.now();
       const pixelRatio = shapeCanvas.width / size.width, scale = viewScale(), [tx, ty] = viewTranslate();
       gl.viewport(0, 0, shapeCanvas.width, shapeCanvas.height);
       gl.clearColor(theme.sea[0], theme.sea[1], theme.sea[2], 1); gl.clear(gl.COLOR_BUFFER_BIT);
-      if (geometry && fillVao && colourBytes.length) {
+      const detail = zoomLevel() >= fineFromZoom ? levelsOfDetail.fine ?? levelsOfDetail.coarse : levelsOfDetail.coarse ?? levelsOfDetail.fine;
+      if (detail && colourBytes.length) {
         gl.useProgram(fill.program);
         gl.uniform2f(fill.uniforms.scale, scale, scale); gl.uniform2f(fill.uniforms.translate, tx, ty); gl.uniform2f(fill.uniforms.viewport, size.width, size.height);
         gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, colourTexture); gl.uniform1i(fill.uniforms.colours, 0);
-        gl.bindVertexArray(fillVao); gl.drawElements(gl.TRIANGLES, fillIndexCount, gl.UNSIGNED_INT, 0);
+        const [west, north] = toMap(0, 0), [east, south] = toMap(size.width, size.height), view: [number, number, number, number] = [west, north, east, south];
+        gl.bindVertexArray(detail.fillVao);
+        for (const [start, count] of visibleRuns(detail.fillBuckets, view)) gl.drawElements(gl.TRIANGLES, count * 3, gl.UNSIGNED_INT, start * 12);
         gl.useProgram(line.program);
         gl.uniform2f(line.uniforms.scale, scale, scale); gl.uniform2f(line.uniforms.translate, tx, ty); gl.uniform2f(line.uniforms.viewport, size.width, size.height);
         gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -357,10 +423,14 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
           ['country', [lineRed, lineGreen, lineBlue, 1], 0.45], ['highlight', [inkRed, inkGreen, inkBlue, 1], 1],
         ];
         for (const [kind, colour, halfWidth] of styles) {
-          const vao = lineVaos.get(kind as LineKind | 'highlight');
+          const vao = kind === 'highlight' ? lineVaos.get(kind) : detail.lines.get(kind as LineKind);
           if (!vao || colour[3] <= 0) continue;
           gl.uniform4f(line.uniforms.lineColour, ...colour); gl.uniform1f(line.uniforms.halfWidth, halfWidth);
-          gl.bindVertexArray(vao.vao); gl.drawArraysInstanced(gl.TRIANGLES, 0, 6, vao.count);
+          gl.bindVertexArray(vao.vao); gl.bindBuffer(gl.ARRAY_BUFFER, vao.buffer);
+          for (const [start, count] of visibleRuns(vao.buckets, view)) {
+            gl.vertexAttribPointer(segmentAttribute, 4, gl.FLOAT, false, 0, start * 16);
+            gl.drawArraysInstanced(gl.TRIANGLES, 0, 6, count);
+          }
         }
         gl.disable(gl.BLEND); gl.bindVertexArray(null);
       }
@@ -380,7 +450,10 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
   }
   const shapeUnder = (screenX: number, screenY: number) => (geometry ? shapeAt(geometry, ...toMap(screenX, screenY)) : -1);
   let pressedAt: [number, number] | null = null;
-  labelCanvas.addEventListener('pointerdown', event => { pressedAt = [event.offsetX, event.offsetY]; });
+  // Safari lets the canvases of an idle page go cold, and the first frame drawn after that took 100 ms or more, so every gesture
+  // began with a stutter. Drawing once when a pointer moves over the idle map or a finger lands warms them before the map moves.
+  const warm = () => { if (performance.now() - drawnAt > 500) draw(); };
+  labelCanvas.addEventListener('pointerdown', event => { warm(); pressedAt = [event.offsetX, event.offsetY]; });
   labelCanvas.addEventListener('click', event => {
     if (pressedAt && Math.hypot(event.offsetX - pressedAt[0], event.offsetY - pressedAt[1]) > 6) return;
     const label = labelAt(event.offsetX, event.offsetY);
@@ -388,6 +461,7 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
     events.placeAt(x, y, shapeUnder(event.offsetX, event.offsetY), label?.code ?? null);
   });
   labelCanvas.addEventListener('pointermove', event => {
+    warm();
     if (event.pointerType === 'touch' || event.buttons) return;
     const label = labelAt(event.offsetX, event.offsetY);
     labelCanvas.style.cursor = label ? 'pointer' : 'grab';

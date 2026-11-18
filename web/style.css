@@ -71,6 +71,7 @@ svg { flex: none; }
 .menu button:hover { background: var(--well); }
 .menu button[aria-checked=true] { font-weight: 700; }
 .menu small { color: var(--grey); font-size: 13px; }
+.menu-tax, .key-tax { display: none; }
 
 /* The key */
 .key { position: fixed; z-index: 2; left: var(--edge); bottom: calc(var(--edge) + var(--strip-height, 84px) + 12px); padding: 10px 14px 9px; border-radius: 12px; background: color-mix(in srgb, var(--card) 92%, transparent); display: flex; flex-direction: column; gap: 5px; font-size: 12px; line-height: 14px; }
@@ -141,7 +142,7 @@ svg { flex: none; }
 .details-costs li > span { font-weight: 600; flex: none; }
 .details-total { display: flex; justify-content: space-between; align-items: center; height: 34px; }
 .details-total b:last-child { font-weight: 800; }
-.details-other { display: flex; justify-content: space-between; align-items: center; height: 40px; padding: 0 12px; border-radius: 9px; background: var(--well); font-weight: 500; }
+.details-other { width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center; height: 40px; padding: 0 12px; border-radius: 9px; background: var(--well); font-weight: 500; }
 .details-other span:last-child { display: flex; align-items: baseline; gap: 8px; }
 .details-other b { font-size: 16px; font-weight: 800; }
 .details-other small { font-size: 13px; color: var(--grey); font-weight: 400; }
@@ -186,23 +187,26 @@ svg { flex: none; }
 @media (max-width: 1440px) { .bar-title p { display: none; } }
 @media (max-width: 1180px) { .key-words { display: none; } }
 @media (max-width: 720px) {
-  .bar { left: var(--edge); right: var(--edge); max-width: none; height: auto; flex-direction: column; align-items: stretch; gap: 12px; padding: 12px 10px 10px 12px; }
+  .bar { left: var(--edge); right: var(--edge); max-width: none; height: auto; flex-direction: column; align-items: stretch; gap: 8px; padding: 8px 10px 8px 12px; }
   .bar-title { height: 36px; justify-content: center; padding-right: 168px; }
   .bar-title h1 { font-size: 18px; letter-spacing: -0.025em; }
   #currency-button { padding: 0 8px 0 10px; gap: 6px; }
   #share-button { padding: 0 12px 0 10px; }
   .bar-title p { display: none; }
-  .mode-switch { height: 40px; }
-  .mode-switch button { flex: 1; padding: 0 8px; font-size: 14px; }
+  .mode-switch { height: 36px; }
+  .mode-switch button { flex: 1; height: 30px; padding: 0 8px; font-size: 14px; }
   .have { position: static; height: auto; padding: 0; gap: 8px; background: none; box-shadow: none; }
   .have-field { width: 112px; font-size: 15px; }
   .key-verdicts { gap: 12px; font-size: 13px; }
   .key-have { display: none; }
   .have-slider-line { flex: 1; min-width: 0; gap: 6px; }
   .have-slider { flex: 1; width: auto; min-width: 0; }
-  .bar-switches > .segmented { flex: 1; }
-  .bar-switches > .segmented button { flex: 1; padding: 0 9px; font-size: 13px; }
-  .bar-right { top: calc(var(--edge) + 12px); right: calc(var(--edge) + 10px); height: 36px; padding: 0; background: none; box-shadow: none; z-index: 3; }
+  .bar-switches { display: none; }
+  .menu-tax { display: flex; margin-top: 6px; }
+  .menu .menu-tax button { flex: 1; width: auto; height: 30px; justify-content: center; padding: 0 8px; background: none; font-size: 13px; }
+  .menu .menu-tax button[aria-pressed=true] { background: var(--selected); }
+  .key-tax { display: block; font-weight: 600; }
+  .bar-right { top: calc(var(--edge) + 8px); right: calc(var(--edge) + 10px); height: 36px; padding: 0; background: none; box-shadow: none; z-index: 3; }
   .key { bottom: calc(var(--edge) + var(--strip-height, 117px) + 10px); padding: 7px 10px 6px; gap: 4px; }
   .key-title { display: none; }
   .key-row { gap: 10px; }
@@ -243,20 +247,22 @@ svg { flex: none; }
 .cell-count-words { font-size: 19px; line-height: 22px; font-weight: 700; }
 @media (max-width: 720px) {
   .strip { grid-template-columns: 1fr 1fr; }
-  .cell { padding: 8px 10px; gap: 2px; }
+  .cell { padding: 5px 10px; gap: 1px; }
   .cell:nth-child(3) { border-left: 0; }
   .cell:nth-child(n+3) { border-top: 1px solid var(--hairline); }
-  .cell-role { font-size: 12px; line-height: 14px; }
+  .cell-role { font-size: 12px; line-height: 13px; }
   .cell-role .long { display: none; }
   .cell-role .short { display: inline; }
-  .cell-name { gap: 6px; font-size: 15px; line-height: 20px; }
+  .cell-name { gap: 6px; font-size: 15px; line-height: 18px; }
   .cell-name .flag { width: 21px; height: 14px; border-radius: 2px; }
   .cell-name-words.is-smaller { font-size: 13px; }
   .cell-name-words.is-wrapped { line-height: 16px; }
-  .cell-figure { column-gap: 6px; min-height: 20px; }
+  .cell-figure { column-gap: 6px; min-height: 19px; }
   .cell-figure i { display: none; }
-  .cell-figure b { font-size: 17px; line-height: 20px; }
-  .cell-figure small { font-size: 12px; line-height: 16px; }
-  .cell-unknown { font-size: 13px; font-weight: 500; line-height: 20px; }
-  .cell-count-words { font-size: 16px; line-height: 20px; }
+  .cell-figure b { font-size: 17px; line-height: 19px; }
+  /* The other currency and, in the second mode, what the place needs are left to the currency menu, the map's label and the
+     place's details, so the map keeps the screen. */
+  .cell-figure small { display: none; }
+  .cell-unknown { font-size: 13px; font-weight: 500; line-height: 19px; }
+  .cell-count-words { font-size: 16px; line-height: 19px; }
 }
