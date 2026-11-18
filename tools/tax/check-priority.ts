@@ -83,6 +83,10 @@ const cases = [
   ['CITY-282615', 3.7, [0, 0, 0], 0],
   // Equatorial Guinea: XAF 2.11m through XAF 15m per spouse, then 25%.
   ['GQ', 560, [5_120_000, 13_520_000, 31_720_000], 1],
+  // Cuba, Law 113 art. 26: CUP 14,500 through 50,000 taxable per spouse, then 50%.
+  ['CU', 24, [659_880, 1_379_880, 2_939_880], 1],
+  ['SY', 110, [0, 0, 0], 0],
+  ['NE', 560, [2_352_000, 4_704_000, 9_800_000], 1],
 ] as const;
 
 for (const [code, exchangeRate, expected, tolerance] of cases) {

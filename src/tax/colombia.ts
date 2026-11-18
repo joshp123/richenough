@@ -6,8 +6,8 @@ const wealthBands: TaxBand[] = [[72_000 * uvt, 0.005], [122_000 * uvt, 0.01], [2
 
 registerStandardTax(
   'CO', 'COP',
-  'Colombia charges 15% on gains from investment assets held at least two years. Wealth tax is calculated separately on each spouse’s half of the portfolio.',
-  ['tax-co-wealth', 'tax-co-uvt', 'tax-co-emergency-wealth'],
+  'Colombia charges 15% on gains from investment assets held at least two years. The estimate treats private sales of the long-held ETF as occasional gains outside the health and pension contribution base. Wealth tax is calculated separately on each spouse’s half of the portfolio.',
+  ['tax-co-wealth', 'tax-co-uvt', 'tax-co-emergency-wealth', 'tax-co-ugpp-capital', 'tax-co-ugpp-fixed-assets'],
   ({ withdrawalLocal, capitalAtStartOfYearLocal }) =>
     withdrawalLocal * 0.15 + 2 * progressiveTax(capitalAtStartOfYearLocal / 2, wealthBands),
 );

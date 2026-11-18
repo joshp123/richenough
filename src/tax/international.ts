@@ -142,6 +142,7 @@ import './netherlands.ts';
 import './new-caledonia.ts';
 import './new-zealand.ts';
 import './nicaragua.ts';
+import './niger.ts';
 import './nigeria.ts';
 import './niue.ts';
 import './north-macedonia.ts';
