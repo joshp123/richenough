@@ -9,6 +9,7 @@ export type YearLivingOffInvestments = {
 };
 
 export type TaxOwed = {
+  // Include any mandatory recurring cash costs of the chosen regime.
   taxLocal: number;
   regimeName: string;
   explanation: string;
@@ -17,6 +18,8 @@ export type TaxOwed = {
 
 export type TaxRules = {
   currency: string;
+  // A special regime must last at least ten years from arrival or be open-ended.
+  // Describe shorter breaks in the standard result and return it in both modes.
   hasSpecialRegime: boolean;
   taxOwed: (year: YearLivingOffInvestments, regime: TaxRegime) => TaxOwed;
 };
