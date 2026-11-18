@@ -1,6 +1,6 @@
 place_code,amount,currency,unit,period,measured_for,source_id,note
 ,3.67250,AED,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,65.1500,AFN,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,65.1500,AFN,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,79.8400,ALL,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
 ,361.554,AMD,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,912.923,AOA,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
@@ -23,13 +23,13 @@ place_code,amount,currency,unit,period,measured_for,source_id,note
 ,3.04030,BYN,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
 ,2.00000,BZD,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,1.41486,CAD,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,2303.00,CDF,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,2303.00,CDF,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,0.828358,CHF,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,982.278,CLP,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,6.67922,CNY,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,3272.01,COP,per_usd,2026-07,units of this currency per US dollar,imf-er,IMF monthly average
 ,453.909,CRC,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,1.00000,CUP,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,832.000,CUP,per_usd,2026-11-17,units of this currency per US dollar,bcc-household-exchange,"Banco Central de Cuba, USD household rate, segment III"
 ,98.9508,CVE,per_usd,2026-11,units of this currency per US dollar,ecb-euro-reference-rates,"fixed at 110.265 per euro, ECB euro rate"
 ,21.7480,CZK,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,177.721,DJF,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
@@ -38,18 +38,18 @@ place_code,amount,currency,unit,period,measured_for,source_id,note
 ,134.504,DZD,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,50.3017,EGP,per_usd,2026-08,units of this currency per US dollar,imf-er,IMF monthly average
 ,15.0750,ERN,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,161.725,ETB,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,161.725,ETB,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,0.897391,EUR,per_usd,2026-11,units of this currency per US dollar,ecb-euro-reference-rates,"ECB reference rate, monthly average"
 ,2.23229,FJD,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
 ,0.752258,FKP,per_usd,2026-10,units of this currency per US dollar,imf-er,"at par with the pound sterling, IMF monthly average for GBP"
 ,0.752258,GBP,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,2.61140,GEL,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
-,11.6900,GHS,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,11.6900,GHS,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,0.752258,GIP,per_usd,2026-10,units of this currency per US dollar,imf-er,"at par with the pound sterling, IMF monthly average for GBP"
 ,72.3544,GMD,per_usd,2026-07,units of this currency per US dollar,imf-er,IMF monthly average
-,8795.00,GNF,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,8795.00,GNF,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,7.64203,GTQ,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,215.000,GYD,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,215.000,GYD,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,7.84700,HKD,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,26.8955,HNL,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,130.518,HTG,per_usd,2026-07,units of this currency per US dollar,imf-er,IMF monthly average
@@ -57,8 +57,8 @@ place_code,amount,currency,unit,period,measured_for,source_id,note
 ,17983.8,IDR,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,3.08850,ILS,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,95.4949,INR,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,1309.50,IQD,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
-,1374100,IRR,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,1510.00,IQD,per_usd,2026-10-15,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
+,1779500,IRR,per_usd,2026-10-15,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,121.841,ISK,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,158.776,JMD,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,0.710000,JOD,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
@@ -71,26 +71,26 @@ place_code,amount,currency,unit,period,measured_for,source_id,note
 ,0.308128,KWD,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,0.833333,KYD,per_usd,2026-11,units of this currency per US dollar,us-treasury-rates-of-exchange,fixed at 0.8333 per US dollar
 ,450.620,KZT,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,22336.0,LAK,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
-,89500.0,LBP,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,22336.0,LAK,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
+,89500.0,LBP,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,336.022,LKR,per_usd,2026-07,units of this currency per US dollar,imf-er,IMF monthly average
-,171.000,LRD,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,171.000,LRD,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,16.5571,LSL,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,6.38000,LYD,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,6.38000,LYD,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,9.29270,MAD,per_usd,2026-08,units of this currency per US dollar,imf-er,IMF monthly average
 ,17.9373,MDL,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,4370.00,MGA,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,4370.00,MGA,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,54.9636,MKD,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,3669.50,MMK,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,3669.50,MMK,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,3596.83,MNT,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,8.07821,MOP,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
-,39.9900,MRU,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,39.9900,MRU,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,47.8359,MUR,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,15.4200,MVR,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
-,1751.00,MWK,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,1751.00,MWK,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,18.3671,MXN,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,4.08178,MYR,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,63.2500,MZN,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,63.2500,MZN,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,16.5571,NAD,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,1352.97,NGN,per_usd,2026-08,units of this currency per US dollar,imf-er,IMF monthly average
 ,36.6243,NIO,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
@@ -113,32 +113,32 @@ place_code,amount,currency,unit,period,measured_for,source_id,note
 ,3.75000,SAR,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,8.03481,SBD,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
 ,14.6009,SCR,per_usd,2026-08,units of this currency per US dollar,imf-er,IMF monthly average; Treasury rate on 2026-09-30 differs by +6%
-,4200.00,SDG,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,4200.00,SDG,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,9.95659,SEK,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,1.27960,SGD,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,0.752258,SHP,per_usd,2026-10,units of this currency per US dollar,imf-er,"at par with the pound sterling, IMF monthly average for GBP"
-,24.4000,SLE,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
-,568.000,SOS,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,24.4000,SLE,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
+,568.000,SOS,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,37.7818,SRD,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
-,5700.00,SSP,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,4850.00,SSP,per_usd,2026-10-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,21.2543,STN,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
-,122.000,SYP,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,122.000,SYP,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,16.5571,SZL,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,33.6432,THB,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,9.24710,TJS,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
-,3.49100,TMT,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,3.49100,TMT,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,2.93440,TND,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
 ,2.37135,TOP,per_usd,2026-08,units of this currency per US dollar,imf-er,IMF monthly average
 ,48.5617,TRY,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
 ,6.75075,TTD,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,31.8640,TWD,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
-,2640.00,TZS,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,31.8640,TWD,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
+,2640.00,TZS,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,45.0410,UAH,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,3915.00,UGX,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,3915.00,UGX,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,1.00000,USD,per_usd,2026-11,units of this currency per US dollar,us-treasury-rates-of-exchange,fixed at 1.000 per US dollar
 ,40.1730,UYU,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,11820.0,UZS,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
-,621.465,VES,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,11820.0,UZS,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
+,876.925,VES,per_usd,2026-10-15,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,25534.4,VND,per_usd,2026-08,units of this currency per US dollar,imf-er,IMF monthly average
 ,116.600,VUV,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
 ,2.73071,WST,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average
@@ -147,7 +147,7 @@ place_code,amount,currency,unit,period,measured_for,source_id,note
 ,1.79000,XCG,per_usd,2026-11,units of this currency per US dollar,us-treasury-rates-of-exchange,fixed at 1.790 per US dollar
 ,588.650,XOF,per_usd,2026-11,units of this currency per US dollar,ecb-euro-reference-rates,"fixed at 655.957 per euro, ECB euro rate"
 ,107.087,XPF,per_usd,2026-11,units of this currency per US dollar,ecb-euro-reference-rates,"fixed at 119.33174 per euro, ECB euro rate"
-,528.000,YER,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury quarter-end rate (IMF series stops earlier)
+,528.000,YER,per_usd,2026-09-30,units of this currency per US dollar,us-treasury-rates-of-exchange,Treasury reporting rate on its effective date
 ,16.5571,ZAR,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
 ,19.9742,ZMW,per_usd,2026-10,units of this currency per US dollar,imf-er,IMF monthly average
-,25.4707,ZWG,per_usd,2027-03,units of this currency per US dollar,imf-er,IMF monthly average
+,26.7075,ZWG,per_usd,2026-09,units of this currency per US dollar,imf-er,IMF monthly average; Treasury rate on 2026-09-30 differs by +5%

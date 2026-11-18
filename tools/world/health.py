@@ -19,7 +19,7 @@ outpatient deductible (tools/world/health/ipmi_tables.py; notes in health/health
 
 import statistics
 
-from exchange_rates import rates
+from exchange_rates import current_rates
 from lib import EUROPE_AGENT, PLAN_COUNTRY, REPO, countries, fmt, read_csv
 
 HEALTH = REPO / "tools" / "world" / "health"
@@ -29,7 +29,7 @@ PERIOD = {"axa-globalreach": "2025-09", "generali-intl-exclusive": "2025-02", "g
 HOSPITAL_ONLY = {"HK", "SG", "TH", "MY"}
 # Statutory charges a new resident must pay (the helper's file also lists voluntary schemes: Mexico's IMSS, Peru's
 # EsSalud, Chile's 7% for earners, Dubai's minimum plan, which the private plan already satisfies).
-COMPULSORY = {"JP", "KR", "TW", "CO", "CR", "CA", "NZ", "AU"}
+COMPULSORY = {"IR", "JP", "KR", "TW", "CO", "CR", "CA", "NZ", "AU"}
 # Which published option is the mid-range plan, where the helper listed several (text found in its note).
 CHOSEN = {"HK": "ward-level Flexi"}
 # Rows written under a region or city code that stand for the country.
@@ -37,10 +37,7 @@ AS_COUNTRY = {"JP-13": "JP", "AU-NSW": "AU", "CITY-292223": "AE"}
 
 
 def usd_per(fx: dict, currency: str) -> float:
-    if currency == "USD":
-        return 1.0
-    monthly = fx[currency]["monthly"]
-    return 1 / monthly[max(monthly)]
+    return 1 / fx[currency]
 
 
 def regional_plans(fx: dict) -> dict[str, dict[str, tuple[float, str]]]:
@@ -88,7 +85,7 @@ def local_rows(kind: str) -> dict[str, dict]:
 
 
 def build() -> tuple[list[dict], dict]:
-    fx = rates()
+    fx = current_rates()
     plans = regional_plans(fx)
     international = {k: statistics.median(v for v, _ in got.values()) for k, got in plans.items()}
     private = local_rows("local-private")
@@ -107,7 +104,7 @@ def build() -> tuple[list[dict], dict]:
             continue  # Europe's countries are the Europe agent's; a row here would stand in for theirs on the site
         code = PLAN_COUNTRY.get(iso2, iso2)
         cur = c["currency"]
-        if cur not in fx or (cur != "USD" and not fx[cur]["monthly"]):
+        if cur not in fx:
             continue
         parts, words, sources, inferred = [], [], [], False
         published = private.get(code)
@@ -133,7 +130,7 @@ def build() -> tuple[list[dict], dict]:
         if code in statutory:
             r = statutory[code]
             parts.append(usd(r))
-            words.append(f"plus statutory {fmt(float(r['amount']), 4)} {r['currency']} ({r['note'].split(';', 1)[-1].strip()})")
+            words.append(f"plus statutory {fmt(float(r['amount']), 4)} {r['currency']} ({r['note'].split(';', 1)[-1].strip()} Source: {r['source_id']})")
             sources.append(r["source_id"])
         total_local = sum(parts) / usd_per(fx, cur)
         name = "Israel and Palestine (figure for Israel)" if code == "PS" else c["name"]

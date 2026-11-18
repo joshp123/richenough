@@ -7,10 +7,9 @@ Written by AI on 2026.11.17 by model claude sonnet 5.5, for the Enough site.
 
 OpenSooq runs classifieds in most Arab countries. For each country this saves the first PAGES pages of
 "apartments for rent, 2 bedrooms" (30 cards a page, country-wide) to cache/opensooq/<country>/ and takes
-the median price of cards that: have exactly 2 bedrooms, state an area of 60 to 100 m2, are not priced per day,
+the median price of cards that: have exactly 2 bedrooms, state an area of 60 to 100 m2, are listed monthly,
 and are not obvious typing errors (below a quarter or above four times the sample's first-pass median).
-OpenSooq's "rental period" label is the lease term, not the unit the price is quoted in, so prices are
-read as monthly rents; a price of a whole year would show up as an outlier and be dropped.
+Use cards marked Monthly so annual and short-stay quotes cannot enter the median.
 
 Run: uv run tools/world/rent/mena-eurasia-opensooq.py        (prints rows as CSV)
 """
@@ -27,27 +26,28 @@ import urllib.request
 REPO = pathlib.Path(__file__).resolve().parents[3]
 CACHE = REPO / "cache" / "opensooq"
 PAGES = 10
-COUNTRIES = {  # subdomain -> (ISO country, place_code to write, name of the place the sample describes, words that mark the capital in the card's location line)
-    "kw": ("KW", "KW", "Kuwait", ("Kuwait City", "Hawally", "Salmiya", "Al Asimah", "Capital")),
-    "bh": ("BH", "BH", "Bahrain", ("Manama", "Juffair", "Capital")),
-    "iq": ("IQ", "IQ", "Iraq", ("Baghdad",)),
-    "jo": ("JO", "JO", "Jordan", ("Amman",)),
-    "eg": ("EG", "EG", "Egypt", ("Cairo", "Giza", "New Cairo")),
-    "ly": ("LY", "LY", "Libya", ("Tripoli",)),
-    "om": ("OM", "OM", "Oman", ("Muscat", "Seeb", "Bawshar", "Mutrah")),
+# Source location ends in its governorate. Kuwait City and Hawally form one metro.
+CAPITAL_AREAS = {
+    "kw": ("CITY-285787", "Kuwait City", {"Kuwait City", "Hawally"}),
+    "bh": ("CITY-290340", "Manama", {"Manama"}),
+    "iq": ("CITY-98182", "Baghdad", {"Baghdad"}),
+    "jo": ("CITY-250441", "Amman", {"Amman"}),
+    "eg": ("CITY-360630", "Greater Cairo", {"Cairo", "Giza"}),
+    "ly": ("CITY-2210247", "Tripoli", {"Tripoli"}),
+    "om": ("CITY-287286", "Muscat", {"Muscat"}),
 }
 CURRENCY = {"kw": "KWD", "bh": "BHD", "iq": "IQD", "jo": "JOD", "eg": "EGP", "ly": "LYD", "om": "OMR", }
 SOURCES = [
     {
-        "source_id": "opensooq",
+        "source_id": f"opensooq-{sub}",
         "publisher": "OpenSooq",
-        "title": "Apartments for rent, 2 bedrooms (listing pages, saved by us)",
-        "url": "https://kw.opensooq.com/en/property/apartments-for-rent/2-bedrooms",
+        "title": f"Two-bedroom apartment listings in {sub.upper()}",
+        "url": f"https://{sub}.opensooq.com/en/property/apartments-for-rent/2-bedrooms",
         "licence": "free to read, no licence stated; only a median of our own saved sample is published",
         "retrieved": "2026-11-17",
         "period": "2026-11",
         "note": "Asking rents from a classifieds site, undated cards; very thin.",
-    }
+    } for sub in CAPITAL_AREAS
 ]
 
 
@@ -88,19 +88,25 @@ def clean(sample: list[dict]) -> list[dict]:
 
 def rows() -> list[dict]:
     result = []
-    for sub, (iso, code, name, capital_words) in COUNTRIES.items():
-        sample = [x for x in cards(sub) if x["bedrooms"].startswith("2 ") and 60 <= x["m2"] <= 100 and x["period"] != "Daily" and x["currency"] == CURRENCY[sub]]
-        if len(sample) < 30:
-            continue
-        sample = clean(sample)
-        capital = [x for x in sample if any(w in x["where"] for w in capital_words)]
-        result.append({
-            "place_code": code, "amount": round(statistics.median(x["price"] for x in sample)), "currency": CURRENCY[sub], "unit": "per_month",
-            "period": "2026-11", "measured_for": f"{name}, country-wide listings of 2-bedroom flats of 60 to 100 m2, asking rent on OpenSooq", "source_id": "opensooq",
-            "note": f"Median of {len(sample)} cards (first {PAGES} pages, saved 2026-11-17); capital area alone: {len(capital)} cards"
-            + (f", median {round(statistics.median(x['price'] for x in capital))}" if len(capital) >= 15 else ", too few for a median")
-            + ". Very thin: undated classifieds.",
-        })
+    for sub, (city, name, areas) in CAPITAL_AREAS.items():
+        sample = [x for x in cards(sub) if x["bedrooms"].startswith("2 ") and 60 <= x["m2"] <= 100
+                  and x["period"] == "Monthly" and x["currency"] == CURRENCY[sub]]
+        capital = [x for x in sample if x["where"].rsplit(",", 1)[-1].strip() in areas]
+        for code, location, listings in [(sub.upper(), "Country-wide", sample), (city, name, capital)]:
+            if len(listings) < 15:
+                continue
+            kept = clean(listings)
+            if len(kept) < 15:
+                continue
+            result.append({
+                "place_code": code, "amount": round(statistics.median(x["price"] for x in kept)),
+                "currency": CURRENCY[sub], "unit": "per_month", "period": "2026-11",
+                "measured_for": f"{location} listings in {sub.upper()}, two-bedroom flats of 60 to 100 m²",
+                "source_id": f"opensooq-{sub}",
+                "note": f"Median of {len(kept)} distinct ads marked Monthly on the first {PAGES} pages, saved 2026-11-17. "
+                        f"Excluded {len(listings) - len(kept)} prices outside ¼ to 4× the first median. "
+                        f"Thin asking-price sample: https://{sub}.opensooq.com/en/property/apartments-for-rent/2-bedrooms",
+            })
     return result
 
 

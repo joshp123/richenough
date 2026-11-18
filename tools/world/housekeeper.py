@@ -19,14 +19,14 @@ import math
 import re
 import statistics
 
-from exchange_rates import rates
+from exchange_rates import current_rates
 from lib import EUROPE_AGENT, PLAN_COUNTRY, REPO, countries, fmt, ilostat, iso3_to_iso2, read_csv
 from price_level import weo
 
 HOUSEKEEPER = REPO / "tools" / "world" / "housekeeper"
 HOURS_PER_MONTH = 40 * 52 / 12
 CITY_NAMES = {
-    "CITY-1850147": "Tokyo", "CITY-1668341": "Taipei", "CITY-1880252": "Singapore", "CITY-1609350": "Bangkok",
+    "CITY-112931": "Tehran", "CITY-1850147": "Tokyo", "CITY-1668341": "Taipei", "CITY-1880252": "Singapore", "CITY-1609350": "Bangkok",
     "CITY-1151254": "Phuket", "CITY-1153671": "Chiang Mai", "CITY-1735161": "Kuala Lumpur", "CITY-1735106": "George Town (Penang)",
     "CITY-1566083": "Ho Chi Minh City", "CITY-1583992": "Da Nang", "CITY-1645528": "Denpasar (south Bali)", "CITY-1622846": "Ubud (Bali)",
     "CITY-292223": "Dubai", "CITY-287286": "Muscat", "CITY-611717": "Tbilisi", "CITY-2542997": "Marrakesh", "CITY-3369157": "Cape Town",
@@ -69,10 +69,7 @@ def hours_in(note: str) -> float | None:
 
 
 def usd_per(fx: dict, currency: str) -> float:
-    if currency == "USD":
-        return 1.0
-    monthly = fx[currency]["monthly"]
-    return 1 / monthly[max(monthly)]
+    return 1 / fx[currency]
 
 
 def city_country() -> dict[str, str]:
@@ -135,19 +132,27 @@ def statutory_floors(fx: dict) -> dict[str, float]:
     return out
 
 
-def ilo_latest(indicator: str, keep) -> dict[str, tuple[float, str]]:
+ILO_USD_CODES = {"T30:384", "T30:405"}
+
+
+def ilo_latest(indicator: str, keep) -> dict[str, tuple[float, str, bool]]:
     to2 = iso3_to_iso2()
-    out: dict[str, tuple[float, str]] = {}
+    out: dict[str, tuple[float, str, bool]] = {}
     for x in ilostat(indicator):
         if keep(x) and x["obs_value"] and x["time"] >= "2017":
             k = to2.get(x["ref_area"])
             if k and (k not in out or x["time"] > out[k][1]):
-                out[k] = (float(x["obs_value"]), x["time"])
+                # ILO currency dictionary: https://rplumber.ilo.org/metadata/dic/?var=note_indicator&lang=en&format=.csv
+                notes = x["note_indicator"].split("_")
+                if "T30:58" in notes or (k == "SY" and x["time"] < "2026"):
+                    continue  # discontinued ZWL or old Syrian pounds; no continuous CPI bridge
+                value = float(x["obs_value"]) / (1000 if "T30:44" in notes else 1)
+                out[k] = (value, x["time"], any(n in notes for n in ILO_USD_CODES))
     return out
 
 
 def build() -> list[dict]:
-    fx = rates()
+    fx = current_rates()
     cpi = weo("PCPI")
     gdp = weo("NGDPDPC")
     to_country = city_country()
@@ -161,9 +166,11 @@ def build() -> list[dict]:
     isic_t = ilo_latest("EAR_EHRA_SEX_ECO_NB_A", lambda x: x["classif1"] == "ECO_ISIC4_T" and x["sex"] == "SEX_T")
     minimum = ilo_latest("EAR_INEE_NOC_NB_A", lambda x: True)
 
-    def ilo_usd(iso2):
-        v, y = isic_t[iso2]
-        return to_2026(iso2, v, y) * usd_per(fx, countries()[iso2]["currency"])
+    def wage_usd(iso2, observation):
+        value, year, in_dollars = observation
+        if in_dollars:
+            return to_2026("US", value, year)
+        return to_2026(iso2, value, year) / fx[countries()[iso2]["currency"]]
 
     def gdp_2026(iso2):
         g = gdp.get(iso2, {})
@@ -180,23 +187,27 @@ def build() -> list[dict]:
     country_rate = {k: statistics.median(v) for k, v in by_country.items()}
     # The US and Europe agents' tables, as national medians, widen the fit to rich countries (not written as rows here).
     neighbours: dict[str, list[float]] = {}
+    national: dict[str, float] = {}
     for area in ("us", "europe"):
         path = REPO / "data" / "tables" / f"housekeeper-wage.{area}.csv"
         if not path.exists():
             continue
         for r in read_csv(path):
             code = r["place_code"]
+            if len(code) == 2 and r["currency"] in fx:
+                national[code] = float(r["amount"]) / fx[r["currency"]]
+                continue
             iso2 = "US" if code.startswith("US") else {"EL": "GR", "UK": "GB", "TL": "GB"}.get(code[5:7], code[5:7]) if code.startswith("NUTS-") else None
             if iso2 and r["currency"] in fx and r["amount"]:
                 neighbours.setdefault(iso2, []).append(float(r["amount"]) * usd_per(fx, r["currency"]))
-    training = {**{k: statistics.median(v) for k, v in neighbours.items()}, **country_rate}
+    training = {**{k: statistics.median(v) for k, v in neighbours.items()}, **national, **country_rate}
     xs = [(math.log(gdp_2026(k)), math.log(v)) for k, v in training.items() if gdp_2026(k)]
     mx = statistics.fmean(x for x, _ in xs)
     my = statistics.fmean(y for _, y in xs)
     slope = sum((x - mx) * (y - my) for x, y in xs) / sum((x - mx) ** 2 for x, _ in xs)
     intercept = my - slope * mx
     sd_gdp = statistics.pstdev([y - intercept - slope * x for x, y in xs])
-    premium = statistics.median(v / ilo_usd(k) for k, v in country_rate.items() if k in isic_t)
+    premium = statistics.median(v / wage_usd(k, isic_t[k]) for k, v in country_rate.items() if k in isic_t)
 
     rows = []
     # Cities.
@@ -214,7 +225,7 @@ def build() -> list[dict]:
         if iso2 in ("US", "PS", "AQ") or not c["population"] or iso2 in EUROPE_AGENT:
             continue
         cur = c["currency"]
-        if cur not in fx or not fx[cur]["monthly"] and cur != "USD":
+        if cur not in fx:
             continue
         estimates, words = [], []
         if iso2 in country_rate:
@@ -230,8 +241,13 @@ def build() -> list[dict]:
                 estimates.append(intercept + slope * math.log(g))
                 words.append(f"GDP per head (USD {g:,.0f})")
             if iso2 in isic_t:
-                estimates.append(math.log(ilo_usd(iso2) * premium))
-                words.append(f"ILOSTAT's pay of household employees in {isic_t[iso2][1]} x {premium:.2f}")
+                estimates.append(math.log(wage_usd(iso2, isic_t[iso2]) * premium))
+                wage_basis = f"ILOSTAT's pay of household employees in {isic_t[iso2][1]} x {premium:.2f}"
+                if iso2 == "SL" and isic_t[iso2][1] < "2022":
+                    wage_basis += " (1,000 old leones per SLE)"
+                if isic_t[iso2][2]:
+                    wage_basis += " (reported in US dollars)"
+                words.append(wage_basis)
             if not estimates:
                 continue
             usd = math.exp(statistics.fmean(estimates))
@@ -239,7 +255,7 @@ def build() -> list[dict]:
             thin = True
         floor_usd, floor_word = 0.0, ""
         if iso2 in minimum:
-            mw = to_2026(iso2, minimum[iso2][0], minimum[iso2][1]) / HOURS_PER_MONTH * usd_per(fx, cur)
+            mw = wage_usd(iso2, minimum[iso2]) / HOURS_PER_MONTH
             if mw > floor_usd:
                 floor_usd, floor_word = mw, f"general minimum wage ({minimum[iso2][1]})"
         if floors.get(iso2, 0) > floor_usd:

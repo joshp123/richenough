@@ -33,7 +33,7 @@ const downloads: Record<string, string> = {
   'lad25_itl.json': 'https://services1.arcgis.com/ESMARspQHYMw9BZ9/ArcGIS/rest/services/ITL125_ITL225_ITL325_LAU125_LAD25_UK_LU/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=false&f=json&resultRecordCount=2000',
 };
 
-// Natural Earth parts of countries drawn from finer sources are kept only where those sources leave a sizeable gap (Svalbard).
+// Natural Earth parts of countries drawn from finer sources are kept only where those sources leave a sizeable gap.
 const smallestUncoveredPartKm2 = 150;
 
 type Ring = [number, number][];
@@ -202,7 +202,16 @@ for (const feature of admin0.features) {
   const { ISO_A2_EH, ADM0_A3 } = feature.properties;
   const code = ADM0_A3 in unnamedNaturalEarthUnits ? unnamedNaturalEarthUnits[ADM0_A3] : ISO_A2_EH === '-99' ? null : ISO_A2_EH;
   if (!code || code === 'AQ') continue;
-  countryPolygons.set(code, [...(countryPolygons.get(code) ?? []), ...polygonsOf(feature.geometry)]);
+  // Natural Earth includes these geographically separate tax jurisdictions in the mainland multipolygon.
+  for (const polygon of polygonsOf(feature.geometry)) {
+    let jurisdiction = code;
+    const [longitude, latitude] = polygon[0][0];
+    if (code === 'NL' && longitude < -40) jurisdiction = 'BQ'; // Bonaire, Sint Eustatius and Saba
+    if (code === 'NO' && (latitude > 74 || (latitude > 70 && longitude < 0))) jurisdiction = 'SJ'; // Svalbard and Jan Mayen
+    const parts = countryPolygons.get(jurisdiction) ?? [];
+    parts.push(polygon);
+    countryPolygons.set(jurisdiction, parts);
+  }
 }
 
 // Palestine over Israel and Palestine, the Golan Heights to Syria.
@@ -226,7 +235,7 @@ const shapesOfCountry = (country: string) => shapes.filter(shape => shape.countr
 for (const [code, polygons] of countryPolygons) {
   addPlace({ code, name: countryName(code), parent: null, kind: 'country' });
   if (code === 'US' || nutsCountries.has(code)) {
-    // Keep only sizeable parts the finer source leaves out, such as Svalbard and Jan Mayen.
+    // Keep only sizeable parts the finer source leaves out.
     const finer = shapesOfCountry(code);
     addShape(code, code, code, polygons.filter(polygon => areaKm2(polygon) >= smallestUncoveredPartKm2 && !isInside(pointInside(polygon), finer)));
   } else if (code === 'PR') {

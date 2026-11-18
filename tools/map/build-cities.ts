@@ -6,6 +6,7 @@
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { readMapGeometry, shapeAt } from '../../src/map-geometry.ts';
+import type { PlaceRows } from '../../src/places.ts';
 import { projectPoint } from '../../src/projection.ts';
 import { GOLAN_PLACES, PALESTINE_PLACES } from './palestine-places.mjs';
 
@@ -33,16 +34,31 @@ for (const line of existsSync('data/reference/palombo-2026-11-17.csv') ? (await 
 }
 
 const geometry = readMapGeometry(new Uint8Array(await readFile('assets/map/shapes-fine.bin')));
+const places: PlaceRows = JSON.parse(await readFile('assets/map/places.json', 'utf8'));
+function countryOfShape(shapeCode: string): string {
+  let code = shapeCode;
+  while (places[code]?.[1]) code = places[code][1]!;
+  return code;
+}
+const countryByShape = geometry.shapeCodes.map(countryOfShape);
+
+// Some islands and enclaves are smaller than the simplification tolerance. A nearby polygon can
+// supply a region within the same jurisdiction, but must never supply a neighbouring country's tax.
 // The shape a city stands in; a city on a coast the map has simplified away takes the nearest shape within about 15 km.
-function shapeCodeAt(longitude: number, latitude: number): string | null {
+function shapeCodeAt(longitude: number, latitude: number, country: string): string | null {
+  let foundNearbyShape = false;
   for (let step = 0; step <= 6; step++) {
     const reach = step * 0.025;
     for (const [dx, dy] of step ? [[reach, 0], [-reach, 0], [0, reach], [0, -reach], [reach, reach], [-reach, reach], [reach, -reach], [-reach, -reach]] : [[0, 0]]) {
       const shape = shapeAt(geometry, ...projectPoint(longitude + dx, latitude + dy));
-      if (shape >= 0) return geometry.shapeCodes[shape];
+      if (shape < 0) continue;
+      foundNearbyShape = true;
+      if (countryByShape[shape] === country) return geometry.shapeCodes[shape];
+      // These regions follow the boundaries used by the map.
+      if (country === 'UA' && countryByShape[shape] === 'RU') return geometry.shapeCodes[shape];
     }
   }
-  return null;
+  return foundNearbyShape && places[country] ? country : null;
 }
 
 // How well known a city is, which decides how early its label shows: 0 for the cities in Palombo’s post, 1 for capitals of
@@ -54,6 +70,7 @@ const sameCityKm = 25;
 
 type City = [id: number, name: string, longitude: number, latitude: number, population: number, shapeCode: string, isCapital: 0 | 1, otherNames: string, fame: number];
 const cities: City[] = [];
+const territoryParent: Record<string, string> = { IL: 'PS', PR: 'US', AX: 'FI', RE: 'FR', MQ: 'FR', GF: 'FR', YT: 'FR', GP: 'FR' };
 let withoutShape = 0;
 for (const line of (await readFile(`${cache}/cities15000.txt`, 'utf8')).split('\n')) {
   const cells = line.split('\t');
@@ -69,7 +86,8 @@ for (const line of (await readFile(`${cache}/cities15000.txt`, 'utf8')).split('\
     name = arabicName;
   }
   if (population < smallestCity && !isCapital && !namedCityIds.has(id)) continue;
-  const shapeCode = shapeCodeAt(longitude, latitude);
+  const country = GOLAN_PLACES.has(id) ? 'SY' : (territoryParent[countryCode] ?? countryCode);
+  const shapeCode = shapeCodeAt(longitude, latitude, country);
   if (!shapeCode) { withoutShape++; continue; }
   cities.push([Number(id), name, Number(longitude.toFixed(4)), Number(latitude.toFixed(4)), population, shapeCode, isCapital ? 1 : 0, otherNames, fameOf(id, population, isCapital)]);
 }

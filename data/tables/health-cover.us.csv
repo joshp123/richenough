@@ -3221,3 +3221,56 @@ US-72147,493.62,USD,per_month,2027,US-PR,us-pr-health,"Triple-S Directo Plata, t
 US-72149,493.62,USD,per_month,2027,US-PR,us-pr-health,"Triple-S Directo Plata, two individual age-45 non-tobacco rates"
 US-72151,493.62,USD,per_month,2027,US-PR,us-pr-health,"Triple-S Directo Plata, two individual age-45 non-tobacco rates"
 US-72153,493.62,USD,per_month,2027,US-PR,us-pr-health,"Triple-S Directo Plata, two individual age-45 non-tobacco rates"
+US-AK,2937.34,USD,per_month,2027,US-AK,us-cms-ffm,Median of 30 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-AL,1783.78,USD,per_month,2027,US-AL,us-cms-ffm,Median of 67 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-AR,1762.66,USD,per_month,2027,US-AR,us-cms-ffm,Median of 75 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-AZ,1521.04,USD,per_month,2027,US-AZ,us-cms-ffm,Median of 15 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-CA,1410.54,USD,per_month,2026,US-CA,us-cms-sbe,Median of 58 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-CO,1309.3,USD,per_month,2026,US-CO,us-cms-sbe,Median of 64 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-CT,1951.86,USD,per_month,2026,US-CT,us-cms-sbe,Median of 9 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-DC,1518.92,USD,per_month,2026,US-DC,us-cms-sbe,Median of 1 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-DE,2145.89,USD,per_month,2027,US-DE,us-cms-ffm,Median of 3 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-FL,1877.9,USD,per_month,2027,US-FL,us-cms-ffm,Median of 67 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-GA,1844.4,USD,per_month,2026,US-GA,us-cms-sbe,Median of 159 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-HI,1363.41,USD,per_month,2027,US-HI,us-cms-ffm,Median of 5 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-IA,1280.42,USD,per_month,2027,US-IA,us-cms-ffm,Median of 99 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-ID,1190.45,USD,per_month,2026,US-ID,us-cms-sbe,Median of 44 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-IL,1436.04,USD,per_month,2026,US-IL,us-cms-sbe,Median of 102 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-IN,1420.06,USD,per_month,2027,US-IN,us-cms-ffm,Median of 92 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-KS,2099.03,USD,per_month,2027,US-KS,us-cms-ffm,Median of 105 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-KY,1326.32,USD,per_month,2026,US-KY,us-cms-sbe,Median of 120 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-LA,1762.93,USD,per_month,2027,US-LA,us-cms-ffm,Median of 64 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-MA,1623.68,USD,per_month,2026,US-MA,us-cms-sbe,Median of 14 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-MD,1012.92,USD,per_month,2026,US-MD,us-cms-sbe,Median of 24 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-ME,1735.0,USD,per_month,2026,US-ME,us-cms-sbe,Median of 16 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-MI,1671.46,USD,per_month,2027,US-MI,us-cms-ffm,Median of 83 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-MN,1066.7,USD,per_month,2026,US-MN,us-cms-sbe,Median of 87 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-MO,1586.61,USD,per_month,2027,US-MO,us-cms-ffm,Median of 115 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-MS,1897.02,USD,per_month,2027,US-MS,us-cms-ffm,Median of 82 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-MT,2126.32,USD,per_month,2027,US-MT,us-cms-ffm,Median of 56 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-NC,1672.26,USD,per_month,2027,US-NC,us-cms-ffm,Median of 100 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-ND,1786.74,USD,per_month,2027,US-ND,us-cms-ffm,Median of 53 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-NE,1997.98,USD,per_month,2027,US-NE,us-cms-ffm,Median of 93 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-NH,1216.44,USD,per_month,2027,US-NH,us-cms-ffm,Median of 10 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-NJ,1439.68,USD,per_month,2026,US-NJ,us-cms-sbe,Median of 21 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-NM,1659.12,USD,per_month,2026,US-NM,us-cms-sbe,Median of 33 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-NV,1219.46,USD,per_month,2026,US-NV,us-cms-sbe,Median of 17 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-NY,2176.14,USD,per_month,2026,US-NY,us-cms-sbe,Median of 62 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-OH,1532.22,USD,per_month,2027,US-OH,us-cms-ffm,Median of 88 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-OK,1634.43,USD,per_month,2027,US-OK,us-cms-ffm,Median of 77 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-OR,1477.9,USD,per_month,2027,US-OR,us-or-health,Median of 36 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-or-health.
+US-PA,1401.78,USD,per_month,2026,US-PA,us-cms-sbe,Median of 67 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-PR,493.62,USD,per_month,2027,US-PR,us-pr-health,"Triple-S Directo Plata, two individual age-45 non-tobacco rates"
+US-RI,1248.34,USD,per_month,2026,US-RI,us-cms-sbe,Median of 5 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-SC,1749.98,USD,per_month,2027,US-SC,us-cms-ffm,Median of 46 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-SD,1835.5,USD,per_month,2027,US-SD,us-cms-ffm,Median of 66 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-TN,2022.58,USD,per_month,2027,US-TN,us-cms-ffm,Median of 95 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-TX,1901.22,USD,per_month,2027,US-TX,us-cms-ffm,Median of 254 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US,1723.44,USD,per_month,2026 and 2027,US,us-cms-sbe,"Median of 3144 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm, us-cms-sbe, us-or-health, us-vt-health."
+US-UT,1893.7,USD,per_month,2027,US-UT,us-cms-ffm,Median of 29 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-VA,1130.8,USD,per_month,2026,US-VA,us-cms-sbe,Median of 133 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-VT,2869.44,USD,per_month,2027,US-VT,us-vt-health,Median of 14 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-vt-health.
+US-WA,1718.48,USD,per_month,2026,US-WA,us-cms-sbe,Median of 39 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-sbe.
+US-WI,1775.18,USD,per_month,2027,US-WI,us-cms-ffm,Median of 72 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-WV,2807.77,USD,per_month,2027,US-WV,us-cms-ffm,Median of 55 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.
+US-WY,2806.32,USD,per_month,2027,US-WY,us-cms-ffm,Median of 23 county costs weighted by Census 2025 resident population (us-census-places). County sources: us-cms-ffm.

@@ -19,7 +19,7 @@ import statistics
 import subprocess
 import sys
 
-from exchange_rates import rates
+from exchange_rates import current_rates
 from lib import NUTS_COUNTRIES, REPO, countries, fmt, read_csv
 from places import city_code
 from price_level import weo
@@ -173,7 +173,7 @@ def build() -> tuple[list[dict], dict]:
 
 def add_inferred(rows: list[dict]) -> list[dict]:
     """A row for every country without one: the main city's figure if there is a city row, else a GDP and price-level model."""
-    fx = rates()
+    fx = current_rates()
     gdp = weo("NGDPDPC")
     price_level = {r["place_code"]: float(r["amount"]) for r in read_csv(REPO / "data" / "tables" / "price-level-everyday.world.csv")}
 
@@ -181,7 +181,7 @@ def add_inferred(rows: list[dict]) -> list[dict]:
         cur = r["currency"]
         if cur == "USD":
             return float(r["amount"])
-        return float(r["amount"]) / fx[cur]["monthly"][max(fx[cur]["monthly"])]
+        return float(r["amount"]) / fx[cur]
 
     have = {r["place_code"] for r in rows}
     # Train on each country's largest measured city: the same concept everywhere (a main-city two-bed), unlike
@@ -216,10 +216,10 @@ def add_inferred(rows: list[dict]) -> list[dict]:
                         "note": r["note"] + ". Written for the country from its main city's row"})
             continue
         g = gdp.get(iso2, {}).get("2026")
-        if not g or iso2 not in price_level or c["currency"] not in fx or not fx[c["currency"]]["monthly"]:
+        if not g or iso2 not in price_level or c["currency"] not in fx:
             continue
         estimate = math.exp(beta[0] + beta[1] * math.log(g) + beta[2] * math.log(price_level[iso2]))
-        local = estimate * fx[c["currency"]]["monthly"][max(fx[c["currency"]]["monthly"])]
+        local = estimate * fx[c["currency"]]
         out.append({"place_code": iso2, "amount": fmt(local, 3), "currency": c["currency"], "unit": "per_month", "period": "2026",
                     "measured_for": f"{c['name']}, main city, estimated", "source_id": "imf-weo",
                     "note": f"Inferred, not measured: no published two-bed rent found. Estimated from GDP per head (USD {g:,.0f}) and the everyday price level "

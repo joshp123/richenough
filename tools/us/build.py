@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Rebuild US spending tables. Requires openpyxl, beautifulsoup4 and pdftotext."""
 import csv
+from collections import defaultdict
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
@@ -85,16 +86,22 @@ def pdf_text(path):
 def write_table(component, unit, values, counties):
     columns = ['place_code', 'amount', 'currency', 'unit', 'period', 'measured_for', 'source_id', 'note']
     TABLES.mkdir(parents=True, exist_ok=True)
-    if values.keys() != counties.keys():
-        raise ValueError(f'{component} county coverage mismatch: {values.keys() ^ counties.keys()}')
+    expected = set(counties)
+    if component in {'rent-two-bedroom', 'price-level-everyday', 'housekeeper-wage', 'health-cover'}:
+        expected.update(state for state, _ in counties.values())
+    if component != 'price-level-everyday':  # The world table already publishes US = 100.
+        expected.add('US')
+    if values.keys() != expected:
+        raise ValueError(f'{component} coverage mismatch: {values.keys() ^ expected}')
     with (TABLES / f'{component}.us.csv').open('w', newline='') as file:
         rows = csv.writer(file, lineterminator='\n')
         rows.writerow(columns)
         for fips, (amount, period, area, source, note) in sorted(values.items()):
             if not isfinite(amount) or amount <= 0:
                 raise ValueError(f'{component} value for {fips}: {amount}')
-            rows.writerow([f'US-{fips}', round(amount, 2), 'USD', unit, period, area, source, note])
-    county_count = sum(area == f'US-{fips}' for fips, (_, _, area, _, _) in values.items())
+            code = 'US' if fips == 'US' else f'US-{fips}'
+            rows.writerow([code, round(amount, 2), 'USD', unit, period, area, source, note])
+    county_count = sum(fips in counties and area == f'US-{fips}' for fips, (_, _, area, _, _) in values.items())
     print(f'{component}: {county_count} county, {len(values) - county_count} other reporting areas')
 
 
@@ -116,12 +123,16 @@ def geography():
     return counties, metros
 
 
+def population_file():
+    return fetch('us-census-places', 'sub-est2025.csv', CENSUS +
+                 '/programs-surveys/popest/datasets/2020-2025/cities/totals/sub-est2025.csv')
+
+
 def market_rent(counties):
     def lookup_name(name):
         return re.sub(r'[^a-z0-9]', '', normalize('NFKD', name).casefold())
 
-    path = fetch('us-census-places', 'sub-est2025.csv', CENSUS +
-                 '/programs-surveys/popest/datasets/2020-2025/cities/totals/sub-est2025.csv')
+    path = population_file()
     main_places = {}
     with path.open(encoding='latin-1') as file:
         rows = [row for row in csv.DictReader(file) if row['SUMLEV'] in ('157', '061')]
@@ -187,7 +198,7 @@ def rent(counties):
                          f'{year}/table-based-SF/data/{duration}YRData/{name}')
             with path.open(encoding='utf-8-sig') as file:
                 inputs[year, table] = {r['GEO_ID']: r for r in csv.DictReader(file, delimiter='|')
-                                       if r['GEO_ID'].startswith(('0400000US', '0500000US'))}
+                                       if r['GEO_ID'] == '0100000US' or r['GEO_ID'].startswith(('0400000US', '0500000US'))}
 
     def estimate(year, area, table, line):
         row = inputs[year, table].get(area, {})
@@ -197,14 +208,18 @@ def rent(counties):
             return int(value), int(margin) / int(value)
         return None, float('inf')
 
-    result = {}
+    # Keep the observed state and national rents as well as the county values.
+    # Without these rows a state with full county coverage falls back to New York City.
+    areas = {'US': [('0100000US', 'US')]}
     for fips, (state, _) in counties.items():
-        county_area = f'0500000US{fips}'
-        state_area = f'0400000US{fips[:2]}'
-        for area, year, code in [
-            (county_area, 2025, f'US-{fips}'), (county_area, 2024, f'US-{fips}'),
-            (state_area, 2025, f'US-{state}'), (state_area, 2024, f'US-{state}'),
-        ]:
+        state_area = (f'0400000US{fips[:2]}', f'US-{state}')
+        areas[state] = [state_area]
+        areas[fips] = [(f'0500000US{fips}', f'US-{fips}'), state_area]
+
+    result = {}
+    for key, candidates in areas.items():
+        state_area = candidates[-1][0]
+        for area, year, code in [(area, year, code) for area, code in candidates for year in (2025, 2024)]:
             base, error = estimate(year, area, 'b25031', 4)
             if base is None or error > .50:
                 continue
@@ -217,7 +232,7 @@ def rent(counties):
                     detail += f', adjusted by the {label} recent-mover rent ratio across all unit sizes'
                     break
             period = '2025' if year == 2025 else '2020-2024'
-            result[fips] = (base, period, code, 'us-acs-rent', detail)
+            result[key] = (base, period, code, 'us-acs-rent', detail)
             break
     result.update(market_rent(counties))
     return result
@@ -260,6 +275,15 @@ def regional_prices(counties, metros):
         amount = .4 * 100 * values['2'] / national['2'] + .6 * 100 * values['5'] / national['5']
         result[fips] = (amount, '2024', area, 'us-bea-rpp',
                         '40% goods and 60% other services; housing rents and utilities excluded')
+    for fips, (state, _) in counties.items():
+        if state in result:
+            continue
+        if state == 'PR':
+            result[state] = result[fips]
+            continue
+        values = index['SARPP', fips[:2] + '000']
+        amount = .4 * 100 * values['2'] / national['2'] + .6 * 100 * values['5'] / national['5']
+        result[state] = (amount, '2024', f'US-{state}', 'us-bea-rpp', 'Statewide BEA price levels, 40% goods and 60% other services')
     return result
 
 
@@ -292,6 +316,10 @@ def wages(counties, metros):
         if key in rates:
             result[fips] = (rates[key], '2025-05', name, 'us-bls-oews',
                             'Median employee pay, maids and housekeeping cleaners (SOC 37-2012)')
+        state_key = 'OEUS' + fips[:2] + '00000' + '00000037201208'
+        result[state] = (rates[state_key], '2025-05', f'US-{state}', 'us-bls-oews', 'Statewide median hourly employee pay for SOC 37-2012')
+    # BLS May 2025, series OEUN000000000000037201208 (SOC 37-2012, national hourly median).
+    result['US'] = (17.07, '2025-05', 'US', 'us-bls-oews', 'National median hourly employee pay for SOC 37-2012')
     return result
 
 
@@ -381,6 +409,38 @@ def cars(counties):
     return result
 
 
+def add_area_costs(component, values, counties):
+    """A typical current county premium or car cost where the visitor selects a larger area."""
+    groups = defaultdict(list)
+    with population_file().open(encoding='latin-1') as file:
+        for row in csv.DictReader(file):
+            if row['SUMLEV'] != '050':
+                continue
+            fips = row['STATE'] + row['COUNTY']
+            state = counties[fips][0]
+            point = (values[fips], int(row['POPESTIMATE2025']))
+            groups['US'].append(point)
+            if component == 'health-cover':
+                groups[state].append(point)
+    for code, observations in groups.items():
+        total = sum(pop for _, pop in observations)
+        cumulative = 0
+        for observation, population in sorted(observations):
+            cumulative += population
+            if cumulative * 2 >= total:
+                break
+        amount, _, _, source, _ = observation
+        periods = sorted({v[1] for v, _ in observations})
+        sources = sorted({v[3] for v, _ in observations})
+        note = (f'Median of {len(observations)} county costs weighted by Census 2025 resident population '
+                f'(us-census-places). County sources: {", ".join(sources)}.')
+        area = 'US' if code == 'US' else f'US-{code}'
+        values[code] = (amount, ' and '.join(periods), area, source, note)
+    if component == 'health-cover':
+        # Puerto Rico has one premium across its municipalities, and the 50-state Census file excludes it.
+        values['PR'] = next(values[fips] for fips, (state, _) in counties.items() if state == 'PR')
+
+
 def main():
     from health import premiums
     import argparse
@@ -398,7 +458,10 @@ def main():
     }
     for component in selection or components:
         unit, build = components[component]
-        write_table(component, unit, build(), counties)
+        values = build()
+        if component in {'health-cover', 'car'}:
+            add_area_costs(component, values, counties)
+        write_table(component, unit, values, counties)
 
 
 if __name__ == '__main__':

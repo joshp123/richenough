@@ -21,7 +21,7 @@ comprehensive cover on the vehicle's value.
 import math
 import re
 
-from exchange_rates import rate_for_months, rates
+from exchange_rates import build_table as exchange_table
 from lib import CACHE, EUROPE_AGENT, PLAN_COUNTRY, REPO, countries, fmt, read_csv, wb_icp, iso3_to_iso2
 from price_level import ICP_ALIASES, NOT_CARRIED, REDENOMINATED, build as build_price_level
 
@@ -120,8 +120,8 @@ def build() -> tuple[list[dict], dict]:
     vehicles = vehicle_price_levels(now)
     petrol = petrol_usd_per_litre()
     taxes = road_taxes()
-    fx = rates()
-    usd_per_eur = 1 / fx["EUR"]["monthly"][max(fx["EUR"]["monthly"])]
+    fx = {r["currency"]: r for r in exchange_table()}
+    usd_per_eur = 1 / float(fx["EUR"]["amount"])
 
     de_vehicle, de_everyday = vehicles["DE"], everyday["DE"]
     # Where ICP has no vehicle price level, use the median ratio of vehicle to everyday price levels in the same continent.
@@ -164,15 +164,15 @@ def build() -> tuple[list[dict], dict]:
         tax = taxes.get(code_for_tax)
         if tax:
             tax_cur = tax["currency"]
-            tax_usd = float(tax["amount"]) / 12 * (1.0 if tax_cur == "USD" else 1 / fx[tax_cur]["monthly"][max(fx[tax_cur]["monthly"])])
+            tax_usd = float(tax["amount"]) / 12 * (1 / float(fx[tax_cur]["amount"]))
             parts["road tax"] = tax_usd
         else:
             thin.append("no annual road tax figure found, so none is included")
         total_usd = sum(parts.values())
         cur = c["currency"]
-        xr, xr_period, _ = rate_for_months(fx.get(cur, {"monthly": {}}), ["2026-07", "2026-08", "2026-09"])
-        if xr is None:
+        if cur not in fx:
             continue
+        xr, xr_period = float(fx[cur]["amount"]), fx[cur]["period"]
         code = PLAN_COUNTRY.get(iso2, iso2)
         if iso2 == "PS":
             continue

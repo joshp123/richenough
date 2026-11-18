@@ -169,7 +169,8 @@ def _united_kingdom() -> list[dict]:
     uk92 = ratio.pop("United Kingdom", None) or ratio.get("UK")
     itl1 = {"North East": "TLC", "North West": "TLD", "Yorkshire and The Humber": "TLE", "East Midlands": "TLF", "West Midlands": "TLG",
             "East": "TLH", "London": "TLI", "South East": "TLJ", "South West": "TLK", "Wales": "TLL", "Scotland": "TLM", "Northern Ireland": "TLN"}
-    out = []
+    out = [c.row("GB", cleaners, "GBP", "per_hour", "2026", "GB", ONS,
+                 "ONS ASHE table 14.5a, UK median gross hourly pay for cleaners and domestics (SOC 9223), April 2026.")]
     for nuts in c.regions_in("TL"):
         region = next((n for n, code in itl1.items() if nuts.startswith(code)), None)
         med92 = ratio.get(region) if region else None
@@ -178,7 +179,7 @@ def _united_kingdom() -> list[dict]:
             note = (f"Layer 2. UK median hourly pay of SOC 9223 cleaners and domestics, April 2026 (provisional): {cleaners:.2f} GBP, "
                     f"times {region}'s median in SOC 92 elementary administration and service ({med92:.2f}) over the UK's ({uk92:.2f}). "
                     "Workplace region. PAYE employees only. Cleaners at firms and in homes are mixed.")
-            measured = "GB"
+            measured = c.place(nuts[:3])
         else:
             amount, note, measured = cleaners, f"Layer 2. UK median hourly pay of SOC 9223 cleaners and domestics, April 2026 (provisional): {cleaners:.2f} GBP; no regional ratio.", "GB"
         out.append(c.row(c.place(nuts), round(amount, 2), "GBP", "per_hour", "2026", measured, ONS, note))

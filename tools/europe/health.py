@@ -132,7 +132,7 @@ def _statutory(d: dict, fx: dict) -> tuple[float, str]:
 
     A premium or fixed contribution residents must pay counts. Where the private plan only supplements the public
     system and the couple's way into it is a voluntary scheme with a fixed contribution (Italy, Poland, Estonia,
-    Romania, Albania), that contribution counts too: without it the plan would leave them with no hospital cover.
+    Albania), that contribution counts too: without it the plan would leave them with no hospital cover.
     """
     s = d.get("statutory_must_pay") or {}
     if s.get("amount"):

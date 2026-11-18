@@ -30,7 +30,19 @@ TREASURY_NAMES = {
     "St. Kitts & Nevis": "KN", "St. Vincent & Grenadines": "VC", "United Kingdom": "GB", "United Arab Emirates": "AE",
 }
 
+CUBA_HOUSEHOLD = {
+    "source_id": "bcc-household-exchange",
+    "publisher": "Banco Central de Cuba",
+    "title": "Tipo de cambio del segmento III para personas naturales, 17 de noviembre de 2026",
+    "url": "https://api.bc.gob.cu/v1/tasas-de-cambio/activas-por-fecha?fecha=2026-11-17",
+    "licence": "Published central bank quotation, numerical facts",
+    "retrieved": "2026-11-18",
+    "period": "2026-11-17",
+    "note": "USD tasaEspecial, the floating Segment III rate for individuals. The accounting and enterprise rates are separate.",
+}
+
 SOURCES = [
+    CUBA_HOUSEHOLD,
     {
         "source_id": "imf-er",
         "publisher": "International Monetary Fund",
@@ -64,6 +76,10 @@ SOURCES = [
 ]
 
 
+# These tables freeze the inputs available on the original retrieval date.
+AS_OF = "2026-11-17"
+
+
 def month_key(period: str) -> str:
     """'2026-M09' -> '2026-09'."""
     return period.replace("-M", "-")
@@ -73,7 +89,7 @@ def imf_monthly() -> dict[str, dict[str, float]]:
     """ISO2 -> {YYYY-MM: national currency per USD, monthly average}."""
     raw = imf_sdmx(CACHE / "imf-er" / "xdc-usd-monthly-average.xml")
     to2 = iso3_to_iso2()
-    return {to2[c]: {month_key(p): v for p, v in s.items()} for c, s in raw.items() if c in to2}
+    return {to2[c]: {month_key(p): v for p, v in s.items() if month_key(p) <= AS_OF[:7]} for c, s in raw.items() if c in to2}
 
 
 def ecb_usd_per_eur_monthly() -> dict[str, float]:
@@ -82,21 +98,23 @@ def ecb_usd_per_eur_monthly() -> dict[str, float]:
     sums: dict[str, list[float]] = {}
     for row in csv.DictReader(io.StringIO(text)):
         value = row.get("USD", "").strip()
-        if value and value != "N/A":
+        if row["Date"] <= AS_OF and value and value != "N/A":
             sums.setdefault(row["Date"][:7], []).append(float(value))
     return {m: sum(v) / len(v) for m, v in sums.items()}
 
 
 def treasury() -> dict[str, dict[str, float]]:
-    """ISO2 -> {quarter-end date: units per USD}. Where a country has two rows (Cuba), the first listed wins."""
+    """ISO2 -> {effective date: units per USD}, including Treasury amendments."""
     data = json.loads((CACHE / "us-treasury-rates-of-exchange" / "since-2025.json").read_text())["data"]
     by_name = {c["name"]: iso2 for iso2, c in countries().items()}
     out: dict[str, dict[str, float]] = {}
     for r in data:
         name = r["country"]
         iso2 = TREASURY_NAMES[name] if name in TREASURY_NAMES else by_name.get(name)
-        if iso2:
-            out.setdefault(iso2, {}).setdefault(r["record_date"], float(r["exchange_rate"]))
+        if iso2 == "CU" and r["currency"] != "Peso":
+            continue  # Treasury also reports the Chavito at par. It is not CUP.
+        if iso2 and r["effective_date"] <= AS_OF:
+            out.setdefault(iso2, {})[r["effective_date"]] = float(r["exchange_rate"])
     return out
 
 
@@ -158,22 +176,30 @@ def build_table() -> list[dict]:
         latest = max(monthly) if monthly else None
         tre = entry.get("treasury") or {}
         tre_latest = max(tre) if tre else None
-        if latest and latest >= "2026-07":
+        if cur == "CUP":
+            amount, period = 832, CUBA_HOUSEHOLD["period"]
+            source_id, basis = CUBA_HOUSEHOLD["source_id"], "Banco Central de Cuba, USD household rate, segment III"
+        elif latest and latest >= "2026-07":
             amount, period, source_id, basis = monthly[latest], latest, entry["source_id"], entry["basis"]
         elif tre_latest:
-            amount, period, source_id, basis = tre[tre_latest], tre_latest, "us-treasury-rates-of-exchange", "Treasury quarter-end rate (IMF series stops earlier)"
+            amount, period, source_id, basis = tre[tre_latest], tre_latest, "us-treasury-rates-of-exchange", "Treasury reporting rate on its effective date"
         elif latest:
             amount, period, source_id, basis = monthly[latest], latest, entry["source_id"], f"{entry['basis']}, stale"
         else:
             continue
         note = basis
-        if tre_latest and source_id != "us-treasury-rates-of-exchange":
+        if tre_latest and source_id == entry["source_id"] and latest:
             gap = monthly[latest] / tre[tre_latest] - 1
             if abs(gap) > 0.05:
                 note += f"; Treasury rate on {tre_latest} differs by {gap:+.0%}"
         rows.append({"place_code": "", "amount": fmt(amount, 6), "currency": cur, "unit": "per_usd", "period": period,
                      "measured_for": "units of this currency per US dollar", "source_id": source_id, "note": note})
     return rows
+
+
+def current_rates() -> dict[str, float]:
+    """Local units per USD at the same precision and vintage used by the page."""
+    return {r["currency"]: float(r["amount"]) for r in build_table()}
 
 
 if __name__ == "__main__":

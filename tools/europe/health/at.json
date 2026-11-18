@@ -2,11 +2,11 @@
   "country": "AT",
   "currency": "EUR",
   "period": "2026",
-  "amount": 1130.5,
+  "amount": 819.8,
   "kind": "statutory-fixed",
   "route": "Niederlassungsbewilligung 'ausgenommen Erwerbstaetigkeit' (para 44 NAG): 'Drittstaatsangehoerigen kann eine Niederlassungsbewilligung - ausgenommen Erwerbstaetigkeit erteilt werden, wenn ... ein Quotenplatz vorhanden ist und ... deren feste und regelmaessige monatliche Einkuenfte der Hoehe nach dem Zweifachen der Richtsaetze des para 293 ASVG entsprechen.' Para 11 (2) no. 3 NAG: 'der Fremde ueber einen alle Risken abdeckenden Krankenversicherungsschutz verfuegt und diese Versicherung in Oesterreich auch leistungspflichtig ist'.",
-  "policy": "OeGK Selbstversicherung in der Krankenversicherung (ASVG): open to people not otherwise insured with residence in Austria. Fixed 565.25 EUR per person per month in 2026 (not income-based; reduction can be requested). Benefits in kind (doctor, hospital, medicines); no sick pay. Six-month waiting period before benefits in kind unless previously insured. Priced for both spouses separately.",
-  "working": "2 persons x 565.25 EUR = 1,130.50 EUR per month. (The page gives a per-person monthly figure; spouse co-insurance rules for self-insured people were not found, so no discount applied.)",
+  "policy": "OeGK Selbstversicherung in der Krankenversicherung (ASVG): open to people not otherwise insured with residence in Austria. Fixed 565.25 EUR per person per month in 2026 (not income-based; reduction can be requested). Benefits in kind (doctor, hospital, medicines); no sick pay. Six-month waiting period before benefits in kind unless previously insured. One spouse is co-insured.",
+  "working": "One full \u00d6GK contribution of \u20ac565.25 plus a spouse supplement of 3.4% \u00d7 \u20ac7,486.80 = \u20ac254.55. Assumes no child-rearing or care exemption.",
   "sources": [
     {
       "source_id": "health-at-oegk-selbst",
@@ -40,6 +40,26 @@
       "retrieved": "2026-11-18",
       "quote": "Alter 40: Sonderklasse Komfort ca. 110-150 EUR, Privatarzt/Wahlarzt ca. 35-85 EUR; Alter 50: Komfort ca. 150-200 EUR, Privatarzt ca. 50-120 EUR (Stand 20. April 2026, ohne Selbstbehalt)",
       "measures": "Monthly indicative premiums by age for Austrian Sonderklasse and out-patient private tariffs; a broker blog, not an insurer tariff."
+    },
+    {
+      "source_id": "health-at-oegk-spouse",
+      "publisher": "\u00d6sterreichische Gesundheitskasse",
+      "title": "Mitversicherung \u2013 Zusatzbeitrag f\u00fcr Angeh\u00f6rige",
+      "url": "https://www.oegk.at/cdscontent/?contentid=10007.905085&portal=oegkdgportal",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "licence": "Published guidance, numerical facts",
+      "measures": "Dependent spouse contribution is 3.4% of the primary insured person\u2019s contribution base. The same rule covers self-insurance."
+    },
+    {
+      "source_id": "health-at-insurance-base",
+      "publisher": "\u00d6sterreichische Notariatskammer",
+      "title": "2026 ASVG self-insurance rates and spouse supplement",
+      "url": "https://ihr-notariat.at/fileadmin/user_upload/Notariatskammer/Informationen/Versorgungsanstalt/Gegenueberstellung_ASVG-UNIQA_ab_Jaenner_2026.pdf",
+      "period": "2026",
+      "retrieved": "2026-11-18",
+      "licence": "Published guidance, numerical facts",
+      "measures": "2026 standard ASVG monthly assessment base EUR 7,486.80."
     }
   ],
   "typical_private": null,
@@ -47,12 +67,12 @@
   "eu_citizen_difference": "EU citizens with a right of residence are not subject to the NAG quota and can often use EHIC/S1 or free-movement rules; a non-EU couple needs a quota place and cover that covers all risks and is payable in Austria.",
   "regional": [],
   "spot_check": "No independent figure. A private Austrian full policy was not priced because no insurer publishes a tariff. A Selbstversicherung student rate (78.84) and marginal-employment rate (83.49) appear on the same pages, confirming the 565.25 is the general rate, not a reduced one.",
-  "uncertainty": "Quota places for para 44 are scarce and set yearly by decree (not researched). The twice-Richtsatz income figure for 2026 was not retrieved. Whether the OeGK accepts a newcomer on a first permit for Selbstversicherung, and whether a private policy would satisfy the authority at a lower price, was not confirmed. Reduction of the contribution is possible on application. Spouse co-insurance cost unknown.",
+  "uncertainty": "Quota places for para 44 are scarce and set yearly by decree (not researched). The twice-Richtsatz income figure for 2026 was not retrieved. Whether the OeGK accepts a newcomer on a first permit for Selbstversicherung, and whether a private policy would satisfy the authority at a lower price, was not confirmed. Reduction of the contribution is possible on application.",
   "statutory_must_pay": {
-    "amount": 1130.5,
+    "amount": 819.8,
     "currency": "EUR",
-    "what": "OeGK Selbstversicherung, 2 x 565.25 EUR a month (fixed). Residents without other cover must be insured; this is the route the first round priced.",
-    "source_id": "health-at-oegk-selbst"
+    "what": "One full \u00d6GK contribution of \u20ac565.25 plus a spouse supplement of 3.4% \u00d7 \u20ac7,486.80 = \u20ac254.55. Assumes no child-rearing or care exemption.",
+    "source_id": "health-at-oegk-spouse"
   },
   "private_plan": {
     "amount": 450.0,
