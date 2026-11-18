@@ -14,16 +14,15 @@ export type WorldFigures = {
   figureOf(code: string): PlaceFigure;
 };
 
-// Whether a city's rent was measured for the city itself or the region it stands in, not copied from its country, a state or
-// another wider area. The extremes are on every first screen and share picture, so only such cities may be them.
+// Whether a city's rent was measured for the city itself, or for the US county or NUTS 3 / ITL 3 region it stands in and not for
+// another city there; not copied from a country, a state, a province or a city nearby. The extremes are on every first screen and
+// share picture, so only such cities may be them.
 export function rentIsMeasuredLocally(places: Places, cityCode: string): boolean {
-  const chain = chainOf(places, cityCode), country = chain.at(-1)!;
-  for (const [index, code] of chain.entries()) {
-    const rent = places.snapshot.figures.rent[code];
-    if (!rent) continue;
-    return index <= 1 && code !== country && !chain.slice(2).includes(rent.measuredFor);
-  }
-  return false;
+  const chain = chainOf(places, cityCode), index = chain.findIndex(code => places.snapshot.figures.rent[code]);
+  if (index === 0) return true;
+  if (index !== 1 || !/^(NUTS-[A-Z]{2}[A-Z0-9]{3}|US-\d{5})$/.test(chain[1])) return false;
+  const { measuredFor } = places.snapshot.figures.rent[chain[1]];
+  return !measuredFor.startsWith('CITY-') || measuredFor === cityCode;
 }
 
 export function worldFigures(places: Places, shapeCodes: string[], settings: Settings): WorldFigures {

@@ -85,7 +85,6 @@ for (const size of ['laptop', 'phone', 'wide'] as const) {
     await photograph(page, `${name}-01-first-load`);
     if (size === 'phone') await phoneMapHeight(page, `${name}-01-first-load`);
     if (size === 'wide') { await page.close(); continue; }
-    if (colorScheme === 'light') console.log(`${size}: ${await frameTimes(page, size)}`);
 
     // The second mode, from the first load: the map must not move.
     await page.getByRole('button', { name: 'Am I gonna make it?' }).click();
@@ -97,6 +96,7 @@ for (const size of ['laptop', 'phone', 'wide'] as const) {
     await photograph(page, `${name}-03-have-two-and-a-half-million`);
     await page.getByRole('button', { name: 'How much you need' }).click();
     await page.waitForTimeout(300);
+    if (colorScheme === 'light') console.log(`${size}: ${await frameTimes(page, size)}`);
 
     // Search: the visitor says where they are, and the map comes back with them on it.
     await page.locator('[data-pick="visitor"]').click();
