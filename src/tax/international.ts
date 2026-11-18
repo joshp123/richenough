@@ -56,6 +56,7 @@ import './dominican-republic.ts';
 import './ecuador.ts';
 import './egypt.ts';
 import './el-salvador.ts';
+import './equatorial-guinea.ts';
 import './eritrea.ts';
 import './estonia.ts';
 import './eswatini.ts';
