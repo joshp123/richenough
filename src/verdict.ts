@@ -22,3 +22,6 @@ export const clampHave = (amount: number) => Math.min(largestHave, Math.max(smal
 export const twoFigures = (amount: number) => { const magnitude = 10 ** (Math.floor(Math.log10(amount)) - 1); return Math.round(amount / magnitude) * magnitude; };
 export const haveAtSliderPosition = (position: number) => twoFigures(1e5 * 100 ** position);
 export const sliderPositionOfHave = (amount: number) => Math.min(1, Math.max(0, Math.log(amount / 1e5) / Math.log(100)));
+
+// What a verdict says in words, with the difference already formatted: "$2.1M short", "$0.3M to spare".
+export const verdictSide = (word: VerdictWord) => (word === 'WAGMI' ? 'to spare' : 'short');

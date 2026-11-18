@@ -6,11 +6,11 @@ import { hasStandIn, withdrawalRates, type PlaceFigure, type Settings } from '..
 import { fillOf, noFigureColour, stepColours, stepEnds } from '../src/colours.ts';
 import { linkQuery, linkStateOf, type LinkState } from '../src/link.ts';
 import { readMapGeometry } from '../src/map-geometry.ts';
-import { currencyName, formatCapital, formatRounded, formatShort, formatSignedCapital, formatWhole, widelyHeldCurrencies } from '../src/money.ts';
+import { currencyName, formatCapital, formatDifference, formatRounded, formatShort, formatWhole, widelyHeldCurrencies } from '../src/money.ts';
 import { contextOf, countryOf, createPlaces, measuredForWords, nameOf, plainLetters, type CityRow, type PlaceRows } from '../src/places.ts';
 import { projectPoint } from '../src/projection.ts';
 import type { Snapshot } from '../src/snapshot.ts';
-import { clampHave, haveAtSliderPosition, sliderPositionOfHave, twoFigures, verdictFill, verdictInk as verdictInkOnLight, verdictInkOnDark, verdictOf, type Mode, type VerdictWord } from '../src/verdict.ts';
+import { clampHave, haveAtSliderPosition, sliderPositionOfHave, twoFigures, verdictFill, verdictInk as verdictInkOnLight, verdictInkOnDark, verdictOf, verdictSide, type Mode, type VerdictWord } from '../src/verdict.ts';
 import { siteSubtitle, siteTitle } from '../src/words.ts';
 import { worldFigures, type WorldFigures } from '../src/world-figures.ts';
 import { flagCanvas, flagHtml } from './flags.ts';
@@ -56,9 +56,8 @@ const mainCurrency = () => state.currency ?? 'USD';
 const perUsDollar = (currency: string) => (currency === 'USD' ? 1 : snapshot.exchangeRates[currency]?.perUsDollar ?? NaN);
 const secondCurrency = () => (visitorCurrency !== mainCurrency() ? visitorCurrency : mainCurrency() !== 'USD' ? 'USD' : null);
 const money = (usDollars: number) => formatCapital(usDollars * perUsDollar(mainCurrency()), mainCurrency());
-// A difference with its sign: +$0.3M, or −$40K where a tenth of a million would round it away.
-const signedMoney = (usDollars: number) => (Math.abs(usDollars) >= 95_000 ? formatSignedCapital(usDollars * perUsDollar(mainCurrency()), mainCurrency())
-  : `${usDollars < 0 ? '−' : '+'}${formatShort(Math.max(1_000, Math.abs(usDollars)) * perUsDollar(mainCurrency()), mainCurrency())}`);
+// What the visitor would have short or to spare in a place, in words: "$2.1M short", "$0.3M to spare".
+const differenceWords = (needUsDollars: number) => `${formatDifference((haveUsDollars() - needUsDollars) * perUsDollar(mainCurrency()), mainCurrency())} ${verdictSide(verdict(needUsDollars))}`;
 // A sum in the chosen currency to two significant figures: $95,000, $2,300.
 const roundedMoney = (usDollars: number) => formatRounded(usDollars * perUsDollar(mainCurrency()), mainCurrency());
 function secondMoney(usDollars: number): string | null {
@@ -105,7 +104,8 @@ const mapView = createMapView(element('map'), {
     const code = labelCode ? null : shape >= 0 ? geometry.shapeCodes[shape] : null;
     if (!code) { tooltip.hidden = true; return; }
     const need = needOf(code);
-    tooltip.innerHTML = `${escapeHtml(nameOf(places, code))} <b>${need === null ? figureWords(figures().figureOf(code)) : placeAmount(need)}</b>`;
+    const verdictPart = need !== null && state.mode === 'have' ? ` · ${verdictWord(verdict(need))}, ${differenceWords(need)}` : '';
+    tooltip.innerHTML = `${escapeHtml(nameOf(places, code))} <b>${need === null ? figureWords(figures().figureOf(code)) : money(need)}</b>${verdictPart}`;
     tooltip.hidden = false;
     tooltip.style.transform = `translate(${Math.min(clientX + 14, innerWidth - tooltip.offsetWidth - 8)}px, ${clientY + 16}px)`;
   },
@@ -123,8 +123,6 @@ function themeTheMap(): void {
 }
 themeTheMap();
 
-// What a place's label and tooltip say: what it needs, or what the visitor would have spare or be short.
-const placeAmount = (need: number) => (state.mode === 'need' ? money(need) : signedMoney(haveUsDollars() - need));
 
 function colourTheMap(): void {
   const { shapeCapital } = figures(), bytes = new Uint8Array(shapeCapital.length * 4);
@@ -144,7 +142,7 @@ function labelTheCities(): void {
   labels = places.cities.filter(city => cityCapital.has(city.code) || named.has(city.code)).map(city => {
     const [x, y] = projectPoint(city.longitude, city.latitude), need = cityCapital.get(city.code) ?? null;
     return {
-      code: city.code, x, y, name: city.name, amount: need === null ? '' : placeAmount(need),
+      code: city.code, x, y, name: city.name, amount: need === null ? '' : money(need),
       amountColours: state.mode === 'need' || need === null ? null : { onLight: verdictInkOnLight[verdict(need)], onDark: verdictInkOnDark[verdict(need)] },
       colour: fill(need), flag: previous.get(city.code)?.flag ?? null, fame: named.has(city.code) ? 0 : city.fame, population: city.population,
     };
@@ -238,30 +236,26 @@ function figureWords(figure: PlaceFigure): string {
   return money(figure.capitalUsDollars);
 }
 type Cell = { role: string; shortRole: string; code: string | null; picker?: 'visitor' | 'compared'; emptyWords?: string };
+// A cell of the strip: the role on top, the place's name on a line of its own across the whole cell (smaller, then on two lines,
+// when it is long; never cut short), and what it needs on the line below, with the other currency beside it. In the second mode
+// that line says what the visitor would have short or to spare, beside what the place needs.
 function placeCell({ role, shortRole, code, picker, emptyWords = '' }: Cell): string {
   const need = code ? needOf(code) : null;
   const name = code ? escapeHtml(nameOf(places, code)) : emptyWords;
   const flag = code ? flagHtml(places, code) : '<span class="flag flag-empty"><svg viewBox="0 0 10 10"><path d="M5 1v8M1 5h8"/></svg></span>';
   const chevron = picker ? '<svg class="chevron" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg>' : '';
-  const nameButton = `<button type="button" class="cell-name" ${picker ? `data-pick="${picker}"` : `data-open="${code}"`}>${flag}<span>${name}</span>${chevron}</button>`;
-  let amount = '', side = '', roleWords = `<span class="long">${role}</span><span class="short">${shortRole}</span>`;
-  if (code && need === null) {
-    // On a phone the missing figure moves up beside the role, so the place's name keeps the whole line.
-    const status = figureWords(figures().figureOf(code));
-    amount = `<span class="cell-amount cell-unknown">${status}</span>`;
-    roleWords += `<span class="cell-status"> · ${status}</span>`;
-  }
+  const nameButton = `<button type="button" class="cell-name" ${picker ? `data-pick="${picker}"` : `data-open="${code}"`}>${flag}<span class="cell-name-words">${name}</span>${chevron}</button>`;
+  let figure = '', roleWords = `<span class="long">${role}</span><span class="short">${shortRole}</span>`;
+  if (code && need === null) figure = `<span class="cell-unknown">${figureWords(figures().figureOf(code))}</span>`;
   else if (code && need !== null && state.mode === 'need') {
     const second = secondMoney(need);
-    amount = `<span class="cell-amount"><i style="background:${fill(need)}"></i><b>${money(need)}</b>${second ? `<small>(${second})</small>` : ''}</span>`;
-    side = second ?? '';
+    figure = `<i style="background:${fill(need)}"></i><b>${money(need)}</b>${second ? `<small>(${second})</small>` : ''}`;
   } else if (code && need !== null) {
     const word = verdict(need);
-    roleWords += `<span class="cell-verdict"> · ${verdictWord(word)}</span>`;
-    amount = `<span class="cell-amount"><i style="background:${verdictInk[word]}"></i><b style="color:${verdictInk[word]}">${signedMoney(haveUsDollars() - need)}</b><small>needs ${money(need)}</small></span>`;
-    side = `needs ${money(need)}`;
+    roleWords += ` · ${verdictWord(word)}`;
+    figure = `<i style="background:${verdictInk[word]}"></i><b style="color:${verdictInk[word]}">${differenceWords(need)}</b><small>needs ${money(need)}</small>`;
   }
-  return `<div class="cell"><div class="cell-role"><span>${roleWords}</span>${side ? `<span class="cell-local">${side}</span>` : ''}</div><div class="cell-line">${nameButton}${amount}</div></div>`;
+  return `<div class="cell"><div class="cell-role">${roleWords}</div>${nameButton}<div class="cell-figure">${figure}</div></div>`;
 }
 // How many countries have at least one place the visitor's money is enough for, out of the countries with a figure.
 function wagmiCountries(): { wagmi: number; withFigure: number } {
@@ -280,10 +274,24 @@ function renderStrip(): void {
     // The most to spare is the city that needs least; its lead over the others is the same whatever the visitor has.
     const { wagmi, withFigure } = wagmiCountries();
     cells.push(placeCell({ role: 'Most to spare', shortRole: 'Most to spare', code: least ?? [...cityCapital.keys()][0] ?? null }),
-      `<div class="cell cell-count"><div class="cell-role"><span>${verdictWord('WAGMI')} in</span></div><div class="cell-line"><b class="cell-count-words"><span class="long">${wagmi} of ${withFigure} countries</span><span class="short">${wagmi} countries</span></b></div></div>`);
+      `<div class="cell cell-count"><div class="cell-role">${verdictWord('WAGMI')} in</div><b class="cell-count-words">${wagmi} of ${withFigure} countries</b></div>`);
   }
   element('strip').innerHTML = cells.join('');
+  fitStripNames();
 }
+// A name too long for its line steps down a size, then wraps onto two lines. It is never cut short.
+function fitStripNames(): void {
+  for (const words of element('strip').querySelectorAll<HTMLElement>('.cell-name-words')) {
+    words.classList.remove('is-smaller', 'is-wrapped');
+    if (words.scrollWidth <= words.clientWidth) continue;
+    words.classList.add('is-smaller');
+    if (words.scrollWidth > words.clientWidth) words.classList.add('is-wrapped');
+  }
+  // The key and the zoom buttons stand just above the strip, however tall it is.
+  document.documentElement.style.setProperty('--strip-height', `${element('strip').offsetHeight}px`);
+}
+document.fonts.ready.then(() => { fitStripNames(); coverMap(); });
+new ResizeObserver(() => fitStripNames()).observe(element('strip'));
 element('strip').addEventListener('click', event => {
   const target = (event.target as HTMLElement).closest<HTMLElement>('[data-pick],[data-open]');
   if (target?.dataset.pick) openPicker(target.dataset.pick as 'visitor' | 'compared');
@@ -322,9 +330,9 @@ function renderDetails(): void {
   const need = figure.capitalUsDollars, second = secondMoney(need), rate = state.settings.withdrawalRate;
   const visitorNeed = state.visitor && state.visitor !== code ? needOf(state.visitor) : null;
   const comparison = visitorNeed === null ? '' : `${money(Math.abs(need - visitorNeed))} ${need < visitorNeed ? 'less' : 'more'} than ${escapeHtml(nameOf(places, state.visitor!))}.`;
-  const word = verdict(need), difference = haveUsDollars() - need;
+  const word = verdict(need);
   const verdictLine = state.mode === 'have'
-    ? `<p class="details-verdict">${verdictWord(word)} with ${formatShort(state.have, mainCurrency())}: ${money(Math.abs(difference))} ${difference < 0 ? 'short' : 'spare'}.${comparison ? ` ${comparison}` : ''}</p>`
+    ? `<p class="details-verdict">${verdictWord(word)} · ${differenceWords(need)} with ${formatWhole(state.have, mainCurrency())}.${comparison ? ` ${comparison}` : ''}</p>`
     : comparison ? `<p class="details-verdict">${comparison}</p>` : '';
   const country = countryOf(places, code), taxAmount = roundedMoney(figure.tax.usDollarsPerYear);
   const taxWords = figure.tax.usDollarsPerYear < 1 ? `${nameOf(places, country)} takes none of it in tax.`
@@ -526,4 +534,4 @@ fetch(DATA_PATHS.fineShapes).then(response => response.arrayBuffer()).then(bytes
 });
 
 // For checking from a browser's console or a test.
-Object.assign(window, { enough: { state, places, figures, mapView, openPlace, update } });
+Object.assign(window, { enough: { state, places, figures, mapView, openPlace, update, projectPoint } });

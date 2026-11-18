@@ -23,7 +23,24 @@ async function openPage(size: keyof typeof sizes, colorScheme: 'light' | 'dark',
   await page.waitForTimeout(3000);
   return page;
 }
-const photograph = (page: Page, name: string) => page.screenshot({ path: `${folder}/${name}.png` });
+// Every photograph is also checked for text a visitor cannot read whole: text ending in "…", an element that hides part of its
+// text, and in "Am I gonna make it?" an amount written with a sign (+$0.3M), which Josh found confusing.
+async function photograph(page: Page, name: string): Promise<void> {
+  await page.screenshot({ path: `${folder}/${name}.png` });
+  const found = await page.evaluate(() => {
+    const out: string[] = [], isHaveMode = document.body.dataset.mode === 'have';
+    for (const element of document.querySelectorAll<HTMLElement>('body *')) {
+      if (element.closest('[hidden]') || !element.offsetParent && getComputedStyle(element).position !== 'fixed') continue;
+      const style = getComputedStyle(element), ownText = [...element.childNodes].filter(node => node.nodeType === 3).map(node => node.textContent).join('').trim();
+      if (ownText.endsWith('…')) out.push(`ends in …: "${ownText}"`);
+      if (isHaveMode && /[+−-]\s?[$€£¥]/.test(ownText)) out.push(`signed amount: "${ownText}"`);
+      const hides = style.overflowX === 'hidden' || style.overflowX === 'clip' || style.textOverflow === 'ellipsis';
+      if (hides && element.textContent!.trim() && element.scrollWidth > element.clientWidth + 1 && element.tagName !== 'HTML' && element.tagName !== 'BODY') out.push(`cut off: "${element.textContent!.trim().slice(0, 60)}"`);
+    }
+    return out;
+  });
+  for (const problem of found) problems.push(`${name}: ${problem}`);
+}
 
 // How long the map takes to draw while it moves: frames during sixty small zoom and pan steps.
 async function frameTimes(page: Page): Promise<string> {
@@ -109,6 +126,25 @@ for (const size of ['laptop', 'phone', 'wide'] as const) {
       const address = await page.locator('#share-picture').getAttribute('src');
       await writeFile(`${folder}/picture-7x8.png`, Buffer.from(await (await fetch(siteAddress + address)).arrayBuffer()));
     }
+    await page.keyboard.press('Escape');
+
+    // The longest names a visitor can choose, in both modes, in a place's details and in the place list.
+    const longPairs = [['12-long-names-am-i-gonna-make-it', '?mode=have&me=petropavlovsk-kamchatsky&vs=nuts-el422'], ['13-long-names', '?me=saint-petersburg&vs=us-09130'],
+      ['14-long-names-county', '?mode=have&me=ho-chi-minh-city&vs=us-06037']];
+    for (const [photo, query] of longPairs) {
+      await openAt(page, `/${query}`);
+      const named = await page.evaluate(() => { const { state } = (window as unknown as { enough: { state: { visitor: string | null; compared: string | null } } }).enough; return [state.visitor, state.compared]; });
+      if (named.includes(null)) problems.push(`${photo}: a place in ${query} did not resolve (${named.join(', ')})`);
+      await photograph(page, `${name}-${photo}`);
+      if (size === 'laptop' && colorScheme === 'light' && photo.startsWith('12')) await writeFile(`${folder}/picture-7x8-long-names.png`, Buffer.from(await (await fetch(`${siteAddress}/picture.png${query}`)).arrayBuffer()));
+    }
+    await openAt(page, '/?me=petropavlovsk-kamchatsky&place=nuts-el422');
+    await photograph(page, `${name}-15-long-name-details`);
+    await openAt(page, '/?me=petropavlovsk-kamchatsky');
+    await page.locator('[data-pick="compared"]').click();
+    await page.getByRole('searchbox', { name: 'Search for a place' }).fill('andros');
+    await page.waitForTimeout(300);
+    await photograph(page, `${name}-16-long-name-search`);
     await page.close();
   }
 }

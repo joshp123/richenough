@@ -22,5 +22,6 @@ Josh owns this project. His own words are the authority; they are kept privately
 - Every number on the page traces to a row in `data/sources.csv`; stand-ins say so beside them.
 - Palestine is one place over Israel and Palestine, with Arabic place names, and its figure is "not known". Russia and Ukraine follow the borders in Russia's constitution.
 - Things Josh is still choosing are one line each: the projection (`src/projection.ts`), the title (`src/words.ts`), the withdrawal rates offered (`src/capital.ts`).
+- Nothing a visitor sees is cut short or ends in "…": a long name steps down a size, then wraps. In "Am I gonna make it?" amounts are said in words ("$2.1M short"), never with a plus or minus sign. `tools/check-site-in-browser.ts` checks both in every photograph and tries the longest names.
 - Check work as a visitor: `tools/check-site-in-browser.ts` in WebKit at phone, laptop and wide sizes, light and dark, then look at the photographs and the share pictures at Twitter's sizes.
 - No deploy, push or posting without Josh's go-ahead. Opus or Fable build the frontend; GPT Sol never builds frontend or UI.

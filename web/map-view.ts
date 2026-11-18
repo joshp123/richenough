@@ -286,11 +286,18 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
       const [x, y] = toScreen(label.x, label.y);
       if (x < -200 || x > size.width + 200 || y < -50 || y > size.height + 50) continue;
       const placed = placements.get(label.code) ?? 'right', width = drawnWidth(context, label);
-      const boxOn = (side: 'right' | 'left'): ScreenBox => {
+      // Beside the dot; and for the visitor's and the compared place, whose labels always show, also above or below it, which is
+      // where a long name fits on a narrow phone.
+      const boxOn = (side: 'right' | 'left' | 'above' | 'below'): ScreenBox => {
+        if (side === 'above' || side === 'below') {
+          const left = Math.max(2, Math.min(size.width - 2 - width, x - width / 2)), top = side === 'above' ? y - dotRadius - dotGap - labelHeight : y + dotRadius + dotGap;
+          return [left, top, left + width, top + labelHeight];
+        }
         const left = side === 'right' ? x + dotRadius + dotGap : x - dotRadius - dotGap - width;
         return [left, y - labelHeight / 2, left + width, y + labelHeight / 2];
       };
-      const box = ([placed, placed === 'right' ? 'left' : 'right'] as const).map(boxOn)
+      const sides = [placed, placed === 'right' ? 'left' : 'right', ...(emphasised.includes(label) ? ['above', 'below'] : [])] as const;
+      const box = (sides as readonly ('right' | 'left' | 'above' | 'below')[]).map(boxOn)
         .find(candidate => isInside(candidate) && !blocked.some(other => overlaps(candidate, other, 0)) && !drawnLabels.some(other => overlaps(candidate, other.box, 4)));
       if (!box) continue;
       drawnLabels.push({ label, box, dot: [x, y] });
@@ -397,6 +404,8 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
     setTheme(next: MapTheme) { theme = next; draw(); },
     setCovers(next: MapCovers) { covers = next; draw(); },
     get geometry() { return geometry; },
+    // Where a point of the map is on the screen, for checks.
+    screenOf: (x: number, y: number) => toScreen(x, y),
     // The zoom from which a place's label shows, for checks, or null if it never does.
     labelLevelOf(code: string): number | null {
       for (let level = 0; level <= deepestZoom; level += labelStep) if (placementsAt(level).has(code)) return level;

@@ -4,10 +4,10 @@ import advanceWidths from '../assets/fonts/archivo-advance-widths.json' with { t
 import { fillOf, noFigureColour, stepColours, stepEnds } from './colours.ts';
 import type { MapGeometry } from './map-geometry.ts';
 import { svgMap } from './map-svg.ts';
-import { formatCapital, formatShort, formatSignedCapital, formatWhole } from './money.ts';
+import { formatCapital, formatDifference, formatWhole } from './money.ts';
 import { countryOf, flagCodesOf, nameOf, type Places } from './places.ts';
 import { projection, projectPoint } from './projection.ts';
-import { verdictFill, verdictInk, verdictOf, type Mode } from './verdict.ts';
+import { verdictFill, verdictInk, verdictOf, verdictSide, type Mode } from './verdict.ts';
 import { madeBy, siteSubtitle, siteTitle } from './words.ts';
 import type { WorldFigures } from './world-figures.ts';
 
@@ -76,13 +76,30 @@ const money = (input: PictureInput, usDollars: number) => formatCapital(usDollar
 const haveUsDollars = (input: PictureInput) => input.have / perUnit(input, input.currency);
 const capitalOf = (input: PictureInput, code: string) => { const figure = input.figures.figureOf(code); return figure.kind === 'figure' ? figure.capitalUsDollars : null; };
 const colourOf = (input: PictureInput, usDollars: number | null) => fillOf(input.mode, usDollars, haveUsDollars(input));
-// What a place's label says: what it needs, or what the visitor would have spare or be short.
-const placeAmount = (input: PictureInput, need: number) => {
-  if (input.mode === 'need') return money(input, need);
-  const difference = (haveUsDollars(input) - need) * perUnit(input, input.currency);
-  return Math.abs(difference) >= 95_000 * perUnit(input, input.currency) ? formatSignedCapital(difference, input.currency)
-    : `${difference < 0 ? '−' : '+'}${formatShort(Math.max(1_000, Math.abs(difference)), input.currency)}`;
+// What a place's label says: what it needs, in both modes; in the second its colour gives the verdict.
+const placeAmount = (input: PictureInput, need: number) => money(input, need);
+// What the visitor would have short or to spare in a place, in words: "$2.1M short", "$0.3M to spare".
+const differenceWords = (input: PictureInput, need: number) => {
+  const have = haveUsDollars(input);
+  return { amount: formatDifference((have - need) * perUnit(input, input.currency), input.currency), side: verdictSide(verdictOf(need, have)) };
 };
+
+// A name set as large as fits the width, but no smaller than a step down from its full size; past that it takes two lines.
+function nameLines(name: string, fullSize: number, widthLimit: number): { lines: string[]; size: number } {
+  const size = fittedSize(name, fullSize, 700, widthLimit, -0.01), smallest = Math.round(fullSize * 0.78);
+  if (size >= smallest) return { lines: [name], size };
+  const words = name.split(/(?<=[\s-])/);
+  for (let lineSize = smallest; lineSize >= Math.round(fullSize * 0.5); lineSize -= 2) {
+    let best: string[] | null = null, bestDifference = Infinity;
+    for (let cut = 1; cut < words.length; cut++) {
+      const first = words.slice(0, cut).join('').trim(), second = words.slice(cut).join('').trim();
+      const firstWidth = textWidth(first, lineSize, 700, -0.01), secondWidth = textWidth(second, lineSize, 700, -0.01);
+      if (firstWidth <= widthLimit && secondWidth <= widthLimit && Math.abs(firstWidth - secondWidth) < bestDifference) { best = [first, second]; bestDifference = Math.abs(firstWidth - secondWidth); }
+    }
+    if (best) return { lines: best, size: lineSize };
+  }
+  return { lines: [name], size };
+}
 
 // A frame on the world map: the world as wide as the frame, the given latitude in the middle of its height.
 type Frame = { width: number; height: number; left: number; top: number; scale: number };
@@ -205,17 +222,29 @@ export function pictureSvg(input: PictureInput): string {
     const top = rowsTop + (3 - list.length) * rowHeight / 2 + index * rowHeight, middle = top + rowHeight / 2, capital = capitalOf(input, row.code);
     if (index) svg += `<rect x="${margin}" y="${top}" width="${right - margin}" height="2" fill="${ink}" fill-opacity="0.08"/>`;
     svg += flag(input, row.code, margin, middle - 44, 88, 8);
-    const name = nameOf(input.places, row.code), nameSize = fittedSize(name, 58, 700, 520, -0.01);
-    svg += runs([{ words: row.role, weight: 400, colour: grey }, ...(capital === null || input.mode === 'need' ? [] : verdictRuns(input, capital))], margin + 160, middle - 22, 30);
-    svg += text(name, margin + 160, middle + 40, nameSize, 700, ink, 'start', -0.01);
-    if (capital === null) { svg += text('Not known', right, middle + 24, 54, 700, grey, 'end'); return; }
-    const second = input.mode === 'have' ? `needs ${money(input, capital)}`
-      : input.secondCurrency && Number.isFinite(perUnit(input, input.secondCurrency)) ? `(${formatCapital(capital * perUnit(input, input.secondCurrency), input.secondCurrency)})` : '';
-    const amount = placeAmount(input, capital), amountColour = input.mode === 'have' ? verdictInk[verdictOf(capital, haveUsDollars(input))] : ink;
-    const secondWidth = second ? textWidth(second, 32, 400) + 26 : 0, amountWidth = textWidth(amount, 84, 800, -0.035);
-    if (second) svg += text(second, right, middle + 22, 32, 400, grey, 'end');
-    svg += text(amount, right - secondWidth, middle + 30, 84, 800, amountColour, 'end', -0.035);
-    svg += `<circle cx="${right - secondWidth - amountWidth - 34}" cy="${middle}" r="15" fill="${input.mode === 'have' ? amountColour : colourOf(input, capital)}"/>`;
+    // The right column: what the place needs (with the other currency), or in the second mode what is short or to spare, in
+    // its verdict's colour, with what the place needs under it.
+    let rightWidth = 0, rightColumn = '';
+    if (capital === null) { rightColumn = text('Not known', right, middle + 24, 54, 700, grey, 'end'); rightWidth = textWidth('Not known', 54, 700); }
+    else if (input.mode === 'need') {
+      const amount = placeAmount(input, capital), second = input.secondCurrency && Number.isFinite(perUnit(input, input.secondCurrency)) ? `(${formatCapital(capital * perUnit(input, input.secondCurrency), input.secondCurrency)})` : '';
+      const secondWidth = second ? textWidth(second, 32, 400) + 26 : 0, amountWidth = textWidth(amount, 84, 800, -0.035);
+      if (second) rightColumn += text(second, right, middle + 22, 32, 400, grey, 'end');
+      rightColumn += text(amount, right - secondWidth, middle + 30, 84, 800, ink, 'end', -0.035);
+      rightColumn += `<circle cx="${right - secondWidth - amountWidth - 34}" cy="${middle}" r="15" fill="${colourOf(input, capital)}"/>`;
+      rightWidth = secondWidth + amountWidth + 50;
+    } else {
+      const { amount, side } = differenceWords(input, capital), colour = verdictInk[verdictOf(capital, haveUsDollars(input))];
+      const sideWidth = textWidth(` ${side}`, 40, 700), amountWidth = textWidth(amount, 76, 800, -0.035), needs = `needs ${money(input, capital)}`;
+      rightColumn += text(` ${side}`, right, middle + 8, 40, 700, colour, 'end') + text(amount, right - sideWidth, middle + 8, 76, 800, colour, 'end', -0.035);
+      rightColumn += text(needs, right, middle + 54, 30, 400, grey, 'end');
+      rightWidth = Math.max(sideWidth + amountWidth, textWidth(needs, 30, 400));
+    }
+    const nameLeft = margin + 160, { lines, size } = nameLines(nameOf(input.places, row.code), 58, right - rightWidth - 40 - nameLeft);
+    const nameTop = lines.length === 1 ? middle + 40 : middle + 16;
+    svg += runs([{ words: row.role, weight: 400, colour: grey }, ...(capital === null || input.mode === 'need' ? [] : verdictRuns(input, capital))], nameLeft, lines.length === 1 ? middle - 22 : middle - 40, 30);
+    lines.forEach((line, lineIndex) => { svg += text(line, nameLeft, nameTop + lineIndex * size * 1.05, size, 700, ink, 'start', -0.01); });
+    svg += rightColumn;
   });
   svg += text(input.address, margin, pictureHeight - 52, 42, 700, ink, 'start', -0.01) + text(madeBy, right, pictureHeight - 52, 32, 400, grey, 'end');
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${pictureWidth}" height="${pictureHeight}" viewBox="0 0 ${pictureWidth} ${pictureHeight}">${svg}</svg>`;

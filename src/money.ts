@@ -45,3 +45,10 @@ export function formatShort(amount: number, currency: string): string {
 export function formatSignedCapital(amount: number, currency: string): string {
   return `${amount < 0 ? '−' : '+'}${formatCapital(Math.abs(amount), currency)}`;
 }
+
+// A difference in words-sized money: to a tenth of a million, or in thousands where a tenth of a million would round it away
+// ($40K, not $0.0M).
+export function formatDifference(amount: number, currency: string): string {
+  const size = Math.abs(amount);
+  return size >= 95_000 ? formatCapital(size, currency) : formatShort(Math.max(1_000, size), currency);
+}
