@@ -147,6 +147,7 @@ import './norway.ts';
 import './oman.ts';
 import './pakistan.ts';
 import './palau.ts';
+import './palestine.ts';
 import './panama.ts';
 import './papua-new-guinea.ts';
 import './paraguay.ts';

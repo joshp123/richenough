@@ -1,8 +1,8 @@
 import { registerStandardTax } from './calculation.ts';
 
-// Cyprus Income Tax Law securities exemption. Use an accumulating fund and private investor.
+// 2026. Use secondary-market sales of a qualifying accumulating ETF by a private investor.
 registerStandardTax(
   'CY', 'EUR',
-  'Cyprus exempts gains on the sale of qualifying securities, including ETF units. Non-dom status exempts qualifying dividends from defence contribution. With an accumulating ETF and sale gains only, there are no dividends to assess for defence or health contributions.',
-  ['tax-cy-securities', 'tax-cy-nondom', 'tax-cy-tax-return'], () => 0,
+  'Cyprus exempts private gains on secondary-market sales of qualifying securities, including ETF units. GeSY applies to dividends, interest and other defined income. The estimate uses an accumulating ETF, with gains from sales and no distribution.',
+  ['tax-cy-securities', 'tax-cy-nondom', 'tax-cy-tax-return', 'tax-cy-gesy'], () => 0,
 );
