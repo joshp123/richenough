@@ -39,13 +39,14 @@ const define = { DATA_PATHS: JSON.stringify(dataPaths), FLAG_PATHS: JSON.stringi
 const page = await build({ entryPoints: ['web/page.ts'], bundle: true, format: 'esm', target: 'es2022', minify: true, define, write: false, legalComments: 'none', plugins: [everyTaxRule] });
 const pageScript = Buffer.from(page.outputFiles[0].contents);
 const pageStyles = Buffer.from(withFontPaths(await readFile('web/style.css', 'utf8')));
+const pageStylesPath = addWebAsset('page', 'css', pageStyles, 'text/css; charset=utf-8');
 const pageHtml = withFontPaths(await readFile('web/index.html', 'utf8'))
   .replace('/page.js', addWebAsset('page', 'js', pageScript, 'text/javascript; charset=utf-8'))
-  .replace('/page.css', addWebAsset('page', 'css', pageStyles, 'text/css; charset=utf-8'));
+  .replace('/page.css', pageStylesPath);
 
 await mkdir('dist/server', { recursive: true });
 await mkdir('dist/.openai', { recursive: true });
-const workerDefine = { ...define, WEB_ASSETS: JSON.stringify(webAssets), PAGE_HTML: JSON.stringify(pageHtml), SHARE_FONTS_BASE64: JSON.stringify(shareFontsBase64) };
+const workerDefine = { ...define, WEB_ASSETS: JSON.stringify(webAssets), PAGE_HTML: JSON.stringify(pageHtml), PAGE_STYLES_PATH: JSON.stringify(pageStylesPath), SHARE_FONTS_BASE64: JSON.stringify(shareFontsBase64) };
 const worker = (await build({ entryPoints: ['hosting/worker.ts'], bundle: true, format: 'esm', platform: 'browser', target: 'es2022', external: ['./resvg.wasm'], define: workerDefine, write: false, plugins: [everyTaxRule] })).outputFiles[0].text;
 const resvg = await readFile('node_modules/@resvg/resvg-wasm/index_bg.wasm');
 await writeFile('dist/server/index.js', worker);

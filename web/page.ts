@@ -2,12 +2,13 @@
 // modes: "How much you need" (what each place needs, the same for everyone) and "Am I gonna make it?" (the visitor's money
 // against each place).
 import 'every-tax-rule';
-import { hasStandIn, withdrawalRates, type PlaceFigure, type Settings } from '../src/capital.ts';
+import { withdrawalRates, type PlaceFigure, type Settings } from '../src/capital.ts';
 import { fillOf, noFigureColour, stepColours, stepEnds } from '../src/colours.ts';
 import { linkQuery, linkStateOf, type LinkState } from '../src/link.ts';
 import { readMapGeometry } from '../src/map-geometry.ts';
 import { currencyName, formatCapital, formatDifference, formatRounded, formatShort, formatWhole, widelyHeldCurrencies } from '../src/money.ts';
-import { contextOf, countryOf, createPlaces, measuredForWords, nameOf, plainLetters, type CityRow, type PlaceRows } from '../src/places.ts';
+import { chainOf, contextOf, countryOf, createPlaces, nameOf, plainLetters, type CityRow, type PlaceRows } from '../src/places.ts';
+import { sourceKind, sourcePlace } from '../src/source-lines.ts';
 import { projectPoint } from '../src/projection.ts';
 import type { Snapshot } from '../src/snapshot.ts';
 import { clampHave, haveAtSliderPosition, sliderPositionOfHave, twoFigures, verdictFill, verdictInk as verdictInkOnLight, verdictInkOnDark, verdictOf, verdictSide, type Mode, type VerdictWord } from '../src/verdict.ts';
@@ -219,18 +220,19 @@ document.addEventListener('pointerdown', event => { if (!(event.target as HTMLEl
 function renderKey(): void {
   // On a phone, whose bar has no tax switch, the key says when the tax break is on.
   const taxBreak = state.settings.regime === 'special' ? '<div class="key-tax">With the newcomer tax break</div>' : '';
+  const about = '<a class="key-about" href="/about">About these figures</a>';
   if (state.mode === 'need') {
     element('key').innerHTML = `${taxBreak}<div class="key-title">$1M is enough</div>
       <div class="key-row"><div class="key-steps">${stepColours.map(colour => `<i style="background:${colour}"></i>`).join('')}</div>
       <span class="key-none"><i style="background:var(--no-figure)"></i>No figure</span></div>
-      <div class="key-ticks">${stepEnds.map(end => `<span class="${end === 1e6 ? 'key-turn' : ''} ${[0.75e6, 1.25e6, 1.5e6, 2.5e6].includes(end) ? 'key-minor' : ''}">$${end / 1e6}M</span>`).join('')}</div>`;
+      <div class="key-ticks">${stepEnds.map(end => `<span class="${end === 1e6 ? 'key-turn' : ''} ${[0.75e6, 1.25e6, 1.5e6, 2.5e6].includes(end) ? 'key-minor' : ''}">$${end / 1e6}M</span>`).join('')}</div>${about}`;
     return;
   }
   element('key').innerHTML = `${taxBreak}<div class="key-verdicts"><b class="key-have">With ${formatShort(state.have, mainCurrency())}</b>
     <span><i style="background:${verdictFill.WAGMI}"></i>${verdictWord('WAGMI')}<span class="key-words"> enough</span></span>
     <span><i style="background:${verdictFill.Close}"></i><span>Close<span class="key-words">, up to a quarter short</span></span></span>
     <span><i style="background:${verdictFill.NGMI}"></i>${verdictWord('NGMI')}<span class="key-words"> not enough</span></span>
-    <span class="key-none"><i style="background:var(--no-figure)"></i>No figure</span></div>`;
+    <span class="key-none"><i style="background:var(--no-figure)"></i>No figure</span></div>${about}`;
 }
 
 // ---- The strip along the bottom.
@@ -307,14 +309,11 @@ const costWords: Record<string, string> = {
   rent: 'Rent, two-bed flat in the main town', everyday: 'Everyday spending', car: 'One car',
   housekeeper: `Housekeeper, ${snapshot.lifestyle.housekeeperHoursPerWeek} hours a week`, health: 'Private health cover', trips: 'A few trips a year',
 };
-const sourceWords = (sourceId: string) => snapshot.sources[sourceId]?.publisher ?? sourceId;
-// One short line under each cost: where the figure was measured and who published it ("Portugal · World Bank"), or that it is a
-// stand-in. The full titles, dates and licences are under All sources.
-const shortWords = (words: string) => words.split(/[,(:;]/)[0].trim();
+// One short line under each cost: where the figure was measured and what kind of source it is ("Lisbon · official statistics"), or
+// that it is a stand-in. Publishers are named on the About page only.
 function costLine(cost: Extract<PlaceFigure, { kind: 'figure' }>['costs'][number]): string {
   if (!cost.figure) return 'The same everywhere';
-  const where = shortWords(measuredForWords(places, cost.figure.measuredFor));
-  return `${escapeHtml(where)} · ${cost.isStandIn ? '<em>stand-in</em>' : escapeHtml(shortWords(sourceWords(cost.figure.sourceId)))}`;
+  return `${escapeHtml(sourcePlace(places, cost))} · ${cost.isStandIn ? '<em>stand-in</em>' : sourceKind(cost)}`;
 }
 const closeIcon = '<svg viewBox="0 0 12 12"><path d="M1 1l10 10M11 1L1 11"/></svg>';
 function renderDetails(): void {
@@ -345,7 +344,7 @@ function renderDetails(): void {
   const taxMonthly = figure.tax.usDollarsPerYear / 12, shades = ['#10151C', '#10151CCC', '#10151C99', '#10151C73', '#10151C52', '#10151C38'];
   const bar = figure.costs.map((cost, index) => `<i style="flex-grow:${cost.usDollarsPerMonth};background:${shades[index]}"></i>`).join('') + `<i class="bar-tax" style="flex-grow:${taxMonthly}"></i>`;
   const taxShare = Math.round(figure.tax.usDollarsPerYear / figure.withdrawalUsDollarsPerYear * 100);
-  const taxSource = figure.tax.isStandIn ? '<em>stand-in</em>' : escapeHtml(shortWords(sourceWords(figure.tax.sourceIds[0] ?? '')));
+  const taxSource = figure.tax.isStandIn ? '<em>stand-in</em>' : 'tax rules';
   const rows = figure.costs.map((cost, index) => `<li><i style="background:${shades[index]}"></i><div><b>${costWords[cost.part]}</b><small>${costLine(cost)}</small></div><span>${roundedMoney(cost.usDollarsPerMonth)}</span></li>`).join('')
     + `<li class="tax-row"><i></i><div><b>Tax, ${taxShare}% of what you sell</b><small>${escapeHtml(nameOf(places, country))} · ${taxSource}</small></div><span>${roundedMoney(taxMonthly)}</span></li>`;
   const otherRegime: Settings = { ...state.settings, regime: state.settings.regime === 'standard' ? 'special' : 'standard' };
@@ -357,33 +356,32 @@ function renderDetails(): void {
     <p class="details-sentence">${sentence}</p>
     <div class="details-costs"><div class="details-costs-head"><b>What it pays for</b><span>a month</span></div><div class="cost-bar">${bar}</div><ul>${rows}</ul>
     <div class="details-total"><b>${Math.round(rate * 100)}% of ${money(need)}, a month</b><b>${formatWhole(figure.withdrawalUsDollarsPerYear / 12 * perUsDollar(mainCurrency()), mainCurrency())}</b></div></div>
-    ${otherRow}${detailsButtons(code)}
-    <div class="details-sources" hidden>${hasStandIn(figure) ? '<p>Figures marked stand-in come from Alessandro Palombo’s post until our own sources cover this place.</p>' : ''}${sourcesList(figure)}</div>`;
+    ${otherRow}${detailsButtons(code)}`;
 }
 function detailsButtons(code: string): string {
   const compare = state.visitor && state.visitor !== code && state.compared !== code ? `<button type="button" class="button button-dark" data-compare="${code}">Compare with ${escapeHtml(nameOf(places, state.visitor))}</button>` : '';
   const here = state.visitor !== code ? `<button type="button" class="button" data-here="${code}">I’m here</button>` : '';
-  return `<div class="details-buttons">${compare}${here}<span class="grow"></span><button type="button" class="link-button" data-sources>All sources</button></div>`;
-}
-function sourcesList(figure: Extract<PlaceFigure, { kind: 'figure' }>): string {
-  const ids = [...new Set([...figure.costs.flatMap(cost => (cost.figure ? [cost.figure.sourceId] : [snapshot.lifestyle.sourceIds.trips])), ...figure.tax.sourceIds, snapshot.lifestyle.sourceIds.everyday])];
-  return `<ul>${ids.map(id => snapshot.sources[id]).filter(Boolean).map(source => `<li>${source.url ? `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener">${escapeHtml(source.title)}</a>` : escapeHtml(source.title)}<small>${[source.publisher, source.period, source.licence].filter(Boolean).map(escapeHtml).join(' · ')}</small></li>`).join('')}</ul>`;
+  return `<div class="details-buttons">${compare}${here}<span class="grow"></span><a class="link-button" href="/about#sources">All sources</a></div>`;
 }
 element('details').addEventListener('click', event => {
   const target = event.target as HTMLElement;
   if (target.closest('[data-close-details]')) openPlace(null, false);
   else if (target.closest('[data-compare]')) compareWith(target.closest<HTMLElement>('[data-compare]')!.dataset.compare!);
   else if (target.closest('[data-here]')) { state.visitor = target.closest<HTMLElement>('[data-here]')!.dataset.here!; if (state.compared === state.visitor) state.compared = null; update(); }
-  else if (target.closest('[data-sources]')) { const list = element('details').querySelector<HTMLElement>('.details-sources')!; list.hidden = !list.hidden; }
 });
 
 // Where a place is on the map, as a box in map units: a city's point, or the box round a region's shapes.
+// A place's shapes: its own, or for a country or state drawn by region, every shape inside it.
+const shapesByPlace = new Map<string, number[]>();
+function shapesOf(code: string): number[] {
+  if (!shapesByPlace.has(code)) shapesByPlace.set(code, geometry.shapeCodes.flatMap((shapeCode, shape) => (chainOf(places, shapeCode).includes(code) ? [shape] : [])));
+  return shapesByPlace.get(code)!;
+}
 function boxOf(code: string): [number, number, number, number] | null {
   const city = places.cityByCode.get(code);
   if (city) { const [x, y] = projectPoint(city.longitude, city.latitude); return [x, y, x, y]; }
   let west = Infinity, north = Infinity, east = -Infinity, south = -Infinity;
-  geometry.shapeCodes.forEach((shapeCode, shape) => {
-    if (shapeCode !== code) return;
+  shapesOf(code).forEach(shape => {
     west = Math.min(west, geometry.shapeBoxes[shape * 4]); north = Math.min(north, geometry.shapeBoxes[shape * 4 + 1]);
     east = Math.max(east, geometry.shapeBoxes[shape * 4 + 2]); south = Math.max(south, geometry.shapeBoxes[shape * 4 + 3]);
   });
@@ -500,7 +498,7 @@ function update(): void {
   if (drawnFor !== figuresDrawnFor) { figuresDrawnFor = drawnFor; colourTheMap(); labelTheCities(); }
   renderBar(); renderKey(); renderStrip(); renderDetails();
   const opened = state.opened, isCity = !!opened && places.cityByCode.has(opened);
-  mapView.setHighlightedShape(opened && !isCity ? geometry.shapeCodes.indexOf(opened) : -1);
+  mapView.setHighlightedShapes(opened && !isCity ? shapesOf(opened) : []);
   mapView.setEmphasis({ dark: state.visitor, ringed: isCity ? opened : null, named: [state.visitor, state.compared].filter(Boolean) as string[] });
   history.replaceState(null, '', `/${linkQuery(places, state)}`);
   coverMap();

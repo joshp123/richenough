@@ -3,6 +3,7 @@ import { Resvg, initWasm } from '@resvg/resvg-wasm';
 // @ts-expect-error The WebAssembly module is uploaded beside the Worker by hosting/build.mjs.
 import resvgModule from './resvg.wasm';
 import 'every-tax-rule';
+import { aboutPage } from '../src/about-page.ts';
 import { linkQuery, linkStateOf, type LinkState } from '../src/link.ts';
 import { readMapGeometry, type MapGeometry } from '../src/map-geometry.ts';
 import { formatCapital } from '../src/money.ts';
@@ -16,6 +17,7 @@ type WebAsset = { contentType: string; base64: string; isGzipped: boolean; cache
 // Filled in by hosting/build.mjs.
 declare const WEB_ASSETS: Record<string, WebAsset>;
 declare const PAGE_HTML: string;
+declare const PAGE_STYLES_PATH: string;
 declare const DATA_PATHS: { coarseShapes: string; fineShapes: string; places: string; cities: string; snapshot: string };
 declare const FLAG_PATHS: Record<string, string>;
 declare const SHARE_FONTS_BASE64: string[];
@@ -103,6 +105,9 @@ async function pageFor(url: URL): Promise<Response> {
   return htmlResponse(PAGE_HTML.replace(titleGap, head).replace(answerGap, answer));
 }
 
+// The About page is the same for every visitor, so it is written once.
+let aboutOnceWritten: Promise<string>;
+
 function serveAsset(asset: WebAsset): Response {
   const headers: Record<string, string> = { 'Content-Type': asset.contentType, 'Cache-Control': asset.cacheControl };
   if (asset.isGzipped) headers['Content-Encoding'] = 'gzip';
@@ -126,6 +131,7 @@ export default {
       return new Response(png as BodyInit, { headers: { 'Content-Type': 'image/png', 'Cache-Control': 'public, max-age=3600', 'Server-Timing': `render;dur=${Date.now() - started}`, 'X-Picture-Size': url.pathname === '/picture.png' ? `${pictureWidth}x${pictureHeight}` : `${previewWidth}x${previewHeight}` } });
     }
     if (url.pathname === '/') return pageFor(url);
+    if (url.pathname === '/about') return htmlResponse(await (aboutOnceWritten ??= world().then(({ places }) => aboutPage(places, PAGE_STYLES_PATH))));
     return htmlResponse('<!doctype html><html lang="en-GB"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Page not found</title><body style="font: 17px/1.4 system-ui, sans-serif; margin: 15vh auto; max-width: 30em; padding: 0 1.5em"><h1>There is no page at this address.</h1><p><a href="/">See what a couple needs to live well, everywhere</a></p>', 404);
   },
 };

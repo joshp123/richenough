@@ -178,7 +178,8 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, sortedIndices, gl.STATIC_DRAW);
     gl.bindVertexArray(null);
     levelsOfDetail[detail] = { fillVao, fillBuckets, lines: new Map(lineKinds.map(kind => [kind, lineVao(segmentsOf(next.lines[kind]))])) };
-    setHighlightedShape(highlightedShape);
+    outlined = '';
+    setHighlightedShapes(highlightedShapes);
     draw();
   }
 
@@ -193,19 +194,25 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
     draw();
   }
 
-  let highlightedShape = -1;
-  function setHighlightedShape(shape: number): void {
-    highlightedShape = shape;
+  // An opened place's outline: the edges of its shapes that no two of them share, so a country drawn by region is outlined whole.
+  let highlightedShapes: number[] = [], outlined = '';
+  function setHighlightedShapes(shapes: number[]): void {
+    highlightedShapes = shapes;
+    if (shapes.join() === outlined) return;
+    outlined = shapes.join();
     lineVaos.delete('highlight');
-    if (geometry && shape >= 0) {
-      const rings: Float32Array[] = [];
-      for (let ring = geometry.shapeFirstRing[shape]; ring < geometry.shapeFirstRing[shape + 1]; ring++) {
-        const start = geometry.ringStarts[ring], end = geometry.ringStarts[ring + 1];
-        const points = new Float32Array((end - start + 1) * 2);
-        points.set(geometry.points.subarray(start * 2, end * 2)); points.set(geometry.points.subarray(start * 2, start * 2 + 2), (end - start) * 2);
-        rings.push(points);
+    if (geometry && shapes.length) {
+      const edges = new Map<string, number[]>(), { points, ringStarts, shapeFirstRing } = geometry;
+      for (const shape of shapes) for (let ring = shapeFirstRing[shape]; ring < shapeFirstRing[shape + 1]; ring++) {
+        const start = ringStarts[ring], end = ringStarts[ring + 1];
+        for (let point = start; point < end; point++) {
+          const next = point + 1 < end ? point + 1 : start;
+          const a = [points[point * 2], points[point * 2 + 1]], b = [points[next * 2], points[next * 2 + 1]];
+          const [first, second] = a[0] < b[0] || (a[0] === b[0] && a[1] < b[1]) ? [a, b] : [b, a], key = `${first}|${second}`;
+          if (edges.has(key)) edges.delete(key); else edges.set(key, [...a, ...b]);
+        }
       }
-      lineVaos.set('highlight', lineVao(segmentsOf(rings)));
+      lineVaos.set('highlight', lineVao(Float32Array.from([...edges.values()].flat())));
     }
     draw();
   }
@@ -473,7 +480,7 @@ export function createMapView(container: HTMLElement, events: { placeAt(x: numbe
   fit();
   new ResizeObserver(() => fit()).observe(container);
   return {
-    setGeometry, setShapeColours, setLabels, setHighlightedShape, show, showBox, showWorld, zoomBy, fit, redraw: draw,
+    setGeometry, setShapeColours, setLabels, setHighlightedShapes, show, showBox, showWorld, zoomBy, fit, redraw: draw,
     setEmphasis(next: typeof emphasis) { emphasis = next; draw(); },
     setTheme(next: MapTheme) { theme = next; draw(); },
     setCovers(next: MapCovers) { covers = next; draw(); },

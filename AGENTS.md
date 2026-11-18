@@ -20,6 +20,7 @@ Josh owns this project. His own words are the authority; they are kept privately
 
 - Never draw a place finer than its data: the map builder merges shapes without data of their own into the place above them. Rebuild the map files after the tables change.
 - Every number on the page traces to a row in `data/sources.csv`; stand-ins say so beside them.
+- Publishers are named on the About page (`/about`, `src/about-page.ts`) and nowhere else. Under each cost, a place's details say only where the figure was measured and what kind of source it is ("Bangkok · rental listings", `src/source-lines.ts`); a new rent or wage source gets its kind there.
 - Palestine is one place over Israel and Palestine, with Arabic place names, and its figure is "not known". Russia and Ukraine follow the borders in Russia's constitution.
 - Things Josh is still choosing are one line each: the projection (`src/projection.ts`), the title (`src/words.ts`), the withdrawal rates offered (`src/capital.ts`).
 - Nothing a visitor sees is cut short or ends in "…": a long name steps down a size, then wraps. In "Am I gonna make it?" amounts are said in words ("$2.1M short"), never with a plus or minus sign. `tools/check-site-in-browser.ts` checks both in every photograph and tries the longest names.

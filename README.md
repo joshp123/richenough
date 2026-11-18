@@ -1,6 +1,6 @@
 # Rich enough to FIRE?
 
-A world map of the capital a couple needs to live well for life off a global equity ETF portfolio, after each place's tax, at the finest level the data supports: US counties, Europe's NUTS 3 and the UK's ITL 3 regions, first-level regions elsewhere where the data is regional, whole countries otherwise, and the big cities as dots. Working address: richenough.jjpcodes.com (not deployed).
+A world map of the capital a couple needs to live well for life off a global equity ETF portfolio, after each place's tax, at the finest level the data supports: US counties, Europe's NUTS 3 and the UK's ITL 3 regions, first-level regions elsewhere where the data is regional, whole countries otherwise, and the big cities as dots. Address: richenough.jjpcodes.com.
 
 It has two modes. "How much you need" colours each place by what it needs, in eight fixed steps in dollars, the same for every visitor. "Am I gonna make it?" takes what the visitor has and colours each place WAGMI (enough), Close (up to a quarter short) or NGMI.
 
@@ -34,6 +34,8 @@ node tools/snapshot/print-figures.ts Lisbon US-06037   # a place's figure, every
 
 `hosting/worker.ts` is the ChatGPT Sites Worker: it serves the page and its files, answers `/api/whereami` with the visitor's country, and draws `/picture.png` (7:8, for posts, in the visitor's mode) and `/preview.png` (2:1 link preview, always the first mode) as SVG (`src/share-pictures.ts`) rendered with resvg. A link carries the state: `/?mode=have&me=lisbon&vs=los-angeles&have=2500000&in=EUR&also=EUR&tax=break`.
 
+`/about` (`src/about-page.ts`, written by the Worker once) explains the method in plain words and lists every source in `data/sources.csv`, and the map's, places', flags' and font's sources, with what each covers, its licence and a link. It is the only page that names publishers: under each cost, a place's details say only where the figure was measured and what kind of source it is ("Lisbon · official statistics", `src/source-lines.ts`). The key links to it, and so does "All sources" in a place's details.
+
 ```sh
 node hosting/build.mjs                       # writes dist/
 node hosting/preview.mjs 8791 NL             # the built Worker in the Sites runtime, on every interface, as a visitor from NL
@@ -43,4 +45,4 @@ npx tsc -p .                                 # type-checks the page, Worker and 
 
 ## Licences
 
-Map data: Natural Earth (public domain); US Census cartographic boundaries (public domain); Eurostat GISCO NUTS 2024 (© EuroGeographics, free reuse with attribution); ONS ITL 3 2025 (Open Government Licence). Cities: GeoNames (CC BY 4.0); place names in Palestine follow `tools/map/palestine-places.mjs`. Fonts: Archivo (SIL Open Font Licence). Exchange-rate stand-ins: ECB reference rates and US Treasury reporting rates.
+The code is under the MIT licence (`LICENSE`). The data keeps each source's own licence; the About page lists them all, as does `data/sources.csv`. Map data: Natural Earth (public domain); US Census cartographic boundaries (public domain); Eurostat GISCO NUTS 2024 (© EuroGeographics, free reuse with attribution); ONS ITL 3 2025 (Open Government Licence). Cities: GeoNames (CC BY 4.0); place names in Palestine follow `tools/map/palestine-places.mjs`. Flags: flag-icons (MIT) and Wikimedia Commons (`assets/flags/LICENCES.md`). Font: Archivo (SIL Open Font Licence).

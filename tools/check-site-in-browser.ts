@@ -161,6 +161,31 @@ for (const size of ['laptop', 'phone', 'wide'] as const) {
     await page.getByRole('searchbox', { name: 'Search for a place' }).fill('andros');
     await page.waitForTimeout(300);
     await photograph(page, `${name}-16-long-name-search`);
+
+    // China, drawn by province, chosen in the place list: the map frames and outlines the whole country.
+    await page.keyboard.press('Escape');
+    await openAt(page, '/?me=amsterdam');
+    await page.locator('[data-pick="visitor"]').click();
+    await page.getByRole('searchbox', { name: 'Search for a place' }).fill('china');
+    await page.waitForTimeout(300);
+    await page.getByRole('searchbox', { name: 'Search for a place' }).press('Enter');
+    await page.waitForTimeout(900);
+    await openAt(page, '/?me=cn&place=cn');
+    await photograph(page, `${name}-17-china-details`);
+
+    // The About page, reached from a place's sources, with one group of sources open, and from its top.
+    await openAt(page, '/?me=amsterdam&place=lisbon');
+    await page.getByRole('link', { name: 'All sources' }).click();
+    await page.waitForURL('**/about#sources');
+    await page.waitForTimeout(500);
+    await photograph(page, `${name}-18-about-sources`);
+    await page.locator('#sources-rent summary').click();
+    await page.waitForTimeout(300);
+    await photograph(page, `${name}-19-about-rent-sources`);
+    const tooWide = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    if (tooWide > 0) problems.push(`${name}-19-about-rent-sources: the About page is ${tooWide} px wider than the screen`);
+    await page.evaluate(() => scrollTo(0, 0));
+    await photograph(page, `${name}-20-about`);
     await page.close();
   }
 }

@@ -13,4 +13,4 @@ const worker = new Miniflare({
   cf: { country },
 });
 await worker.ready;
-console.log(`Enough on http://0.0.0.0:${port}, visitors seeming to be in ${country}`);
+console.log(`Rich enough to FIRE? on http://0.0.0.0:${port}, visitors seeming to be in ${country}`);

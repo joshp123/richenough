@@ -13,7 +13,8 @@ export const taxRegimes: TaxRegime[] = ['standard', 'special'];
 export type Settings = { withdrawalRate: WithdrawalRate; regime: TaxRegime };
 export const defaultSettings: Settings = { withdrawalRate: defaultWithdrawalRate, regime: 'standard' };
 
-export type Cost = { part: Component | 'trips'; usDollarsPerMonth: number; figure: Figure | null; isStandIn: boolean };
+// rowCode: the place whose table row (or stand-in) gave the figure, which may be wider than the place itself.
+export type Cost = { part: Component | 'trips'; usDollarsPerMonth: number; figure: Figure | null; rowCode: string | null; isStandIn: boolean };
 export type TaxPart = {
   usDollarsPerYear: number; localPerYear: number; currency: string; regimeName: string; explanation: string; sourceIds: string[]; isStandIn: boolean;
   // The place has rules for a special regime, so the other setting would give a different figure.
@@ -32,13 +33,14 @@ function usDollarsPerUnit(places: Places, currency: string): number | null {
   return rate ? 1 / rate.perUsDollar : null;
 }
 
-// The figure for a component: the first one along the place's chain, else the country's stand-in.
-export function figureFor(places: Places, chain: string[], component: Component): Figure | null {
+// The figure for a component: the first one along the place's chain, else the country's stand-in; and the place it is filed under.
+export function figureFor(places: Places, chain: string[], component: Component): { figure: Figure; rowCode: string } | null {
   for (const code of chain) {
     const figure = places.snapshot.figures[component][code];
-    if (figure) return figure;
+    if (figure) return { figure, rowCode: code };
   }
-  return places.snapshot.standIns[component][chain.at(-1)!] ?? null;
+  const standIn = places.snapshot.standIns[component][chain.at(-1)!];
+  return standIn ? { figure: standIn, rowCode: chain.at(-1)! } : null;
 }
 
 function monthlyCost(places: Places, component: Component, figure: Figure): number | null {
@@ -70,12 +72,12 @@ export function placeFigure(places: Places, code: string, settings: Settings): P
   if (country === 'PS') return { kind: 'occupied' };
   const missing: (Component | 'tax' | 'exchange rate')[] = [], costs: Cost[] = [];
   for (const component of components) {
-    const figure = figureFor(places, chain, component), cost = figure && monthlyCost(places, component, figure);
+    const found = figureFor(places, chain, component), cost = found && monthlyCost(places, component, found.figure);
     if (cost === null || cost === undefined) { missing.push(component); continue; }
-    costs.push({ part: component, usDollarsPerMonth: cost, figure, isStandIn: !!figure!.isStandIn });
+    costs.push({ part: component, usDollarsPerMonth: cost, figure: found!.figure, rowCode: found!.rowCode, isStandIn: !!found!.figure.isStandIn });
   }
   const { lifestyle } = places.snapshot;
-  costs.push({ part: 'trips', usDollarsPerMonth: lifestyle.tripsUsDollarsPerYear / 12, figure: null, isStandIn: false });
+  costs.push({ part: 'trips', usDollarsPerMonth: lifestyle.tripsUsDollarsPerYear / 12, figure: null, rowCode: null, isStandIn: false });
   const spendingUsDollarsPerYear = costs.reduce((sum, cost) => sum + cost.usDollarsPerMonth * 12, 0);
 
   const rules = taxRulesFor(chain), standIn = places.snapshot.taxStandIns[country];
