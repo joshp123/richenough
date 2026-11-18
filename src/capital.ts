@@ -19,6 +19,9 @@ export type TaxPart = {
   usDollarsPerYear: number; localPerYear: number; currency: string; regimeName: string; explanation: string; sourceIds: string[]; isStandIn: boolean;
   // The place has rules for a special regime, so the other setting would give a different figure.
   hasSpecialRegime: boolean;
+  // The same tax by what it falls on, in dollars a year: the money held (a deemed return, a wealth or account tax, the same
+  // whatever is sold), what is sold, and a fixed sum (a newcomer regime's flat charge).
+  onHoldingsUsDollarsPerYear: number; onSalesUsDollarsPerYear: number; fixedUsDollarsPerYear: number;
 };
 export type PlaceFigure =
   | { kind: 'figure'; capitalUsDollars: number; withdrawalUsDollarsPerYear: number; spendingUsDollarsPerYear: number; costs: Cost[]; tax: TaxPart }
@@ -95,6 +98,11 @@ export function placeFigure(places: Places, code: string, settings: Settings): P
   const withdrawalLocal = rate * capitalLocal;
   const owed = rules?.taxOwed({ withdrawalLocal, capitalAtStartOfYearLocal: capitalLocal }, settings.regime);
   const taxLocal = owed ? owed.taxLocal : withdrawalLocal * standIn.rate;
+  // What the tax would be if almost nothing were sold is the part that falls on the money held. Where that part does not grow with
+  // the money either, it is a fixed sum: for a linear part, 3 × part(C) − 2 × part(1.5 C) is what is left at no money at all.
+  const nothingSold = withdrawalLocal * 1e-6;
+  const onHoldingsAndFixed = Math.max(0, Math.min(taxLocal, taxOf(nothingSold, capitalLocal)));
+  const fixed = Math.max(0, Math.min(onHoldingsAndFixed, 3 * onHoldingsAndFixed - 2 * taxOf(nothingSold, capitalLocal * 1.5)));
   return {
     kind: 'figure',
     capitalUsDollars: capitalLocal * perUnit!,
@@ -105,6 +113,8 @@ export function placeFigure(places: Places, code: string, settings: Settings): P
       usDollarsPerYear: taxLocal * perUnit!, localPerYear: taxLocal, currency,
       regimeName: owed?.regimeName ?? 'Standard', explanation: owed?.explanation ?? '', sourceIds: owed?.sourceIds ?? [standIn.sourceId],
       isStandIn: !rules, hasSpecialRegime: !!rules?.hasSpecialRegime,
+      onHoldingsUsDollarsPerYear: (onHoldingsAndFixed - fixed) * perUnit!, onSalesUsDollarsPerYear: (taxLocal - onHoldingsAndFixed) * perUnit!,
+      fixedUsDollarsPerYear: fixed * perUnit!,
     },
   };
 }

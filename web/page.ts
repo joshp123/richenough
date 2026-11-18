@@ -9,6 +9,7 @@ import { readMapGeometry } from '../src/map-geometry.ts';
 import { currencyName, formatCapital, formatDifference, formatRounded, formatShort, formatWhole, widelyHeldCurrencies } from '../src/money.ts';
 import { chainOf, contextOf, countryInSentence, countryOf, createPlaces, nameOf, plainLetters, type CityRow, type PlaceRows } from '../src/places.ts';
 import { sourceKind, sourcePlace } from '../src/source-lines.ts';
+import { taxWords } from '../src/tax-words.ts';
 import { projectPoint } from '../src/projection.ts';
 import type { Snapshot } from '../src/snapshot.ts';
 import { clampHave, haveAtSliderPosition, sliderPositionOfHave, twoFigures, verdictFill, verdictInk as verdictInkOnLight, verdictInkOnDark, verdictOf, verdictSide, type Mode, type VerdictWord } from '../src/verdict.ts';
@@ -230,7 +231,6 @@ function renderKey(): void {
   }
   element('key').innerHTML = `${taxBreak}<div class="key-verdicts"><b class="key-have">With ${formatShort(state.have, mainCurrency())}</b>
     <span><i style="background:${verdictFill.WAGMI}"></i>${verdictWord('WAGMI')}<span class="key-words"> enough</span></span>
-    <span><i style="background:${verdictFill.Close}"></i><span>Close<span class="key-words">, up to a quarter short</span></span></span>
     <span><i style="background:${verdictFill.NGMI}"></i>${verdictWord('NGMI')}<span class="key-words"> not enough</span></span>
     <span class="key-none"><i style="background:var(--no-figure)"></i>No figure</span></div>${about}`;
 }
@@ -255,7 +255,7 @@ function placeCell({ role, shortRole, code, picker, emptyWords = '' }: Cell): st
   if (code && need === null) figure = `<span class="cell-unknown">${figureWords(figures().figureOf(code))}</span>`;
   else if (code && need !== null && state.mode === 'need') {
     const second = secondMoney(need);
-    figure = `<i style="background:${fill(need)}"></i><b>${money(need)}</b>${second ? `<small>(${second})</small>` : ''}`;
+    figure = `<i style="background:${fill(need)}"></i><span class="cell-verb">needs</span><b>${money(need)}</b>${second ? `<small>(${second})</small>` : ''}`;
   } else if (code && need !== null) {
     const word = verdict(need);
     roleWords += ` · ${verdictWord(word)}`;
@@ -275,7 +275,7 @@ function renderStrip(): void {
   const { least, most, cityCapital } = figures();
   const cells = [placeCell({ role: 'You', shortRole: 'You', code: state.visitor, picker: 'visitor', emptyWords: 'Choose a place' }),
     placeCell({ role: 'Compared with', shortRole: 'Compared with', code: state.compared, picker: 'compared', emptyWords: 'Add a place' })];
-  if (state.mode === 'need') cells.push(placeCell({ role: 'Needs least', shortRole: 'Least', code: least }), placeCell({ role: 'Needs most', shortRole: 'Most', code: most }));
+  if (state.mode === 'need') cells.push(placeCell({ role: 'Cheapest', shortRole: 'Cheapest', code: least }), placeCell({ role: 'Most expensive', shortRole: 'Most expensive', code: most }));
   else {
     // The most to spare is the city that needs least; its lead over the others is the same whatever the visitor has.
     const { wagmi, withFigure } = wagmiCountries();
@@ -337,17 +337,14 @@ function renderDetails(): void {
   const verdictLine = state.mode === 'have'
     ? `<p class="details-verdict">${verdictWord(word)} · ${differenceWords(need)} with ${formatWhole(state.have, mainCurrency())}.${comparison ? ` ${comparison}` : ''}</p>`
     : comparison ? `<p class="details-verdict">${comparison}</p>` : '';
-  const country = countryOf(places, code), taxAmount = roundedMoney(figure.tax.usDollarsPerYear);
-  const countryWords = countryInSentence(places, country).replace(/^the /, 'The ');
-  const taxWords = figure.tax.usDollarsPerYear < 1 ? `${countryWords} takes none of it in tax.`
-    : country === 'US' ? `Federal and state tax take ${taxAmount} of it.` : `${countryWords} takes ${taxAmount} of it in tax.`;
-  const sentence = `Sell ${Math.round(rate * 100)}% a year and you get ${roundedMoney(figure.withdrawalUsDollarsPerYear)}. ${taxWords} That leaves ${roundedMoney(figure.withdrawalUsDollarsPerYear - figure.tax.usDollarsPerYear)} to live on.`;
+  const country = countryOf(places, code), countryWords = countryInSentence(places, country).replace(/^the /, 'The ');
+  const tax = taxWords(figure.tax, need, figure.withdrawalUsDollarsPerYear, countryWords, country === 'US', roundedMoney);
+  const sentence = `Sell ${Math.round(rate * 100)}% a year and you get ${roundedMoney(figure.withdrawalUsDollarsPerYear)}. ${tax.sentence} That leaves ${roundedMoney(figure.withdrawalUsDollarsPerYear - figure.tax.usDollarsPerYear)} to live on.`;
   const taxMonthly = figure.tax.usDollarsPerYear / 12, shades = ['#10151C', '#10151CCC', '#10151C99', '#10151C73', '#10151C52', '#10151C38'];
   const bar = figure.costs.map((cost, index) => `<i style="flex-grow:${cost.usDollarsPerMonth};background:${shades[index]}"></i>`).join('') + `<i class="bar-tax" style="flex-grow:${taxMonthly}"></i>`;
-  const taxShare = Math.round(figure.tax.usDollarsPerYear / figure.withdrawalUsDollarsPerYear * 100);
   const taxSource = figure.tax.isStandIn ? '<em>stand-in</em>' : 'tax rules';
   const rows = figure.costs.map((cost, index) => `<li><i style="background:${shades[index]}"></i><div><b>${costWords[cost.part]}</b><small>${costLine(cost)}</small></div><span>${roundedMoney(cost.usDollarsPerMonth)}</span></li>`).join('')
-    + `<li class="tax-row"><i></i><div><b>Tax, ${taxShare}% of what you sell</b><small>${escapeHtml(nameOf(places, country))} · ${taxSource}</small></div><span>${roundedMoney(taxMonthly)}</span></li>`;
+    + `<li class="tax-row"><i></i><div><b>${tax.row}</b><small>${escapeHtml(nameOf(places, country))} · ${taxSource}</small></div><span>${roundedMoney(taxMonthly)}</span></li>`;
   const otherRegime: Settings = { ...state.settings, regime: state.settings.regime === 'standard' ? 'special' : 'standard' };
   const otherNeed = figure.tax.hasSpecialRegime ? needOf(code, otherRegime) : null;
   const otherRow = otherNeed === null || Math.abs(otherNeed - need) < 5e3 ? '' : `<button type="button" class="details-other" data-regime="${otherRegime.regime}"><span>${otherRegime.regime === 'special' ? 'With the newcomer tax break' : 'With normal tax'}</span>

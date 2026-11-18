@@ -2,7 +2,7 @@
 
 A world map of the capital a couple needs to live well for life off a global equity ETF portfolio, after each place's tax, at the finest level the data supports: US counties, Europe's NUTS 3 and the UK's ITL 3 regions, first-level regions elsewhere where the data is regional, whole countries otherwise, and the big cities as dots. Address: richenough.jjpcodes.com.
 
-It has two modes. "How much you need" colours each place by what it needs, in eight fixed steps in dollars, the same for every visitor. "Am I gonna make it?" takes what the visitor has and colours each place WAGMI (enough), Close (up to a quarter short) or NGMI.
+It has two modes. "How much you need" colours each place by what it needs, in eight fixed steps in dollars, the same for every visitor. "Am I gonna make it?" takes what the visitor has and colours each place WAGMI (enough) in green or NGMI (not enough) in deep red.
 
 ## How a place's figure is worked out
 

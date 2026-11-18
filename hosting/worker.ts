@@ -93,7 +93,7 @@ async function pageFor(url: URL): Promise<Response> {
     const figure = figures.figureOf(code);
     return figure.kind === 'figure' ? `${nameOf(places, code)}: ${formatCapital(figure.capitalUsDollars, 'USD')}` : null;
   };
-  const sentence = [state.visitor, state.compared, figures.least].map(describe).filter(Boolean).join(' · ') || `${siteSubtitle}, everywhere in the world.`;
+  const sentence = [state.visitor, state.compared, figures.least, figures.most].map(describe).filter(Boolean).join(' · ') || `${siteSubtitle}, everywhere in the world.`;
   const title = `${siteTitle} ${siteSubtitle}`, query = linkQuery(places, state, { withOpened: false });
   const tags = Object.entries({
     'og:type': 'website', 'og:site_name': siteTitle, 'og:title': title, 'og:description': sentence, 'og:url': `${url.origin}/${query}`,

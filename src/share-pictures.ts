@@ -166,16 +166,16 @@ function mapLabels(input: PictureInput, frame: Frame, mapTop: number, scale: num
   return placed.reverse().map(({ parts, box }) => drawLabel(input, parts, box, parts.code === input.visitor)).join('');
 }
 
-// The key: the dollar scale in the first mode, the three verdicts in the second. Returns its drawing and its box.
+// The key: the dollar scale in the first mode, the two verdicts in the second. Returns its drawing and its box.
 function keyCard(input: PictureInput, x: number, y: number, scale: number): { svg: string; box: LabelBox } {
   if (input.mode === 'have') {
     const size = 26 * scale, swatch = 26 * scale, gap = 14 * scale, between = 34 * scale;
-    const items = (['WAGMI', 'Close', 'NGMI'] as const).map(word => ({ word, width: swatch + gap + textWidth(word, size, word === 'Close' ? 500 : 800) }));
-    const width = items.reduce((sum, item) => sum + item.width, 0) + between * 2 + 48 * scale, height = 66 * scale;
+    const items = (['WAGMI', 'NGMI'] as const).map(word => ({ word, width: swatch + gap + textWidth(word, size, 800) }));
+    const width = items.reduce((sum, item) => sum + item.width, 0) + between * (items.length - 1) + 48 * scale, height = 66 * scale;
     let svg = `<rect x="${x}" y="${y}" width="${width}" height="${height}" rx="${20 * scale}" fill="${paper}" fill-opacity="0.95"/>`, left = x + 24 * scale;
     for (const item of items) {
       svg += `<rect x="${left}" y="${y + (height - swatch) / 2}" width="${swatch}" height="${swatch}" rx="${6 * scale}" fill="${verdictFill[item.word]}"/>`
-        + text(item.word, left + swatch + gap, y + height / 2 + size * 0.36, size, item.word === 'Close' ? 500 : 800, item.word === 'Close' ? ink : verdictInk[item.word]);
+        + text(item.word, left + swatch + gap, y + height / 2 + size * 0.36, size, 800, verdictInk[item.word]);
       left += item.width + between;
     }
     return { svg, box: [x, y, x + width, y + height] };
@@ -204,45 +204,46 @@ export function pictureSvg(input: PictureInput): string {
   let svg = `<rect width="${pictureWidth}" height="${pictureHeight}" fill="${paper}"/>`;
   svg += text(siteTitle, margin, 132, fittedSize(siteTitle, 104, 800, pictureWidth - 2 * margin, -0.035), 800, ink, 'start', -0.035);
   svg += input.mode === 'have' ? text(`I have ${formatWhole(input.have, input.currency)}. Am I gonna make it?`, margin, 186, 32, 400, grey) : text(siteSubtitle, margin, 186, 32, 400, grey);
-  const mapTop = 216, mapHeight = 760, frame = worldFrame(pictureWidth, mapHeight, mapTop, 16);
+  const mapTop = 216, mapHeight = 700, frame = worldFrame(pictureWidth, mapHeight, mapTop, 16);
   svg += worldMap(input, frame, { y: mapTop, height: mapHeight });
   const key = keyCard(input, 40, mapTop + mapHeight - (input.mode === 'have' ? 106 : 150), 1);
   svg += mapLabels(input, frame, mapTop, 2, [[key.box[0], key.box[1] - 8, key.box[2], mapTop + mapHeight]], [input.visitor, input.compared].filter((code): code is string => !!code), 2) + key.svg;
 
-  const third = input.mode === 'have' ? 'Most to spare' : 'Needs least';
-  // A place that fills two roles (I live where it costs least) gets one row naming both.
+  // Me, the place compared with, and both extremes: the cheapest and the most expensive, or in the second mode the most to spare
+  // and the most short. A place that fills two roles (I live where it costs least) gets one row naming both.
+  const [cheapest, dearest] = input.mode === 'have' ? ['Most to spare', 'Most short'] : ['Cheapest', 'Most expensive'];
   const list: { code: string; role: string }[] = [];
-  for (const [code, role] of [[input.visitor, 'Me'], [input.compared, 'Compared with'], [input.figures.least, third]] as const) {
+  for (const [code, role] of [[input.visitor, 'Me'], [input.compared, 'Compared with'], [input.figures.least, cheapest], [input.figures.most, dearest]] as const) {
     if (!code) continue;
     const same = list.find(row => row.code === code);
     if (same) same.role += ` · ${role.toLowerCase()}`; else list.push({ code, role });
   }
-  const rowsTop = mapTop + mapHeight + 8, rowsBottom = pictureHeight - 112, rowHeight = (rowsBottom - rowsTop) / 3;
+  const rowsTop = mapTop + mapHeight + 8, rowsBottom = pictureHeight - 108, rowHeight = (rowsBottom - rowsTop) / 4;
   list.forEach((row, index) => {
-    const top = rowsTop + (3 - list.length) * rowHeight / 2 + index * rowHeight, middle = top + rowHeight / 2, capital = capitalOf(input, row.code);
+    const top = rowsTop + (4 - list.length) * rowHeight / 2 + index * rowHeight, middle = top + rowHeight / 2, capital = capitalOf(input, row.code);
     if (index) svg += `<rect x="${margin}" y="${top}" width="${right - margin}" height="2" fill="${ink}" fill-opacity="0.08"/>`;
-    svg += flag(input, row.code, margin, middle - 44, 88, 8);
-    // The right column: what the place needs (with the other currency), or in the second mode what is short or to spare, in
-    // its verdict's colour, with what the place needs under it.
+    svg += flag(input, row.code, margin, middle - 38, 76, 7);
+    // The right column: "needs" and what the place needs (with the other currency), or in the second mode what is short or to
+    // spare, in its verdict's colour, with what the place needs under it.
     let rightWidth = 0, rightColumn = '';
-    if (capital === null) { rightColumn = text('Not known', right, middle + 24, 54, 700, grey, 'end'); rightWidth = textWidth('Not known', 54, 700); }
+    if (capital === null) { rightColumn = text('Not known', right, middle + 20, 48, 700, grey, 'end'); rightWidth = textWidth('Not known', 48, 700); }
     else if (input.mode === 'need') {
       const amount = placeAmount(input, capital), second = input.secondCurrency && Number.isFinite(perUnit(input, input.secondCurrency)) ? `(${formatCapital(capital * perUnit(input, input.secondCurrency), input.secondCurrency)})` : '';
-      const secondWidth = second ? textWidth(second, 32, 400) + 26 : 0, amountWidth = textWidth(amount, 84, 800, -0.035);
-      if (second) rightColumn += text(second, right, middle + 22, 32, 400, grey, 'end');
-      rightColumn += text(amount, right - secondWidth, middle + 30, 84, 800, ink, 'end', -0.035);
-      rightColumn += `<circle cx="${right - secondWidth - amountWidth - 34}" cy="${middle}" r="15" fill="${colourOf(input, capital)}"/>`;
-      rightWidth = secondWidth + amountWidth + 50;
+      const secondWidth = second ? textWidth(second, 30, 400) + 22 : 0, amountWidth = textWidth(amount, 76, 800, -0.035), verbWidth = textWidth('needs', 34, 400) + 18;
+      if (second) rightColumn += text(second, right, middle + 22, 30, 400, grey, 'end');
+      rightColumn += text(amount, right - secondWidth, middle + 27, 76, 800, ink, 'end', -0.035);
+      rightColumn += text('needs', right - secondWidth - amountWidth - 18, middle + 22, 34, 400, grey, 'end');
+      rightWidth = secondWidth + amountWidth + verbWidth;
     } else {
       const { amount, side } = differenceWords(input, capital), colour = verdictInk[verdictOf(capital, haveUsDollars(input))];
-      const sideWidth = textWidth(` ${side}`, 40, 700), amountWidth = textWidth(amount, 76, 800, -0.035), needs = `needs ${money(input, capital)}`;
-      rightColumn += text(` ${side}`, right, middle + 8, 40, 700, colour, 'end') + text(amount, right - sideWidth, middle + 8, 76, 800, colour, 'end', -0.035);
-      rightColumn += text(needs, right, middle + 54, 30, 400, grey, 'end');
-      rightWidth = Math.max(sideWidth + amountWidth, textWidth(needs, 30, 400));
+      const sideWidth = textWidth(` ${side}`, 36, 700), amountWidth = textWidth(amount, 68, 800, -0.035), needs = `needs ${money(input, capital)}`;
+      rightColumn += text(` ${side}`, right, middle + 6, 36, 700, colour, 'end') + text(amount, right - sideWidth, middle + 6, 68, 800, colour, 'end', -0.035);
+      rightColumn += text(needs, right, middle + 48, 28, 400, grey, 'end');
+      rightWidth = Math.max(sideWidth + amountWidth, textWidth(needs, 28, 400));
     }
-    const nameLeft = margin + 160, { lines, size } = nameLines(nameOf(input.places, row.code), 58, right - rightWidth - 40 - nameLeft);
-    const nameTop = lines.length === 1 ? middle + 40 : middle + 16;
-    svg += runs([{ words: row.role, weight: 400, colour: grey }, ...(capital === null || input.mode === 'need' ? [] : verdictRuns(input, capital))], nameLeft, lines.length === 1 ? middle - 22 : middle - 40, 30);
+    const nameLeft = margin + 140, { lines, size } = nameLines(nameOf(input.places, row.code), 52, right - rightWidth - 36 - nameLeft);
+    const nameTop = lines.length === 1 ? middle + 34 : middle + 12;
+    svg += runs([{ words: row.role, weight: 400, colour: grey }, ...(capital === null || input.mode === 'need' ? [] : verdictRuns(input, capital))], nameLeft, lines.length === 1 ? middle - 20 : middle - 36, 28);
     lines.forEach((line, lineIndex) => { svg += text(line, nameLeft, nameTop + lineIndex * size * 1.05, size, 700, ink, 'start', -0.01); });
     svg += rightColumn;
   });

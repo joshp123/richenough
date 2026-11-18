@@ -1,19 +1,16 @@
 // "Am I gonna make it?": what the visitor has against what a place needs. WAGMI (we're all going to make it) where it is
-// enough, Close where it is at most a quarter short, NGMI (not going to make it) otherwise.
+// enough, NGMI (not going to make it) where it is not.
 export type Mode = 'need' | 'have';
-export type VerdictWord = 'WAGMI' | 'Close' | 'NGMI';
-export const closeShare = 1.25;
+export type VerdictWord = 'WAGMI' | 'NGMI';
 
-export function verdictOf(needed: number, have: number): VerdictWord {
-  if (needed <= have) return 'WAGMI';
-  return needed <= closeShare * have ? 'Close' : 'NGMI';
-}
+export const verdictOf = (needed: number, have: number): VerdictWord => (needed <= have ? 'WAGMI' : 'NGMI');
 
-// The map's fill for each verdict, and the colour of words and amounts that carry it. Close is amber: those places are still short.
-export const verdictFill: Record<VerdictWord, string> = { WAGMI: '#1B7F4C', Close: '#F2CF7A', NGMI: '#E6BDB7' };
-export const verdictInk: Record<VerdictWord, string> = { WAGMI: '#1B7F4C', Close: '#A05A00', NGMI: '#B4263B' };
+// The map's fill for each verdict: a green and a deep red that read as a verdict at a glance, the red darker than the green so the
+// two differ in lightness too, for eyes that do not tell red from green. Then the colour of words and amounts that carry it.
+export const verdictFill: Record<VerdictWord, string> = { WAGMI: '#2E9E62', NGMI: '#A3192F' };
+export const verdictInk: Record<VerdictWord, string> = { WAGMI: '#1B7F4C', NGMI: '#B4263B' };
 // The same words on dark cards and labels, light enough to read at 4.5:1 or better.
-export const verdictInkOnDark: Record<VerdictWord, string> = { WAGMI: '#5FD394', Close: '#F3C766', NGMI: '#FF8F8F' };
+export const verdictInkOnDark: Record<VerdictWord, string> = { WAGMI: '#5FD394', NGMI: '#FF8F8F' };
 
 // What the visitor has: $1,000,000 unless they say otherwise, typed between $50,000 and $20,000,000. The slider runs from
 // $100,000 to $10,000,000 in even steps of size, so a million sits in its middle, and snaps to two significant figures.

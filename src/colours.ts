@@ -1,5 +1,5 @@
 // The map's colours. "How much you need": eight fixed steps in dollars that turn at a million, the same for every visitor, so
-// two people's screenshots always compare. "Am I gonna make it?": the three verdicts (src/verdict.ts).
+// two people's screenshots always compare. "Am I gonna make it?": the two verdicts (src/verdict.ts).
 import { verdictFill, verdictOf, type Mode } from './verdict.ts';
 
 export const stepColours = ['#1B7F4C', '#86CC6E', '#F6E88E', '#F7C352', '#F0913C', '#E0562F', '#B4263B', '#6B1241'];

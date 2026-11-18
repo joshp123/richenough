@@ -241,6 +241,7 @@ svg { flex: none; }
 .cell-figure i { width: 10px; height: 10px; border-radius: 5px; align-self: center; }
 .cell-figure b { font-size: 22px; line-height: 24px; font-weight: 800; letter-spacing: -0.01em; white-space: nowrap; }
 .cell-figure small { font-size: 14px; line-height: 18px; color: var(--grey); white-space: nowrap; }
+.cell-verb { margin-right: -2px; color: var(--grey); font-size: 15px; line-height: 18px; }
 .cell-unknown { color: var(--grey); font-weight: 600; line-height: 24px; }
 .cell-count-words { font-size: 19px; line-height: 22px; font-weight: 700; }
 @media (max-width: 720px) {
@@ -258,6 +259,7 @@ svg { flex: none; }
   .cell-figure { column-gap: 6px; min-height: 19px; }
   .cell-figure i { display: none; }
   .cell-figure b { font-size: 17px; line-height: 19px; }
+  .cell-verb { font-size: 13px; }
   /* The other currency and, in the second mode, what the place needs are left to the currency menu, the map's label and the
      place's details, so the map keeps the screen. */
   .cell-figure small { display: none; }
