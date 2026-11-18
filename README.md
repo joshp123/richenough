@@ -43,6 +43,18 @@ node tools/check-site-in-browser.ts http://127.0.0.1:8791 .agent/build   # uses 
 npx tsc -p .                                 # type-checks the page, Worker and shared code
 ```
 
+## Deploy
+
+The public ChatGPT Site is `appgprj_6afda5309da0819186c4c33f50f3ceb1`, at https://richenough.jjpcodes.com. Its identity is in `.openai/hosting.json`; DNS is managed in `opentofu-infra/websites/jjpcodes.com/richenough-sites.tf`.
+
+From a clean checkout after committing changes, run `devenv shell -- npm ci` and `devenv shell -- node hosting/build.mjs`. Obtain a fresh Sites `create_source_repository_write_credential`, then run:
+
+```sh
+devenv shell -- node ~/.codex/plugins/cache/openai-curated-remote/sites/1.1.6/scripts/site-workflow.mjs --project-id appgprj_6afda5309da0819186c4c33f50f3ceb1
+```
+
+At its hidden stdin prompt, send `{"credential": <returned credential object>, "commands": [], "archivePath": "/tmp/richenough-sites.tar.gz"}`. Keep the credential out of files and shell arguments. Pass the helper's exact `project_id`, `commit_sha` and `archive` to Sites `save_site_version`, then its version ID to `deploy_site_version`. Preserve the public audience. Push the same source to GitHub.
+
 ## Licences
 
 The code is under the MIT licence (`LICENSE`). The data keeps each source's own licence; the About page lists them all, as does `data/sources.csv`. Map data: Natural Earth (public domain); US Census cartographic boundaries (public domain); Eurostat GISCO NUTS 2024 (© EuroGeographics, free reuse with attribution); ONS ITL 3 2025 (Open Government Licence). Cities: GeoNames (CC BY 4.0); place names in Palestine follow `tools/map/palestine-places.mjs`. Flags: flag-icons (MIT) and Wikimedia Commons (`assets/flags/LICENCES.md`). Font: Archivo (SIL Open Font Licence).
