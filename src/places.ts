@@ -34,6 +34,10 @@ export function chainOf(places: Places, code: string): string[] {
 
 export const countryOf = (places: Places, code: string) => chainOf(places, code).at(-1)!;
 
+// A country's name as it reads inside a sentence: "the United States", "Portugal".
+const countriesWithThe = new Set(['US', 'GB', 'NL', 'PH', 'AE', 'BS', 'GM', 'DO', 'CF', 'MV', 'MH', 'SB', 'KY', 'VG', 'VI', 'FK', 'FO', 'TC', 'CK', 'SC', 'KM']);
+export const countryInSentence = (places: Places, country: string) => `${countriesWithThe.has(country) ? 'the ' : ''}${nameOf(places, country)}`;
+
 export function nameOf(places: Places, code: string): string {
   return places.cityByCode.get(code)?.name ?? places.rows[code]?.[0] ?? places.snapshot.cityNames[code] ?? code;
 }

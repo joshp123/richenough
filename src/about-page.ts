@@ -2,7 +2,7 @@
 // that names publishers; a place's details say only where each figure was measured and what kind of source it is.
 import { taxRegimes } from './capital.ts';
 import { formatWhole } from './money.ts';
-import { chainOf, countryOf, nameOf, type Places } from './places.ts';
+import { chainOf, countryInSentence, countryOf, nameOf, type Places } from './places.ts';
 import { components, type Component, type Source } from './snapshot.ts';
 import { taxRulesFor, type TaxRules } from './tax/tax-rules.ts';
 import { madeBy, siteTitle } from './words.ts';
@@ -10,7 +10,7 @@ import { madeBy, siteTitle } from './words.ts';
 type Topic = Component | 'tax' | 'exchange' | 'map';
 const topics: [Topic, string][] = [
   ['rent', 'Rent'], ['everyday', 'Everyday spending'], ['car', 'The car'], ['housekeeper', 'The housekeeper'], ['health', 'Health cover'],
-  ['tax', 'Tax'], ['exchange', 'Exchange rates'], ['map', 'The map, its places and its type'],
+  ['tax', 'Tax'], ['exchange', 'Exchange rates'], ['map', 'The map, its places and its font'],
 ];
 
 // The sources no figure names directly were read to build or check the figures; their identifiers say what for.
@@ -35,7 +35,7 @@ const mapSources: (Source & { covers: string })[] = [
   { publisher: 'PalQuest, Institute for Palestine Studies', title: 'Places in Palestine', url: 'https://www.palquest.org/en/placesabout', licence: 'Free to read, no licence stated', period: '', covers: 'Arabic names of places in Palestine' },
   { publisher: 'flag-icons', title: 'Country flags as SVG files', url: 'https://github.com/lipis/flag-icons', licence: 'MIT', period: '', covers: 'Country flags' },
   { publisher: 'Wikimedia Commons', title: 'Flags of US states and Canadian provinces and territories', url: 'https://commons.wikimedia.org/', licence: 'Public domain or free use, as each file’s page states', period: '', covers: 'State and province flags' },
-  { publisher: 'Omnibus-Type', title: 'Archivo', url: 'https://github.com/Omnibus-Type/Archivo', licence: 'SIL Open Font License 1.1', period: '', covers: 'The typeface' },
+  { publisher: 'Omnibus-Type', title: 'Archivo', url: 'https://github.com/Omnibus-Type/Archivo', licence: 'SIL Open Font License 1.1', period: '', covers: 'The font' },
 ];
 
 const escapeHtml = (text: string) => text.replace(/[<>&"]/g, character => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' })[character]!);
@@ -79,12 +79,11 @@ function usesOf(places: Places): Uses {
   return uses;
 }
 
-const countriesWithThe = new Set(['US', 'GB', 'NL', 'PH', 'AE', 'BS', 'GM', 'DO', 'CF', 'MV', 'MH', 'SB', 'KY', 'VG', 'VI', 'FK', 'FO', 'TC', 'CK', 'SC', 'KM']);
 // What a source gives figures for, in a few words: "26 places in Portugal", "Lisbon", "Spain, Italy and 30 more countries".
 function coversWords(places: Places, topic: Topic, byCountry: Map<string, Set<string>>): string {
   const countries = [...byCountry.keys()];
   if (topic === 'exchange') return countries.length === 1 ? `The ${countries[0]} rate` : `Rates for ${countries.length} currencies`;
-  const countryNames = countries.map(country => `${countriesWithThe.has(country) ? 'the ' : ''}${nameOf(places, country)}`).sort((a, b) => a.replace(/^the /, '').localeCompare(b.replace(/^the /, ''), 'en'));
+  const countryNames = countries.map(country => countryInSentence(places, country)).sort((a, b) => a.replace(/^the /, '').localeCompare(b.replace(/^the /, ''), 'en'));
   const some = countryNames.length > 3 ? `${countryNames.slice(0, 2).join(', ')} and ${countryNames.length - 2} more countries` : listWords(countryNames);
   if (topic === 'tax') return some;
   const codes = [...byCountry.values()].flatMap(set => [...set]);
@@ -116,7 +115,7 @@ export function aboutPage(places: Places, stylesPath: string): string {
       coversOf.set(source, coversWords(places, topic, byCountry));
     }
     const groupNames = [...byGroup.keys()].sort((a, b) => (a === severalCountries ? -1 : b === severalCountries ? 1 : a.localeCompare(b, 'en')));
-    const sections = groupNames.map(group => `<h4>${escapeHtml(group)}</h4><ul>${byGroup.get(group)!.sort((a, b) => a.title.localeCompare(b.title, 'en')).map(source => sourceItem(source, coversOf.get(source)!)).join('')}</ul>`);
+    const sections = groupNames.map(group => `${topic === 'exchange' ? '' : `<h4>${escapeHtml(group)}</h4>`}<ul>${byGroup.get(group)!.sort((a, b) => a.title.localeCompare(b.title, 'en')).map(source => sourceItem(source, coversOf.get(source)!)).join('')}</ul>`);
     if (topic === 'map') sections.push(`<ul>${mapSources.map(source => sourceItem(source, source.covers)).join('')}</ul>`);
     const background = Object.keys(snapshot.sources).filter(sourceId => !uses.has(sourceId) && topicOfBackground(sourceId) === topic)
       .sort((a, b) => snapshot.sources[a].title.localeCompare(snapshot.sources[b].title, 'en'));

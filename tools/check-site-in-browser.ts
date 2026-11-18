@@ -169,23 +169,28 @@ for (const size of ['laptop', 'phone', 'wide'] as const) {
     await page.getByRole('searchbox', { name: 'Search for a place' }).fill('china');
     await page.waitForTimeout(300);
     await page.getByRole('searchbox', { name: 'Search for a place' }).press('Enter');
-    await page.waitForTimeout(900);
+    await page.waitForTimeout(1200);
+    const chosen = await page.evaluate(() => (window as unknown as { enough: { state: { visitor: string | null } } }).enough.state.visitor);
+    if (chosen !== 'CN') problems.push(`${name}-17-china-from-search: searching "china" chose ${chosen}, not China`);
+    await photograph(page, `${name}-17-china-from-search`);
     await openAt(page, '/?me=cn&place=cn');
-    await photograph(page, `${name}-17-china-details`);
+    await photograph(page, `${name}-18-china-details`);
 
-    // The About page, reached from a place's sources, with one group of sources open, and from its top.
+    // The About page, reached from a place's sources, with one group of sources open, and from its top. With every group open
+    // it must still fit the screen's width.
     await openAt(page, '/?me=amsterdam&place=lisbon');
     await page.getByRole('link', { name: 'All sources' }).click();
     await page.waitForURL('**/about#sources');
     await page.waitForTimeout(500);
-    await photograph(page, `${name}-18-about-sources`);
+    await photograph(page, `${name}-19-about-sources`);
     await page.locator('#sources-rent summary').click();
     await page.waitForTimeout(300);
-    await photograph(page, `${name}-19-about-rent-sources`);
+    await photograph(page, `${name}-20-about-rent-sources`);
+    await page.evaluate(() => { for (const group of document.querySelectorAll('details')) group.open = true; });
     const tooWide = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
-    if (tooWide > 0) problems.push(`${name}-19-about-rent-sources: the About page is ${tooWide} px wider than the screen`);
-    await page.evaluate(() => scrollTo(0, 0));
-    await photograph(page, `${name}-20-about`);
+    if (tooWide > 0) problems.push(`${name}-about: with every group of sources open, the page is ${tooWide} px wider than the screen`);
+    await page.evaluate(() => { for (const group of document.querySelectorAll('details')) group.open = false; scrollTo(0, 0); });
+    await photograph(page, `${name}-21-about`);
     await page.close();
   }
 }

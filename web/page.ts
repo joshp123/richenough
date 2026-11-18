@@ -7,7 +7,7 @@ import { fillOf, noFigureColour, stepColours, stepEnds } from '../src/colours.ts
 import { linkQuery, linkStateOf, type LinkState } from '../src/link.ts';
 import { readMapGeometry } from '../src/map-geometry.ts';
 import { currencyName, formatCapital, formatDifference, formatRounded, formatShort, formatWhole, widelyHeldCurrencies } from '../src/money.ts';
-import { chainOf, contextOf, countryOf, createPlaces, nameOf, plainLetters, type CityRow, type PlaceRows } from '../src/places.ts';
+import { chainOf, contextOf, countryInSentence, countryOf, createPlaces, nameOf, plainLetters, type CityRow, type PlaceRows } from '../src/places.ts';
 import { sourceKind, sourcePlace } from '../src/source-lines.ts';
 import { projectPoint } from '../src/projection.ts';
 import type { Snapshot } from '../src/snapshot.ts';
@@ -338,8 +338,9 @@ function renderDetails(): void {
     ? `<p class="details-verdict">${verdictWord(word)} · ${differenceWords(need)} with ${formatWhole(state.have, mainCurrency())}.${comparison ? ` ${comparison}` : ''}</p>`
     : comparison ? `<p class="details-verdict">${comparison}</p>` : '';
   const country = countryOf(places, code), taxAmount = roundedMoney(figure.tax.usDollarsPerYear);
-  const taxWords = figure.tax.usDollarsPerYear < 1 ? `${nameOf(places, country)} takes none of it in tax.`
-    : country === 'US' ? `Federal and state tax take ${taxAmount} of it.` : `${nameOf(places, country)} takes ${taxAmount} of it in tax.`;
+  const countryWords = countryInSentence(places, country).replace(/^the /, 'The ');
+  const taxWords = figure.tax.usDollarsPerYear < 1 ? `${countryWords} takes none of it in tax.`
+    : country === 'US' ? `Federal and state tax take ${taxAmount} of it.` : `${countryWords} takes ${taxAmount} of it in tax.`;
   const sentence = `Sell ${Math.round(rate * 100)}% a year and you get ${roundedMoney(figure.withdrawalUsDollarsPerYear)}. ${taxWords} That leaves ${roundedMoney(figure.withdrawalUsDollarsPerYear - figure.tax.usDollarsPerYear)} to live on.`;
   const taxMonthly = figure.tax.usDollarsPerYear / 12, shades = ['#10151C', '#10151CCC', '#10151C99', '#10151C73', '#10151C52', '#10151C38'];
   const bar = figure.costs.map((cost, index) => `<i style="flex-grow:${cost.usDollarsPerMonth};background:${shades[index]}"></i>`).join('') + `<i class="bar-tax" style="flex-grow:${taxMonthly}"></i>`;

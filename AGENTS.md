@@ -8,7 +8,7 @@ Josh owns this project. His own words are the authority; they are kept privately
 
 ## What it is
 
-"Rich enough to FIRE?": a world map of what a couple needs invested to live well for life, after tax, at the finest level the data supports. See `README.md` for how it works and how to rebuild it.
+"Rich enough to FIRE?", at richenough.jjpcodes.com: a world map of what a couple needs invested to live well for life, after tax, at the finest level the data supports. See `README.md` for how it works and how to rebuild it.
 
 ## Where things are
 
