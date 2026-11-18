@@ -8,21 +8,24 @@ const mainlandBands: TaxBand[] = [
 ];
 const solidarityBands: TaxBand[] = [[80000, 0.025], [250000, 0.05]];
 
-function portugal(codes: string[], regionalFactor: number) {
+function portugal(codes: string[], regionalFactor: number, lisbon = false) {
   registerStandardTax(
     codes, 'EUR',
-    'Portugal taxes 70% of the gain on qualifying ETF units held at least eight years. The couple pays the lower of the separate capital gains rate and the joint income tax scale. IFICI requires qualifying work or professional income.',
-    ['tax-pt-gains', 'tax-pt-rates', 'tax-pt-income', 'tax-pt-2026', 'tax-pt-guide', 'tax-pt-islands', 'tax-pt-ifici'],
+    'Portugal taxes 70% of the gain on qualifying ETF units held at least eight years. The couple pays the lower of the separate capital gains rate and the joint income tax scale. IFICI requires qualifying work or professional income.'
+      + (lisbon ? ' Lisbon returns its 5% municipal share on timely returns. Personal expense credits depend on qualifying receipts.' : ''),
+    ['tax-pt-gains', 'tax-pt-rates', 'tax-pt-income', 'tax-pt-2026', 'tax-pt-guide', 'tax-pt-islands', 'tax-pt-ifici', ...(lisbon ? ['tax-pt-municipal', 'tax-pt-lisbon'] : [])],
     ({ withdrawalLocal }) => {
       const taxableGain = withdrawalLocal * 0.7;
-      return Math.min(
+      const ordinaryTax = Math.min(
         taxableGain * 0.28 * regionalFactor,
         2 * (progressiveTax(taxableGain / 2, mainlandBands) * regionalFactor
           + progressiveTax(taxableGain / 2, solidarityBands)),
       );
+      return lisbon ? ordinaryTax * 0.95 : ordinaryTax;
     },
   );
 }
 
 portugal(['PT'], 1);
 portugal(['NUTS-PT2', 'NUTS-PT3', 'PT-20', 'PT-30'], 0.7);
+portugal(['CITY-2267057'], 1, true);

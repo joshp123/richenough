@@ -1,5 +1,5 @@
-import { registerStandardTax } from './calculation.ts';
-import { capitalCommuneTaxes, wealthSamples } from './swiss-capitals.ts';
+import { fundDividendYield, registerStandardTax } from './calculation.ts';
+import { capitalCommuneTaxes, wealthSamples, zurichIncomeTaxes } from './swiss-capitals.ts';
 
 // Eurostat NUTS 2024, Swiss cantons. The ESTV table uses each cantonal capital.
 const cantons: Record<string, string> = {
@@ -13,6 +13,7 @@ const cantons: Record<string, string> = {
 };
 
 function interpolateTax(capital: number, taxes: number[]): number {
+  if (capital <= wealthSamples[0]) return taxes[0];
   const index = wealthSamples.findIndex((sample) => sample > capital);
   const upper = index < 0 ? wealthSamples.length - 1 : index;
   const step = wealthSamples[upper] - wealthSamples[upper - 1];
@@ -35,9 +36,18 @@ for (const [canton, nuts] of Object.entries(cantons)) {
   if (canton === 'GE') codes.push('CITY-2660646');
   registerStandardTax(
     codes, 'CHF',
-    'Private ETF sale gains are exempt. The estimate uses the cantonal capital’s federal, cantonal and municipal tax on net wealth and 1.5% illustrative taxable fund income. It also includes compulsory AHV/IV/EO contributions for a couple without employment.',
-    ['tax-ch-estv', 'tax-ch-funds', 'tax-ch-ahv', 'tax-fund-vanguard'],
-    ({ capitalAtStartOfYearLocal: capital }) =>
-      interpolateTax(capital, capitalCommuneTaxes[canton]) + socialInsurance(capital),
+    'Private ETF sale gains are exempt. The estimate uses the cantonal capital’s federal, cantonal and municipal tax on net wealth and 1.5% illustrative taxable fund income. It also includes compulsory AHV/IV/EO contributions for a couple without employment.'
+      + (canton === 'ZH' ? ' Zürich also charges a 5% administration fee on these contributions and allows the contributions against income.' : ''),
+    ['tax-ch-estv', 'tax-ch-funds', 'tax-ch-ahv', 'tax-fund-vanguard', ...(canton === 'ZH' ? ['tax-ch-zh-fee', 'tax-ch-zh-income'] : [])],
+    ({ capitalAtStartOfYearLocal: capital }) => {
+      const taxes = interpolateTax(capital, capitalCommuneTaxes[canton]);
+      const contributions = socialInsurance(capital);
+      if (canton !== 'ZH') return taxes + contributions;
+      // ESTV sampled income at 1.5% of capital. Look up the income tax alone
+      // at the reduced income, keeping wealth tax at the full portfolio value.
+      const before = interpolateTax(capital, zurichIncomeTaxes);
+      const after = interpolateTax(capital - contributions / fundDividendYield, zurichIncomeTaxes);
+      return taxes - before + after + contributions * 1.05;
+    },
   );
 }

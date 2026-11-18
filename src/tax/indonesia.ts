@@ -8,6 +8,6 @@ const bands: TaxBand[] = [
 registerStandardTax(
   'ID', 'IDR',
   'Indonesia generally taxes residents’ foreign gains at progressive rates. This assumes joint taxation and two personal allowances. The four-year foreign income exemption requires qualifying professional expertise.',
-  ['tax-id-income'],
-  ({ withdrawalLocal }) => progressiveTax(withdrawalLocal - 112_500_000, bands),
+  ['tax-id-law', 'tax-id-allowance', 'tax-id-income'],
+  ({ withdrawalLocal }) => progressiveTax(Math.floor((withdrawalLocal - 112_500_000) / 1_000) * 1_000, bands),
 );

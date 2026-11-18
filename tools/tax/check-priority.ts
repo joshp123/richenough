@@ -11,8 +11,8 @@ const cases = [
   ['DE', 0.86, [1708, 11390, 39166.88], 1],
   ['NL', 0.86, [13496.82, 39450.54, 90316.51], 1],
   ['GB', 0.76, [5369.14, 11949.44, 35093.62], 1],
-  // ESTV detailed calculator income and wealth tax, plus the AHV table.
-  ['CH-ZH', 0.81, [1703 + 1696, 5621 + 3816, 20190 + 8798], 20],
+  // ESTV calculator at each exact wealth input. Zürich deducts AHV and bills its 5% fee.
+  ['CH-ZH', 0.81, [1703 + 1780.8, 5459 + 4006.8, 19109 + 9237.9], 20],
   ['CH-GE', 0.81, [3850 + 1696, 10770 + 3816, 30678 + 8798], 25],
   ['TH', 32.7, [198400, 681000, 1946500], 1],
   ['AE', 3.6725, [0, 0, 0], 0],
@@ -40,8 +40,9 @@ const cases = [
   ['VI', 1, [0, 0, 17835], 1],
   // Pakistan: PKR 1.61m through 5.6m for each spouse, then 45% and the 10% surcharge above 10m.
   ['PK', 280, [5_740_000, 14_630_000, 32_648_000], 1],
-  // Kōtō Ward, household limits less the fixed premium already priced in health cover.
-  ['JP', 150, [2_784_328, 4_616_954, 8_578_379], 1],
+  // Kōtō Ward: declared gains at 95% of proceeds, less allowances and premiums.
+  // Include pension and the portion of health premiums outside the health budget.
+  ['JP', 150, [2_446_674, 4_323_973, 8_087_530], 1],
   // Tunisia: at the three scales, spouse wealth is TND 1.8m, 3.6m and 7.5m.
   ['TN', 3, [18_000, 72_000, 225_000], 1],
   ['TJ', 10, [90_000, 180_000, 375_000], 1],
@@ -108,6 +109,21 @@ for (const [code, exchangeRate, expected, tolerance] of cases) {
 }
 
 console.log(`Passed ${cases.length * 3} tax comparisons in local currency`);
+
+// Actual city inputs from the 18 November 2026 review, kept fixed so the
+// capital solver cannot conceal a change in the underlying bill.
+for (const [code, capital, expected, tolerance] of [
+  ['CITY-2618425', 33_694_664, 928_500, 1],  // §§ 8a and 9, Copenhagen municipal rate.
+  ['CITY-2267057', 1_464_953, 9_061, 1],    // 95% of the joint IRS assessment.
+  ['CH-ZH', 2_618_600, 9_026 + 5_565, 20], // Exact ESTV assessment and SVA invoice.
+  ['AR', 2_684_510_791, 30_428_179, 1],    // Income tax and indexed personal assets tax.
+  ['ID', 23_283_230_252, 259_498_300, 1],  // Round the combined base down to Rp1,000.
+] as const) {
+  const rule = taxRulesFor([code]);
+  assert(rule, code);
+  const year = { withdrawalLocal: capital * 0.05, capitalAtStartOfYearLocal: capital };
+  assert(Math.abs(rule.taxOwed(year, 'standard').taxLocal - expected) <= tolerance, code);
+}
 
 // Short newcomer breaks must give the same bill even when the map's special setting is selected.
 const shortBreaks = [
